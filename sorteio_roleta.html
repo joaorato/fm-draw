@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Liga EMG</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Cinzel', serif;
+    background: radial-gradient(circle at top, #0a1f44, #020617);
+    color: white;
+    text-align: center;
+}
+
+.container {
+    padding: 30px;
+}
+
+h1 {
+    font-size: 36px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* botões */
+button {
+    padding: 14px 22px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    background: rgba(59,130,246,0.2);
+    border-color: rgba(96,165,250,0.6);
+    box-shadow: 0 0 12px rgba(59,130,246,0.5);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.action-btn {
+    font-size: 17px;
+    padding: 16px 28px;
+    margin-top: 24px;
+    box-shadow: 0 0 16px rgba(59,130,246,0.4);
+    animation: fadeIn 0.4s ease;
+}
+
+.action-btn.gold {
+    border-color: rgba(255,215,0,0.4);
+    box-shadow: 0 0 16px rgba(255,215,0,0.3);
+}
+
+.action-btn.gold:hover {
+    background: rgba(255,215,0,0.15);
+    border-color: rgba(255,215,0,0.6);
+    box-shadow: 0 0 18px rgba(255,215,0,0.5);
+}
+
+/* área principal */
+.current {
+    margin-top: 40px;
+    padding: 30px;
+    position: relative;
+}
+
+/* roulette */
+.roulette-container {
+    position: relative;
+    max-width: 600px;
+    width: min(600px, 90vw);
+    margin: 30px auto;
+}
+
+.roulette-marker {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 14px solid #FFD700;
+    z-index: 10;
+    filter: drop-shadow(0 0 6px rgba(255,215,0,0.6));
+}
+
+.roulette-viewport {
+    overflow: hidden;
+    width: 100%;
+    height: 140px;
+    position: relative;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.3);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+
+.roulette-strip {
+    display: flex;
+    will-change: transform;
+}
+
+.roulette-strip.animating {
+    transition: transform 7s cubic-bezier(0.12, 0.8, 0.18, 1);
+}
+
+.roulette-strip.animating-fast {
+    transition: transform 7s cubic-bezier(0.12, 0.8, 0.18, 1);
+}
+
+.roulette-item {
+    flex: 0 0 120px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.roulette-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 6px rgba(59,130,246,0.4));
+}
+
+.roulette-item.name-item {
+    flex: 0 0 160px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 0 6px rgba(59,130,246,0.3);
+}
+
+.roulette-item.winner {
+    background: rgba(255,215,0,0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255,215,0,0.3);
+}
+
+/* logo grande */
+.logo-big {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 12px #3b82f6);
+}
+
+/* nome equipa */
+.team-name-big {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 12px;
+    color: #FFD700;
+    text-shadow: 0 0 8px rgba(255,215,0,0.6);
+}
+
+/* jogador */
+.player-big {
+    font-size: 22px;
+    margin-top: 10px;
+    opacity: 0.9;
+}
+
+.player-reveal {
+    text-shadow: 0 0 14px #60a5fa;
+}
+
+/* team rank */
+.team-rank {
+    font-size: 16px;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+/* round counter */
+.round-info {
+    font-size: 14px;
+    opacity: 0.5;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+}
+
+/* team info after roulette */
+.team-info {
+    animation: fadeIn 0.5s ease;
+    margin-top: 20px;
+}
+
+/* result pair */
+.result-pair {
+    animation: fadeIn 0.5s ease;
+    margin-top: 16px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.result-pair .player-name {
+    color: #60a5fa;
+    text-shadow: 0 0 10px rgba(96,165,250,0.5);
+}
+
+.result-pair .arrow {
+    color: rgba(255,255,255,0.4);
+    margin: 0 12px;
+}
+
+.result-pair .team-name {
+    color: #FFD700;
+    text-shadow: 0 0 8px rgba(255,215,0,0.4);
+}
+
+/* tabela final */
+.table {
+    margin-top: 40px;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.row:hover {
+    background: rgba(255,255,255,0.12);
+}
+
+.table-rank {
+    font-size: 14px;
+    opacity: 0.5;
+    min-width: 36px;
+    text-align: left;
+}
+
+.table-team {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.table-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.table-team-name {
+    color: #FFD700;
+    font-weight: 600;
+}
+
+.table-player {
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* animações */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgmusic" src="./ucl.mp3" loop></audio>
+
+<div class="container">
+    <h1> SORTEIO LIGA EMG </h1>
+    <button id="drawBtn" onclick="start()">COMEÇAR SORTEIO</button>
+
+    <div class="current" id="current"></div>
+    <div class="table" id="table"></div>
+</div>
+
+<script>
+
+const jogadores = [
+    "Gonçalo","Rato","Chico","Nabais",
+    "Gamy","Painatal","Cardoso","Hugo"
+];
+
+const equipas = [
+    {nome:"HNK Rijeka", img:"Rijeka.png", rank:3},
+    {nome:"NK Osijek", img:"Osijek.png", rank:4},
+    {nome:"NK Lokomotiva", img:"NK LokomotivA.png", rank:5},
+    {nome:"NK Slaven Belupo", img:"SLAVEN.png", rank:8},
+    {nome:"NK Istra 1961", img:"ISTRA.png", rank:6},
+    {nome:"HNK Gorica", img:"GORICA.png", rank:9},
+    {nome:"HNK Vukovar", img:"HNKVUKOVAR.png", rank:10},
+    {nome:"NK Varaždin", img:"Varazdin.png", rank:7}
+];
+
+/* estado */
+let shuffledTeams = [];
+let shuffledPlayers = [];
+let remainingTeams = [];
+let remainingPlayers = [];
+let currentRound = 0;
+let resultados = [];
+
+const TOTAL_ROUNDS = jogadores.length;
+const ITEM_WIDTH_TEAM = 120;
+const ITEM_WIDTH_PLAYER = 160;
+const ROULETTE_ITEMS_TEAM = 40;
+const ROULETTE_ITEMS_PLAYER = 40;
+const TARGET_INDEX_TEAM = 33;
+const TARGET_INDEX_PLAYER = 33;
+
+function shuffle(a){
+    for(let i=a.length-1;i>0;i--){
+        let j=Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
+    }
+}
+
+function getViewportWidth(){
+    return Math.min(600, window.innerWidth * 0.9);
+}
+
+function scrollTo(el){
+    setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+}
+
+function buildRouletteItems(pool, target, totalItems, targetIndex){
+    let items = [];
+    for(let i = 0; i < totalItems; i++){
+        if(i === targetIndex){
+            items.push(target);
+        } else {
+            items.push(pool[Math.floor(Math.random() * pool.length)]);
+        }
+    }
+    return items;
+}
+
+function start(){
+    let btn = document.getElementById("drawBtn");
+    btn.disabled = true;
+    btn.innerText = "A decorrer...";
+
+    shuffledTeams = [...equipas];
+    shuffledPlayers = [...jogadores];
+    shuffle(shuffledTeams);
+    shuffle(shuffledPlayers);
+
+    remainingTeams = [...shuffledTeams];
+    remainingPlayers = [...shuffledPlayers];
+
+    currentRound = 0;
+    resultados = [];
+
+    document.getElementById("current").innerHTML = "";
+    document.getElementById("table").innerHTML = "";
+
+    startTeamRoulette();
+}
+
+function startTeamRoulette(){
+    let current = document.getElementById("current");
+    current.innerHTML = "";
+
+    let targetTeam = shuffledTeams[currentRound];
+    let vpWidth = getViewportWidth();
+    let items = buildRouletteItems(remainingTeams, targetTeam, ROULETTE_ITEMS_TEAM, TARGET_INDEX_TEAM);
+
+    /* round info */
+    let roundInfo = document.createElement("div");
+    roundInfo.className = "round-info";
+    roundInfo.textContent = `SORTEIO ${currentRound + 1} / ${TOTAL_ROUNDS}`;
+    current.appendChild(roundInfo);
+
+    /* roulette container */
+    let container = document.createElement("div");
+    container.className = "roulette-container";
+
+    let marker = document.createElement("div");
+    marker.className = "roulette-marker";
+    container.appendChild(marker);
+
+    let viewport = document.createElement("div");
+    viewport.className = "roulette-viewport";
+
+    let strip = document.createElement("div");
+    strip.className = "roulette-strip";
+
+    items.forEach((team, idx) => {
+        let item = document.createElement("div");
+        item.className = "roulette-item";
+        item.dataset.index = idx;
+        let img = document.createElement("img");
+        img.src = team.img;
+        img.alt = team.nome;
+        item.appendChild(img);
+        strip.appendChild(item);
+    });
+
+    viewport.appendChild(strip);
+    container.appendChild(viewport);
+    current.appendChild(container);
+    scrollTo(container);
+
+    /* cálculo do translateX final */
+    let finalX = -(TARGET_INDEX_TEAM * ITEM_WIDTH_TEAM) + (vpWidth / 2) - (ITEM_WIDTH_TEAM / 2);
+
+    /* iniciar animação após frame de layout */
+    let transitionDone = false;
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            strip.classList.add("animating");
+            strip.style.transform = `translateX(${finalX}px)`;
+        });
+    });
+
+    function onEnd(){
+        if(transitionDone) return;
+        transitionDone = true;
+
+        strip.style.willChange = "auto";
+
+        /* destacar o vencedor */
+        let winnerItem = strip.querySelector(`[data-index="${TARGET_INDEX_TEAM}"]`);
+        if(winnerItem) winnerItem.classList.add("winner");
+
+        onTeamLanded(targetTeam);
+    }
+
+    strip.addEventListener("transitionend", onEnd);
+    setTimeout(onEnd, 7500);
+}
+
+function onTeamLanded(team){
+    let current = document.getElementById("current");
+
+    let info = document.createElement("div");
+    info.className = "team-info";
+    info.innerHTML = `
+        <img class="logo-big" src="${team.img}">
+        <div class="team-name-big">${team.nome}</div>
+        <div class="team-rank">Classificação Prevista: ${team.rank}º</div>
+    `;
+    current.appendChild(info);
+    scrollTo(info);
+
+    let btn = document.createElement("button");
+    btn.className = "action-btn gold";
+    btn.textContent = "SORTEAR JOGADOR";
+    btn.onclick = () => {
+        btn.remove();
+        startPlayerRoulette(team);
+    };
+    current.appendChild(btn);
+}
+
+function startPlayerRoulette(team){
+    let current = document.getElementById("current");
+    let targetPlayer = shuffledPlayers[currentRound];
+    let vpWidth = getViewportWidth();
+    let items = buildRouletteItems(remainingPlayers, targetPlayer, ROULETTE_ITEMS_PLAYER, TARGET_INDEX_PLAYER);
+
+    /* roulette container */
+    let container = document.createElement("div");
+    container.className = "roulette-container";
+
+    let marker = document.createElement("div");
+    marker.className = "roulette-marker";
+    container.appendChild(marker);
+
+    let viewport = document.createElement("div");
+    viewport.className = "roulette-viewport";
+
+    let strip = document.createElement("div");
+    strip.className = "roulette-strip";
+
+    items.forEach((player, idx) => {
+        let item = document.createElement("div");
+        item.className = "roulette-item name-item";
+        item.dataset.index = idx;
+        item.textContent = player;
+        strip.appendChild(item);
+    });
+
+    viewport.appendChild(strip);
+    container.appendChild(viewport);
+    current.appendChild(container);
+    scrollTo(container);
+
+    let finalX = -(TARGET_INDEX_PLAYER * ITEM_WIDTH_PLAYER) + (vpWidth / 2) - (ITEM_WIDTH_PLAYER / 2);
+
+    let transitionDone = false;
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            strip.classList.add("animating-fast");
+            strip.style.transform = `translateX(${finalX}px)`;
+        });
+    });
+
+    function onEnd(){
+        if(transitionDone) return;
+        transitionDone = true;
+
+        strip.style.willChange = "auto";
+
+        let winnerItem = strip.querySelector(`[data-index="${TARGET_INDEX_PLAYER}"]`);
+        if(winnerItem) winnerItem.classList.add("winner");
+
+        onPlayerLanded(team, targetPlayer);
+    }
+
+    strip.addEventListener("transitionend", onEnd);
+    setTimeout(onEnd, 7500);
+}
+
+function onPlayerLanded(team, player){
+    let current = document.getElementById("current");
+
+    /* mostrar resultado */
+    let pair = document.createElement("div");
+    pair.className = "result-pair";
+    pair.innerHTML = `
+        <span class="player-name">${player}</span>
+        <span class="arrow">→</span>
+        <span class="team-name">${team.nome}</span>
+    `;
+    current.appendChild(pair);
+    scrollTo(pair);
+
+    /* guardar resultado */
+    resultados.push({
+        equipa: team.nome,
+        jogador: player,
+        rank: team.rank,
+        img: team.img
+    });
+
+    /* remover dos pools */
+    remainingTeams = remainingTeams.filter(t => t.nome !== team.nome);
+    remainingPlayers = remainingPlayers.filter(p => p !== player);
+
+    currentRound++;
+
+    /* botão seguinte */
+    let btn = document.createElement("button");
+    btn.className = "action-btn";
+
+    if(currentRound < TOTAL_ROUNDS){
+        btn.textContent = "PRÓXIMA EQUIPA";
+        btn.onclick = () => startTeamRoulette();
+    } else {
+        btn.textContent = "VER RESULTADOS";
+        btn.onclick = () => showResults();
+    }
+
+    current.appendChild(btn);
+}
+
+function showResults(){
+    let current = document.getElementById("current");
+    let table = document.getElementById("table");
+
+    current.innerHTML = "<h2>RESULTADOS FINAIS</h2>";
+
+    resultados.sort((a, b) => a.rank - b.rank);
+
+    resultados.forEach(r => {
+        let row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = `
+            <div class="table-rank">${r.rank}º</div>
+            <div class="table-team">
+                <img class="table-logo" src="${r.img}">
+                <span class="table-team-name">${r.equipa}</span>
+            </div>
+            <div class="table-player">${r.jogador}</div>
+        `;
+        table.appendChild(row);
+    });
+
+    scrollTo(table);
+
+    let btn = document.getElementById("drawBtn");
+    btn.innerText = "SORTEIO TERMINADO";
+}
+
+/* música */
+let musicStarted = false;
+function startMusic() {
+    if (!musicStarted) {
+        let music = document.getElementById("bgmusic");
+        music.volume = 0.5;
+        music.play();
+        musicStarted = true;
+    }
+}
+
+document.addEventListener("click", startMusic);
+
+</script>
+
+</body>
+</html>
