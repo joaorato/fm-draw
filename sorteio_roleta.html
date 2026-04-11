@@ -336,10 +336,9 @@ let resultados = [];
 const TOTAL_ROUNDS = jogadores.length;
 const ITEM_WIDTH_TEAM = 120;
 const ITEM_WIDTH_PLAYER = 160;
-const ROULETTE_ITEMS_TEAM = 40;
-const ROULETTE_ITEMS_PLAYER = 40;
-const TARGET_INDEX_TEAM = 33;
-const TARGET_INDEX_PLAYER = 33;
+const SPIN_DURATION = 7000;
+const TEAM_SPIN_LOOPS = 5;
+const PLAYER_SPIN_LOOPS = 6;
 
 function shuffle(a){
     for(let i=a.length-1;i>0;i--){
@@ -358,16 +357,73 @@ function scrollTo(el){
     }, 100);
 }
 
-function buildRouletteItems(pool, target, totalItems, targetIndex){
-    let items = [];
-    for(let i = 0; i < totalItems; i++){
-        if(i === targetIndex){
-            items.push(target);
+function easeOutCubic(t){
+    return 1 - Math.pow(1 - t, 3);
+}
+
+function normalizeLoopX(x, cycleWidth){
+    let normalized = x;
+    while(normalized <= -cycleWidth){
+        normalized += cycleWidth;
+    }
+    return normalized;
+}
+
+function buildLoopedRouletteItems(items, itemWidth, viewportWidth, spinLoops){
+    let cycleWidth = items.length * itemWidth;
+    let minCopiesForViewport = Math.ceil((viewportWidth + cycleWidth) / cycleWidth);
+    let copies = Math.max(3, spinLoops + 2, minCopiesForViewport);
+    let repeatedItems = [];
+
+    for(let i = 0; i < copies; i++){
+        repeatedItems.push(...items);
+    }
+
+    return { repeatedItems, cycleWidth };
+}
+
+function highlightWinner(strip, baseIndex){
+    strip.querySelectorAll(`[data-base-index="${baseIndex}"]`).forEach(item => {
+        item.classList.add("winner");
+    });
+}
+
+function animateRoulette(strip, cycleWidth, finalX, duration, onComplete){
+    let startTime = null;
+    let done = false;
+    let settledX = normalizeLoopX(finalX, cycleWidth);
+
+    function finish(){
+        if(done) return;
+        done = true;
+        strip.style.transform = `translateX(${settledX}px)`;
+        strip.style.willChange = "auto";
+        onComplete();
+    }
+
+    function frame(timestamp){
+        if(done) return;
+
+        if(startTime === null){
+            startTime = timestamp;
+        }
+
+        let elapsed = timestamp - startTime;
+        let progress = Math.min(elapsed / duration, 1);
+        let eased = easeOutCubic(progress);
+        let currentX = normalizeLoopX(finalX * eased, cycleWidth);
+
+        strip.style.transform = `translateX(${currentX}px)`;
+
+        if(progress < 1){
+            requestAnimationFrame(frame);
         } else {
-            items.push(pool[Math.floor(Math.random() * pool.length)]);
+            finish();
         }
     }
-    return items;
+
+    requestAnimationFrame(frame);
+    setTimeout(finish, duration + 100);
 }
 
 function start(){
@@ -398,7 +454,9 @@ function startTeamRoulette(){
 
     let targetTeam = shuffledTeams[currentRound];
     let vpWidth = getViewportWidth();
-    let items = buildRouletteItems(remainingTeams, targetTeam, ROULETTE_ITEMS_TEAM, TARGET_INDEX_TEAM);
+    let items = [...remainingTeams];
+    let targetIndex = items.findIndex(team => team.nome === targetTeam.nome);
+    let { repeatedItems, cycleWidth } = buildLoopedRouletteItems(items, ITEM_WIDTH_TEAM, vpWidth, TEAM_SPIN_LOOPS);
 
     /* round info */
     let roundInfo = document.createElement("div");
@@ -420,10 +478,11 @@ function startTeamRoulette(){
     let strip = document.createElement("div");
     strip.className = "roulette-strip";
 
-    items.forEach((team, idx) => {
+    repeatedItems.forEach((team, idx) => {
         let item = document.createElement("div");
         item.className = "roulette-item";
         item.dataset.index = idx;
+        item.dataset.baseIndex = idx % items.length;
         let img = document.createElement("img");
         img.src = team.img;
         img.alt = team.nome;
@@ -437,33 +496,15 @@ function startTeamRoulette(){
     scrollTo(container);
 
     /* cálculo do translateX final */
-    let finalX = -(TARGET_INDEX_TEAM * ITEM_WIDTH_TEAM) + (vpWidth / 2) - (ITEM_WIDTH_TEAM / 2);
+    let finalX = -((TEAM_SPIN_LOOPS * cycleWidth) + (targetIndex * ITEM_WIDTH_TEAM)) + (vpWidth / 2) - (ITEM_WIDTH_TEAM / 2);
 
     /* iniciar animação após frame de layout */
-    let transitionDone = false;
+    animateRoulette(strip, cycleWidth, finalX, SPIN_DURATION, () => {
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            strip.classList.add("animating");
-            strip.style.transform = `translateX(${finalX}px)`;
-        });
-    });
-
-    function onEnd(){
-        if(transitionDone) return;
-        transitionDone = true;
-
-        strip.style.willChange = "auto";
-
-        /* destacar o vencedor */
-        let winnerItem = strip.querySelector(`[data-index="${TARGET_INDEX_TEAM}"]`);
-        if(winnerItem) winnerItem.classList.add("winner");
+        highlightWinner(strip, targetIndex);
 
         onTeamLanded(targetTeam);
-    }
-
-    strip.addEventListener("transitionend", onEnd);
-    setTimeout(onEnd, 7500);
+    });
 }
 
 function onTeamLanded(team){
@@ -493,7 +534,9 @@ function startPlayerRoulette(team){
     let current = document.getElementById("current");
     let targetPlayer = shuffledPlayers[currentRound];
     let vpWidth = getViewportWidth();
-    let items = buildRouletteItems(remainingPlayers, targetPlayer, ROULETTE_ITEMS_PLAYER, TARGET_INDEX_PLAYER);
+    let items = [...remainingPlayers];
+    let targetIndex = items.findIndex(player => player === targetPlayer);
+    let { repeatedItems, cycleWidth } = buildLoopedRouletteItems(items, ITEM_WIDTH_PLAYER, vpWidth, PLAYER_SPIN_LOOPS);
 
     /* roulette container */
     let container = document.createElement("div");
@@ -509,10 +552,11 @@ function startPlayerRoulette(team){
     let strip = document.createElement("div");
     strip.className = "roulette-strip";
 
-    items.forEach((player, idx) => {
+    repeatedItems.forEach((player, idx) => {
         let item = document.createElement("div");
         item.className = "roulette-item name-item";
         item.dataset.index = idx;
+        item.dataset.baseIndex = idx % items.length;
         item.textContent = player;
         strip.appendChild(item);
     });
@@ -522,31 +566,13 @@ function startPlayerRoulette(team){
     current.appendChild(container);
     scrollTo(container);
 
-    let finalX = -(TARGET_INDEX_PLAYER * ITEM_WIDTH_PLAYER) + (vpWidth / 2) - (ITEM_WIDTH_PLAYER / 2);
+    let finalX = -((PLAYER_SPIN_LOOPS * cycleWidth) + (targetIndex * ITEM_WIDTH_PLAYER)) + (vpWidth / 2) - (ITEM_WIDTH_PLAYER / 2);
 
-    let transitionDone = false;
-
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            strip.classList.add("animating-fast");
-            strip.style.transform = `translateX(${finalX}px)`;
-        });
-    });
-
-    function onEnd(){
-        if(transitionDone) return;
-        transitionDone = true;
-
-        strip.style.willChange = "auto";
-
-        let winnerItem = strip.querySelector(`[data-index="${TARGET_INDEX_PLAYER}"]`);
-        if(winnerItem) winnerItem.classList.add("winner");
+    animateRoulette(strip, cycleWidth, finalX, SPIN_DURATION, () => {
+        highlightWinner(strip, targetIndex);
 
         onPlayerLanded(team, targetPlayer);
-    }
-
-    strip.addEventListener("transitionend", onEnd);
-    setTimeout(onEnd, 7500);
+    });
 }
 
 function onPlayerLanded(team, player){
