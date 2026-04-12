@@ -802,9 +802,9 @@ button:disabled {
     line-height: 1.06;
     letter-spacing: 0.3px;
     text-shadow:
-        0 0 8px rgba(255,216,107,0.26),
-        0 0 18px rgba(255,216,107,0.14),
-        0 0 34px rgba(255,216,107,0.08),
+        0 0 10px rgba(255,216,107,0.34),
+        0 0 22px rgba(255,216,107,0.18),
+        0 0 38px rgba(255,216,107,0.1),
         0 10px 18px rgba(0, 0, 0, 0.18);
 }
 
@@ -881,8 +881,8 @@ button:disabled {
     line-height: 1.08;
     letter-spacing: 0.3px;
     text-shadow:
-        0 0 10px rgba(255, 216, 107, 0.2),
-        0 0 22px rgba(255, 216, 107, 0.1);
+        0 0 6px rgba(255, 216, 107, 0.18),
+        0 0 14px rgba(255, 216, 107, 0.08);
 }
 
 .final-player-name {
@@ -892,8 +892,8 @@ button:disabled {
     font-weight: 800;
     line-height: 1.04;
     text-shadow:
-        0 0 16px rgba(109, 212, 255, 0.14),
-        0 0 30px rgba(109, 212, 255, 0.08);
+        0 0 8px rgba(109, 212, 255, 0.14),
+        0 0 18px rgba(109, 212, 255, 0.06);
 }
 
 .table {
