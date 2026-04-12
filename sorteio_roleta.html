@@ -1302,6 +1302,15 @@ function setActiveTab(tab) {
     document.getElementById("drawTabBtn").classList.toggle("active", isDraw);
     document.getElementById("generalTabBtn").classList.toggle("active", isGeneral);
     document.getElementById("pastTabBtn").classList.toggle("active", isPast);
+
+    let music = document.getElementById("bgmusic");
+    if (isDraw) {
+        music.volume = 0.5;
+        music.play().catch(() => {});
+        musicStarted = true;
+    } else {
+        music.pause();
+    }
 }
 
 function formatPoints(points) {
@@ -1617,16 +1626,6 @@ function showResults() {
 }
 
 let musicStarted = false;
-function startMusic() {
-    if (musicStarted) return;
-
-    let music = document.getElementById("bgmusic");
-    music.volume = 0.5;
-    music.play().catch(() => {});
-    musicStarted = true;
-}
-
-document.addEventListener("click", startMusic);
 renderGeneralTable();
 renderScotlandTable();
 </script>
