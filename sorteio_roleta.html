@@ -1026,7 +1026,7 @@ button:disabled {
 </head>
 
 <body>
-<audio id="bgmusic" src="./ucl.mp3" loop></audio>
+<audio id="bgmusic" src="./assets/audio/ucl.mp3" loop></audio>
 
 <div class="shell">
     <div class="topline"></div>
@@ -1034,7 +1034,7 @@ button:disabled {
     <div class="nav-wrap">
         <div class="nav">
             <button class="nav-logo-btn active" id="homeTabBtn" onclick="setActiveTab('home')" aria-label="Home">
-                <img src="LigaEMG.png" alt="Liga EMG">
+                <img src="assets/logos/ligas/LigaEMG.png" alt="Liga EMG">
             </button>
             <button class="nav-btn" id="drawTabBtn" onclick="setActiveTab('draw')">Sorteio</button>
             <button class="nav-btn" id="generalTabBtn" onclick="setActiveTab('general')">Classificacao Geral</button>
@@ -1044,7 +1044,7 @@ button:disabled {
 
     <section class="view active" id="homeView">
         <div class="hero">
-            <img class="home-logo" src="LigaEMG.png" alt="Liga EMG">
+            <img class="home-logo" src="assets/logos/ligas/LigaEMG.png" alt="Liga EMG">
             <p class="hero-subtitle">Sorteios, classificacao geral e historico de ligas no mesmo sitio.</p>
         </div>
     </section>
@@ -1108,7 +1108,7 @@ button:disabled {
                 </div>
                 <div class="league-toolbar">
                     <div class="league-chip">
-                        <img class="league-chip-logo" src="SPFL_logo,_William_Hill.png" alt="William Hill Premiership">
+                        <img class="league-chip-logo" src="assets/logos/escocia/SPFL_logo,_William_Hill.png" alt="William Hill Premiership">
                     </div>
                     <div class="league-chip muted">Epoca 24/25</div>
                 </div>
@@ -1127,14 +1127,14 @@ const jogadores = [
 ];
 
 const equipas = [
-    { nome: "HNK Rijeka", img: "Rijeka.png", rank: 3 },
-    { nome: "NK Osijek", img: "Osijek.png", rank: 4 },
-    { nome: "NK Lokomotiva", img: "NK LokomotivA.png", rank: 5 },
-    { nome: "NK Slaven Belupo", img: "SLAVEN.png", rank: 8 },
-    { nome: "NK Istra 1961", img: "ISTRA.png", rank: 6 },
-    { nome: "HNK Gorica", img: "GORICA.png", rank: 9 },
-    { nome: "HNK Vukovar", img: "HNKVUKOVAR.png", rank: 10 },
-    { nome: "NK Varazdin", img: "Varazdin.png", rank: 7 }
+    { nome: "HNK Rijeka", img: "assets/logos/croacia/Rijeka.png", rank: 3 },
+    { nome: "NK Osijek", img: "assets/logos/croacia/Osijek.png", rank: 4 },
+    { nome: "NK Lokomotiva", img: "assets/logos/croacia/NK LokomotivA.png", rank: 5 },
+    { nome: "NK Slaven Belupo", img: "assets/logos/croacia/SLAVEN.png", rank: 8 },
+    { nome: "NK Istra 1961", img: "assets/logos/croacia/ISTRA.png", rank: 6 },
+    { nome: "HNK Gorica", img: "assets/logos/croacia/GORICA.png", rank: 9 },
+    { nome: "HNK Vukovar", img: "assets/logos/croacia/HNKVUKOVAR.png", rank: 10 },
+    { nome: "NK Varazdin", img: "assets/logos/croacia/Varazdin.png", rank: 7 }
 ];
 
 const scotlandSeasonScores = [
@@ -1152,18 +1152,18 @@ const scotlandSeasonScores = [
 })).sort((a, b) => b.pontos - a.pontos || a.final - b.final);
 
 const scotlandLeagueTable = [
-    { pos: 1, inf: "C", equipa: "Rangers", logo: "Rangers_FC_logo.svg.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, form: ["L", "L", "L", "D", "W"], zone: "championship" },
-    { pos: 2, inf: "--", equipa: "Hibernian", logo: "Hibernian_FC_logo.svg.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, form: ["L", "W", "W", "W", "L"], zone: "championship" },
-    { pos: 3, inf: "--", equipa: "Aberdeen", logo: "Aberdeen_F.C._logo_2014.svg.png", jogador: "Goncalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, form: ["L", "W", "L", "L", "W"], zone: "europe" },
-    { pos: 4, inf: "--", equipa: "Dundee", logo: "Dundee_FC_crest.svg.png", jogador: "Nabais", j: 38, v: 17, e: 9, d: 12, gm: 61, gs: 55, dg: 6, pts: 60, prevista: 10, form: ["W", "L", "W", "D", "D"], zone: "europe" },
-    { pos: 5, inf: "--", equipa: "Celtic", logo: "Celtic_FC_logo.png", jogador: null, j: 38, v: 17, e: 8, d: 13, gm: 70, gs: 47, dg: 23, pts: 59, prevista: 1, form: ["W", "W", "L", "W", "D"], zone: "" },
-    { pos: 6, inf: "--", equipa: "St. Mirren", logo: "St_Mirren_FC_crest.svg.png", jogador: null, j: 38, v: 15, e: 10, d: 13, gm: 52, gs: 53, dg: -1, pts: 55, prevista: 8, form: ["L", "D", "D", "L", "L"], zone: "" },
-    { pos: 7, inf: "--", equipa: "Hearts", logo: "Heart_of_Midlothian_FC_logo.png", jogador: "Cardoso", j: 38, v: 16, e: 7, d: 15, gm: 76, gs: 74, dg: 2, pts: 55, prevista: 3, form: ["L", "L", "L", "W", "W"], zone: "" },
-    { pos: 8, inf: "--", equipa: "Falkirk", logo: "Falkirk_FC_logo.png", jogador: "Hugo", j: 38, v: 14, e: 11, d: 13, gm: 65, gs: 62, dg: 3, pts: 53, prevista: 11, form: ["L", "D", "W", "W", "W"], zone: "" },
-    { pos: 9, inf: "--", equipa: "Kilmarnock", logo: "KilmarnockLogo.png", jogador: "Chico", j: 38, v: 14, e: 7, d: 17, gm: 51, gs: 64, dg: -13, pts: 49, prevista: 9, form: ["W", "D", "W", "W", "L"], zone: "" },
-    { pos: 10, inf: "--", equipa: "Dundee Utd", logo: "Dundee_United_FC_logo.png", jogador: "Gamy", j: 38, v: 14, e: 6, d: 18, gm: 60, gs: 71, dg: -11, pts: 48, prevista: 7, form: ["W", "W", "L", "L", "W"], zone: "" },
-    { pos: 11, inf: "PI", equipa: "Motherwell", logo: "Motherwell_FC_crest.svg.png", jogador: null, j: 38, v: 4, e: 8, d: 26, gm: 30, gs: 80, dg: -50, pts: 20, prevista: 5, form: ["W", "W", "W", "L", "L"], zone: "playoff" },
-    { pos: 12, inf: "D", equipa: "Livingston", logo: "Livingston_FC_club_badge_new.png", jogador: "Painatal", j: 38, v: 4, e: 5, d: 29, gm: 41, gs: 101, dg: -60, pts: 17, prevista: 12, form: ["L", "L", "L", "L", "L"], zone: "relegated" }
+    { pos: 1, inf: "C", equipa: "Rangers", logo: "assets/logos/escocia/Rangers_FC_logo.svg.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, form: ["L", "L", "L", "D", "W"], zone: "championship" },
+    { pos: 2, inf: "--", equipa: "Hibernian", logo: "assets/logos/escocia/Hibernian_FC_logo.svg.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, form: ["L", "W", "W", "W", "L"], zone: "championship" },
+    { pos: 3, inf: "--", equipa: "Aberdeen", logo: "assets/logos/escocia/Aberdeen_F.C._logo_2014.svg.png", jogador: "Goncalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, form: ["L", "W", "L", "L", "W"], zone: "europe" },
+    { pos: 4, inf: "--", equipa: "Dundee", logo: "assets/logos/escocia/Dundee_FC_crest.svg.png", jogador: "Nabais", j: 38, v: 17, e: 9, d: 12, gm: 61, gs: 55, dg: 6, pts: 60, prevista: 10, form: ["W", "L", "W", "D", "D"], zone: "europe" },
+    { pos: 5, inf: "--", equipa: "Celtic", logo: "assets/logos/escocia/Celtic_FC_logo.png", jogador: null, j: 38, v: 17, e: 8, d: 13, gm: 70, gs: 47, dg: 23, pts: 59, prevista: 1, form: ["W", "W", "L", "W", "D"], zone: "" },
+    { pos: 6, inf: "--", equipa: "St. Mirren", logo: "assets/logos/escocia/St_Mirren_FC_crest.svg.png", jogador: null, j: 38, v: 15, e: 10, d: 13, gm: 52, gs: 53, dg: -1, pts: 55, prevista: 8, form: ["L", "D", "D", "L", "L"], zone: "" },
+    { pos: 7, inf: "--", equipa: "Hearts", logo: "assets/logos/escocia/Heart_of_Midlothian_FC_logo.png", jogador: "Cardoso", j: 38, v: 16, e: 7, d: 15, gm: 76, gs: 74, dg: 2, pts: 55, prevista: 3, form: ["L", "L", "L", "W", "W"], zone: "" },
+    { pos: 8, inf: "--", equipa: "Falkirk", logo: "assets/logos/escocia/Falkirk_FC_logo.png", jogador: "Hugo", j: 38, v: 14, e: 11, d: 13, gm: 65, gs: 62, dg: 3, pts: 53, prevista: 11, form: ["L", "D", "W", "W", "W"], zone: "" },
+    { pos: 9, inf: "--", equipa: "Kilmarnock", logo: "assets/logos/escocia/KilmarnockLogo.png", jogador: "Chico", j: 38, v: 14, e: 7, d: 17, gm: 51, gs: 64, dg: -13, pts: 49, prevista: 9, form: ["W", "D", "W", "W", "L"], zone: "" },
+    { pos: 10, inf: "--", equipa: "Dundee Utd", logo: "assets/logos/escocia/Dundee_United_FC_logo.png", jogador: "Gamy", j: 38, v: 14, e: 6, d: 18, gm: 60, gs: 71, dg: -11, pts: 48, prevista: 7, form: ["W", "W", "L", "L", "W"], zone: "" },
+    { pos: 11, inf: "PI", equipa: "Motherwell", logo: "assets/logos/escocia/Motherwell_FC_crest.svg.png", jogador: null, j: 38, v: 4, e: 8, d: 26, gm: 30, gs: 80, dg: -50, pts: 20, prevista: 5, form: ["W", "W", "W", "L", "L"], zone: "playoff" },
+    { pos: 12, inf: "D", equipa: "Livingston", logo: "assets/logos/escocia/Livingston_FC_club_badge_new.png", jogador: "Painatal", j: 38, v: 4, e: 5, d: 29, gm: 41, gs: 101, dg: -60, pts: 17, prevista: 12, form: ["L", "L", "L", "L", "L"], zone: "relegated" }
 ].map((entry) => {
     let emgEntry = scotlandSeasonScores.find((score) => score.equipa === entry.equipa);
 
