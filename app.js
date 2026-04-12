@@ -82,17 +82,17 @@ function calcBonuses(league) {
         bonuses.push({ jogador: campeao.jogador, tipo: "Campeão da liga", pontos: 10 });
     }
 
-    // Last place: human team in last position
-    let ultimo = tabela[tabela.length - 1];
-    if (ultimo && ultimo.jogador) {
-        bonuses.push({ jogador: ultimo.jogador, tipo: "Último classificado na liga", pontos: -5 });
-    }
-
     // Best human (only if not champion)
     let humanEntries = tabela.filter((e) => e.jogador);
     let melhorHumano = humanEntries[0];
     if (melhorHumano && melhorHumano.pos !== 1) {
         bonuses.push({ jogador: melhorHumano.jogador, tipo: "Melhor humano na liga", pontos: 5 });
+    }
+
+    // Last place: human team in last position
+    let ultimo = tabela[tabela.length - 1];
+    if (ultimo && ultimo.jogador) {
+        bonuses.push({ jogador: ultimo.jogador, tipo: "Último classificado na liga", pontos: -5 });
     }
 
     // Worst human (only if not last place)
