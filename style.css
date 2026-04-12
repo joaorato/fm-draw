@@ -934,6 +934,7 @@ button:disabled {
 
 .roulette-item.name-item {
     flex: 0 0 164px;
+    font-family: "Cinzel", serif;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -1058,6 +1059,7 @@ button:disabled {
 .final-player-name {
     margin-top: 8px;
     color: #f7fbff;
+    font-family: "Cinzel", serif;
     font-size: 34px;
     font-weight: 800;
     line-height: 1.04;
