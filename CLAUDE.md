@@ -8,27 +8,39 @@ This is a static HTML/CSS/JS project — a "Football Manager Champions League Dr
 
 ## How to Run
 
-Open any `.html` file directly in a browser. No build tools, bundler, or server required.
+Open `sorteio_roleta.html` in a browser. No build tools, bundler, or server required.
 
 ## Architecture
 
-There are multiple HTML files, each a self-contained variant of the draw page with different animation/presentation styles:
+Single-page app split into three files:
 
-- **sorteio.html** — Simple text-based draw (no logos), with "best"/"worst" team highlights
-- **New Documento de Texto.html** — Row-based draw with team logos inline, "opening the ball" suspense animation
-- **teste.html** — Full-screen single-card reveal with large logos, swipe-out transition between draws
-- **teste2.html** — Similar to teste.html but with pop/scale animation instead of swipe
+- **sorteio_roleta.html** — Structure and navigation (four tabs)
+- **app.js** — All data, logic, and rendering
+- **style.css** — Styling (UCL-inspired dark blue theme)
 
-All variants share the same core logic:
-- **Players** (`jogadores` array) and **teams** (`equipas` array) are shuffled via Fisher-Yates
-- Draws are revealed sequentially with `async`/`await` + `setTimeout` for suspense timing
-- Background music (`ucl.mp3`) auto-plays on first user interaction
-- Team logos are PNG files in the project root, referenced by filename in the `equipas` objects
+### Tabs
+
+- **Home** — Landing page with logo
+- **Sorteio** — Roulette-style draw ceremony with UCL music and mute toggle
+- **Classificação Geral** — Aggregated player scores across all leagues
+- **Ligas Passadas** — Dropdown to select a league and view its full standings table
+
+### Draw logic
+
+- **Players** (`jogadores`) and **teams** (`equipas`) are shuffled via Fisher-Yates
+- Draws are revealed sequentially with roulette spin animations
+- Background music (`ucl.mp3`) plays during the draw tab, with a mute button
+
+### League data
+
+League history is stored in the `leagues` array in `app.js`. Each entry contains metadata (name, description, logo, época, formula), season scores, and the full standings table. Adding a new league is done by pushing a new object to this array — the dropdown, detail panel, and Classificação Geral all update automatically.
 
 ## Key Data
 
 - 8 players: Gonçalo, Rato, Chico, Nabais, Gamy, Painatal, Cardoso, Hugo
-- 8 Croatian league teams: Rijeka, Osijek, Lokomotiva, Slaven Belupo, Istra 1961, HNK Gorica, Vukovar, Varaždin
+- Current draw: 8 Croatian league teams (Rijeka, Osijek, Lokomotiva, Slaven Belupo, Istra 1961, HNK Gorica, Vukovar, Varaždin)
+- Past leagues: Scotland (Época 24/25)
+- Team logos are PNGs in `assets/logos/`, organized by league subfolder
 
 ## Language
 
