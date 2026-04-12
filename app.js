@@ -38,6 +38,13 @@ const leagues = [
         epoca: "Época 24/25",
         formula: "(prevista - final) × 3",
         scores: scotlandSeasonScores,
+        tacas: [
+            { tipo: "Vencedor da Taça da Liga", jogador: "Gonçalo", pontos: 5 },
+            { tipo: "Finalista da Taça da Liga", jogador: null, pontos: 2 },
+            { tipo: "Vencedor da Taça", jogador: "Gonçalo", pontos: 5 },
+            { tipo: "Finalista da Taça", jogador: null, pontos: 2 },
+            { tipo: "Vencedor de competição europeia", jogador: null, pontos: 3 }
+        ],
         tabela: [
             { pos: 1, inf: "C", equipa: "Rangers", logo: "assets/logos/escocia/Rangers_FC_logo.svg.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, form: ["L", "L", "L", "D", "W"], zone: "championship" },
             { pos: 2, inf: "--", equipa: "Hibernian", logo: "assets/logos/escocia/Hibernian_FC_logo.svg.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, form: ["L", "W", "W", "W", "L"], zone: "championship" },
@@ -58,8 +65,47 @@ const leagues = [
     }
 ];
 
+function calcBonuses(league) {
+    let bonuses = [];
+    let tabela = league.tabela;
+
+    // Cup and European bonuses (hardcoded per league)
+    league.tacas.forEach((taca) => {
+        if (taca.jogador) {
+            bonuses.push({ jogador: taca.jogador, tipo: taca.tipo, pontos: taca.pontos });
+        }
+    });
+
+    // Champion: human team in 1st place
+    let campeao = tabela.find((e) => e.pos === 1);
+    if (campeao && campeao.jogador) {
+        bonuses.push({ jogador: campeao.jogador, tipo: "Campeão da liga", pontos: 10 });
+    }
+
+    // Last place: human team in last position
+    let ultimo = tabela[tabela.length - 1];
+    if (ultimo && ultimo.jogador) {
+        bonuses.push({ jogador: ultimo.jogador, tipo: "Último classificado na liga", pontos: -5 });
+    }
+
+    // Best human (only if not champion)
+    let humanEntries = tabela.filter((e) => e.jogador);
+    let melhorHumano = humanEntries[0];
+    if (melhorHumano && melhorHumano.pos !== 1) {
+        bonuses.push({ jogador: melhorHumano.jogador, tipo: "Melhor humano na liga", pontos: 5 });
+    }
+
+    // Worst human (only if not last place)
+    let piorHumano = humanEntries[humanEntries.length - 1];
+    if (piorHumano && piorHumano.pos !== tabela.length) {
+        bonuses.push({ jogador: piorHumano.jogador, tipo: "Pior humano na liga", pontos: -2 });
+    }
+
+    return bonuses;
+}
+
 const generalScores = leagues
-    .flatMap((league) => league.scores)
+    .flatMap((league) => [...league.scores, ...calcBonuses(league)])
     .reduce((acc, entry) => {
         let existing = acc.find((e) => e.jogador === entry.jogador);
         if (existing) {
@@ -295,6 +341,15 @@ function renderLeague(leagueId) {
         `;
     });
 
+    let bonuses = calcBonuses(league);
+    let bonusRows = bonuses.map((b) => `
+        <div class="bonus-row">
+            <div class="bonus-player">${b.jogador}</div>
+            <div class="bonus-tipo">${b.tipo}</div>
+            <div class="bonus-pontos ${getPointsClass(b.pontos)}">${formatPoints(b.pontos)}</div>
+        </div>
+    `).join("");
+
     panel.innerHTML = `
         <div class="panel-head">
             <div>
@@ -328,6 +383,17 @@ function renderLeague(leagueId) {
                     <div>EMG</div>
                 </div>
                 ${rows}
+            </div>
+        </div>
+        <div class="bonuses-section">
+            <h3 class="bonuses-title">Bónus e Penalizações</h3>
+            <div class="bonuses-list">
+                <div class="bonus-row header">
+                    <div>Jogador</div>
+                    <div>Motivo</div>
+                    <div>Pontos</div>
+                </div>
+                ${bonusRows}
             </div>
         </div>
     `;
