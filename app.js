@@ -1,4 +1,4 @@
-const jogadores = [
+﻿const jogadores = [
     "Gonçalo", "Rato", "Chico", "Nabais",
     "Gamy", "Painatal", "Cardoso", "Hugo"
 ];
@@ -288,6 +288,37 @@ function setupFormulaPopover() {
     button.dataset.bound = "true";
 }
 
+function setupStandingsColumnHover(scope = document) {
+    let standings = scope.querySelector(".scotland-standings");
+    if (!standings || standings.dataset.hoverBound === "true") return;
+
+    let cells = standings.querySelectorAll("[data-col]");
+
+    function setActiveColumn(col) {
+        cells.forEach((cell) => {
+            cell.classList.toggle("column-hover", cell.dataset.col === col);
+        });
+    }
+
+    function clearActiveColumn() {
+        cells.forEach((cell) => cell.classList.remove("column-hover"));
+    }
+
+    cells.forEach((cell) => {
+        cell.addEventListener("mouseenter", () => setActiveColumn(cell.dataset.col));
+        cell.addEventListener("focusin", () => setActiveColumn(cell.dataset.col));
+    });
+
+    standings.addEventListener("mouseleave", clearActiveColumn);
+    standings.addEventListener("focusout", (event) => {
+        if (!standings.contains(event.relatedTarget)) {
+            clearActiveColumn();
+        }
+    });
+
+    standings.dataset.hoverBound = "true";
+}
+
 function formatPoints(points) {
     return points > 0 ? `+${points}` : `${points}`;
 }
@@ -304,7 +335,7 @@ function renderGeneralTable() {
     scoreTable.innerHTML = `
         <div class="score-row header">
             <div>#</div>
-            <div>Jogador</div>
+            <div data-col="4">Jogador</div>
             <div>Pontos</div>
         </div>
     `;
@@ -343,17 +374,17 @@ function renderLeague(leagueId) {
     let rows = "";
     league.tabela.forEach((entry) => {
         let playerMarkup = entry.jogador
-            ? `<div class="scotland-player">${entry.jogador}</div>`
-            : `<div class="scotland-player empty">PC</div>`;
+            ? `<div class="scotland-player-cell" data-col="4"><div class="scotland-player">${entry.jogador}</div></div>`
+            : `<div class="scotland-player-cell" data-col="4"><div class="scotland-player empty">PC</div></div>`;
         let emgMarkup = entry.emgPontos === null
-            ? `<div class="scotland-points neutral">--</div>`
-            : `<div class="scotland-points ${getPointsClass(entry.emgPontos)}">${formatPoints(entry.emgPontos)}</div>`;
+            ? `<div class="scotland-points neutral" data-col="14">--</div>`
+            : `<div class="scotland-points ${getPointsClass(entry.emgPontos)}" data-col="14">${formatPoints(entry.emgPontos)}</div>`;
 
         rows += `
             <div class="scotland-row ${entry.zone ? `zone-${entry.zone}` : ""}">
-                <div class="scotland-cell-center scotland-pos">${entry.pos}</div>
-                <div class="scotland-cell-center scotland-inf">${entry.inf}</div>
-                <div class="scotland-team">
+                <div class="scotland-cell-center scotland-pos" data-col="1">${entry.pos}</div>
+                <div class="scotland-cell-center scotland-inf" data-col="2">${entry.inf}</div>
+                <div class="scotland-team" data-col="3">
                     <img class="scotland-team-logo" src="${entry.logo}" alt="${entry.equipa}">
                     <div class="scotland-team-stack">
                         <span class="scotland-team-name">${entry.equipa}</span>
@@ -361,15 +392,15 @@ function renderLeague(leagueId) {
                     </div>
                 </div>
                 ${playerMarkup}
-                <div class="scotland-cell-center">${entry.j}</div>
-                <div class="scotland-cell-center">${entry.v}</div>
-                <div class="scotland-cell-center">${entry.e}</div>
-                <div class="scotland-cell-center">${entry.d}</div>
-                <div class="scotland-cell-center">${entry.gm}</div>
-                <div class="scotland-cell-center">${entry.gs}</div>
-                <div class="scotland-cell-center">${entry.dg}</div>
-                <div class="scotland-cell-center">${entry.pts}</div>
-                <div class="scotland-cell-center">${entry.prevista}</div>
+                <div class="scotland-cell-center" data-col="5">${entry.j}</div>
+                <div class="scotland-cell-center" data-col="6">${entry.v}</div>
+                <div class="scotland-cell-center" data-col="7">${entry.e}</div>
+                <div class="scotland-cell-center" data-col="8">${entry.d}</div>
+                <div class="scotland-cell-center" data-col="9">${entry.gm}</div>
+                <div class="scotland-cell-center" data-col="10">${entry.gs}</div>
+                <div class="scotland-cell-center" data-col="11">${entry.dg}</div>
+                <div class="scotland-cell-center" data-col="12">${entry.pts}</div>
+                <div class="scotland-cell-center" data-col="13">${entry.prevista}</div>
                 ${emgMarkup}
             </div>
         `;
@@ -401,20 +432,20 @@ function renderLeague(leagueId) {
         <div class="league-table-wrap">
             <div class="scotland-standings">
                 <div class="scotland-row header">
-                    <div>Pos</div>
-                    <div>Inf</div>
-                    <div>Equipa</div>
-                    <div>Jogador</div>
-                    <div>J</div>
-                    <div>V</div>
-                    <div>E</div>
-                    <div>D</div>
-                    <div>GM</div>
-                    <div>GS</div>
-                    <div>DG</div>
-                    <div>Pts</div>
-                    <div>Prev.</div>
-                    <div>EMG</div>
+                    <div data-col="1">Pos</div>
+                    <div data-col="2">Inf</div>
+                    <div data-col="3">Equipa</div>
+                    <div data-col="4">Jogador</div>
+                    <div data-col="5">J</div>
+                    <div data-col="6">V</div>
+                    <div data-col="7">E</div>
+                    <div data-col="8">D</div>
+                    <div data-col="9">GM</div>
+                    <div data-col="10">GS</div>
+                    <div data-col="11">DG</div>
+                    <div data-col="12">Pts</div>
+                    <div data-col="13">Prev.</div>
+                    <div data-col="14">EMG</div>
                 </div>
                 ${rows}
             </div>
@@ -431,6 +462,8 @@ function renderLeague(leagueId) {
             </div>
         </div>
     `;
+
+    setupStandingsColumnHover(panel);
 }
 
 function start() {
@@ -654,3 +687,4 @@ function showResults() {
 renderGeneralTable();
 renderLeagueSelector();
 setupFormulaPopover();
+
