@@ -23,7 +23,7 @@
                 <img src="assets/logos/ligas/LigaEMG.png" alt="Liga EMG">
             </button>
             <button class="nav-btn" id="drawTabBtn" onclick="setActiveTab('draw')">Sorteio</button>
-            <button class="nav-btn" id="generalTabBtn" onclick="setActiveTab('general')">Classificacao Geral</button>
+            <button class="nav-btn" id="generalTabBtn" onclick="setActiveTab('general')">Classificação Geral</button>
             <button class="nav-btn" id="pastTabBtn" onclick="setActiveTab('past')">Ligas Passadas</button>
         </div>
     </div>
@@ -31,12 +31,24 @@
     <section class="view active" id="homeView">
         <div class="hero">
             <img class="home-logo" src="assets/logos/ligas/LigaEMG.png" alt="Liga EMG">
-            <p class="hero-subtitle">Sorteios, classificacao geral e historico de ligas no mesmo sitio.</p>
+            <p class="hero-subtitle">Sorteios, classificação geral e histórico de ligas no mesmo sitio.</p>
         </div>
     </section>
 
     <section class="view draw-view" id="drawView">
-        <div class="page-panel">
+        <div class="page-panel" style="position:relative">
+            <button class="mute-btn" id="muteBtn" onclick="toggleMute()" aria-label="Silenciar música">
+                <svg class="mute-icon unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                </svg>
+                <svg class="mute-icon muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <line x1="23" y1="9" x2="17" y2="15"/>
+                    <line x1="17" y1="9" x2="23" y2="15"/>
+                </svg>
+            </button>
             <div class="panel-head centered">
                 <div>
                     <h2 class="panel-title">Sorteio Atual</h2>
@@ -44,7 +56,7 @@
             </div>
 
             <div class="draw-actions">
-                <button id="drawBtn" onclick="start()">Comecar Sorteio</button>
+                <button id="drawBtn" onclick="start()">Começar Sorteio</button>
             </div>
 
             <div class="current" id="current"></div>
@@ -56,7 +68,7 @@
         <div class="page-panel">
             <div class="panel-head">
                 <div>
-                    <h2 class="panel-title">Classificacao Geral</h2>
+                    <h2 class="panel-title">Classificação Geral</h2>
                     <p class="panel-copy">Aqui fica o acumulado de pontos de cada jogador ao longo de todas as ligas.</p>
                 </div>
             </div>
@@ -69,19 +81,19 @@
             <div class="panel-head">
                 <div>
                     <h2 class="panel-title">Ligas Passadas</h2>
-                    <p class="panel-copy">Detalhe das ligas concluidas, com resultados e pontos por epoca.</p>
+                    <p class="panel-copy">Detalhe das ligas concluídas, com resultados e pontos por época.</p>
                 </div>
             </div>
 
             <div class="league-grid">
                 <article class="league-card">
                     <h3>Liga Escocesa</h3>
-                    <p>Primeira liga registada na epoca EMG.</p>
-                    <p><strong>Formula:</strong> (prevista - final) x 3</p>
+                    <p>Primeira liga registada na época EMG.</p>
+                    <p><strong>Fórmula:</strong> (prevista - final) x 3</p>
                 </article>
                 <article class="league-card">
-                    <h3>Proxima Liga</h3>
-                    <p>Reserva este espaco para a proxima competicao que forem adicionar ao site.</p>
+                    <h3>Próxima Liga</h3>
+                    <p>Reserva este espaco para a próxima competição que forem adicionar ao site.</p>
                 </article>
             </div>
 

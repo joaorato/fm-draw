@@ -1,5 +1,5 @@
 const jogadores = [
-    "Goncalo", "Rato", "Chico", "Nabais",
+    "Gonçalo", "Rato", "Chico", "Nabais",
     "Gamy", "Painatal", "Cardoso", "Hugo"
 ];
 
@@ -11,12 +11,12 @@ const equipas = [
     { nome: "NK Istra 1961", img: "assets/logos/croacia/ISTRA.png", rank: 6 },
     { nome: "HNK Gorica", img: "assets/logos/croacia/GORICA.png", rank: 9 },
     { nome: "HNK Vukovar", img: "assets/logos/croacia/HNKVUKOVAR.png", rank: 10 },
-    { nome: "NK Varazdin", img: "assets/logos/croacia/Varazdin.png", rank: 7 }
+    { nome: "NK Varaždin", img: "assets/logos/croacia/Varazdin.png", rank: 7 }
 ];
 
 const scotlandSeasonScores = [
     { jogador: "Nabais", equipa: "Dundee", prevista: 10, final: 4 },
-    { jogador: "Goncalo", equipa: "Aberdeen", prevista: 6, final: 3 },
+    { jogador: "Gonçalo", equipa: "Aberdeen", prevista: 6, final: 3 },
     { jogador: "Hugo", equipa: "Falkirk", prevista: 11, final: 8 },
     { jogador: "Rato", equipa: "Hibernian", prevista: 4, final: 2 },
     { jogador: "Chico", equipa: "Kilmarnock", prevista: 9, final: 9 },
@@ -31,7 +31,7 @@ const scotlandSeasonScores = [
 const scotlandLeagueTable = [
     { pos: 1, inf: "C", equipa: "Rangers", logo: "assets/logos/escocia/Rangers_FC_logo.svg.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, form: ["L", "L", "L", "D", "W"], zone: "championship" },
     { pos: 2, inf: "--", equipa: "Hibernian", logo: "assets/logos/escocia/Hibernian_FC_logo.svg.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, form: ["L", "W", "W", "W", "L"], zone: "championship" },
-    { pos: 3, inf: "--", equipa: "Aberdeen", logo: "assets/logos/escocia/Aberdeen_F.C._logo_2014.svg.png", jogador: "Goncalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, form: ["L", "W", "L", "L", "W"], zone: "europe" },
+    { pos: 3, inf: "--", equipa: "Aberdeen", logo: "assets/logos/escocia/Aberdeen_F.C._logo_2014.svg.png", jogador: "Gonçalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, form: ["L", "W", "L", "L", "W"], zone: "europe" },
     { pos: 4, inf: "--", equipa: "Dundee", logo: "assets/logos/escocia/Dundee_FC_crest.svg.png", jogador: "Nabais", j: 38, v: 17, e: 9, d: 12, gm: 61, gs: 55, dg: 6, pts: 60, prevista: 10, form: ["W", "L", "W", "D", "D"], zone: "europe" },
     { pos: 5, inf: "--", equipa: "Celtic", logo: "assets/logos/escocia/Celtic_FC_logo.png", jogador: null, j: 38, v: 17, e: 8, d: 13, gm: 70, gs: 47, dg: 23, pts: 59, prevista: 1, form: ["W", "W", "L", "W", "D"], zone: "" },
     { pos: 6, inf: "--", equipa: "St. Mirren", logo: "assets/logos/escocia/St_Mirren_FC_crest.svg.png", jogador: null, j: 38, v: 15, e: 10, d: 13, gm: 52, gs: 53, dg: -1, pts: 55, prevista: 8, form: ["L", "D", "D", "L", "L"], zone: "" },
@@ -155,6 +155,15 @@ function animateRoulette(strip, cycleWidth, finalX, duration, onComplete) {
 }
 
 let musicStarted = false;
+let isMuted = false;
+
+function toggleMute() {
+    let music = document.getElementById("bgmusic");
+    let btn = document.getElementById("muteBtn");
+    isMuted = !isMuted;
+    music.muted = isMuted;
+    btn.classList.toggle("is-muted", isMuted);
+}
 
 function setActiveTab(tab) {
     let isHome = tab === "home";
@@ -257,7 +266,7 @@ function renderScotlandTable() {
                 <img class="scotland-team-logo" src="${entry.logo}" alt="${entry.equipa}">
                 <div class="scotland-team-stack">
                     <span class="scotland-team-name">${entry.equipa}</span>
-                    <span class="scotland-team-sub">Classificacao Final</span>
+                    <span class="scotland-team-sub">Classificação Final</span>
                 </div>
             </div>
             ${playerMarkup}
@@ -359,7 +368,7 @@ function onTeamLanded(team) {
     info.innerHTML = `
         <img class="logo-big" src="${team.img}" alt="${team.nome}">
         <div class="team-name-big">${team.nome}</div>
-        <div class="team-rank">Classificacao prevista: ${team.rank}o</div>
+        <div class="team-rank">Classificação prevista: ${team.rank}o</div>
     `;
 
     current.appendChild(info);
@@ -449,7 +458,7 @@ function onPlayerLanded(team, player) {
     button.className = "action-btn";
 
     if (currentRound < TOTAL_ROUNDS) {
-        button.textContent = "Proxima Equipa";
+        button.textContent = "Próxima Equipa";
         button.onclick = () => startTeamRoulette();
     } else {
         button.textContent = "Ver Resultados";
