@@ -482,7 +482,7 @@ function onTeamLanded(team) {
     info.innerHTML = `
         <img class="logo-big" src="${team.img}" alt="${team.nome}">
         <div class="team-name-big">${team.nome}</div>
-        <div class="team-rank">Classificação prevista: ${team.rank}o</div>
+        <div class="team-rank">Classificação prevista: ${team.rank}<sup>&ordm;</sup></div>
     `;
 
     current.appendChild(info);
@@ -595,7 +595,7 @@ function showResults() {
         let row = document.createElement("div");
         row.className = "row";
         row.innerHTML = `
-            <div class="table-rank">${entry.rank}o</div>
+            <div class="table-rank">${entry.rank}&ordm;</div>
             <div class="table-match">
                 <div class="table-player">${entry.jogador}</div>
                 <span class="table-connector" aria-hidden="true">
