@@ -293,27 +293,40 @@ function setupStandingsColumnHover(scope = document) {
     if (!standings || standings.dataset.hoverBound === "true") return;
 
     let cells = standings.querySelectorAll("[data-col]");
+    let activeCol = null;
 
     function setActiveColumn(col) {
+        if (activeCol === col) return;
+        activeCol = col;
         cells.forEach((cell) => {
             cell.classList.toggle("column-hover", cell.dataset.col === col);
         });
     }
 
     function clearActiveColumn() {
+        activeCol = null;
         cells.forEach((cell) => cell.classList.remove("column-hover"));
     }
 
-    cells.forEach((cell) => {
-        cell.addEventListener("mouseenter", () => setActiveColumn(cell.dataset.col));
-        cell.addEventListener("focusin", () => setActiveColumn(cell.dataset.col));
+    standings.addEventListener("pointermove", (event) => {
+        let cell = event.target.closest("[data-col]");
+        if (!cell || !standings.contains(cell)) {
+            clearActiveColumn();
+            return;
+        }
+
+        setActiveColumn(cell.dataset.col);
     });
 
-    standings.addEventListener("mouseleave", clearActiveColumn);
-    standings.addEventListener("focusout", (event) => {
-        if (!standings.contains(event.relatedTarget)) {
-            clearActiveColumn();
+    standings.addEventListener("pointerleave", clearActiveColumn);
+    standings.addEventListener("focusin", (event) => {
+        let cell = event.target.closest("[data-col]");
+        if (cell && standings.contains(cell)) {
+            setActiveColumn(cell.dataset.col);
         }
+    });
+    standings.addEventListener("focusout", (event) => {
+        if (!standings.contains(event.relatedTarget)) clearActiveColumn();
     });
 
     standings.dataset.hoverBound = "true";
@@ -377,8 +390,8 @@ function renderLeague(leagueId) {
             ? `<div class="scotland-player-cell" data-col="4"><div class="scotland-player">${entry.jogador}</div></div>`
             : `<div class="scotland-player-cell" data-col="4"><div class="scotland-player empty">PC</div></div>`;
         let emgMarkup = entry.emgPontos === null
-            ? `<div class="scotland-points neutral" data-col="14">--</div>`
-            : `<div class="scotland-points ${getPointsClass(entry.emgPontos)}" data-col="14">${formatPoints(entry.emgPontos)}</div>`;
+            ? `<div class="scotland-points-cell" data-col="14"><div class="scotland-points neutral">--</div></div>`
+            : `<div class="scotland-points-cell" data-col="14"><div class="scotland-points ${getPointsClass(entry.emgPontos)}">${formatPoints(entry.emgPontos)}</div></div>`;
 
         rows += `
             <div class="scotland-row ${entry.zone ? `zone-${entry.zone}` : ""}">
