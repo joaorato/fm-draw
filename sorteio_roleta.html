@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
@@ -48,7 +48,7 @@
                     <img src="assets/social/youtube.png" alt="YouTube">
                 </a>
             </div>
-            <p class="hero-subtitle">Sorteios, classificação geral e histórico de ligas no mesmo sitio.</p>
+            <p class="hero-subtitle">Sorteios, classificação geral e histórico de ligas no mesmo sítio.</p>
         </div>
     </section>
 
@@ -85,8 +85,36 @@
         <div class="page-panel">
             <div class="panel-head">
                 <div>
-                    <h2 class="panel-title">Classificação Geral</h2>
+                    <div class="title-with-info">
+                        <h2 class="panel-title">Classificação Geral</h2>
+                        <button class="info-tip" id="formulaTipBtn" type="button" aria-label="Explicação da fórmula de pontos" aria-expanded="false">
+                            <span class="info-tip-icon">i</span>
+                        </button>
+                    </div>
                     <p class="panel-copy">Aqui fica o acumulado de pontos de cada jogador ao longo de todas as ligas.</p>
+                </div>
+            </div>
+            <div class="formula-popover" id="formulaPopover" hidden>
+                <div class="formula-section">
+                    <div class="formula-heading">Fórmula Base</div>
+                    <div class="formula-line">(posição prevista - posição final) x 3</div>
+                </div>
+                <div class="formula-section">
+                    <div class="formula-heading">Bónus</div>
+                    <div class="formula-list">
+                        <div>Campeão da Liga: <strong>+10</strong></div>
+                        <div>Melhor humano (não acumula se for campeão): <strong>+5</strong></div>
+                        <div>Vencedores de Taças: <strong>+5</strong></div>
+                        <div>Finalistas de Taças: <strong>+2</strong></div>
+                        <div>Vencedor de competição Europeia: <strong>+3</strong></div>
+                    </div>
+                </div>
+                <div class="formula-section">
+                    <div class="formula-heading">Penalizações</div>
+                    <div class="formula-list">
+                        <div>Último classificado: <strong>-5</strong></div>
+                        <div>Pior humano (não acumula se for último): <strong>-2</strong></div>
+                    </div>
                 </div>
             </div>
             <div class="score-table general" id="scoreTable"></div>
@@ -114,3 +142,4 @@
 <script src="app.js"></script>
 </body>
 </html>
+

@@ -254,6 +254,40 @@ function setActiveTab(tab) {
     }
 }
 
+function setupFormulaPopover() {
+    let button = document.getElementById("formulaTipBtn");
+    let popover = document.getElementById("formulaPopover");
+
+    if (!button || !popover || button.dataset.bound === "true") return;
+
+    function closePopover() {
+        popover.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+    }
+
+    button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        let willOpen = popover.hidden;
+        popover.hidden = !willOpen;
+        button.setAttribute("aria-expanded", willOpen ? "true" : "false");
+    });
+
+    document.addEventListener("click", (event) => {
+        if (popover.hidden) return;
+        if (!popover.contains(event.target) && !button.contains(event.target)) {
+            closePopover();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closePopover();
+        }
+    });
+
+    button.dataset.bound = "true";
+}
+
 function formatPoints(points) {
     return points > 0 ? `+${points}` : `${points}`;
 }
@@ -619,3 +653,4 @@ function showResults() {
 
 renderGeneralTable();
 renderLeagueSelector();
+setupFormulaPopover();

@@ -288,12 +288,92 @@ body::after {
     text-align: center;
 }
 
+.title-with-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .panel-title {
     margin: 0;
     font-family: inherit;
     font-size: 26px;
     letter-spacing: 1.6px;
     text-transform: uppercase;
+}
+
+.info-tip {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid rgba(112, 208, 255, 0.18);
+    background: rgba(255,255,255,0.04);
+    box-shadow: none;
+    text-transform: none;
+}
+
+.info-tip:focus-visible {
+    border-color: rgba(112, 208, 255, 0.34);
+    box-shadow: 0 0 14px rgba(84, 182, 255, 0.14);
+    outline: none;
+}
+
+.info-tip-icon {
+    color: #bfe9ff;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.formula-popover {
+    margin: -2px 0 18px;
+    width: min(520px, 100%);
+    padding: 16px 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(112, 208, 255, 0.16);
+    background:
+        linear-gradient(180deg, rgba(10, 25, 92, 0.88), rgba(6, 16, 56, 0.94)),
+        radial-gradient(circle at top, rgba(93, 212, 255, 0.08), transparent 62%);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 18px 30px rgba(0, 0, 0, 0.2);
+}
+
+.formula-section + .formula-section {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(112, 208, 255, 0.08);
+}
+
+.formula-heading {
+    margin-bottom: 8px;
+    color: #dff3ff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.formula-line,
+.formula-list {
+    color: rgba(236, 244, 255, 0.92);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.formula-list {
+    display: grid;
+    gap: 4px;
+}
+
+.formula-list strong,
+.formula-line strong {
+    color: var(--gold);
 }
 
 .panel-copy {
@@ -1288,6 +1368,8 @@ button:disabled {
 @media (max-width: 760px) {
     .shell { padding-inline: 14px; }
     .panel-head { flex-direction: column; align-items: flex-start; }
+    .title-with-info { align-items: flex-start; }
+    .formula-popover { width: 100%; }
     .page-panel, .score-panel, .league-panel { padding: 18px; border-radius: 18px; margin-top: 24px; }
     .row { grid-template-columns: 58px 1fr; }
     .table-match { grid-template-columns: 1fr; gap: 12px; }
