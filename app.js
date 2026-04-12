@@ -546,7 +546,8 @@ function startTeamRoulette() {
     current.appendChild(container);
     scrollToElement(container);
 
-    let finalX = -((TEAM_SPIN_LOOPS * cycleWidth) + (targetIndex * ITEM_WIDTH_TEAM)) + (vpWidth / 2) - (ITEM_WIDTH_TEAM / 2);
+    let randomOffset = (Math.random() - 0.5) * (ITEM_WIDTH_TEAM - 2);
+    let finalX = -((TEAM_SPIN_LOOPS * cycleWidth) + (targetIndex * ITEM_WIDTH_TEAM)) + (vpWidth / 2) - (ITEM_WIDTH_TEAM / 2) + randomOffset;
 
     animateRoulette(strip, cycleWidth, finalX, SPIN_DURATION, () => {
         highlightWinner(strip, targetIndex);
@@ -613,7 +614,8 @@ function startPlayerRoulette(team) {
     current.appendChild(container);
     scrollToElement(container);
 
-    let finalX = -((PLAYER_SPIN_LOOPS * cycleWidth) + (targetIndex * ITEM_WIDTH_PLAYER)) + (vpWidth / 2) - (ITEM_WIDTH_PLAYER / 2);
+    let randomOffset = (Math.random() - 0.5) * (ITEM_WIDTH_PLAYER - 2);
+    let finalX = -((PLAYER_SPIN_LOOPS * cycleWidth) + (targetIndex * ITEM_WIDTH_PLAYER)) + (vpWidth / 2) - (ITEM_WIDTH_PLAYER / 2) + randomOffset;
 
     animateRoulette(strip, cycleWidth, finalX, SPIN_DURATION, () => {
         highlightWinner(strip, targetIndex);
