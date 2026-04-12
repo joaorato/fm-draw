@@ -28,30 +28,47 @@ const scotlandSeasonScores = [
     pontos: (entry.prevista - entry.final) * 3
 })).sort((a, b) => b.pontos - a.pontos || a.final - b.final);
 
-const scotlandLeagueTable = [
-    { pos: 1, inf: "C", equipa: "Rangers", logo: "assets/logos/escocia/Rangers_FC_logo.svg.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, form: ["L", "L", "L", "D", "W"], zone: "championship" },
-    { pos: 2, inf: "--", equipa: "Hibernian", logo: "assets/logos/escocia/Hibernian_FC_logo.svg.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, form: ["L", "W", "W", "W", "L"], zone: "championship" },
-    { pos: 3, inf: "--", equipa: "Aberdeen", logo: "assets/logos/escocia/Aberdeen_F.C._logo_2014.svg.png", jogador: "Gonçalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, form: ["L", "W", "L", "L", "W"], zone: "europe" },
-    { pos: 4, inf: "--", equipa: "Dundee", logo: "assets/logos/escocia/Dundee_FC_crest.svg.png", jogador: "Nabais", j: 38, v: 17, e: 9, d: 12, gm: 61, gs: 55, dg: 6, pts: 60, prevista: 10, form: ["W", "L", "W", "D", "D"], zone: "europe" },
-    { pos: 5, inf: "--", equipa: "Celtic", logo: "assets/logos/escocia/Celtic_FC_logo.png", jogador: null, j: 38, v: 17, e: 8, d: 13, gm: 70, gs: 47, dg: 23, pts: 59, prevista: 1, form: ["W", "W", "L", "W", "D"], zone: "" },
-    { pos: 6, inf: "--", equipa: "St. Mirren", logo: "assets/logos/escocia/St_Mirren_FC_crest.svg.png", jogador: null, j: 38, v: 15, e: 10, d: 13, gm: 52, gs: 53, dg: -1, pts: 55, prevista: 8, form: ["L", "D", "D", "L", "L"], zone: "" },
-    { pos: 7, inf: "--", equipa: "Hearts", logo: "assets/logos/escocia/Heart_of_Midlothian_FC_logo.png", jogador: "Cardoso", j: 38, v: 16, e: 7, d: 15, gm: 76, gs: 74, dg: 2, pts: 55, prevista: 3, form: ["L", "L", "L", "W", "W"], zone: "" },
-    { pos: 8, inf: "--", equipa: "Falkirk", logo: "assets/logos/escocia/Falkirk_FC_logo.png", jogador: "Hugo", j: 38, v: 14, e: 11, d: 13, gm: 65, gs: 62, dg: 3, pts: 53, prevista: 11, form: ["L", "D", "W", "W", "W"], zone: "" },
-    { pos: 9, inf: "--", equipa: "Kilmarnock", logo: "assets/logos/escocia/KilmarnockLogo.png", jogador: "Chico", j: 38, v: 14, e: 7, d: 17, gm: 51, gs: 64, dg: -13, pts: 49, prevista: 9, form: ["W", "D", "W", "W", "L"], zone: "" },
-    { pos: 10, inf: "--", equipa: "Dundee Utd", logo: "assets/logos/escocia/Dundee_United_FC_logo.png", jogador: "Gamy", j: 38, v: 14, e: 6, d: 18, gm: 60, gs: 71, dg: -11, pts: 48, prevista: 7, form: ["W", "W", "L", "L", "W"], zone: "" },
-    { pos: 11, inf: "PI", equipa: "Motherwell", logo: "assets/logos/escocia/Motherwell_FC_crest.svg.png", jogador: null, j: 38, v: 4, e: 8, d: 26, gm: 30, gs: 80, dg: -50, pts: 20, prevista: 5, form: ["W", "W", "W", "L", "L"], zone: "playoff" },
-    { pos: 12, inf: "D", equipa: "Livingston", logo: "assets/logos/escocia/Livingston_FC_club_badge_new.png", jogador: "Painatal", j: 38, v: 4, e: 5, d: 29, gm: 41, gs: 101, dg: -60, pts: 17, prevista: 12, form: ["L", "L", "L", "L", "L"], zone: "relegated" }
-].map((entry) => {
-    let emgEntry = scotlandSeasonScores.find((score) => score.equipa === entry.equipa);
+const leagues = [
+    {
+        id: "scotland",
+        nome: "Liga Escocesa",
+        descricao: "Classificação final completa da Premiership, com dados da liga, jogador EMG associado e pontos pela fórmula da época.",
+        logo: "assets/logos/escocia/SPFL_logo,_William_Hill.png",
+        logoAlt: "William Hill Premiership",
+        epoca: "Época 24/25",
+        formula: "(prevista - final) × 3",
+        scores: scotlandSeasonScores,
+        tabela: [
+            { pos: 1, inf: "C", equipa: "Rangers", logo: "assets/logos/escocia/Rangers_FC_logo.svg.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, form: ["L", "L", "L", "D", "W"], zone: "championship" },
+            { pos: 2, inf: "--", equipa: "Hibernian", logo: "assets/logos/escocia/Hibernian_FC_logo.svg.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, form: ["L", "W", "W", "W", "L"], zone: "championship" },
+            { pos: 3, inf: "--", equipa: "Aberdeen", logo: "assets/logos/escocia/Aberdeen_F.C._logo_2014.svg.png", jogador: "Gonçalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, form: ["L", "W", "L", "L", "W"], zone: "europe" },
+            { pos: 4, inf: "--", equipa: "Dundee", logo: "assets/logos/escocia/Dundee_FC_crest.svg.png", jogador: "Nabais", j: 38, v: 17, e: 9, d: 12, gm: 61, gs: 55, dg: 6, pts: 60, prevista: 10, form: ["W", "L", "W", "D", "D"], zone: "europe" },
+            { pos: 5, inf: "--", equipa: "Celtic", logo: "assets/logos/escocia/Celtic_FC_logo.png", jogador: null, j: 38, v: 17, e: 8, d: 13, gm: 70, gs: 47, dg: 23, pts: 59, prevista: 1, form: ["W", "W", "L", "W", "D"], zone: "" },
+            { pos: 6, inf: "--", equipa: "St. Mirren", logo: "assets/logos/escocia/St_Mirren_FC_crest.svg.png", jogador: null, j: 38, v: 15, e: 10, d: 13, gm: 52, gs: 53, dg: -1, pts: 55, prevista: 8, form: ["L", "D", "D", "L", "L"], zone: "" },
+            { pos: 7, inf: "--", equipa: "Hearts", logo: "assets/logos/escocia/Heart_of_Midlothian_FC_logo.png", jogador: "Cardoso", j: 38, v: 16, e: 7, d: 15, gm: 76, gs: 74, dg: 2, pts: 55, prevista: 3, form: ["L", "L", "L", "W", "W"], zone: "" },
+            { pos: 8, inf: "--", equipa: "Falkirk", logo: "assets/logos/escocia/Falkirk_FC_logo.png", jogador: "Hugo", j: 38, v: 14, e: 11, d: 13, gm: 65, gs: 62, dg: 3, pts: 53, prevista: 11, form: ["L", "D", "W", "W", "W"], zone: "" },
+            { pos: 9, inf: "--", equipa: "Kilmarnock", logo: "assets/logos/escocia/KilmarnockLogo.png", jogador: "Chico", j: 38, v: 14, e: 7, d: 17, gm: 51, gs: 64, dg: -13, pts: 49, prevista: 9, form: ["W", "D", "W", "W", "L"], zone: "" },
+            { pos: 10, inf: "--", equipa: "Dundee Utd", logo: "assets/logos/escocia/Dundee_United_FC_logo.png", jogador: "Gamy", j: 38, v: 14, e: 6, d: 18, gm: 60, gs: 71, dg: -11, pts: 48, prevista: 7, form: ["W", "W", "L", "L", "W"], zone: "" },
+            { pos: 11, inf: "PI", equipa: "Motherwell", logo: "assets/logos/escocia/Motherwell_FC_crest.svg.png", jogador: null, j: 38, v: 4, e: 8, d: 26, gm: 30, gs: 80, dg: -50, pts: 20, prevista: 5, form: ["W", "W", "W", "L", "L"], zone: "playoff" },
+            { pos: 12, inf: "D", equipa: "Livingston", logo: "assets/logos/escocia/Livingston_FC_club_badge_new.png", jogador: "Painatal", j: 38, v: 4, e: 5, d: 29, gm: 41, gs: 101, dg: -60, pts: 17, prevista: 12, form: ["L", "L", "L", "L", "L"], zone: "relegated" }
+        ].map((entry) => {
+            let emgEntry = scotlandSeasonScores.find((score) => score.equipa === entry.equipa);
+            return { ...entry, emgPontos: emgEntry ? emgEntry.pontos : null };
+        })
+    }
+];
 
-    return {
-        ...entry,
-        emgPontos: emgEntry ? emgEntry.pontos : null
-    };
-});
-
-const generalScores = scotlandSeasonScores
-    .map((entry) => ({ jogador: entry.jogador, pontos: entry.pontos }))
+const generalScores = leagues
+    .flatMap((league) => league.scores)
+    .reduce((acc, entry) => {
+        let existing = acc.find((e) => e.jogador === entry.jogador);
+        if (existing) {
+            existing.pontos += entry.pontos;
+        } else {
+            acc.push({ jogador: entry.jogador, pontos: entry.pontos });
+        }
+        return acc;
+    }, [])
     .sort((a, b) => b.pontos - a.pontos || a.jogador.localeCompare(b.jogador));
 
 let shuffledTeams = [];
@@ -227,31 +244,24 @@ function renderGeneralTable() {
     });
 }
 
-function renderScotlandTable() {
-    let scotlandTable = document.getElementById("scotlandTable");
+function renderLeagueSelector() {
+    let select = document.getElementById("leagueSelect");
+    select.innerHTML = "";
+    leagues.forEach((league) => {
+        let option = document.createElement("option");
+        option.value = league.id;
+        option.textContent = league.nome;
+        select.appendChild(option);
+    });
+    renderLeague(leagues[0].id);
+}
 
-    scotlandTable.innerHTML = `
-        <div class="scotland-row header">
-            <div>Pos</div>
-            <div>Inf</div>
-            <div>Equipa</div>
-            <div>Jogador</div>
-            <div>J</div>
-            <div>V</div>
-            <div>E</div>
-            <div>D</div>
-            <div>GM</div>
-            <div>GS</div>
-            <div>DG</div>
-            <div>Pts</div>
-            <div>Prev.</div>
-            <div>EMG</div>
-        </div>
-    `;
+function renderLeague(leagueId) {
+    let league = leagues.find((l) => l.id === leagueId);
+    let panel = document.getElementById("leaguePanel");
 
-    scotlandLeagueTable.forEach((entry) => {
-        let row = document.createElement("div");
-        row.className = `scotland-row ${entry.zone ? `zone-${entry.zone}` : ""}`.trim();
+    let rows = "";
+    league.tabela.forEach((entry) => {
         let playerMarkup = entry.jogador
             ? `<div class="scotland-player">${entry.jogador}</div>`
             : `<div class="scotland-player empty">PC</div>`;
@@ -259,30 +269,68 @@ function renderScotlandTable() {
             ? `<div class="scotland-points neutral">--</div>`
             : `<div class="scotland-points ${getPointsClass(entry.emgPontos)}">${formatPoints(entry.emgPontos)}</div>`;
 
-        row.innerHTML = `
-            <div class="scotland-cell-center scotland-pos">${entry.pos}</div>
-            <div class="scotland-cell-center scotland-inf">${entry.inf}</div>
-            <div class="scotland-team">
-                <img class="scotland-team-logo" src="${entry.logo}" alt="${entry.equipa}">
-                <div class="scotland-team-stack">
-                    <span class="scotland-team-name">${entry.equipa}</span>
-                    <span class="scotland-team-sub">Classificação Final</span>
+        rows += `
+            <div class="scotland-row ${entry.zone ? `zone-${entry.zone}` : ""}">
+                <div class="scotland-cell-center scotland-pos">${entry.pos}</div>
+                <div class="scotland-cell-center scotland-inf">${entry.inf}</div>
+                <div class="scotland-team">
+                    <img class="scotland-team-logo" src="${entry.logo}" alt="${entry.equipa}">
+                    <div class="scotland-team-stack">
+                        <span class="scotland-team-name">${entry.equipa}</span>
+                        <span class="scotland-team-sub">Classificação Final</span>
+                    </div>
                 </div>
+                ${playerMarkup}
+                <div class="scotland-cell-center">${entry.j}</div>
+                <div class="scotland-cell-center">${entry.v}</div>
+                <div class="scotland-cell-center">${entry.e}</div>
+                <div class="scotland-cell-center">${entry.d}</div>
+                <div class="scotland-cell-center">${entry.gm}</div>
+                <div class="scotland-cell-center">${entry.gs}</div>
+                <div class="scotland-cell-center">${entry.dg}</div>
+                <div class="scotland-cell-center">${entry.pts}</div>
+                <div class="scotland-cell-center">${entry.prevista}</div>
+                ${emgMarkup}
             </div>
-            ${playerMarkup}
-            <div class="scotland-cell-center">${entry.j}</div>
-            <div class="scotland-cell-center">${entry.v}</div>
-            <div class="scotland-cell-center">${entry.e}</div>
-            <div class="scotland-cell-center">${entry.d}</div>
-            <div class="scotland-cell-center">${entry.gm}</div>
-            <div class="scotland-cell-center">${entry.gs}</div>
-            <div class="scotland-cell-center">${entry.dg}</div>
-            <div class="scotland-cell-center">${entry.pts}</div>
-            <div class="scotland-cell-center">${entry.prevista}</div>
-            ${emgMarkup}
         `;
-        scotlandTable.appendChild(row);
     });
+
+    panel.innerHTML = `
+        <div class="panel-head">
+            <div>
+                <h2 class="panel-title">${league.nome}</h2>
+                <p class="panel-copy">${league.descricao}</p>
+            </div>
+        </div>
+        <div class="league-toolbar">
+            <div class="league-chip">
+                <img class="league-chip-logo" src="${league.logo}" alt="${league.logoAlt}">
+            </div>
+            <div class="league-chip muted">${league.epoca}</div>
+            <div class="league-chip muted">Fórmula: ${league.formula}</div>
+        </div>
+        <div class="league-table-wrap">
+            <div class="scotland-standings">
+                <div class="scotland-row header">
+                    <div>Pos</div>
+                    <div>Inf</div>
+                    <div>Equipa</div>
+                    <div>Jogador</div>
+                    <div>J</div>
+                    <div>V</div>
+                    <div>E</div>
+                    <div>D</div>
+                    <div>GM</div>
+                    <div>GS</div>
+                    <div>DG</div>
+                    <div>Pts</div>
+                    <div>Prev.</div>
+                    <div>EMG</div>
+                </div>
+                ${rows}
+            </div>
+        </div>
+    `;
 }
 
 function start() {
@@ -504,4 +552,4 @@ function showResults() {
 }
 
 renderGeneralTable();
-renderScotlandTable();
+renderLeagueSelector();

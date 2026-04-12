@@ -85,35 +85,11 @@
                 </div>
             </div>
 
-            <div class="league-grid">
-                <article class="league-card">
-                    <h3>Liga Escocesa</h3>
-                    <p>Primeira liga registada na época EMG.</p>
-                    <p><strong>Fórmula:</strong> (prevista - final) x 3</p>
-                </article>
-                <article class="league-card">
-                    <h3>Próxima Liga</h3>
-                    <p>Reserva este espaco para a próxima competição que forem adicionar ao site.</p>
-                </article>
+            <div class="league-selector">
+                <select class="league-select" id="leagueSelect" onchange="renderLeague(this.value)"></select>
             </div>
 
-            <div class="league-panel">
-                <div class="panel-head">
-                    <div>
-                        <h2 class="panel-title">Liga Escocesa</h2>
-                        <p class="panel-copy">Classificacao final completa da Premiership, com dados da liga, jogador EMG associado e pontos pela formula da epoca.</p>
-                    </div>
-                </div>
-                <div class="league-toolbar">
-                    <div class="league-chip">
-                        <img class="league-chip-logo" src="assets/logos/escocia/SPFL_logo,_William_Hill.png" alt="William Hill Premiership">
-                    </div>
-                    <div class="league-chip muted">Epoca 24/25</div>
-                </div>
-                <div class="league-table-wrap">
-                    <div class="scotland-standings" id="scotlandTable"></div>
-                </div>
-            </div>
+            <div class="league-panel" id="leaguePanel"></div>
         </div>
     </section>
 </div>
