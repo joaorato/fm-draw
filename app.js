@@ -605,6 +605,8 @@ function start() {
     document.getElementById("current").innerHTML = "";
     document.getElementById("table").innerHTML = "";
 
+    showRemainingSidebars(true);
+    updateRemainingSidebars();
     startTeamRoulette();
 }
 
@@ -648,6 +650,31 @@ function spinRoulette(parent, items, targetIndex, itemWidth, spinLoops, renderIt
     });
 }
 
+function updateRemainingSidebars() {
+    let teamsEl = document.getElementById("remainingTeams");
+    let playersEl = document.getElementById("remainingPlayers");
+
+    let remainingTeamNames = remainingTeams.map((t) => t.nome);
+    let remainingPlayerNames = [...remainingPlayers];
+
+    teamsEl.innerHTML = `<div class="remaining-title">Equipas</div>` +
+        [...equipas].sort((a, b) => a.rank - b.rank).map((team) => {
+            let used = !remainingTeamNames.includes(team.nome);
+            return `<div class="remaining-chip${used ? " used" : ""}"><img class="remaining-chip-logo" src="${team.img}" alt="${team.nome}"><span>${team.nome}</span></div>`;
+        }).join("");
+
+    playersEl.innerHTML = `<div class="remaining-title">Jogadores</div>` +
+        jogadores.map((player) => {
+            let used = !remainingPlayerNames.includes(player);
+            return `<div class="remaining-chip${used ? " used" : ""}">${player}</div>`;
+        }).join("");
+}
+
+function showRemainingSidebars(visible) {
+    document.getElementById("remainingTeams").classList.toggle("active", visible);
+    document.getElementById("remainingPlayers").classList.toggle("active", visible);
+}
+
 function startTeamRoulette() {
     let current = document.getElementById("current");
     current.innerHTML = "";
@@ -669,7 +696,11 @@ function startTeamRoulette() {
         image.alt = team.nome;
         item.appendChild(image);
         return item;
-    }, () => onTeamLanded(targetTeam));
+    }, () => {
+        remainingTeams = remainingTeams.filter((item) => item.nome !== targetTeam.nome);
+        updateRemainingSidebars();
+        onTeamLanded(targetTeam);
+    });
 }
 
 function onTeamLanded(team) {
@@ -734,9 +765,9 @@ function onPlayerLanded(team, player) {
         img: team.img
     });
 
-    remainingTeams = remainingTeams.filter((item) => item.nome !== team.nome);
     remainingPlayers = remainingPlayers.filter((item) => item !== player);
     currentRound++;
+    updateRemainingSidebars();
 
     let button = document.createElement("button");
     button.className = "action-btn";
@@ -767,6 +798,7 @@ function onPlayerLanded(team, player) {
 }
 
 function showResults() {
+    showRemainingSidebars(false);
     let current = document.getElementById("current");
     let table = document.getElementById("table");
 

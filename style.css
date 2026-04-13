@@ -409,6 +409,7 @@ body::after {
 
 #drawView .page-panel {
     margin-top: 32px;
+    max-width: 1000px;
 }
 
 .panel-head {
@@ -1026,6 +1027,70 @@ button:disabled {
     font-size: 14px;
     letter-spacing: 3px;
     text-transform: uppercase;
+}
+
+.remaining-sidebar {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(112, 206, 255, 0.12);
+    background: linear-gradient(180deg, rgba(7, 20, 84, 0.6), rgba(4, 12, 44, 0.8));
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.remaining-sidebar.active {
+    display: flex;
+}
+
+.remaining-sidebar.left {
+    left: 16px;
+}
+
+.remaining-sidebar.right {
+    right: 16px;
+}
+
+.remaining-title {
+    margin-bottom: 6px;
+    color: rgba(233, 241, 255, 0.5);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.remaining-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(112, 206, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--muted);
+    font-size: 14px;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+}
+
+.remaining-chip.used {
+    opacity: 0.25;
+    text-decoration: line-through;
+}
+
+.remaining-chip-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
 .roulette-container {
