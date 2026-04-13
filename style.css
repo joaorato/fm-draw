@@ -970,6 +970,27 @@ button:disabled {
     display: block;
 }
 
+.draw-league-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 4px 0 0;
+}
+
+.draw-league-logo {
+    width: 160px;
+    height: auto;
+    object-fit: contain;
+}
+
+.draw-league-name {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--muted);
+}
+
 .draw-actions {
     display: flex;
     justify-content: center;
