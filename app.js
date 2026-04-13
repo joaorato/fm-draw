@@ -20,7 +20,11 @@ const coachProfiles = [
         tag: "Perigoso com equipas médias, ainda mais perigoso quando o subestimam.",
         descricao: "Rato tem aquele perfil de manager que cresce com o contexto competitivo. Gosta do desafio, aceita o caos e costuma sacar campanhas acima do que a previsão prometia.",
         destaque: "Especialista em superar expectativas.",
-        foto: "assets/Treinadores/Rato/Rato1.png"
+        foto: "assets/Treinadores/Rato/Rato1.png",
+        fotos: [
+            "assets/Treinadores/Rato/Rato1.png",
+            "assets/Treinadores/Rato/Rato2.png"
+        ]
     },
     {
         id: "chico",
@@ -443,8 +447,16 @@ window.addEventListener("popstate", () => setActiveTab(getTabFromHash(), false))
 
 function getCoachMarkup(coach) {
     let initials = coach.nome.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
-    let media = coach.foto
-        ? `<img src="${coach.foto}" alt="${coach.nome}" class="coach-card-photo">`
+    let images = Array.isArray(coach.fotos) && coach.fotos.length ? coach.fotos : (coach.foto ? [coach.foto] : []);
+    let media = images.length
+        ? `
+            <div class="coach-card-gallery" data-photo-count="${images.length}" data-photo-index="0">
+                <img src="${images[0]}" alt="${coach.nome}" class="coach-card-photo coach-card-photo-main">
+                ${images.length > 1 ? `
+                    <button class="coach-card-next" type="button" aria-label="Trocar foto de ${coach.nome}">›</button>
+                ` : ""}
+            </div>
+        `
         : `<div class="coach-card-placeholder">${initials}</div>`;
 
     return `
@@ -642,14 +654,41 @@ function setupCoachRailDrag() {
     rail.dataset.dragBound = "true";
 }
 
+function setupCoachPhotoSwitches() {
+    document.querySelectorAll(".coach-card-gallery").forEach((gallery) => {
+        if (gallery.dataset.bound === "true") return;
+
+        let card = gallery.closest(".coach-card");
+        let coach = getCoachById(card?.dataset.coachId || "");
+        let images = Array.isArray(coach.fotos) && coach.fotos.length ? coach.fotos : (coach.foto ? [coach.foto] : []);
+        let trigger = gallery.querySelector(".coach-card-next");
+        let image = gallery.querySelector(".coach-card-photo-main");
+
+        if (!trigger || !image || images.length <= 1) {
+            gallery.dataset.bound = "true";
+            return;
+        }
+
+        trigger.addEventListener("click", (event) => {
+            event.stopPropagation();
+            let currentIndex = Number(gallery.dataset.photoIndex || 0);
+            let nextIndex = (currentIndex + 1) % images.length;
+            gallery.dataset.photoIndex = String(nextIndex);
+            image.src = images[nextIndex];
+        });
+
+        gallery.dataset.bound = "true";
+    });
+}
+
 function renderCoachCards() {
     let rail = document.getElementById("coachesRail");
     if (!rail) return;
 
     rail.innerHTML = coachProfiles.map((coach) => `
-        <button class="coach-card" type="button" data-coach-id="${coach.id}" aria-pressed="false">
+        <div class="coach-card" role="button" tabindex="0" data-coach-id="${coach.id}" aria-pressed="false">
             ${getCoachMarkup(coach)}
-        </button>
+        </div>
     `).join("");
 
     rail.querySelectorAll(".coach-card").forEach((card) => {
@@ -657,10 +696,17 @@ function renderCoachCards() {
             if (rail.dataset.dragging === "true") return;
             openCoachModal(card.dataset.coachId);
         });
+        card.addEventListener("keydown", (event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            if (rail.dataset.dragging === "true") return;
+            openCoachModal(card.dataset.coachId);
+        });
     });
 
     setupCoachRailDrag();
     setupCoachModal();
+    setupCoachPhotoSwitches();
     selectCoach(selectedCoachId, false);
 }
 

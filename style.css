@@ -419,15 +419,13 @@ body::after {
 .coach-card {
     position: relative;
     flex: 0 0 322px;
-    min-height: 468px;
+    min-height: 508px;
     padding: 14px 14px 18px;
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto;
     gap: 14px;
     text-align: center;
     color: inherit;
-    font: inherit;
-    appearance: none;
     border-radius: 18px;
     border: 1px solid rgba(112, 208, 255, 0.12);
     background:
@@ -439,6 +437,15 @@ body::after {
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease, opacity 0.28s ease;
+}
+
+.coach-card:focus-visible {
+    outline: none;
+    border-color: rgba(145, 225, 255, 0.32);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 18px 34px rgba(0, 0, 0, 0.22),
+        0 0 24px rgba(84, 182, 255, 0.14);
 }
 
 .coach-card:hover,
@@ -471,7 +478,7 @@ body::after {
 
 .coach-card-media {
     position: relative;
-    min-height: 390px;
+    min-height: 430px;
     border-radius: 14px;
     border: 1px solid rgba(112, 208, 255, 0.14);
     background:
@@ -486,6 +493,11 @@ body::after {
         inset 0 -84px 120px rgba(1, 6, 26, 0.42);
 }
 
+.coach-card-gallery {
+    position: absolute;
+    inset: 0;
+}
+
 .coach-card-media::after {
     content: "";
     position: absolute;
@@ -493,6 +505,33 @@ body::after {
     height: 36%;
     background: linear-gradient(180deg, rgba(1, 5, 19, 0), rgba(1, 5, 19, 0.82));
     pointer-events: none;
+}
+
+.coach-card-next {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    z-index: 2;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.16);
+    background: rgba(3, 10, 30, 0.34);
+    color: #f3f8ff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transform: translateY(-50%);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.coach-card-next:hover {
+    background: rgba(16, 38, 108, 0.5);
+    border-color: rgba(145, 225, 255, 0.3);
+    transform: translateY(-50%) scale(1.06);
 }
 
 .coach-card-content {
@@ -2037,7 +2076,7 @@ button:disabled {
     .coach-drag-note { width: min(100%, calc(100vw - 36px)); }
     .coaches-rail { padding-inline: 18px; }
     .coach-card { flex-basis: 290px; min-height: 430px; }
-    .coach-card-media { min-height: 356px; }
+    .coach-card-media { min-height: 386px; }
     .coach-modal-dialog { grid-template-columns: 1fr; width: min(860px, calc(100vw - 36px)); }
     .coach-modal-media { min-height: 340px; }
 }
@@ -2067,8 +2106,8 @@ button:disabled {
     .coaches-head { margin-bottom: 18px; }
     .coaches-stage { gap: 18px; }
     .coach-drag-note { justify-self: start; margin-top: -2px; }
-    .coach-card { flex-basis: 236px; min-height: 372px; padding: 10px 10px 14px; border-radius: 16px; }
-    .coach-card-media { min-height: 304px; border-radius: 12px; }
+    .coach-card { flex-basis: 236px; min-height: 404px; padding: 10px 10px 14px; border-radius: 16px; }
+    .coach-card-media { min-height: 334px; border-radius: 12px; }
     .coach-card-placeholder { width: 68%; border-radius: 22px; }
     .coach-card-name { font-size: 16px; }
     .coaches-rail { gap: 14px; padding-inline: 14px; }
