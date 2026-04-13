@@ -25,6 +25,7 @@
                 <img src="assets/logos/ligas/LigaEMG.png" alt="Liga EMG">
             </button>
             <button class="nav-btn" id="drawTabBtn" onclick="setActiveTab('draw')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Sorteio</button>
+            <button class="nav-btn" id="coachesTabBtn" onclick="setActiveTab('coaches')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Treinadores</button>
             <button class="nav-btn" id="generalTabBtn" onclick="setActiveTab('general')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Classificação Geral</button>
             <button class="nav-btn" id="pastTabBtn" onclick="setActiveTab('past')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Ligas Passadas</button>
         </div>
@@ -87,6 +88,42 @@
 
             <div class="current" id="current"></div>
             <div class="table" id="table"></div>
+        </div>
+    </section>
+
+    <section class="view" id="coachesView">
+        <div class="coaches-panel">
+            <div class="coaches-intro">
+                <div class="panel-head coaches-head">
+                    <div>
+                        <h2 class="panel-title">Treinadores</h2>
+                        <p class="panel-copy">Um roster mais à EMG: arrasta os cards, escolhe o teu manager favorito e abre a ficha de apresentação de cada um.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="coaches-stage">
+                <div class="coach-drag-note">Click & drag para navegar pelos treinadores</div>
+                <div class="coaches-rail-shell">
+                    <div class="coaches-rail" id="coachesRail" aria-label="Cards dos treinadores"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="coach-modal" id="coachModal" hidden>
+            <div class="coach-modal-backdrop" id="coachModalBackdrop"></div>
+            <div class="coach-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="coachModalName">
+                <button class="coach-modal-close" id="coachModalClose" type="button" aria-label="Fechar apresentação">×</button>
+                <div class="coach-modal-media" id="coachModalMedia"></div>
+                <div class="coach-modal-content">
+                    <div class="coach-modal-kicker">Apresentação</div>
+                    <h3 class="coach-modal-name" id="coachModalName"></h3>
+                    <div class="coach-modal-role" id="coachModalRole"></div>
+                    <p class="coach-modal-tag" id="coachModalTag"></p>
+                    <p class="coach-modal-description" id="coachModalDescription"></p>
+                    <div class="coach-modal-highlight" id="coachModalHighlight"></div>
+                </div>
+            </div>
         </div>
     </section>
 

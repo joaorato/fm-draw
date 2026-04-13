@@ -37,6 +37,10 @@ body {
     overflow-x: hidden;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 body::before {
     content: "";
     position: fixed;
@@ -136,7 +140,7 @@ body::after {
 
 .nav-btn {
     position: relative;
-    min-width: 290px;
+    min-width: clamp(210px, 16vw, 290px);
     padding: 20px 40px 18px;
     border: 1px solid rgba(112, 206, 255, 0.5);
     background:
@@ -320,6 +324,311 @@ body::after {
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.coaches-panel {
+    position: relative;
+    width: 100%;
+    margin-top: 34px;
+    overflow: visible;
+}
+
+.coaches-intro {
+    width: min(1180px, calc(100vw - 64px));
+    margin: 0 auto;
+    padding: 0 4px;
+}
+
+.coaches-head {
+    margin-bottom: 22px;
+}
+
+.coaches-stage {
+    display: grid;
+    gap: 18px;
+    width: 100%;
+}
+
+.coach-card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.coach-card-placeholder {
+    width: 76%;
+    aspect-ratio: 1;
+    border-radius: 32px;
+    display: grid;
+    place-items: center;
+    font-family: "Michroma", sans-serif;
+    font-size: clamp(44px, 6vw, 78px);
+    letter-spacing: 3px;
+    color: #f5fbff;
+    background:
+        linear-gradient(145deg, rgba(99, 219, 255, 0.22), rgba(26, 68, 208, 0.12)),
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border: 1px solid rgba(130, 222, 255, 0.24);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 0 26px rgba(91, 200, 255, 0.16);
+}
+
+.coach-drag-note {
+    width: min(1180px, calc(100vw - 64px));
+    margin: 0 auto;
+    justify-self: end;
+    margin-top: -2px;
+    color: rgba(207, 229, 255, 0.54);
+    font-size: 12px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+}
+
+.coaches-rail-shell {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+}
+
+.coaches-rail {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    align-items: flex-start;
+    width: 100%;
+    padding: 10px max(32px, calc((100vw - 1460px) / 2 + 32px)) 24px;
+    scroll-snap-type: none;
+    scrollbar-width: none;
+    cursor: grab;
+    user-select: none;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: auto;
+    touch-action: pan-y;
+}
+
+.coaches-rail::-webkit-scrollbar {
+    display: none;
+}
+
+.coaches-rail.is-dragging {
+    cursor: grabbing;
+}
+
+.coach-card {
+    position: relative;
+    flex: 0 0 322px;
+    min-height: 468px;
+    padding: 14px 14px 18px;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 14px;
+    text-align: center;
+    color: inherit;
+    font: inherit;
+    appearance: none;
+    border-radius: 18px;
+    border: 1px solid rgba(112, 208, 255, 0.12);
+    background:
+        linear-gradient(180deg, rgba(11, 27, 98, 0.14), rgba(4, 12, 44, 0.2)),
+        radial-gradient(circle at 50% 12%, rgba(99, 219, 255, 0.05), transparent 54%);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.04),
+        0 12px 22px rgba(0, 0, 0, 0.14);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease, opacity 0.28s ease;
+}
+
+.coach-card:hover,
+.coach-card.active {
+    transform: translateY(-6px);
+    border-color: rgba(145, 225, 255, 0.24);
+    background:
+        linear-gradient(180deg, rgba(18, 44, 144, 0.18), rgba(5, 14, 50, 0.24)),
+        radial-gradient(circle at 50% 10%, rgba(99, 219, 255, 0.12), transparent 56%);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 18px 34px rgba(0, 0, 0, 0.22),
+        0 0 22px rgba(84, 182, 255, 0.08);
+}
+
+.coaches-rail:hover .coach-card:not(:hover):not(.active) {
+    opacity: 0.88;
+}
+
+.coach-card-glow {
+    position: absolute;
+    inset: auto 36px -42px;
+    height: 96px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 219, 255, 0.16), rgba(99, 219, 255, 0));
+    filter: blur(16px);
+    opacity: 0.36;
+    pointer-events: none;
+}
+
+.coach-card-media {
+    position: relative;
+    min-height: 390px;
+    border-radius: 14px;
+    border: 1px solid rgba(112, 208, 255, 0.14);
+    background:
+        linear-gradient(180deg, rgba(16, 36, 126, 0.28), rgba(5, 14, 48, 0.42)),
+        radial-gradient(circle at top, rgba(93, 212, 255, 0.12), transparent 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 -84px 120px rgba(1, 6, 26, 0.42);
+}
+
+.coach-card-media::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 36%;
+    background: linear-gradient(180deg, rgba(1, 5, 19, 0), rgba(1, 5, 19, 0.82));
+    pointer-events: none;
+}
+
+.coach-card-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    justify-items: center;
+    gap: 0;
+}
+
+.coach-card-name {
+    font-family: "Michroma", sans-serif;
+    font-size: 18px;
+    line-height: 1.18;
+    color: #f7fbff;
+    text-transform: none;
+    letter-spacing: 0.4px;
+    text-shadow:
+        0 0 12px rgba(99, 219, 255, 0.08),
+        0 0 22px rgba(255,255,255,0.03);
+}
+
+.coach-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+}
+
+.coach-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(1, 5, 19, 0.72);
+    backdrop-filter: blur(10px);
+}
+
+.coach-modal-dialog {
+    position: relative;
+    width: min(1040px, calc(100vw - 40px));
+    margin: min(8vh, 72px) auto 0;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+    gap: 26px;
+    border-radius: 24px;
+    border: 1px solid rgba(112, 208, 255, 0.16);
+    background:
+        linear-gradient(135deg, rgba(9, 24, 92, 0.88), rgba(4, 12, 46, 0.94)),
+        radial-gradient(circle at 18% 18%, rgba(108, 217, 255, 0.1), transparent 34%),
+        radial-gradient(circle at 78% 24%, rgba(72, 128, 255, 0.12), transparent 40%);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 0 44px rgba(82, 165, 255, 0.08),
+        0 24px 46px rgba(0, 0, 0, 0.34);
+}
+
+.coach-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid rgba(112, 208, 255, 0.16);
+    background: rgba(255,255,255,0.04);
+    color: #eaf6ff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.coach-modal-media {
+    min-height: 420px;
+    border-radius: 18px;
+    border: 1px solid rgba(112, 208, 255, 0.14);
+    background:
+        linear-gradient(180deg, rgba(16, 36, 126, 0.36), rgba(5, 14, 48, 0.54)),
+        radial-gradient(circle at top, rgba(93, 212, 255, 0.12), transparent 50%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 -84px 120px rgba(1, 6, 26, 0.42);
+}
+
+.coach-modal-content {
+    display: grid;
+    align-content: center;
+    gap: 14px;
+}
+
+.coach-modal-kicker {
+    color: rgba(196, 231, 255, 0.62);
+    font-size: 12px;
+    letter-spacing: 2.6px;
+    text-transform: uppercase;
+}
+
+.coach-modal-name {
+    margin: 0;
+    font-family: "Michroma", sans-serif;
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.06;
+    color: #f5fbff;
+    text-transform: uppercase;
+    text-shadow:
+        0 0 16px rgba(99, 219, 255, 0.16),
+        0 0 34px rgba(255,255,255,0.04);
+}
+
+.coach-modal-role {
+    color: var(--gold);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.coach-modal-tag,
+.coach-modal-description {
+    margin: 0;
+    color: rgba(233, 242, 255, 0.84);
+    font-size: 16px;
+    line-height: 1.72;
+}
+
+.coach-modal-highlight {
+    width: fit-content;
+    max-width: 100%;
+    padding: 12px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(112, 208, 255, 0.18);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    color: #dff3ff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
 }
 
 .hero-shell {
@@ -1723,6 +2032,14 @@ button:disabled {
     .nav-btn { min-width: 0; width: 100%; }
     .hero { min-height: calc(100vh - 150px); }
     .page-panel, .score-panel, .league-panel { width: min(100%, calc(100vw - 36px)); margin-top: 34px; }
+    .coaches-panel { margin-top: 34px; }
+    .coaches-intro,
+    .coach-drag-note { width: min(100%, calc(100vw - 36px)); }
+    .coaches-rail { padding-inline: 18px; }
+    .coach-card { flex-basis: 290px; min-height: 430px; }
+    .coach-card-media { min-height: 356px; }
+    .coach-modal-dialog { grid-template-columns: 1fr; width: min(860px, calc(100vw - 36px)); }
+    .coach-modal-media { min-height: 340px; }
 }
 
 @media (max-width: 760px) {
@@ -1744,6 +2061,24 @@ button:disabled {
     .social-btn { width: 74px; height: 74px; padding: 9px; border-radius: 20px; }
     .nav-logo-btn { width: 126px; }
     .nav-logo-btn img { width: 118px; }
+    .coaches-panel { margin-top: 24px; }
+    .coaches-intro,
+    .coach-drag-note { width: min(100%, calc(100vw - 28px)); }
+    .coaches-head { margin-bottom: 18px; }
+    .coaches-stage { gap: 18px; }
+    .coach-drag-note { justify-self: start; margin-top: -2px; }
+    .coach-card { flex-basis: 236px; min-height: 372px; padding: 10px 10px 14px; border-radius: 16px; }
+    .coach-card-media { min-height: 304px; border-radius: 12px; }
+    .coach-card-placeholder { width: 68%; border-radius: 22px; }
+    .coach-card-name { font-size: 16px; }
+    .coaches-rail { gap: 14px; padding-inline: 14px; }
+    .coach-modal-dialog { width: min(100vw - 24px, 100%); margin-top: 18px; padding: 18px; gap: 18px; }
+    .coach-modal-media { min-height: 260px; }
+    .coach-modal-name { font-size: clamp(22px, 7vw, 30px); }
+    .coach-modal-role { font-size: 16px; }
+    .coach-modal-tag,
+    .coach-modal-description { font-size: 14px; line-height: 1.64; }
+    .coach-modal-highlight { font-size: 12px; }
     .final-reveal { padding: 24px 18px 20px; }
     .final-logo-wrap { width: 200px; height: 200px; }
     .final-logo-wrap img { width: 156px; height: 156px; }

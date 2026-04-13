@@ -3,6 +3,81 @@
     "Gamy", "Painatal", "Cardoso", "Hugo"
 ];
 
+const coachProfiles = [
+    {
+        id: "goncalo",
+        nome: "Gonçalo",
+        cargo: "O estratega metódico",
+        tag: "Táctica, disciplina e aquela aura de quem já abriu três separadores de scouting antes do save começar.",
+        descricao: "Gonçalo entra em cada época com ar de quem já tem o plano A, B e C preparados. Quando o caos começa, é um dos que mais rapidamente transforma pressão em organização.",
+        destaque: "Joga melhor quando o save começa a ficar sério.",
+        foto: ""
+    },
+    {
+        id: "rato",
+        nome: "Rato",
+        cargo: "O underdog killer",
+        tag: "Perigoso com equipas médias, ainda mais perigoso quando o subestimam.",
+        descricao: "Rato tem aquele perfil de manager que cresce com o contexto competitivo. Gosta do desafio, aceita o caos e costuma sacar campanhas acima do que a previsão prometia.",
+        destaque: "Especialista em superar expectativas.",
+        foto: "assets/Treinadores/Rato/Rato1.png"
+    },
+    {
+        id: "chico",
+        nome: "Chico",
+        cargo: "O gestor cerebral",
+        tag: "Menos barulho, mais controlo. Vai somando pontos enquanto os outros ainda estão a discutir scouting.",
+        descricao: "Chico é o tipo de treinador que parece tranquilo, mas por baixo está a otimizar tudo. Não precisa de grandes foguetes para se manter competitivo e consistente.",
+        destaque: "Consistência e cabeça fria nas decisões.",
+        foto: ""
+    },
+    {
+        id: "nabais",
+        nome: "Nabais",
+        cargo: "O caos criativo",
+        tag: "Energia de wildcard puro, mas com talento suficiente para transformar caos em espetáculo.",
+        descricao: "Nabais vive melhor quando o save deixa margem para improviso. É imprevisível, divertido e perigoso precisamente porque nunca parece jogar da forma mais óbvia.",
+        destaque: "O manager que pode partir o guião da época.",
+        foto: ""
+    },
+    {
+        id: "gamy",
+        nome: "Gamy",
+        cargo: "O provocador oficial",
+        tag: "Traz confiança, trash talk e vontade real de transformar qualquer sorteio numa storyline.",
+        descricao: "Gamy joga tanto o save como a narrativa à volta dele. Quando começa a ganhar embalo, é dos treinadores que melhor sabe capitalizar momentum e mexer com o grupo.",
+        destaque: "Quando aquece, toda a liga sente.",
+        foto: ""
+    },
+    {
+        id: "painatal",
+        nome: "Painatal",
+        cargo: "O sobrevivente teimoso",
+        tag: "Pode sofrer, pode ranger, mas nunca sai de cena sem luta.",
+        descricao: "Painatal tem aquele perfil resiliente que encaixa muito bem em ligas longas. Mesmo quando a tabela aperta, raramente deixa de procurar uma forma de virar a narrativa.",
+        destaque: "Mentalidade de resistência competitiva.",
+        foto: ""
+    },
+    {
+        id: "cardoso",
+        nome: "Cardoso",
+        cargo: "O técnico de detalhes",
+        tag: "Foco, leitura de jogo e gosto por controlar as pequenas margens.",
+        descricao: "Cardoso costuma destacar-se nas nuances: preparação, contexto e timing. Não precisa do save mais vistoso para ser dos mais difíceis de bater.",
+        destaque: "Pequenas decisões, grande impacto.",
+        foto: ""
+    },
+    {
+        id: "hugo",
+        nome: "Hugo",
+        cargo: "O acelerador da mesa",
+        tag: "Vai atrás da vantagem sem medo e adora meter intensidade competitiva em cima do save.",
+        descricao: "Hugo traz urgência e irreverência ao campeonato. É o tipo de manager que força a liga a reagir, porque raramente entra numa época para ser figurante.",
+        destaque: "Intensidade alta do início ao fim.",
+        foto: ""
+    }
+];
+
 const equipas = [
     { nome: "HNK Rijeka", img: "assets/logos/croacia/Rijeka.png", rank: 3 },
     { nome: "NK Osijek", img: "assets/logos/croacia/Osijek.png", rank: 4 },
@@ -123,6 +198,7 @@ let remainingTeams = [];
 let remainingPlayers = [];
 let currentRound = 0;
 let resultados = [];
+let selectedCoachId = coachProfiles[0].id;
 
 const TOTAL_ROUNDS = jogadores.length;
 const ITEM_WIDTH_TEAM = 126;
@@ -323,22 +399,25 @@ function toggleMute() {
     }
 }
 
-const TAB_HASHES = { home: "#home", draw: "#sorteio", general: "#classificacao", past: "#ligas" };
+const TAB_HASHES = { home: "#home", draw: "#sorteio", coaches: "#treinadores", general: "#classificacao", past: "#ligas" };
 const HASH_TO_TAB = Object.fromEntries(Object.entries(TAB_HASHES).map(([tab, hash]) => [hash, tab]));
 
 function setActiveTab(tab, pushState) {
     let isHome = tab === "home";
     let isDraw = tab === "draw";
+    let isCoaches = tab === "coaches";
     let isGeneral = tab === "general";
     let isPast = tab === "past";
 
     document.getElementById("homeView").classList.toggle("active", isHome);
     document.getElementById("drawView").classList.toggle("active", isDraw);
+    document.getElementById("coachesView").classList.toggle("active", isCoaches);
     document.getElementById("generalView").classList.toggle("active", isGeneral);
     document.getElementById("pastView").classList.toggle("active", isPast);
 
     document.getElementById("homeTabBtn").classList.toggle("active", isHome);
     document.getElementById("drawTabBtn").classList.toggle("active", isDraw);
+    document.getElementById("coachesTabBtn").classList.toggle("active", isCoaches);
     document.getElementById("generalTabBtn").classList.toggle("active", isGeneral);
     document.getElementById("pastTabBtn").classList.toggle("active", isPast);
 
@@ -361,6 +440,229 @@ function getTabFromHash() {
 }
 
 window.addEventListener("popstate", () => setActiveTab(getTabFromHash(), false));
+
+function getCoachMarkup(coach) {
+    let initials = coach.nome.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+    let media = coach.foto
+        ? `<img src="${coach.foto}" alt="${coach.nome}" class="coach-card-photo">`
+        : `<div class="coach-card-placeholder">${initials}</div>`;
+
+    return `
+        <div class="coach-card-glow"></div>
+        <div class="coach-card-media">${media}</div>
+        <div class="coach-card-content">
+            <div class="coach-card-name">${coach.nome}</div>
+        </div>
+    `;
+}
+
+function syncCoachCards() {
+    let rail = document.getElementById("coachesRail");
+    if (!rail) return;
+    rail.querySelectorAll(".coach-card").forEach((card) => {
+        let selected = card.dataset.coachId === selectedCoachId;
+        card.classList.toggle("active", selected);
+        card.setAttribute("aria-pressed", selected ? "true" : "false");
+    });
+}
+
+function selectCoach(id, shouldCenter = true) {
+    selectedCoachId = id;
+    syncCoachCards();
+
+    if (!shouldCenter) return;
+    let rail = document.getElementById("coachesRail");
+    let activeCard = rail ? rail.querySelector(`.coach-card[data-coach-id="${id}"]`) : null;
+    if (rail && activeCard) {
+        activeCard.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+}
+
+function getCoachById(id) {
+    return coachProfiles.find((entry) => entry.id === id) || coachProfiles[0];
+}
+
+function renderCoachModal(coach) {
+    let initials = coach.nome.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+    let media = coach.foto
+        ? `<img src="${coach.foto}" alt="${coach.nome}" class="coach-card-photo">`
+        : `<div class="coach-card-placeholder">${initials}</div>`;
+
+    document.getElementById("coachModalMedia").innerHTML = media;
+    document.getElementById("coachModalName").textContent = coach.nome;
+    document.getElementById("coachModalRole").textContent = coach.cargo;
+    document.getElementById("coachModalTag").textContent = coach.tag;
+    document.getElementById("coachModalDescription").textContent = coach.descricao;
+    document.getElementById("coachModalHighlight").textContent = coach.destaque;
+}
+
+function openCoachModal(id) {
+    let coach = getCoachById(id);
+    selectCoach(id);
+    renderCoachModal(coach);
+    document.getElementById("coachModal").hidden = false;
+    document.body.classList.add("modal-open");
+}
+
+function closeCoachModal() {
+    let modal = document.getElementById("coachModal");
+    if (!modal) return;
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+}
+
+function setupCoachModal() {
+    let modal = document.getElementById("coachModal");
+    let closeBtn = document.getElementById("coachModalClose");
+    let backdrop = document.getElementById("coachModalBackdrop");
+
+    if (!modal || modal.dataset.bound === "true") return;
+
+    closeBtn?.addEventListener("click", closeCoachModal);
+    backdrop?.addEventListener("click", closeCoachModal);
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !modal.hidden) {
+            closeCoachModal();
+        }
+    });
+
+    modal.dataset.bound = "true";
+}
+
+function setupCoachRailDrag() {
+    let rail = document.getElementById("coachesRail");
+    if (!rail || rail.dataset.dragBound === "true") return;
+
+    let isPointerDown = false;
+    let dragActive = false;
+    let axisLocked = false;
+    let dragAllowed = false;
+    let startX = 0;
+    let startY = 0;
+    let startScrollLeft = 0;
+    let lastX = 0;
+    let lastMoveTime = 0;
+    let velocity = 0;
+    let momentumFrame = null;
+
+    function stopMomentum() {
+        if (momentumFrame !== null) {
+            cancelAnimationFrame(momentumFrame);
+            momentumFrame = null;
+        }
+    }
+
+    function startMomentum() {
+        stopMomentum();
+        function step() {
+            velocity *= 0.94;
+            if (Math.abs(velocity) < 0.08) {
+                momentumFrame = null;
+                return;
+            }
+            rail.scrollLeft -= velocity * 18;
+            momentumFrame = requestAnimationFrame(step);
+        }
+        momentumFrame = requestAnimationFrame(step);
+    }
+
+    rail.addEventListener("pointerdown", (event) => {
+        if (event.button !== 0) return;
+        stopMomentum();
+        isPointerDown = true;
+        dragActive = false;
+        axisLocked = false;
+        dragAllowed = false;
+        startX = event.clientX;
+        startY = event.clientY;
+        startScrollLeft = rail.scrollLeft;
+        lastX = event.clientX;
+        lastMoveTime = performance.now();
+        velocity = 0;
+    });
+
+    rail.addEventListener("pointermove", (event) => {
+        if (!isPointerDown) return;
+        let delta = event.clientX - startX;
+        let deltaY = event.clientY - startY;
+        let now = performance.now();
+        let dt = Math.max(now - lastMoveTime, 1);
+
+        if (!axisLocked) {
+            if (Math.abs(delta) > 8 || Math.abs(deltaY) > 8) {
+                axisLocked = true;
+                dragAllowed = Math.abs(delta) > Math.abs(deltaY);
+                if (dragAllowed) {
+                    rail.classList.add("is-dragging");
+                    rail.setPointerCapture?.(event.pointerId);
+                }
+            }
+        }
+
+        if (!dragAllowed) {
+            if (axisLocked) {
+                isPointerDown = false;
+            }
+            return;
+        }
+
+        dragActive = true;
+        rail.scrollLeft = startScrollLeft - delta;
+        velocity = (event.clientX - lastX) / dt;
+        lastX = event.clientX;
+        lastMoveTime = now;
+    });
+
+    function stopDrag(event) {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+        rail.classList.remove("is-dragging");
+        if (dragAllowed) {
+            rail.releasePointerCapture?.(event.pointerId);
+        }
+        if (dragActive) {
+            startMomentum();
+        }
+        requestAnimationFrame(() => {
+            rail.dataset.dragging = dragActive ? "true" : "false";
+            setTimeout(() => {
+                rail.dataset.dragging = "false";
+            }, 0);
+        });
+    }
+
+    rail.addEventListener("pointerup", stopDrag);
+    rail.addEventListener("pointercancel", stopDrag);
+    rail.addEventListener("pointerleave", (event) => {
+        if (isPointerDown) {
+            stopDrag(event);
+        }
+    });
+
+    rail.dataset.dragBound = "true";
+}
+
+function renderCoachCards() {
+    let rail = document.getElementById("coachesRail");
+    if (!rail) return;
+
+    rail.innerHTML = coachProfiles.map((coach) => `
+        <button class="coach-card" type="button" data-coach-id="${coach.id}" aria-pressed="false">
+            ${getCoachMarkup(coach)}
+        </button>
+    `).join("");
+
+    rail.querySelectorAll(".coach-card").forEach((card) => {
+        card.addEventListener("click", () => {
+            if (rail.dataset.dragging === "true") return;
+            openCoachModal(card.dataset.coachId);
+        });
+    });
+
+    setupCoachRailDrag();
+    setupCoachModal();
+    selectCoach(selectedCoachId, false);
+}
 
 function setupFormulaPopover() {
     let button = document.getElementById("formulaTipBtn");
@@ -903,6 +1205,7 @@ async function capturePanel(panel) {
 
 renderGeneralTable();
 renderLeagueSelector();
+renderCoachCards();
 setupFormulaPopover();
 restoreMuteState();
 bindMusicRecovery();
