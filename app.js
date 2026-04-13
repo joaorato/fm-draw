@@ -228,7 +228,10 @@ function toggleMute() {
     btn.classList.toggle("is-muted", isMuted);
 }
 
-function setActiveTab(tab) {
+const TAB_HASHES = { home: "#home", draw: "#sorteio", general: "#classificacao", past: "#ligas" };
+const HASH_TO_TAB = Object.fromEntries(Object.entries(TAB_HASHES).map(([tab, hash]) => [hash, tab]));
+
+function setActiveTab(tab, pushState) {
     let isHome = tab === "home";
     let isDraw = tab === "draw";
     let isGeneral = tab === "general";
@@ -252,7 +255,17 @@ function setActiveTab(tab) {
     } else {
         music.pause();
     }
+
+    if (pushState !== false) {
+        history.pushState(null, "", TAB_HASHES[tab] || "#home");
+    }
 }
+
+function getTabFromHash() {
+    return HASH_TO_TAB[location.hash] || "home";
+}
+
+window.addEventListener("popstate", () => setActiveTab(getTabFromHash(), false));
 
 function setupFormulaPopover() {
     let button = document.getElementById("formulaTipBtn");
@@ -679,4 +692,5 @@ function showResults() {
 renderGeneralTable();
 renderLeagueSelector();
 setupFormulaPopover();
+setActiveTab(getTabFromHash());
 
