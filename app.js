@@ -542,7 +542,10 @@ function spinRoulette(parent, items, targetIndex, itemWidth, spinLoops, renderIt
     scrollToElement(container);
 
     let randomOffset = (Math.random() - 0.5) * (itemWidth - 2);
-    let finalX = -((spinLoops * cycleWidth) + (targetIndex * itemWidth)) + (vpWidth / 2) - (itemWidth / 2) + randomOffset;
+    let fullCycleWidth = TOTAL_ROUNDS * itemWidth;
+    let totalDistance = spinLoops * fullCycleWidth;
+    let adjustedLoops = Math.ceil(totalDistance / cycleWidth);
+    let finalX = -((adjustedLoops * cycleWidth) + (targetIndex * itemWidth)) + (vpWidth / 2) - (itemWidth / 2) + randomOffset;
 
     animateRoulette(strip, cycleWidth, finalX, SPIN_DURATION, () => {
         highlightWinner(strip, targetIndex);
@@ -645,7 +648,21 @@ function onPlayerLanded(team, player) {
 
     if (currentRound < TOTAL_ROUNDS) {
         button.textContent = "Próxima Equipa";
-        button.onclick = () => startTeamRoulette();
+        button.onclick = () => {
+            let started = false;
+            function beginNext() {
+                if (started) return;
+                started = true;
+                clearInterval(checkScroll);
+                startTeamRoulette();
+            }
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            let checkScroll = setInterval(() => {
+                let rect = { top: window.scrollY };
+                if (rect.top <= 5) beginNext();
+            }, 50);
+            setTimeout(beginNext, 1500);
+        };
     } else {
         button.textContent = "Ver Resultados";
         button.onclick = () => showResults();
