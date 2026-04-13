@@ -389,7 +389,7 @@ body::after {
 .coaches-rail-shell {
     position: relative;
     width: 100%;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .coaches-rail {
