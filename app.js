@@ -46,18 +46,18 @@ const leagues = [
             { tipo: "Vencedor de competição europeia", jogador: null, pontos: 3 }
         ],
         tabela: [
-            { pos: 1, inf: "C", equipa: "Rangers", logo: "assets/logos/escocia/Rangers_FC_logo.svg.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, form: ["L", "L", "L", "D", "W"], zone: "championship" },
-            { pos: 2, inf: "--", equipa: "Hibernian", logo: "assets/logos/escocia/Hibernian_FC_logo.svg.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, form: ["L", "W", "W", "W", "L"], zone: "championship" },
-            { pos: 3, inf: "--", equipa: "Aberdeen", logo: "assets/logos/escocia/Aberdeen_F.C._logo_2014.svg.png", jogador: "Gonçalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, form: ["L", "W", "L", "L", "W"], zone: "europe" },
-            { pos: 4, inf: "--", equipa: "Dundee", logo: "assets/logos/escocia/Dundee_FC_crest.svg.png", jogador: "Nabais", j: 38, v: 17, e: 9, d: 12, gm: 61, gs: 55, dg: 6, pts: 60, prevista: 10, form: ["W", "L", "W", "D", "D"], zone: "europe" },
-            { pos: 5, inf: "--", equipa: "Celtic", logo: "assets/logos/escocia/Celtic_FC_logo.png", jogador: null, j: 38, v: 17, e: 8, d: 13, gm: 70, gs: 47, dg: 23, pts: 59, prevista: 1, form: ["W", "W", "L", "W", "D"], zone: "" },
-            { pos: 6, inf: "--", equipa: "St. Mirren", logo: "assets/logos/escocia/St_Mirren_FC_crest.svg.png", jogador: null, j: 38, v: 15, e: 10, d: 13, gm: 52, gs: 53, dg: -1, pts: 55, prevista: 8, form: ["L", "D", "D", "L", "L"], zone: "" },
-            { pos: 7, inf: "--", equipa: "Hearts", logo: "assets/logos/escocia/Heart_of_Midlothian_FC_logo.png", jogador: "Cardoso", j: 38, v: 16, e: 7, d: 15, gm: 76, gs: 74, dg: 2, pts: 55, prevista: 3, form: ["L", "L", "L", "W", "W"], zone: "" },
-            { pos: 8, inf: "--", equipa: "Falkirk", logo: "assets/logos/escocia/Falkirk_FC_logo.png", jogador: "Hugo", j: 38, v: 14, e: 11, d: 13, gm: 65, gs: 62, dg: 3, pts: 53, prevista: 11, form: ["L", "D", "W", "W", "W"], zone: "" },
-            { pos: 9, inf: "--", equipa: "Kilmarnock", logo: "assets/logos/escocia/KilmarnockLogo.png", jogador: "Chico", j: 38, v: 14, e: 7, d: 17, gm: 51, gs: 64, dg: -13, pts: 49, prevista: 9, form: ["W", "D", "W", "W", "L"], zone: "" },
-            { pos: 10, inf: "--", equipa: "Dundee Utd", logo: "assets/logos/escocia/Dundee_United_FC_logo.png", jogador: "Gamy", j: 38, v: 14, e: 6, d: 18, gm: 60, gs: 71, dg: -11, pts: 48, prevista: 7, form: ["W", "W", "L", "L", "W"], zone: "" },
-            { pos: 11, inf: "PI", equipa: "Motherwell", logo: "assets/logos/escocia/Motherwell_FC_crest.svg.png", jogador: null, j: 38, v: 4, e: 8, d: 26, gm: 30, gs: 80, dg: -50, pts: 20, prevista: 5, form: ["W", "W", "W", "L", "L"], zone: "playoff" },
-            { pos: 12, inf: "D", equipa: "Livingston", logo: "assets/logos/escocia/Livingston_FC_club_badge_new.png", jogador: "Painatal", j: 38, v: 4, e: 5, d: 29, gm: 41, gs: 101, dg: -60, pts: 17, prevista: 12, form: ["L", "L", "L", "L", "L"], zone: "relegated" }
+            { pos: 1, inf: "C", equipa: "Rangers", logo: "assets/logos/escocia/Rangers_FC_logo.svg.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, zone: "championship" },
+            { pos: 2, inf: "--", equipa: "Hibernian", logo: "assets/logos/escocia/Hibernian_FC_logo.svg.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, zone: "championship" },
+            { pos: 3, inf: "--", equipa: "Aberdeen", logo: "assets/logos/escocia/Aberdeen_F.C._logo_2014.svg.png", jogador: "Gonçalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, zone: "europe" },
+            { pos: 4, inf: "--", equipa: "Dundee", logo: "assets/logos/escocia/Dundee_FC_crest.svg.png", jogador: "Nabais", j: 38, v: 17, e: 9, d: 12, gm: 61, gs: 55, dg: 6, pts: 60, prevista: 10, zone: "europe" },
+            { pos: 5, inf: "--", equipa: "Celtic", logo: "assets/logos/escocia/Celtic_FC_logo.png", jogador: null, j: 38, v: 17, e: 8, d: 13, gm: 70, gs: 47, dg: 23, pts: 59, prevista: 1, zone: "" },
+            { pos: 6, inf: "--", equipa: "St. Mirren", logo: "assets/logos/escocia/St_Mirren_FC_crest.svg.png", jogador: null, j: 38, v: 15, e: 10, d: 13, gm: 52, gs: 53, dg: -1, pts: 55, prevista: 8, zone: "" },
+            { pos: 7, inf: "--", equipa: "Hearts", logo: "assets/logos/escocia/Heart_of_Midlothian_FC_logo.png", jogador: "Cardoso", j: 38, v: 16, e: 7, d: 15, gm: 76, gs: 74, dg: 2, pts: 55, prevista: 3, zone: "" },
+            { pos: 8, inf: "--", equipa: "Falkirk", logo: "assets/logos/escocia/Falkirk_FC_logo.png", jogador: "Hugo", j: 38, v: 14, e: 11, d: 13, gm: 65, gs: 62, dg: 3, pts: 53, prevista: 11, zone: "" },
+            { pos: 9, inf: "--", equipa: "Kilmarnock", logo: "assets/logos/escocia/KilmarnockLogo.png", jogador: "Chico", j: 38, v: 14, e: 7, d: 17, gm: 51, gs: 64, dg: -13, pts: 49, prevista: 9, zone: "" },
+            { pos: 10, inf: "--", equipa: "Dundee Utd", logo: "assets/logos/escocia/Dundee_United_FC_logo.png", jogador: "Gamy", j: 38, v: 14, e: 6, d: 18, gm: 60, gs: 71, dg: -11, pts: 48, prevista: 7, zone: "" },
+            { pos: 11, inf: "PI", equipa: "Motherwell", logo: "assets/logos/escocia/Motherwell_FC_crest.svg.png", jogador: null, j: 38, v: 4, e: 8, d: 26, gm: 30, gs: 80, dg: -50, pts: 20, prevista: 5, zone: "playoff" },
+            { pos: 12, inf: "D", equipa: "Livingston", logo: "assets/logos/escocia/Livingston_FC_club_badge_new.png", jogador: "Painatal", j: 38, v: 4, e: 5, d: 29, gm: 41, gs: 101, dg: -60, pts: 17, prevista: 12, zone: "relegated" }
         ].map((entry) => {
             let emgEntry = scotlandSeasonScores.find((score) => score.equipa === entry.equipa);
             return { ...entry, emgPontos: emgEntry ? emgEntry.pontos : null };
@@ -289,7 +289,7 @@ function setupFormulaPopover() {
 }
 
 function setupStandingsColumnHover(scope = document) {
-    let standings = scope.querySelector(".scotland-standings");
+    let standings = scope.querySelector(".standings-standings");
     if (!standings || standings.dataset.hoverBound === "true") return;
 
     let cells = standings.querySelectorAll("[data-col]");
@@ -387,33 +387,33 @@ function renderLeague(leagueId) {
     let rows = "";
     league.tabela.forEach((entry) => {
         let playerMarkup = entry.jogador
-            ? `<div class="scotland-player-cell" data-col="4"><div class="scotland-player">${entry.jogador}</div></div>`
-            : `<div class="scotland-player-cell" data-col="4"><div class="scotland-player empty">PC</div></div>`;
+            ? `<div class="standings-player-cell" data-col="4"><div class="standings-player">${entry.jogador}</div></div>`
+            : `<div class="standings-player-cell" data-col="4"><div class="standings-player empty">PC</div></div>`;
         let emgMarkup = entry.emgPontos === null
-            ? `<div class="scotland-points-cell" data-col="14"><div class="scotland-points neutral">--</div></div>`
-            : `<div class="scotland-points-cell" data-col="14"><div class="scotland-points ${getPointsClass(entry.emgPontos)}">${formatPoints(entry.emgPontos)}</div></div>`;
+            ? `<div class="standings-points-cell" data-col="14"><div class="standings-points neutral">--</div></div>`
+            : `<div class="standings-points-cell" data-col="14"><div class="standings-points ${getPointsClass(entry.emgPontos)}">${formatPoints(entry.emgPontos)}</div></div>`;
 
         rows += `
-            <div class="scotland-row ${entry.zone ? `zone-${entry.zone}` : ""}">
-                <div class="scotland-cell-center scotland-pos" data-col="1">${entry.pos}</div>
-                <div class="scotland-cell-center scotland-inf" data-col="2">${entry.inf}</div>
-                <div class="scotland-team" data-col="3">
-                    <img class="scotland-team-logo" src="${entry.logo}" alt="${entry.equipa}">
-                    <div class="scotland-team-stack">
-                        <span class="scotland-team-name">${entry.equipa}</span>
-                        <span class="scotland-team-sub">Classificação Final</span>
+            <div class="standings-row ${entry.zone ? `zone-${entry.zone}` : ""}">
+                <div class="standings-cell-center standings-pos" data-col="1">${entry.pos}</div>
+                <div class="standings-cell-center standings-inf" data-col="2">${entry.inf}</div>
+                <div class="standings-team" data-col="3">
+                    <img class="standings-team-logo" src="${entry.logo}" alt="${entry.equipa}">
+                    <div class="standings-team-stack">
+                        <span class="standings-team-name">${entry.equipa}</span>
+                        <span class="standings-team-sub">Classificação Final</span>
                     </div>
                 </div>
                 ${playerMarkup}
-                <div class="scotland-cell-center" data-col="5">${entry.j}</div>
-                <div class="scotland-cell-center" data-col="6">${entry.v}</div>
-                <div class="scotland-cell-center" data-col="7">${entry.e}</div>
-                <div class="scotland-cell-center" data-col="8">${entry.d}</div>
-                <div class="scotland-cell-center" data-col="9">${entry.gm}</div>
-                <div class="scotland-cell-center" data-col="10">${entry.gs}</div>
-                <div class="scotland-cell-center" data-col="11">${entry.dg}</div>
-                <div class="scotland-cell-center" data-col="12">${entry.pts}</div>
-                <div class="scotland-cell-center" data-col="13">${entry.prevista}</div>
+                <div class="standings-cell-center" data-col="5">${entry.j}</div>
+                <div class="standings-cell-center" data-col="6">${entry.v}</div>
+                <div class="standings-cell-center" data-col="7">${entry.e}</div>
+                <div class="standings-cell-center" data-col="8">${entry.d}</div>
+                <div class="standings-cell-center" data-col="9">${entry.gm}</div>
+                <div class="standings-cell-center" data-col="10">${entry.gs}</div>
+                <div class="standings-cell-center" data-col="11">${entry.dg}</div>
+                <div class="standings-cell-center" data-col="12">${entry.pts}</div>
+                <div class="standings-cell-center" data-col="13">${entry.prevista}</div>
                 ${emgMarkup}
             </div>
         `;
@@ -443,8 +443,8 @@ function renderLeague(leagueId) {
             <div class="league-chip muted">Fórmula: ${league.formula}</div>
         </div>
         <div class="league-table-wrap">
-            <div class="scotland-standings">
-                <div class="scotland-row header">
+            <div class="standings-standings">
+                <div class="standings-row header">
                     <div data-col="1">Pos</div>
                     <div data-col="2">Inf</div>
                     <div data-col="3">Equipa</div>
@@ -500,20 +500,9 @@ function start() {
     startTeamRoulette();
 }
 
-function startTeamRoulette() {
-    let current = document.getElementById("current");
-    current.innerHTML = "";
-
-    let targetTeam = shuffledTeams[currentRound];
+function spinRoulette(parent, items, targetIndex, itemWidth, spinLoops, renderItem, onLanded) {
     let vpWidth = getViewportWidth();
-    let items = [...remainingTeams];
-    let targetIndex = items.findIndex((team) => team.nome === targetTeam.nome);
-    let { repeatedItems, cycleWidth } = buildLoopedRouletteItems(items, ITEM_WIDTH_TEAM, vpWidth, TEAM_SPIN_LOOPS);
-
-    let roundInfo = document.createElement("div");
-    roundInfo.className = "round-info";
-    roundInfo.textContent = `Sorteio ${currentRound + 1} / ${TOTAL_ROUNDS}`;
-    current.appendChild(roundInfo);
+    let { repeatedItems, cycleWidth } = buildLoopedRouletteItems(items, itemWidth, vpWidth, spinLoops);
 
     let container = document.createElement("div");
     container.className = "roulette-container";
@@ -528,31 +517,48 @@ function startTeamRoulette() {
     let strip = document.createElement("div");
     strip.className = "roulette-strip";
 
-    repeatedItems.forEach((team, index) => {
-        let item = document.createElement("div");
-        item.className = "roulette-item";
+    repeatedItems.forEach((entry, index) => {
+        let item = renderItem(entry);
         item.dataset.baseIndex = index % items.length;
-
-        let image = document.createElement("img");
-        image.src = team.img;
-        image.alt = team.nome;
-
-        item.appendChild(image);
         strip.appendChild(item);
     });
 
     viewport.appendChild(strip);
     container.appendChild(viewport);
-    current.appendChild(container);
+    parent.appendChild(container);
     scrollToElement(container);
 
-    let randomOffset = (Math.random() - 0.5) * (ITEM_WIDTH_TEAM - 2);
-    let finalX = -((TEAM_SPIN_LOOPS * cycleWidth) + (targetIndex * ITEM_WIDTH_TEAM)) + (vpWidth / 2) - (ITEM_WIDTH_TEAM / 2) + randomOffset;
+    let randomOffset = (Math.random() - 0.5) * (itemWidth - 2);
+    let finalX = -((spinLoops * cycleWidth) + (targetIndex * itemWidth)) + (vpWidth / 2) - (itemWidth / 2) + randomOffset;
 
     animateRoulette(strip, cycleWidth, finalX, SPIN_DURATION, () => {
         highlightWinner(strip, targetIndex);
-        onTeamLanded(targetTeam);
+        onLanded();
     });
+}
+
+function startTeamRoulette() {
+    let current = document.getElementById("current");
+    current.innerHTML = "";
+
+    let targetTeam = shuffledTeams[currentRound];
+    let items = [...remainingTeams];
+    let targetIndex = items.findIndex((team) => team.nome === targetTeam.nome);
+
+    let roundInfo = document.createElement("div");
+    roundInfo.className = "round-info";
+    roundInfo.textContent = `Sorteio ${currentRound + 1} / ${TOTAL_ROUNDS}`;
+    current.appendChild(roundInfo);
+
+    spinRoulette(current, items, targetIndex, ITEM_WIDTH_TEAM, TEAM_SPIN_LOOPS, (team) => {
+        let item = document.createElement("div");
+        item.className = "roulette-item";
+        let image = document.createElement("img");
+        image.src = team.img;
+        image.alt = team.nome;
+        item.appendChild(image);
+        return item;
+    }, () => onTeamLanded(targetTeam));
 }
 
 function onTeamLanded(team) {
@@ -583,44 +589,15 @@ function onTeamLanded(team) {
 function startPlayerRoulette(team) {
     let current = document.getElementById("current");
     let targetPlayer = shuffledPlayers[currentRound];
-    let vpWidth = getViewportWidth();
     let items = [...remainingPlayers];
     let targetIndex = items.findIndex((player) => player === targetPlayer);
-    let { repeatedItems, cycleWidth } = buildLoopedRouletteItems(items, ITEM_WIDTH_PLAYER, vpWidth, PLAYER_SPIN_LOOPS);
 
-    let container = document.createElement("div");
-    container.className = "roulette-container";
-
-    let marker = document.createElement("div");
-    marker.className = "roulette-marker";
-    container.appendChild(marker);
-
-    let viewport = document.createElement("div");
-    viewport.className = "roulette-viewport";
-
-    let strip = document.createElement("div");
-    strip.className = "roulette-strip";
-
-    repeatedItems.forEach((player, index) => {
+    spinRoulette(current, items, targetIndex, ITEM_WIDTH_PLAYER, PLAYER_SPIN_LOOPS, (player) => {
         let item = document.createElement("div");
         item.className = "roulette-item name-item";
-        item.dataset.baseIndex = index % items.length;
         item.textContent = player;
-        strip.appendChild(item);
-    });
-
-    viewport.appendChild(strip);
-    container.appendChild(viewport);
-    current.appendChild(container);
-    scrollToElement(container);
-
-    let randomOffset = (Math.random() - 0.5) * (ITEM_WIDTH_PLAYER - 2);
-    let finalX = -((PLAYER_SPIN_LOOPS * cycleWidth) + (targetIndex * ITEM_WIDTH_PLAYER)) + (vpWidth / 2) - (ITEM_WIDTH_PLAYER / 2) + randomOffset;
-
-    animateRoulette(strip, cycleWidth, finalX, SPIN_DURATION, () => {
-        highlightWinner(strip, targetIndex);
-        onPlayerLanded(team, targetPlayer);
-    });
+        return item;
+    }, () => onPlayerLanded(team, targetPlayer));
 }
 
 function onPlayerLanded(team, player) {
