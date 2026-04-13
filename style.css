@@ -94,6 +94,7 @@ body::after {
 }
 
 .nav {
+    position: relative;
     display: flex;
     align-items: stretch;
     gap: 4px;
@@ -102,9 +103,12 @@ body::after {
 }
 
 .nav-logo-btn {
-    width: 128px;
-    min-width: 128px;
-    padding: 0 10px 0 0;
+    position: absolute;
+    right: calc(100% + 22px);
+    top: 50%;
+    width: 118px;
+    min-width: 118px;
+    padding: 0;
     border: 0;
     background: transparent;
     box-shadow: none;
@@ -112,11 +116,12 @@ body::after {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    transform: translateY(-50%);
     transition: transform 0.22s ease, filter 0.22s ease;
 }
 
 .nav-logo-btn img {
-    width: 118px;
+    width: 108px;
     height: auto;
     object-fit: contain;
     filter:
@@ -126,7 +131,7 @@ body::after {
 
 .nav-logo-btn:hover,
 .nav-logo-btn.active {
-    transform: translateY(-1px) scale(1.03);
+    transform: translateY(calc(-50% - 1px)) scale(1.03);
 }
 
 .nav-btn {
@@ -1394,8 +1399,16 @@ button:disabled {
     width: min(780px, 72vw);
     max-width: 100%;
     margin: 0 auto;
+    cursor: pointer;
     transform-origin: center;
     transition: transform 0.32s ease, filter 0.32s ease;
+    clip-path: polygon(
+        28% 20%, 38% 17%, 50% 16%, 62% 17%, 73% 19%, 82% 22%,
+        87% 27%, 89% 33%, 90% 39%, 93% 44%, 95% 49%, 94% 54%,
+        90% 59%, 84% 62%, 77% 65%, 70% 69%, 62% 75%, 56% 81%,
+        50% 87%, 44% 82%, 37% 76%, 30% 70%, 23% 65%, 16% 59%,
+        12% 53%, 12% 46%, 13% 39%, 15% 31%, 19% 24%
+    );
     filter:
         drop-shadow(0 0 16px rgba(74, 168, 255, 0.22))
         drop-shadow(0 0 44px rgba(54, 131, 255, 0.16));
@@ -1617,8 +1630,10 @@ button:disabled {
 
 @media (max-width: 980px) {
     .nav { width: 100%; flex-direction: column; max-width: 560px; }
-    .nav-logo-btn { width: 150px; min-width: 0; margin: 0 auto 4px; padding: 0; }
+    .nav-logo-btn { position: static; width: 150px; min-width: 0; margin: 0 auto 4px; padding: 0; transform: none; }
     .nav-logo-btn img { width: 136px; }
+    .nav-logo-btn:hover,
+    .nav-logo-btn.active { transform: translateY(-1px) scale(1.03); }
     .nav-btn { min-width: 0; width: 100%; }
     .hero { min-height: calc(100vh - 150px); }
     .page-panel, .score-panel, .league-panel { width: min(100%, calc(100vw - 36px)); margin-top: 34px; }
