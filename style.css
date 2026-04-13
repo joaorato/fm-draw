@@ -1394,9 +1394,18 @@ button:disabled {
     width: min(780px, 72vw);
     max-width: 100%;
     margin: 0 auto;
+    transform-origin: center;
+    transition: transform 0.32s ease, filter 0.32s ease;
     filter:
         drop-shadow(0 0 16px rgba(74, 168, 255, 0.22))
         drop-shadow(0 0 44px rgba(54, 131, 255, 0.16));
+}
+
+.home-logo:hover {
+    transform: translateY(-4px) scale(1.02);
+    filter:
+        drop-shadow(0 0 20px rgba(99, 219, 255, 0.28))
+        drop-shadow(0 0 56px rgba(54, 131, 255, 0.22));
 }
 
 .social-dock {
