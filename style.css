@@ -309,7 +309,7 @@ body::after {
 
 .hero {
     min-height: calc(100vh - 110px);
-    padding: 28px 0 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -375,7 +375,11 @@ body::after {
 }
 
 .hero-subtitle {
-    display: none;
+    margin: 12px 0 0;
+    max-width: 520px;
+    color: rgba(229, 239, 255, 0.68);
+    font-size: 16px;
+    line-height: 1.6;
 }
 
 .page-panel,
@@ -562,14 +566,14 @@ body::after {
     box-sizing: border-box;
 }
 
-.scotland-standings {
+.standings-standings {
     min-width: 0;
     width: 100%;
     display: grid;
     gap: 7px;
 }
 
-.scotland-row {
+.standings-row {
     position: relative;
     display: grid;
     width: 100%;
@@ -583,14 +587,14 @@ body::after {
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
-.scotland-row > [data-col] {
+.standings-row > [data-col] {
     position: relative;
     width: 100%;
     min-width: 0;
     z-index: 0;
 }
 
-.scotland-row > [data-col]::before {
+.standings-row > [data-col]::before {
     content: "";
     position: absolute;
     inset: -8px -3px;
@@ -603,7 +607,7 @@ body::after {
     z-index: -1;
 }
 
-.scotland-row > [data-col].column-hover::before {
+.standings-row > [data-col].column-hover::before {
     opacity: 1;
     background: linear-gradient(180deg, rgba(97, 191, 255, 0.13), rgba(97, 191, 255, 0.055));
     box-shadow:
@@ -611,23 +615,23 @@ body::after {
         0 0 10px rgba(86, 180, 255, 0.05);
 }
 
-.scotland-row > [data-col="5"].column-hover::before,
-.scotland-row > [data-col="6"].column-hover::before,
-.scotland-row > [data-col="7"].column-hover::before,
-.scotland-row > [data-col="8"].column-hover::before,
-.scotland-row > [data-col="9"].column-hover::before,
-.scotland-row > [data-col="10"].column-hover::before,
-.scotland-row > [data-col="11"].column-hover::before,
-.scotland-row > [data-col="12"].column-hover::before,
-.scotland-row > [data-col="13"].column-hover::before,
-.scotland-row > [data-col="14"].column-hover::before {
+.standings-row > [data-col="5"].column-hover::before,
+.standings-row > [data-col="6"].column-hover::before,
+.standings-row > [data-col="7"].column-hover::before,
+.standings-row > [data-col="8"].column-hover::before,
+.standings-row > [data-col="9"].column-hover::before,
+.standings-row > [data-col="10"].column-hover::before,
+.standings-row > [data-col="11"].column-hover::before,
+.standings-row > [data-col="12"].column-hover::before,
+.standings-row > [data-col="13"].column-hover::before,
+.standings-row > [data-col="14"].column-hover::before {
     background: linear-gradient(180deg, rgba(97, 191, 255, 0.18), rgba(97, 191, 255, 0.08));
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.06),
         0 0 12px rgba(86, 180, 255, 0.06);
 }
 
-.scotland-row::before {
+.standings-row::before {
     content: "";
     position: absolute;
     left: 0;
@@ -638,7 +642,7 @@ body::after {
     background: transparent;
 }
 
-.scotland-row.header {
+.standings-row.header {
     padding-top: 9px;
     padding-bottom: 9px;
     background: rgba(59,130,246,0.1);
@@ -649,60 +653,60 @@ body::after {
     text-transform: uppercase;
 }
 
-.scotland-row.header::before {
+.standings-row.header::before {
     display: none;
 }
 
-.scotland-row.header > div {
+.standings-row.header > div {
     text-align: center;
 }
 
-.scotland-row.header > [data-col].column-hover::before {
+.standings-row.header > [data-col].column-hover::before {
     background: linear-gradient(180deg, rgba(100, 193, 255, 0.15), rgba(100, 193, 255, 0.075));
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.06),
         0 0 10px rgba(97, 191, 255, 0.06);
 }
 
-.scotland-row.header > [data-col="5"].column-hover::before,
-.scotland-row.header > [data-col="6"].column-hover::before,
-.scotland-row.header > [data-col="7"].column-hover::before,
-.scotland-row.header > [data-col="8"].column-hover::before,
-.scotland-row.header > [data-col="9"].column-hover::before,
-.scotland-row.header > [data-col="10"].column-hover::before,
-.scotland-row.header > [data-col="11"].column-hover::before,
-.scotland-row.header > [data-col="12"].column-hover::before,
-.scotland-row.header > [data-col="13"].column-hover::before,
-.scotland-row.header > [data-col="14"].column-hover::before {
+.standings-row.header > [data-col="5"].column-hover::before,
+.standings-row.header > [data-col="6"].column-hover::before,
+.standings-row.header > [data-col="7"].column-hover::before,
+.standings-row.header > [data-col="8"].column-hover::before,
+.standings-row.header > [data-col="9"].column-hover::before,
+.standings-row.header > [data-col="10"].column-hover::before,
+.standings-row.header > [data-col="11"].column-hover::before,
+.standings-row.header > [data-col="12"].column-hover::before,
+.standings-row.header > [data-col="13"].column-hover::before,
+.standings-row.header > [data-col="14"].column-hover::before {
     background: linear-gradient(180deg, rgba(100, 193, 255, 0.2), rgba(100, 193, 255, 0.1));
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.07),
         0 0 12px rgba(97, 191, 255, 0.08);
 }
 
-.scotland-row.header > div:nth-child(3),
-.scotland-row.header > div:nth-child(4) {
+.standings-row.header > div:nth-child(3),
+.standings-row.header > div:nth-child(4) {
     text-align: left;
     min-width: 0;
 }
 
-.scotland-row.zone-championship::before {
+.standings-row.zone-championship::before {
     background: linear-gradient(180deg, #5ef2ff, #1fbbff);
 }
 
-.scotland-row.zone-europe::before {
+.standings-row.zone-europe::before {
     background: linear-gradient(180deg, #ff63c6, #ff6ba1);
 }
 
-.scotland-row.zone-playoff::before {
+.standings-row.zone-playoff::before {
     background: linear-gradient(180deg, #ffb347, #ff8b2b);
 }
 
-.scotland-row.zone-relegated::before {
+.standings-row.zone-relegated::before {
     background: linear-gradient(180deg, #ff7373, #ff3f56);
 }
 
-.scotland-cell-center {
+.standings-cell-center {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -713,50 +717,50 @@ body::after {
     font-variant-numeric: tabular-nums;
 }
 
-.scotland-pos {
+.standings-pos {
     font-size: 19px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.5px;
 }
 
-.scotland-inf {
+.standings-inf {
     color: rgba(233, 242, 255, 0.58);
 }
 
-.scotland-team {
+.standings-team {
     display: flex;
     align-items: center;
     gap: 8px;
     min-width: 0;
 }
 
-.scotland-team-logo {
+.standings-team-logo {
     width: 24px;
     height: 24px;
     object-fit: contain;
     flex: 0 0 auto;
 }
 
-.scotland-team-stack {
+.standings-team-stack {
     display: flex;
     flex-direction: column;
     gap: 4px;
     min-width: 0;
 }
 
-.scotland-team-name {
+.standings-team-name {
     color: #f4f8ff;
     font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-.scotland-team-sub {
+.standings-team-sub {
     display: none;
 }
 
-.scotland-player-cell {
+.standings-player-cell {
     display: flex;
     align-items: center;
     justify-self: start;
@@ -764,7 +768,7 @@ body::after {
     min-width: 0;
 }
 
-.scotland-points-cell {
+.standings-points-cell {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -772,7 +776,7 @@ body::after {
     min-width: 0;
 }
 
-.scotland-player {
+.standings-player {
     padding: 6px 9px;
     border-radius: 999px;
     background: linear-gradient(180deg, rgba(101, 214, 255, 0.14), rgba(101, 214, 255, 0.05));
@@ -784,14 +788,14 @@ body::after {
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 0 14px rgba(87, 196, 255, 0.08);
 }
 
-.scotland-player.empty {
+.standings-player.empty {
     color: rgba(228, 238, 255, 0.66);
     background: rgba(255,255,255,0.03);
     border-color: rgba(255,255,255,0.05);
     box-shadow: none;
 }
 
-.scotland-points {
+.standings-points {
     min-width: 48px;
     padding: 6px 5px;
     border-radius: 999px;
@@ -803,19 +807,19 @@ body::after {
     font-variant-numeric: tabular-nums;
 }
 
-.scotland-points.positive {
+.standings-points.positive {
     color: var(--green);
     background: rgba(34,197,94,0.12);
     border-color: rgba(137,240,180,0.24);
 }
 
-.scotland-points.negative {
+.standings-points.negative {
     color: var(--red);
     background: rgba(239,68,68,0.11);
     border-color: rgba(255,153,165,0.2);
 }
 
-.scotland-points.neutral {
+.standings-points.neutral {
     color: #f0f6ff;
 }
 
@@ -1375,7 +1379,7 @@ button:disabled {
 }
 
 .social-dock {
-    margin-top: 34px;
+    margin-top: 18px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
