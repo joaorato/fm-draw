@@ -6,7 +6,7 @@
 const equipas = [
     { nome: "HNK Rijeka", img: "assets/logos/croacia/Rijeka.png", rank: 3 },
     { nome: "NK Osijek", img: "assets/logos/croacia/Osijek.png", rank: 4 },
-    { nome: "NK Lokomotiva", img: "assets/logos/croacia/NK LokomotivA.png", rank: 5 },
+    { nome: "NK Lokomotiva", img: "assets/logos/croacia/NK_Lokomotiva.png", rank: 5 },
     { nome: "NK Slaven Belupo", img: "assets/logos/croacia/SLAVEN.png", rank: 8 },
     { nome: "NK Istra 1961", img: "assets/logos/croacia/ISTRA.png", rank: 6 },
     { nome: "HNK Gorica", img: "assets/logos/croacia/GORICA.png", rank: 9 },
