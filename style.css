@@ -870,9 +870,13 @@ body::after {
 }
 
 .bonus-player {
-    color: var(--gold);
-    font-weight: 700;
-    font-size: 16px;
+    font-family: "Goldman", sans-serif;
+    color: #f4f8ff;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.45px;
+    line-height: 1.02;
+    text-shadow: 0 0 10px rgba(99, 219, 255, 0.08);
 }
 
 .bonus-tipo {
@@ -1442,9 +1446,13 @@ button:disabled {
 }
 
 .score-player {
-    color: var(--gold);
-    font-size: 20px;
-    font-weight: 700;
+    font-family: "Goldman", sans-serif;
+    color: #f4f8ff;
+    font-size: 21px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.02;
+    text-shadow: 0 0 12px rgba(99, 219, 255, 0.08);
 }
 
 .score-team {
