@@ -219,13 +219,108 @@ function animateRoulette(strip, cycleWidth, finalX, duration, onComplete) {
 
 let musicStarted = false;
 let isMuted = false;
+const MUTE_STORAGE_KEY = "fm-draw-muted";
+
+function getMusicElement() {
+    return document.getElementById("bgmusic");
+}
+
+function syncMuteButton() {
+    let btn = document.getElementById("muteBtn");
+    if (btn) {
+        btn.classList.toggle("is-muted", isMuted);
+    }
+}
+
+function applyMuteState() {
+    let music = getMusicElement();
+    if (!music) return;
+    music.muted = isMuted;
+    syncMuteButton();
+}
+
+function persistMuteState() {
+    try {
+        sessionStorage.setItem(MUTE_STORAGE_KEY, String(isMuted));
+    } catch (_) {}
+}
+
+function restoreMuteState() {
+    try {
+        isMuted = sessionStorage.getItem(MUTE_STORAGE_KEY) === "true";
+    } catch (_) {
+        isMuted = false;
+    }
+    applyMuteState();
+}
+
+function tryPlayDrawMusic() {
+    let music = getMusicElement();
+    if (!music) return;
+
+    music.volume = 0.5;
+    music.muted = isMuted;
+
+    let attempt = music.play();
+    if (attempt && typeof attempt.then === "function") {
+        attempt
+            .then(() => {
+                musicStarted = true;
+            })
+            .catch(() => {
+                musicStarted = false;
+            });
+    } else {
+        musicStarted = !music.paused;
+    }
+}
+
+function syncDrawMusic() {
+    let music = getMusicElement();
+    if (!music) return;
+
+    applyMuteState();
+
+    if (getTabFromHash() === "draw") {
+        tryPlayDrawMusic();
+    } else {
+        music.pause();
+    }
+}
+
+function bindMusicRecovery() {
+    ["pointerdown", "touchstart", "keydown"].forEach((eventName) => {
+        document.addEventListener(eventName, () => {
+            if (getTabFromHash() === "draw") {
+                let music = getMusicElement();
+                if (music && music.paused && !isMuted) {
+                    tryPlayDrawMusic();
+                }
+            }
+        }, { passive: true });
+    });
+
+    window.addEventListener("pageshow", () => {
+        if (getTabFromHash() === "draw") {
+            syncDrawMusic();
+        }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && getTabFromHash() === "draw") {
+            syncDrawMusic();
+        }
+    });
+}
 
 function toggleMute() {
-    let music = document.getElementById("bgmusic");
-    let btn = document.getElementById("muteBtn");
     isMuted = !isMuted;
-    music.muted = isMuted;
-    btn.classList.toggle("is-muted", isMuted);
+    applyMuteState();
+    persistMuteState();
+
+    if (!isMuted && getTabFromHash() === "draw") {
+        tryPlayDrawMusic();
+    }
 }
 
 const TAB_HASHES = { home: "#home", draw: "#sorteio", general: "#classificacao", past: "#ligas" };
@@ -247,13 +342,13 @@ function setActiveTab(tab, pushState) {
     document.getElementById("generalTabBtn").classList.toggle("active", isGeneral);
     document.getElementById("pastTabBtn").classList.toggle("active", isPast);
 
-    let music = document.getElementById("bgmusic");
     if (isDraw) {
-        music.volume = 0.5;
-        music.play().catch(() => {});
-        musicStarted = true;
+        tryPlayDrawMusic();
     } else {
-        music.pause();
+        let music = getMusicElement();
+        if (music) {
+            music.pause();
+        }
     }
 
     if (pushState !== false) {
@@ -709,5 +804,7 @@ function showResults() {
 renderGeneralTable();
 renderLeagueSelector();
 setupFormulaPopover();
+restoreMuteState();
+bindMusicRecovery();
 setActiveTab(getTabFromHash());
 
