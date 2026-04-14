@@ -354,6 +354,8 @@ body::after {
     height: 100%;
     object-fit: cover;
     display: block;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .coach-card-placeholder {
@@ -403,6 +405,7 @@ body::after {
     scrollbar-width: none;
     cursor: grab;
     user-select: none;
+    -webkit-user-select: none;
     overscroll-behavior-inline: contain;
     scroll-behavior: auto;
     touch-action: pan-y;
@@ -436,6 +439,8 @@ body::after {
         0 12px 22px rgba(0, 0, 0, 0.14);
     overflow: hidden;
     cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
     transition: transform 0.3s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease, opacity 0.28s ease;
 }
 

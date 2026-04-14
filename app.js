@@ -473,7 +473,7 @@ function getCoachMarkup(coach) {
     let media = images.length
         ? `
             <div class="coach-card-gallery">
-                <img src="${images[0]}" alt="${coach.nome}" class="coach-card-photo coach-card-photo-main">
+                <img src="${images[0]}" alt="${coach.nome}" class="coach-card-photo coach-card-photo-main" draggable="false">
             </div>
         `
         : `<div class="coach-card-placeholder">${initials}</div>`;
@@ -519,7 +519,7 @@ function renderCoachModal(coach) {
     let media = images.length
         ? `
             <div class="coach-modal-gallery" data-photo-index="0">
-                <img src="${images[0]}" alt="${coach.nome}" class="coach-card-photo coach-modal-photo-main">
+                <img src="${images[0]}" alt="${coach.nome}" class="coach-card-photo coach-modal-photo-main" draggable="false">
                 ${images.length > 1 ? `<button class="coach-modal-next" type="button" aria-label="Trocar foto de ${coach.nome}">›</button>` : ""}
             </div>
         `
@@ -573,6 +573,12 @@ function setupCoachRailDrag() {
     let rail = document.getElementById("coachesRail");
     if (!rail || rail.dataset.dragBound === "true") return;
 
+    rail.addEventListener("dragstart", (event) => {
+        if (event.target instanceof HTMLImageElement) {
+            event.preventDefault();
+        }
+    });
+
     let isPointerDown = false;
     let dragActive = false;
     let axisLocked = false;
@@ -595,8 +601,8 @@ function setupCoachRailDrag() {
     function startMomentum() {
         stopMomentum();
         function step() {
-            velocity *= 0.94;
-            if (Math.abs(velocity) < 0.08) {
+            velocity *= 0.95;
+            if (Math.abs(velocity) < 0.04) {
                 momentumFrame = null;
                 return;
             }
@@ -629,7 +635,7 @@ function setupCoachRailDrag() {
         let dt = Math.max(now - lastMoveTime, 1);
 
         if (!axisLocked) {
-            if (Math.abs(delta) > 8 || Math.abs(deltaY) > 8) {
+            if (Math.abs(delta) > 6 || Math.abs(deltaY) > 6) {
                 axisLocked = true;
                 dragAllowed = Math.abs(delta) > Math.abs(deltaY);
                 if (dragAllowed) {
@@ -648,7 +654,8 @@ function setupCoachRailDrag() {
 
         dragActive = true;
         rail.scrollLeft = startScrollLeft - delta;
-        velocity = (event.clientX - lastX) / dt;
+        let instantVelocity = (event.clientX - lastX) / dt;
+        velocity = velocity * 0.72 + instantVelocity * 0.28;
         lastX = event.clientX;
         lastMoveTime = now;
     });
