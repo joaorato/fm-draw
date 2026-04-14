@@ -30,8 +30,8 @@ const coachProfiles = [
         nomePerfil: "Francisco Pinto",
         cargo: "O gestor cerebral",
         tag: "Menos barulho, mais controlo. Vai somando pontos enquanto os outros ainda estão a discutir scouting.",
-        descricao: "Chico é o tipo de treinador que parece tranquilo, mas por baixo está a otimizar tudo. Não precisa de grandes foguetes para se manter competitivo e consistente.",
-        destaque: "Consistência e cabeça fria nas decisões.",
+        descricao: "Um grande apetite por futebol e títulos.\n\nCom um futebol energético e livre, Francisco Pinto exige disciplina e rigor dos seus jogadores e, em troca, permite a criatividade florescer e a concretização do potencial dos seus jogadores.\n\nPragmático e ambicioso, Pinto encara todos os desafios sem qualquer medo e isso reflete-se na atitude dos seus jogadores em campo. Sentem que independentemente do adversário ou circunstâncias, há sempre uma maneira de alcançar a vitória.\n\nPinto não tem uma formação distinta com que se identifique, a tática será aquela que trará o melhor dos seus jogadores ao de cima. Seja um 4-3-3, 5-2-1-2 ou um 4-4-2, o treinador usa aquilo que melhor se adequa aos jogadores disponíveis.\n\nProcurando implementar os seus ideais influenciados pelos seus ídolos, como Klopp, Jorge Jesus e Bielsa, Pinto tem, na sua essência, uma filosofia simples de descrever: os jogadores cometem erros, cabe a nós provocar esses erros. Pressão alta e de grande intensidade ajuda nesse objetivo de jogo. No entanto, com a bola, o mister permite que os seus jogadores joguem à volta dos seus pontos fortes, dando liberdade não só à criatividade dos maestros e ao instinto dos avançados, mas permitindo que os seus jogadores tomem as suas decisões em campo, não sendo restritos por uma filosofia tática rigorosa que corta as asas dos jogadores.",
+        destaque: "\"Se comprometerem-se comigo, o vosso legado será imortalizado na história do futebol.\"",
         assetFolder: "Chico"
     },
     {
@@ -103,13 +103,17 @@ const coachAssetFiles = {
         "stats_treinador_rato.png"
     ],
     "Chico": [
+        "Chico_card.png",
+        "Chico_profile.png",
+        "chico_profile2.png",
+        "chico_profile3.png",
         "ChicoOficial.png",
         "ChicoOficial2.png",
         "stats_treinador_chico.png"
     ],
     "Nabais": [
-        "Nabais1.png",
         "nabais_card.png",
+        "Nabais1.png",
         "stats_treinador_nabais.png"
     ],
     "Gamy": [
@@ -126,7 +130,9 @@ const coachAssetFiles = {
         "stats_treinador_painatal.png"
     ],
     "Cardoso": [
-        "CardosoOficial.png",
+        "Cardoso_card.png",
+        "Cardoso_profile.png",
+        "Cardoso2_profile.png",
         "stats_treinador_cardoso.png"
     ],
     "Hugo": [
