@@ -160,7 +160,7 @@ const leagues = [
         descricao: "Classificação final completa da Premiership, com dados da liga, jogador EMG associado e pontos pela fórmula da época.",
         logo: "assets/logos/escocia/SPFL_logo,_William_Hill.png",
         logoAlt: "William Hill Premiership",
-        epoca: "Época 24/25",
+        epoca: "Época 25/26",
         formula: "(prevista - final) × 3",
         scores: scotlandSeasonScores,
         tacas: [
