@@ -781,13 +781,14 @@ function renderCoachModal(coach) {
         statsMediaEl.innerHTML = renderCoachStatsMarkup(coach);
     }
 
-    setCoachModalView("presentation");
 }
 
-function openCoachModal(id) {
+function openCoachModal(id, preserveTab) {
+    let currentView = preserveTab && document.getElementById("coachModalTabStats")?.classList.contains("active") ? "stats" : "presentation";
     let coach = getCoachById(id);
     selectCoach(id);
     renderCoachModal(coach);
+    setCoachModalView(currentView);
     setupCoachModalGallery();
     document.getElementById("coachModal").hidden = false;
     document.body.classList.add("modal-open");
@@ -821,8 +822,8 @@ function setupCoachModal() {
 
     presentationTab?.addEventListener("click", () => setCoachModalView("presentation"));
     statsTab?.addEventListener("click", () => setCoachModalView("stats"));
-    prevCoachBtn?.addEventListener("click", () => openCoachModal(getAdjacentCoachId(selectedCoachId, -1)));
-    nextCoachBtn?.addEventListener("click", () => openCoachModal(getAdjacentCoachId(selectedCoachId, 1)));
+    prevCoachBtn?.addEventListener("click", () => openCoachModal(getAdjacentCoachId(selectedCoachId, -1), true));
+    nextCoachBtn?.addEventListener("click", () => openCoachModal(getAdjacentCoachId(selectedCoachId, 1), true));
 
     modal.dataset.bound = "true";
 }

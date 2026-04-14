@@ -536,10 +536,11 @@ body::after {
     position: fixed;
     inset: 0;
     z-index: 30;
+    overflow-y: auto;
 }
 
 .coach-modal-backdrop {
-    position: absolute;
+    position: fixed;
     inset: 0;
     background: rgba(1, 5, 19, 0.72);
     backdrop-filter: blur(10px);
@@ -548,7 +549,7 @@ body::after {
 .coach-modal-dialog {
     position: relative;
     width: min(1040px, calc(100vw - 40px));
-    margin: min(8vh, 72px) auto 0;
+    margin: min(8vh, 72px) auto min(4vh, 36px);
     padding: 28px;
     display: grid;
     grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
