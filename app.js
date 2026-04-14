@@ -100,6 +100,8 @@ const coachAssetFiles = {
     "Rato": [
         "Rato_card.png",
         "rato_profile.png",
+        "rato_profile2.png",
+        "rato_profile4.png",
         "stats_treinador_rato.png"
     ],
     "Chico": [
@@ -963,6 +965,10 @@ function setupCoachModalGallery() {
     } catch (_) {
         images = [];
     }
+    image.addEventListener("click", () => {
+        openPhotoLightbox(image.src, image.alt);
+    });
+
     if (images.length <= 1) return;
 
     function setImageByIndex(nextIndex) {
@@ -990,6 +996,38 @@ function setupCoachModalGallery() {
     });
 }
 
+function openPhotoLightbox(src, alt) {
+    let lightbox = document.getElementById("photoLightbox");
+    let img = document.getElementById("photoLightboxImg");
+    if (!lightbox || !img) return;
+    img.src = src;
+    img.alt = alt || "";
+    lightbox.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+
+function closePhotoLightbox() {
+    let lightbox = document.getElementById("photoLightbox");
+    if (!lightbox) return;
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "";
+}
+
+function setupPhotoLightbox() {
+    let lightbox = document.getElementById("photoLightbox");
+    if (!lightbox || lightbox.dataset.bound === "true") return;
+
+    lightbox.querySelector(".photo-lightbox-backdrop")?.addEventListener("click", closePhotoLightbox);
+    lightbox.querySelector(".photo-lightbox-img")?.addEventListener("click", closePhotoLightbox);
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && lightbox.classList.contains("active")) {
+            closePhotoLightbox();
+        }
+    });
+
+    lightbox.dataset.bound = "true";
+}
+
 function renderCoachCards() {
     let rail = document.getElementById("coachesRail");
     if (!rail) return;
@@ -1015,6 +1053,7 @@ function renderCoachCards() {
 
     setupCoachRailDrag();
     setupCoachModal();
+    setupPhotoLightbox();
     selectCoach(selectedCoachId, false);
 }
 
