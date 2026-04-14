@@ -569,8 +569,12 @@ body::after {
     position: absolute;
     top: 14px;
     right: 14px;
+    z-index: 3;
     width: 38px;
     height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 999px;
     border: 1px solid rgba(112, 208, 255, 0.16);
     background: rgba(255,255,255,0.04);
@@ -578,6 +582,42 @@ body::after {
     font-size: 24px;
     line-height: 1;
     cursor: pointer;
+}
+
+.coach-modal-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid rgba(112, 208, 255, 0.16);
+    background: rgba(4, 12, 42, 0.5);
+    color: #eef7ff;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transform: translateY(-50%);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.coach-modal-nav.prev {
+    left: -54px;
+}
+
+.coach-modal-nav.next {
+    right: -54px;
+}
+
+.coach-modal-nav:hover {
+    background: rgba(18, 43, 120, 0.62);
+    border-color: rgba(145, 225, 255, 0.3);
+    transform: translateY(-50%) scale(1.04);
 }
 
 .coach-modal-media {
@@ -603,30 +643,40 @@ body::after {
     height: 100%;
 }
 
-.coach-modal-next {
+.coach-modal-photo-nav {
     position: absolute;
     top: 50%;
-    right: 16px;
     z-index: 2;
     width: 34px;
     height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 0;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.18);
-    background: rgba(3, 10, 30, 0.34);
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(3, 10, 30, 0.2);
     color: #f3f8ff;
     font-size: 24px;
     line-height: 1;
     cursor: pointer;
     transform: translateY(-50%);
     backdrop-filter: blur(8px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
     transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.coach-modal-next:hover {
-    background: rgba(16, 38, 108, 0.5);
-    border-color: rgba(145, 225, 255, 0.3);
+.coach-modal-photo-nav.prev {
+    left: 16px;
+}
+
+.coach-modal-photo-nav.next {
+    right: 16px;
+}
+
+.coach-modal-photo-nav:hover {
+    background: rgba(16, 38, 108, 0.38);
+    border-color: rgba(145, 225, 255, 0.24);
     transform: translateY(-50%) scale(1.06);
 }
 
@@ -707,7 +757,7 @@ body::after {
 .coach-modal-name {
     margin: 0;
     font-family: "Michroma", sans-serif;
-    font-size: clamp(28px, 4vw, 42px);
+    font-size: clamp(22px, 3.2vw, 34px);
     line-height: 1.06;
     color: #f5fbff;
     text-transform: uppercase;
@@ -749,7 +799,6 @@ body::after {
 
 .coach-modal-stats-media {
     width: 100%;
-    min-height: 260px;
     display: block;
     border-radius: 18px;
     border: 1px solid rgba(112, 208, 255, 0.14);
@@ -1290,6 +1339,35 @@ body::after {
         inset 0 1px 0 rgba(255,255,255,0.08),
         inset 0 0 18px rgba(99, 219, 255, 0.05),
         0 0 14px rgba(87, 196, 255, 0.08);
+}
+
+.coach-link {
+    appearance: none;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    text-shadow: inherit;
+    cursor: pointer;
+    transition: color 0.18s ease, text-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.coach-link:hover {
+    color: #ffffff;
+}
+
+.score-player-link:hover,
+.bonus-player-link:hover {
+    text-shadow:
+        0 0 16px rgba(108, 220, 255, 0.18),
+        0 0 28px rgba(255,255,255,0.08);
+}
+
+.standings-player-link:hover {
+    opacity: 0.92;
 }
 
 .standings-player.empty {
@@ -2256,12 +2334,14 @@ button:disabled {
     .coach-modal-media { height: 260px; }
     .coach-modal-tabs { width: 100%; }
     .coach-modal-tab { flex: 1; min-width: 0; padding-inline: 14px; }
+    .coach-modal-nav.prev { left: 8px; }
+    .coach-modal-nav.next { right: 8px; }
+    .coach-modal-nav { width: 36px; height: 36px; font-size: 24px; }
     .coach-modal-name { font-size: clamp(22px, 7vw, 30px); }
     .coach-modal-role { font-size: 16px; }
     .coach-modal-tag,
     .coach-modal-description { font-size: 14px; line-height: 1.64; }
     .coach-modal-highlight { font-size: 12px; }
-    .coach-modal-stats-media { min-height: 220px; }
     .coach-modal-stats-grid { grid-template-columns: 1fr; gap: 10px; padding: 14px; }
     .coach-stat-card { min-height: 76px; }
     .coach-stat-value { font-size: 20px; }

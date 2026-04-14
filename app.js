@@ -7,6 +7,7 @@ const coachProfiles = [
     {
         id: "goncalo",
         nome: "Gonçalo",
+        nomePerfil: "Zép Jóbes",
         cargo: "O estratega metódico",
         tag: "Táctica, disciplina e aquela aura de quem já abriu três separadores de scouting antes do save começar.",
         descricao: "Gonçalo entra em cada época com ar de quem já tem o plano A, B e C preparados. Quando o caos começa, é um dos que mais rapidamente transforma pressão em organização.",
@@ -16,6 +17,7 @@ const coachProfiles = [
     {
         id: "rato",
         nome: "Rato",
+        nomePerfil: "João Pedro Rato",
         cargo: "O underdog killer",
         tag: "Perigoso com equipas médias, ainda mais perigoso quando o subestimam.",
         descricao: "Rato tem aquele perfil de manager que cresce com o contexto competitivo. Gosta do desafio, aceita o caos e costuma sacar campanhas acima do que a previsão prometia.",
@@ -25,6 +27,7 @@ const coachProfiles = [
     {
         id: "chico",
         nome: "Chico",
+        nomePerfil: "Francisco Pinto",
         cargo: "O gestor cerebral",
         tag: "Menos barulho, mais controlo. Vai somando pontos enquanto os outros ainda estão a discutir scouting.",
         descricao: "Chico é o tipo de treinador que parece tranquilo, mas por baixo está a otimizar tudo. Não precisa de grandes foguetes para se manter competitivo e consistente.",
@@ -34,6 +37,7 @@ const coachProfiles = [
     {
         id: "nabais",
         nome: "Nabais",
+        nomePerfil: "João Nabais",
         cargo: "O caos criativo",
         tag: "Energia de wildcard puro, mas com talento suficiente para transformar caos em espetáculo.",
         descricao: "Nabais vive melhor quando o save deixa margem para improviso. É imprevisível, divertido e perigoso precisamente porque nunca parece jogar da forma mais óbvia.",
@@ -43,6 +47,7 @@ const coachProfiles = [
     {
         id: "gamy",
         nome: "Gamy",
+        nomePerfil: "Gamy Chambelito",
         cargo: "O provocador oficial",
         tag: "Traz confiança, trash talk e vontade real de transformar qualquer sorteio numa storyline.",
         descricao: "Gamy joga tanto o save como a narrativa à volta dele. Quando começa a ganhar embalo, é dos treinadores que melhor sabe capitalizar momentum e mexer com o grupo.",
@@ -52,6 +57,7 @@ const coachProfiles = [
     {
         id: "painatal",
         nome: "Painatal",
+        nomePerfil: "Pai Natal",
         cargo: "O sobrevivente teimoso",
         tag: "Pode sofrer, pode ranger, mas nunca sai de cena sem luta.",
         descricao: "Painatal tem aquele perfil resiliente que encaixa muito bem em ligas longas. Mesmo quando a tabela aperta, raramente deixa de procurar uma forma de virar a narrativa.",
@@ -61,6 +67,7 @@ const coachProfiles = [
     {
         id: "cardoso",
         nome: "Cardoso",
+        nomePerfil: "Miguel Cardoso",
         cargo: "O técnico de detalhes",
         tag: "Foco, leitura de jogo e gosto por controlar as pequenas margens.",
         descricao: "Cardoso costuma destacar-se nas nuances: preparação, contexto e timing. Não precisa do save mais vistoso para ser dos mais difíceis de bater.",
@@ -70,6 +77,7 @@ const coachProfiles = [
     {
         id: "hugo",
         nome: "Hugo",
+        nomePerfil: "Hugo Macedo",
         cargo: "O acelerador da mesa",
         tag: "Vai atrás da vantagem sem medo e adora meter intensidade competitiva em cima do save.",
         descricao: "Hugo traz urgência e irreverência ao campeonato. É o tipo de manager que força a liga a reagir, porque raramente entra numa época para ser figurante.",
@@ -363,6 +371,7 @@ let remainingTeams = [];
 let remainingPlayers = [];
 let currentRound = 0;
 let resultados = [];
+const coachByShortName = Object.fromEntries(coachProfiles.map((coach) => [coach.nome, coach]));
 let selectedCoachId = coachProfiles[0].id;
 
 const TOTAL_ROUNDS = jogadores.length;
@@ -652,6 +661,28 @@ function getCoachById(id) {
     return coachProfiles.find((entry) => entry.id === id) || coachProfiles[0];
 }
 
+function getCoachByShortName(name) {
+    return coachByShortName[name] || null;
+}
+
+function getCoachIndex(id) {
+    return coachProfiles.findIndex((entry) => entry.id === id);
+}
+
+function getAdjacentCoachId(id, direction) {
+    let currentIndex = getCoachIndex(id);
+    if (currentIndex === -1) return coachProfiles[0].id;
+    let nextIndex = (currentIndex + direction + coachProfiles.length) % coachProfiles.length;
+    return coachProfiles[nextIndex].id;
+}
+
+function getCoachLinkMarkup(name, className = "") {
+    let coach = getCoachByShortName(name);
+    if (!coach) return name || "PC";
+    let safeClass = className ? ` ${className}` : "";
+    return `<button class="coach-link${safeClass}" type="button" data-coach-id="${coach.id}">${coach.nome}</button>`;
+}
+
 function resolveCoachMedia(coach) {
     let folder = coach.assetFolder;
     let files = coachAssetFiles[folder] || [];
@@ -728,8 +759,9 @@ function renderCoachModal(coach) {
     let media = images.length
         ? `
             <div class="coach-modal-gallery" data-photo-index="0">
+                ${images.length > 1 ? `<button class="coach-modal-photo-nav prev" type="button" aria-label="Foto anterior de ${coach.nome}">‹</button>` : ""}
                 <img src="${images[0]}" alt="${coach.nome}" class="coach-card-photo coach-modal-photo-main" draggable="false">
-                ${images.length > 1 ? `<button class="coach-modal-next" type="button" aria-label="Trocar foto de ${coach.nome}">›</button>` : ""}
+                ${images.length > 1 ? `<button class="coach-modal-photo-nav next" type="button" aria-label="Foto seguinte de ${coach.nome}">›</button>` : ""}
             </div>
         `
         : `<div class="coach-card-placeholder">${initials}</div>`;
@@ -737,12 +769,12 @@ function renderCoachModal(coach) {
     let mediaEl = document.getElementById("coachModalMedia");
     mediaEl.innerHTML = media;
     mediaEl.dataset.images = JSON.stringify(images);
-    document.getElementById("coachModalName").textContent = coach.nome;
+    document.getElementById("coachModalName").textContent = coach.nomePerfil || coach.nome;
     document.getElementById("coachModalRole").textContent = coach.cargo;
     document.getElementById("coachModalTag").textContent = coach.tag;
     document.getElementById("coachModalDescription").textContent = coach.descricao;
     document.getElementById("coachModalHighlight").textContent = coach.destaque;
-    document.getElementById("coachModalStatsName").textContent = coach.nome;
+    document.getElementById("coachModalStatsName").textContent = coach.nomePerfil || coach.nome;
 
     let statsMediaEl = document.getElementById("coachModalStatsMedia");
     if (statsMediaEl) {
@@ -774,6 +806,8 @@ function setupCoachModal() {
     let backdrop = document.getElementById("coachModalBackdrop");
     let presentationTab = document.getElementById("coachModalTabPresentation");
     let statsTab = document.getElementById("coachModalTabStats");
+    let prevCoachBtn = document.getElementById("coachModalPrevCoach");
+    let nextCoachBtn = document.getElementById("coachModalNextCoach");
 
     if (!modal || modal.dataset.bound === "true") return;
 
@@ -787,6 +821,8 @@ function setupCoachModal() {
 
     presentationTab?.addEventListener("click", () => setCoachModalView("presentation"));
     statsTab?.addEventListener("click", () => setCoachModalView("stats"));
+    prevCoachBtn?.addEventListener("click", () => openCoachModal(getAdjacentCoachId(selectedCoachId, -1)));
+    nextCoachBtn?.addEventListener("click", () => openCoachModal(getAdjacentCoachId(selectedCoachId, 1)));
 
     modal.dataset.bound = "true";
 }
@@ -915,9 +951,10 @@ function setupCoachModalGallery() {
     let mediaEl = document.getElementById("coachModalMedia");
     if (!mediaEl) return;
 
-    let trigger = mediaEl.querySelector(".coach-modal-next");
+    let prevTrigger = mediaEl.querySelector(".coach-modal-photo-nav.prev");
+    let nextTrigger = mediaEl.querySelector(".coach-modal-photo-nav.next");
     let image = mediaEl.querySelector(".coach-modal-photo-main");
-    if (!trigger || !image) return;
+    if (!image) return;
 
     let images = [];
     try {
@@ -927,15 +964,28 @@ function setupCoachModalGallery() {
     }
     if (images.length <= 1) return;
 
-    trigger.addEventListener("click", (event) => {
-        event.stopPropagation();
+    function setImageByIndex(nextIndex) {
         let gallery = mediaEl.querySelector(".coach-modal-gallery");
-        let currentIndex = Number(gallery?.dataset.photoIndex || 0);
-        let nextIndex = (currentIndex + 1) % images.length;
         if (gallery) {
             gallery.dataset.photoIndex = String(nextIndex);
         }
         image.src = images[nextIndex];
+    }
+
+    prevTrigger?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        let gallery = mediaEl.querySelector(".coach-modal-gallery");
+        let currentIndex = Number(gallery?.dataset.photoIndex || 0);
+        let nextIndex = (currentIndex - 1 + images.length) % images.length;
+        setImageByIndex(nextIndex);
+    });
+
+    nextTrigger?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        let gallery = mediaEl.querySelector(".coach-modal-gallery");
+        let currentIndex = Number(gallery?.dataset.photoIndex || 0);
+        let nextIndex = (currentIndex + 1) % images.length;
+        setImageByIndex(nextIndex);
     });
 }
 
@@ -1073,12 +1123,14 @@ function renderGeneralTable() {
             <div class="score-rank">${index + 1}</div>
             <div class="score-cell">
                 <span class="score-mobile-label">Jogador</span>
-                <span class="score-player">${entry.jogador}</span>
+                <span class="score-player">${getCoachLinkMarkup(entry.jogador, "score-player-link")}</span>
             </div>
             <div class="score-points ${getPointsClass(entry.pontos)}">${formatPoints(entry.pontos)}</div>
         `;
         scoreTable.appendChild(row);
     });
+
+    bindCoachLinks(scoreTable);
 }
 
 function renderLeagueSelector() {
@@ -1100,7 +1152,7 @@ function renderLeague(leagueId) {
     let rows = "";
     league.tabela.forEach((entry) => {
         let playerMarkup = entry.jogador
-            ? `<div class="standings-player-cell" data-col="4"><div class="standings-player">${entry.jogador}</div></div>`
+            ? `<div class="standings-player-cell" data-col="4"><div class="standings-player">${getCoachLinkMarkup(entry.jogador, "standings-player-link")}</div></div>`
             : `<div class="standings-player-cell" data-col="4"><div class="standings-player empty">PC</div></div>`;
         let emgMarkup = entry.emgPontos === null
             ? `<div class="standings-points-cell" data-col="14"><div class="standings-points neutral">--</div></div>`
@@ -1135,7 +1187,7 @@ function renderLeague(leagueId) {
     let bonuses = calcBonuses(league);
     let bonusRows = bonuses.map((b) => `
         <div class="bonus-row">
-            <div class="bonus-player">${b.jogador}</div>
+            <div class="bonus-player">${getCoachLinkMarkup(b.jogador, "bonus-player-link")}</div>
             <div class="bonus-tipo">${b.tipo}</div>
             <div class="bonus-pontos ${getPointsClass(b.pontos)}">${formatPoints(b.pontos)}</div>
         </div>
@@ -1190,6 +1242,19 @@ function renderLeague(leagueId) {
     `;
 
     setupStandingsColumnHover(panel);
+    bindCoachLinks(panel);
+}
+
+function bindCoachLinks(scope = document) {
+    scope.querySelectorAll(".coach-link").forEach((link) => {
+        if (link.dataset.bound === "true") return;
+        link.addEventListener("click", () => {
+            let coachId = link.dataset.coachId;
+            setActiveTab("coaches");
+            openCoachModal(coachId);
+        });
+        link.dataset.bound = "true";
+    });
 }
 
 function start() {
