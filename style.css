@@ -773,29 +773,50 @@ body::after {
 
 .coach-modal-role {
     color: var(--gold);
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    opacity: 0.94;
 }
 
-.coach-modal-tag,
 .coach-modal-description {
     margin: 0;
     color: rgba(233, 242, 255, 0.84);
     font-size: 16px;
-    line-height: 1.72;
+    line-height: 1.76;
+}
+
+.coach-modal-description {
+    display: grid;
+    gap: 14px;
+    max-width: 58ch;
+}
+
+.coach-modal-paragraph {
+    margin: 0;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
 }
 
 .coach-modal-highlight {
     width: fit-content;
     max-width: 100%;
-    padding: 12px 16px;
-    border-radius: 999px;
-    border: 1px solid rgba(112, 208, 255, 0.18);
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    color: #dff3ff;
+    padding: 10px 2px 0;
+    border: 0;
+    background: transparent;
+    color: rgba(221, 240, 255, 0.86);
     font-size: 14px;
-    font-weight: 600;
-    line-height: 1.5;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.65;
+    letter-spacing: 0.15px;
+    text-wrap: balance;
+    text-shadow:
+        0 0 10px rgba(99, 219, 255, 0.08),
+        0 0 18px rgba(255,255,255,0.03);
 }
 
 .coach-modal-stats-media {

@@ -8,10 +8,10 @@ const coachProfiles = [
         id: "goncalo",
         nome: "Gonçalo",
         nomePerfil: "Zép Jóbes",
-        cargo: "O estratega metódico",
-        tag: "Táctica, disciplina e aquela aura de quem já abriu três separadores de scouting antes do save começar.",
-        descricao: "Gonçalo entra em cada época com ar de quem já tem o plano A, B e C preparados. Quando o caos começa, é um dos que mais rapidamente transforma pressão em organização.",
-        destaque: "Joga melhor quando o save começa a ficar sério.",
+        cargo: "O predador de taças",
+        
+        descricao: "José Empregos, mais conhecido no mundo do futebol como Zép Jóbes, ganhou notoriedade não só pelo seu estilo de jogo, mas também pelas curiosas semelhanças físicas com duas das suas maiores inspirações: Pep Guardiola e Steve Jobs.\n\nZép passava as tardes a observar crianças aleatórias nos parques até que as começou a abordar para lhes dar ensinamentos de futebol. O que, para muitos, parecia suspeito tornou-se o início de uma vocação séria.\n\nIniciou o seu percurso nas camadas jovens do Real de Massamá, onde permaneceu, mesmo depois de já ter sido promovido à equipa principal há dois anos. Nos seus tempos livres, mantém o hábito de observar treinos da formação… muitas vezes disfarçado, para não ser reconhecido.\n\nDurante a sua formação, teve a oportunidade de estagiar com Pep Guardiola, onde foi apontado como um dos treinadores mais promissores da nova geração. Esses elogios abriram-lhe portas, levando o Aberdeen a apostar no seu potencial. Fortíssimo no mata-mata, Zép ganhou 2 Taças no Aberdeen, o que lhe valeu a sua alcunha de \"O predador... de Taças\".\n\nCirculam rumores de que Zép poderá abraçar um novo projeto na Croácia. Muitos veem esta decisão como um regressão na carreira, mas, ao que tudo indica, existem motivos pessoais por trás da escolha.\n\nZép Jóbes não é apenas um treinador — é um conceito. Uma mistura improvável entre tecnologia, obsessão tática e uma ligação... estranha... à formação.",
+        destaque: "\"O que gosto mais do que ganhar taças? Abordar crianças em parques públicos.\"",
         assetFolder: "Gonçalo"
     },
     {
@@ -38,10 +38,9 @@ const coachProfiles = [
         id: "nabais",
         nome: "Nabais",
         nomePerfil: "João Nabais",
-        cargo: "O caos criativo",
-        tag: "Energia de wildcard puro, mas com talento suficiente para transformar caos em espetáculo.",
-        descricao: "Nabais vive melhor quando o save deixa margem para improviso. É imprevisível, divertido e perigoso precisamente porque nunca parece jogar da forma mais óbvia.",
-        destaque: "O manager que pode partir o guião da época.",
+        cargo: "Prodígio milagreiro",
+        descricao: "Vim de uma aldeia tão pequena que até as ovelhas ficavam aborrecidas. Em criança, treinava a correr atrás de galinhas e a discutir com uma baliza que estava sempre torta. De alguma forma à base de teimosia, táticas duvidosas e litros absurdos de chá acabou na Escócia como treinador de alto nível. Ninguém percebe muito bem como.\n\nE lá está ele agora, a gritar instruções à chuva como se tivesse nascido para aquilo a prova de que podes sair do nada e chegar a algum lado… mesmo sem fazer grande ideia do que estás a fazer.",
+        destaque: "\"Um pastor não escolhe o rebanho… mas escolhe até onde ele pode chegar.\"",
         assetFolder: "Nabais"
     },
     {
@@ -58,30 +57,29 @@ const coachProfiles = [
         id: "painatal",
         nome: "Painatal",
         nomePerfil: "Pai Natal",
-        cargo: "O sobrevivente teimoso",
-        tag: "Pode sofrer, pode ranger, mas nunca sai de cena sem luta.",
-        descricao: "Painatal tem aquele perfil resiliente que encaixa muito bem em ligas longas. Mesmo quando a tabela aperta, raramente deixa de procurar uma forma de virar a narrativa.",
-        destaque: "Mentalidade de resistência competitiva.",
+        cargo: "O Desertor de serviço",
+        descricao: "Havia uma vez um treinador guineense chamado Pai Natal, conhecido em todo o bairro não pelas vitórias… mas pela criatividade no fracasso.\n\nPainas (para os amigos) começou a carreira depois de perder uma aposta. Disse que conseguia treinar melhor do que qualquer um — alguém respondeu: “Duvido.” No dia seguinte, já estava de apito ao pescoço e sem plano nenhum.\n\nNos primeiros jogos, a sua equipa inovava: ninguém sabia bem em que posição jogava. O guarda-redes aparecia no ataque, o avançado defendia cantos… e Painas chamava a isso “futebol imprevisível”. Perdiam sempre, mas confundiam tanto o adversário que, por vezes, até despertavam pena.\n\nApesar disso, nunca desanimou. Dava palestras motivacionais como:\n“Hoje podemos perder… mas vamos perder com estilo!”\n\nCuriosamente, começou a subir na carreira. Porquê? Porque os clubes achavam que ninguém podia ser tão mau — devia ser uma estratégia avançada.\n\nUm dia, ganhou um jogo… porque o outro treinador faltou. Foi promovido.\n\nHoje, Pai Natal é um nome bem conhecido nas ruas da Croácia — não porque todos o queiram, mas porque ninguém quer ficar com ele. É considerado um fenómeno: o único treinador que nunca terminou uma época.\n\nE quando lhe perguntam qual é o segredo do sucesso, responde:\n“Persistência… e um bocado de sorte… principalmente a sorte.”",
+        destaque: "\"Vencer é opcional, perder é mandatório.\"",
         assetFolder: "Painatal"
     },
     {
         id: "cardoso",
         nome: "Cardoso",
         nomePerfil: "Miguel Cardoso",
-        cargo: "O técnico de detalhes",
-        tag: "Foco, leitura de jogo e gosto por controlar as pequenas margens.",
-        descricao: "Cardoso costuma destacar-se nas nuances: preparação, contexto e timing. Não precisa do save mais vistoso para ser dos mais difíceis de bater.",
-        destaque: "Pequenas decisões, grande impacto.",
+        cargo: "Atacante agressivo",
+        
+        descricao: "Desde pequeno, no Cacém, o futebol nunca foi só um jogo. Era refúgio, rotina, identidade. Cresci a jogar em pelados, bolas gastas e sonhos grandes demais para o tamanho da cidade. Como muitos miúdos, quis ser jogador. E fui, durante anos lutei, treinei, sacrifiquei. Mas no fundo, havia sempre outra voz. Eu não queria só jogar, queria perceber o jogo.\n\nQuando a carreira de jogador começou a perder força, não foi o fim. Foi o início. Tirei cursos, estudei tática, analisei jogos até altas horas. Enquanto outros viam futebol, eu desmontava-o.\n\nA oportunidade surgiu longe de casa, no Heart of Midlothian. O primeiro grande salto, a primeira prova real. Mas o futebol não perdoa romantismos. A época foi um desastre. Resultados maus, balneário instável, decisões que hoje sei que tomaria de forma diferente. Foi duro. Muito duro. Houve dúvidas, houve críticas, houve noites em que pensei desistir.\n\nAgora surge um novo capítulo na Croácia. Não é um passo atrás, é um recomeço consciente. Um sítio onde posso reconstruir, aplicar tudo o que aprendi, errar menos e crescer mais.\n\nPorque o sonho nunca foi só jogar futebol.",
+        destaque: "\" Defender? O que é isso?\"",
         assetFolder: "Cardoso"
     },
     {
         id: "hugo",
         nome: "Hugo",
         nomePerfil: "Hugo Macedo",
-        cargo: "O acelerador da mesa",
-        tag: "Vai atrás da vantagem sem medo e adora meter intensidade competitiva em cima do save.",
-        descricao: "Hugo traz urgência e irreverência ao campeonato. É o tipo de manager que força a liga a reagir, porque raramente entra numa época para ser figurante.",
-        destaque: "Intensidade alta do início ao fim.",
+        cargo: "O Batoteiro de Competição",
+        
+        descricao: "Não nasci treinador… acho que virei por acidente.\n\nLembro-me perfeitamente: estava numa aula de educação física, mais preocupado em não me cansar muito, quando olho para um grupo de miúdos a jogar. E não era um jogo qualquer — aquilo parecia futebol a sério, com passes, entreajuda, espírito de equipa… quase digno de FC Barcelona. Foi aí que pensei: “Espera… isto até é bonito.”\n\nO mais irónico? Na altura, eu era campeão em França… mas em voleibol. Saltava mais do que corria, e sinceramente dava menos trabalho. Mas a verdade é que o futebol sempre esteve ali, a puxar por mim.\n\nSou benfiquista daqueles a sério, dos que sofrem mais do que celebram. O sonho? Um dia treinar o SL Benfica… mesmo sabendo que isso vem com um pacote completo de pressão, nervos e anos de vida perdidos.\n\nDecidi complicar a minha vida e mudei-me para o futebol. Passei pelo Falkirk FC, na Escócia, onde fiz uma excelente época — e onde, entre nós, ainda estou a tentar perceber metade do que dizem.\n\nHoje sou treinador de futebol. Não sei se foi a decisão mais fácil… mas de certeza foi a mais divertida.",
+        destaque: "\" O meu streamer é melhor que o teu.\"",
         assetFolder: "Hugo"
     }
 ];
@@ -736,6 +734,15 @@ function renderCoachStatsMarkup(coach) {
     `;
 }
 
+function formatCoachDescription(text) {
+    return text
+        .split(/\n\s*\n/)
+        .map((paragraph) => paragraph.trim())
+        .filter(Boolean)
+        .map((paragraph) => `<p class="coach-modal-paragraph">${paragraph.replace(/\n/g, "<br>")}</p>`)
+        .join("");
+}
+
 function setCoachModalView(view) {
     let presentationTab = document.getElementById("coachModalTabPresentation");
     let statsTab = document.getElementById("coachModalTabStats");
@@ -773,8 +780,7 @@ function renderCoachModal(coach) {
     mediaEl.dataset.images = JSON.stringify(images);
     document.getElementById("coachModalName").textContent = coach.nomePerfil || coach.nome;
     document.getElementById("coachModalRole").textContent = coach.cargo;
-    document.getElementById("coachModalTag").textContent = coach.tag;
-    document.getElementById("coachModalDescription").textContent = coach.descricao;
+    document.getElementById("coachModalDescription").innerHTML = formatCoachDescription(coach.descricao);
     document.getElementById("coachModalHighlight").textContent = coach.destaque;
     document.getElementById("coachModalStatsName").textContent = coach.nomePerfil || coach.nome;
 
