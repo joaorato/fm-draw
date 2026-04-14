@@ -11,11 +11,7 @@ const coachProfiles = [
         tag: "Táctica, disciplina e aquela aura de quem já abriu três separadores de scouting antes do save começar.",
         descricao: "Gonçalo entra em cada época com ar de quem já tem o plano A, B e C preparados. Quando o caos começa, é um dos que mais rapidamente transforma pressão em organização.",
         destaque: "Joga melhor quando o save começa a ficar sério.",
-        foto: "assets/Treinadores/Gonçalo/Gonçalo1.png",
-        fotos: [
-            "assets/Treinadores/Gonçalo/Gonçalo1.png",
-            "assets/Treinadores/Gonçalo/Gonçalo2.png"
-        ]
+        assetFolder: "Gonçalo"
     },
     {
         id: "rato",
@@ -24,11 +20,7 @@ const coachProfiles = [
         tag: "Perigoso com equipas médias, ainda mais perigoso quando o subestimam.",
         descricao: "Rato tem aquele perfil de manager que cresce com o contexto competitivo. Gosta do desafio, aceita o caos e costuma sacar campanhas acima do que a previsão prometia.",
         destaque: "Especialista em superar expectativas.",
-        foto: "assets/Treinadores/Rato/Rato1.png",
-        fotos: [
-            "assets/Treinadores/Rato/Rato1.png",
-            "assets/Treinadores/Rato/Rato2.png"
-        ]
+        assetFolder: "Rato"
     },
     {
         id: "chico",
@@ -37,12 +29,7 @@ const coachProfiles = [
         tag: "Menos barulho, mais controlo. Vai somando pontos enquanto os outros ainda estão a discutir scouting.",
         descricao: "Chico é o tipo de treinador que parece tranquilo, mas por baixo está a otimizar tudo. Não precisa de grandes foguetes para se manter competitivo e consistente.",
         destaque: "Consistência e cabeça fria nas decisões.",
-        foto: "assets/Treinadores/Chico/ChicoOficial.png",
-        fotos: [
-            "assets/Treinadores/Chico/ChicoOficial.png",
-            "assets/Treinadores/Chico/ChicoOficial2.png",
-            "assets/Treinadores/Chico/ChicoOficial3.png"
-        ]
+        assetFolder: "Chico"
     },
     {
         id: "nabais",
@@ -51,11 +38,7 @@ const coachProfiles = [
         tag: "Energia de wildcard puro, mas com talento suficiente para transformar caos em espetáculo.",
         descricao: "Nabais vive melhor quando o save deixa margem para improviso. É imprevisível, divertido e perigoso precisamente porque nunca parece jogar da forma mais óbvia.",
         destaque: "O manager que pode partir o guião da época.",
-        foto: "assets/Treinadores/Nabais/Nabais1.png",
-        fotos: [
-            "assets/Treinadores/Nabais/Nabais1.png",
-            "assets/Treinadores/Nabais/nabais2.png"
-        ]
+        assetFolder: "Nabais"
     },
     {
         id: "gamy",
@@ -64,11 +47,7 @@ const coachProfiles = [
         tag: "Traz confiança, trash talk e vontade real de transformar qualquer sorteio numa storyline.",
         descricao: "Gamy joga tanto o save como a narrativa à volta dele. Quando começa a ganhar embalo, é dos treinadores que melhor sabe capitalizar momentum e mexer com o grupo.",
         destaque: "Quando aquece, toda a liga sente.",
-        foto: "assets/Treinadores/Gamy/GamyOficial.png",
-        fotos: [
-            "assets/Treinadores/Gamy/GamyOficial.png",
-            "assets/Treinadores/Gamy/GamyOficial2.png"
-        ]
+        assetFolder: "Gamy"
     },
     {
         id: "painatal",
@@ -77,7 +56,7 @@ const coachProfiles = [
         tag: "Pode sofrer, pode ranger, mas nunca sai de cena sem luta.",
         descricao: "Painatal tem aquele perfil resiliente que encaixa muito bem em ligas longas. Mesmo quando a tabela aperta, raramente deixa de procurar uma forma de virar a narrativa.",
         destaque: "Mentalidade de resistência competitiva.",
-        foto: "assets/Treinadores/Painatal/Painatal.png"
+        assetFolder: "Painatal"
     },
     {
         id: "cardoso",
@@ -86,12 +65,7 @@ const coachProfiles = [
         tag: "Foco, leitura de jogo e gosto por controlar as pequenas margens.",
         descricao: "Cardoso costuma destacar-se nas nuances: preparação, contexto e timing. Não precisa do save mais vistoso para ser dos mais difíceis de bater.",
         destaque: "Pequenas decisões, grande impacto.",
-        foto: "assets/Treinadores/Cardoso/CardosoOficial.png",
-        fotos: [
-            "assets/Treinadores/Cardoso/CardosoOficial.png",
-            "assets/Treinadores/Cardoso/image.png",
-            "assets/Treinadores/Cardoso/image1.png"
-        ]
+        assetFolder: "Cardoso"
     },
     {
         id: "hugo",
@@ -100,9 +74,59 @@ const coachProfiles = [
         tag: "Vai atrás da vantagem sem medo e adora meter intensidade competitiva em cima do save.",
         descricao: "Hugo traz urgência e irreverência ao campeonato. É o tipo de manager que força a liga a reagir, porque raramente entra numa época para ser figurante.",
         destaque: "Intensidade alta do início ao fim.",
-        foto: "assets/Treinadores/Hugo/HugoOficial.png"
+        assetFolder: "Hugo"
     }
 ];
+
+const coachAssetFiles = {
+    "Gonçalo": [
+        "gonçalo_card.png",
+        "gonçalo_profile.png",
+        "gonçalo_profile2.png",
+        "gonçalo_profile3.png",
+        "gonçalo_profile4.png",
+        "teste_gonçalo.png",
+        "teste_gonçalo2.png",
+        "stats_treinador_gonçalo.png"
+    ],
+    "Rato": [
+        "Rato_card.png",
+        "rato_profile.png",
+        "stats_treinador_rato.png"
+    ],
+    "Chico": [
+        "ChicoOficial.png",
+        "ChicoOficial2.png",
+        "stats_treinador_chico.png"
+    ],
+    "Nabais": [
+        "Nabais1.png",
+        "nabais_card.png",
+        "stats_treinador_nabais.png"
+    ],
+    "Gamy": [
+        "GamyOficial.png",
+        "GamyOficial2.png",
+        "stats_treinador_gamy.png"
+    ],
+    "Painatal": [
+        "Painatal_card.png",
+        "painatal_profile.png",
+        "painatal_profile1.png",
+        "painatal_profile2.png",
+        "painatal_profile3.png",
+        "stats_treinador_painatal.png"
+    ],
+    "Cardoso": [
+        "CardosoOficial.png",
+        "stats_treinador_cardoso.png"
+    ],
+    "Hugo": [
+        "HugoOficial.png",
+        "bd05d9f8-51de-4a38-bcc2-f99780976f62.png",
+        "stats_treinador_hugo.png"
+    ]
+};
 
 const equipas = [
     { nome: "HNK Rijeka", img: "assets/logos/croacia/Rijeka.png", rank: 3 },
@@ -469,11 +493,11 @@ window.addEventListener("popstate", () => setActiveTab(getTabFromHash(), false))
 
 function getCoachMarkup(coach) {
     let initials = coach.nome.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
-    let images = Array.isArray(coach.fotos) && coach.fotos.length ? coach.fotos : (coach.foto ? [coach.foto] : []);
-    let media = images.length
+    let mediaAssets = resolveCoachMedia(coach);
+    let media = mediaAssets.cardPhoto
         ? `
             <div class="coach-card-gallery">
-                <img src="${images[0]}" alt="${coach.nome}" class="coach-card-photo coach-card-photo-main" draggable="false">
+                <img src="${mediaAssets.cardPhoto}" alt="${coach.nome}" class="coach-card-photo coach-card-photo-main" draggable="false">
             </div>
         `
         : `<div class="coach-card-placeholder">${initials}</div>`;
@@ -513,9 +537,37 @@ function getCoachById(id) {
     return coachProfiles.find((entry) => entry.id === id) || coachProfiles[0];
 }
 
+function resolveCoachMedia(coach) {
+    let folder = coach.assetFolder;
+    let files = coachAssetFiles[folder] || [];
+    let usableFiles = files.filter((file) => {
+        let name = file.toLowerCase();
+        return !name.includes("teste") && !name.includes("stats");
+    });
+
+    let keywordCardFiles = usableFiles.filter((file) => file.toLowerCase().includes("card"));
+    let keywordProfileFiles = usableFiles.filter((file) => file.toLowerCase().includes("profile"));
+
+    let cardFile = keywordCardFiles[0] || usableFiles[0] || null;
+    let profileFiles = keywordProfileFiles;
+
+    if (!profileFiles.length) {
+        profileFiles = usableFiles.filter((file) => file !== cardFile);
+    }
+    if (!profileFiles.length && cardFile) {
+        profileFiles = [cardFile];
+    }
+
+    return {
+        cardPhoto: cardFile ? `assets/Treinadores/${folder}/${cardFile}` : "",
+        profilePhotos: profileFiles.map((file) => `assets/Treinadores/${folder}/${file}`)
+    };
+}
+
 function renderCoachModal(coach) {
     let initials = coach.nome.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
-    let images = Array.isArray(coach.fotos) && coach.fotos.length ? coach.fotos : (coach.foto ? [coach.foto] : []);
+    let mediaAssets = resolveCoachMedia(coach);
+    let images = mediaAssets.profilePhotos;
     let media = images.length
         ? `
             <div class="coach-modal-gallery" data-photo-index="0">
@@ -1291,4 +1343,6 @@ setupFormulaPopover();
 restoreMuteState();
 bindMusicRecovery();
 setActiveTab(getTabFromHash());
+
+
 
