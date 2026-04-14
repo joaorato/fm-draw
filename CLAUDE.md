@@ -39,7 +39,7 @@ League history is stored in the `leagues` array in `app.js`. Each entry contains
 
 - 8 players: Gonçalo, Rato, Chico, Nabais, Gamy, Painatal, Cardoso, Hugo
 - Current draw: 8 Croatian league teams (Rijeka, Osijek, Lokomotiva, Slaven Belupo, Istra 1961, HNK Gorica, Vukovar, Varaždin)
-- Past leagues: Scotland (Época 24/25)
+- Past leagues: Scotland (Época 25/26)
 - Team logos are PNGs in `assets/logos/`, organized by league subfolder
 
 ## Language
