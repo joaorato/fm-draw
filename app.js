@@ -1251,7 +1251,6 @@ function bindCoachLinks(scope = document) {
         if (link.dataset.bound === "true") return;
         link.addEventListener("click", () => {
             let coachId = link.dataset.coachId;
-            setActiveTab("coaches");
             openCoachModal(coachId);
         });
         link.dataset.bound = "true";
