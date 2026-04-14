@@ -552,7 +552,7 @@ body::after {
     padding: 28px;
     display: grid;
     grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
-    gap: 26px;
+    gap: 18px;
     border-radius: 24px;
     border: 1px solid rgba(112, 208, 255, 0.16);
     background:
@@ -581,7 +581,7 @@ body::after {
 }
 
 .coach-modal-media {
-    min-height: 420px;
+    height: clamp(420px, 58vh, 560px);
     border-radius: 18px;
     border: 1px solid rgba(112, 208, 255, 0.14);
     background:
@@ -594,6 +594,7 @@ body::after {
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.08),
         inset 0 -84px 120px rgba(1, 6, 26, 0.42);
+    align-self: start;
 }
 
 .coach-modal-gallery {
@@ -631,8 +632,69 @@ body::after {
 
 .coach-modal-content {
     display: grid;
-    align-content: center;
+    align-content: start;
+    justify-items: start;
     gap: 14px;
+    padding-top: 2px;
+    text-align: left;
+}
+
+.coach-modal-tabs {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 999px;
+    border: 1px solid rgba(112, 208, 255, 0.14);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 10px 24px rgba(0, 0, 0, 0.14);
+}
+
+.coach-modal-tab {
+    min-width: 134px;
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: rgba(223, 240, 255, 0.74);
+    font-family: "Oxanium", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+        background 0.22s ease,
+        color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.22s ease;
+}
+
+.coach-modal-tab:hover {
+    color: #f4fbff;
+    background: rgba(74, 134, 255, 0.12);
+}
+
+.coach-modal-tab.active {
+    color: #f6fbff;
+    background:
+        linear-gradient(180deg, rgba(97, 186, 255, 0.22), rgba(42, 95, 219, 0.16));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 0 24px rgba(70, 142, 255, 0.18);
+}
+
+.coach-modal-panel {
+    display: grid;
+    justify-items: start;
+    gap: 14px;
+    width: 100%;
+}
+
+.coach-modal-panel:not(.active) {
+    display: none;
 }
 
 .coach-modal-kicker {
@@ -652,6 +714,10 @@ body::after {
     text-shadow:
         0 0 16px rgba(99, 219, 255, 0.16),
         0 0 34px rgba(255,255,255,0.04);
+}
+
+.coach-modal-name-small {
+    font-size: clamp(24px, 3vw, 34px);
 }
 
 .coach-modal-role {
@@ -679,6 +745,70 @@ body::after {
     font-size: 14px;
     font-weight: 600;
     line-height: 1.5;
+}
+
+.coach-modal-stats-media {
+    width: 100%;
+    min-height: 260px;
+    display: block;
+    border-radius: 18px;
+    border: 1px solid rgba(112, 208, 255, 0.14);
+    background:
+        linear-gradient(180deg, rgba(8, 20, 74, 0.58), rgba(4, 11, 40, 0.72)),
+        radial-gradient(circle at top, rgba(104, 214, 255, 0.08), transparent 54%);
+    overflow: hidden;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 -50px 90px rgba(1, 6, 26, 0.34);
+}
+
+.coach-modal-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+}
+
+.coach-stat-card {
+    min-height: 88px;
+    padding: 14px 14px 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(112, 208, 255, 0.12);
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015)),
+        radial-gradient(circle at top, rgba(98, 210, 255, 0.08), transparent 65%);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.coach-stat-label {
+    color: rgba(198, 227, 255, 0.68);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    line-height: 1.45;
+    text-transform: uppercase;
+}
+
+.coach-stat-value {
+    margin-top: 10px;
+    color: #f6fbff;
+    font-family: "Michroma", sans-serif;
+    font-size: 22px;
+    line-height: 1.15;
+    text-shadow:
+        0 0 16px rgba(99, 219, 255, 0.12),
+        0 0 26px rgba(255,255,255,0.03);
+}
+
+.coach-modal-stats-empty {
+    color: rgba(223, 240, 255, 0.72);
+    font-size: 15px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    padding: 28px 22px;
 }
 
 .hero-shell {
@@ -2089,7 +2219,7 @@ button:disabled {
     .coach-card { flex-basis: 290px; min-height: 430px; }
     .coach-card-media { min-height: 386px; }
     .coach-modal-dialog { grid-template-columns: 1fr; width: min(860px, calc(100vw - 36px)); }
-    .coach-modal-media { min-height: 340px; }
+    .coach-modal-media { height: 340px; }
 }
 
 @media (max-width: 760px) {
@@ -2123,12 +2253,18 @@ button:disabled {
     .coach-card-name { font-size: 16px; }
     .coaches-rail { gap: 14px; padding-inline: 14px; }
     .coach-modal-dialog { width: min(100vw - 24px, 100%); margin-top: 18px; padding: 18px; gap: 18px; }
-    .coach-modal-media { min-height: 260px; }
+    .coach-modal-media { height: 260px; }
+    .coach-modal-tabs { width: 100%; }
+    .coach-modal-tab { flex: 1; min-width: 0; padding-inline: 14px; }
     .coach-modal-name { font-size: clamp(22px, 7vw, 30px); }
     .coach-modal-role { font-size: 16px; }
     .coach-modal-tag,
     .coach-modal-description { font-size: 14px; line-height: 1.64; }
     .coach-modal-highlight { font-size: 12px; }
+    .coach-modal-stats-media { min-height: 220px; }
+    .coach-modal-stats-grid { grid-template-columns: 1fr; gap: 10px; padding: 14px; }
+    .coach-stat-card { min-height: 76px; }
+    .coach-stat-value { font-size: 20px; }
     .final-reveal { padding: 24px 18px 20px; }
     .final-logo-wrap { width: 200px; height: 200px; }
     .final-logo-wrap img { width: 156px; height: 156px; }

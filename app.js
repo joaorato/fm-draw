@@ -128,6 +128,121 @@ const coachAssetFiles = {
     ]
 };
 
+const coachStats = {
+    "goncalo": {
+        "Jogos Disputados": 61,
+        "Jogos Vencidos": 37,
+        "Jogos Empatados": 11,
+        "Jogos Perdidos": 13,
+        "Golos Marcados": 127,
+        "Golos Sofridos": 77,
+        "Diferença de Golos": 50,
+        "% de Vitórias": "60%",
+        "Taças": 2,
+        "Vit. na Liga": 0,
+        "Promoções": 0,
+        "Despromoções": 0
+    },
+    "rato": {
+        "Jogos Disputados": 61,
+        "Jogos Vencidos": 36,
+        "Jogos Empatados": 7,
+        "Jogos Perdidos": 18,
+        "Golos Marcados": 143,
+        "Golos Sofridos": 94,
+        "Diferença de Golos": 49,
+        "% de Vitórias": "59%",
+        "Taças": 0,
+        "Vit. na Liga": 0,
+        "Promoções": 0,
+        "Despromoções": 0
+    },
+    "chico": {
+        "Jogos Disputados": 42,
+        "Jogos Vencidos": 18,
+        "Jogos Empatados": 7,
+        "Jogos Perdidos": 17,
+        "Golos Marcados": 57,
+        "Golos Sofridos": 63,
+        "Diferença de Golos": -6,
+        "% de Vitórias": "42%",
+        "Taças": 0,
+        "Vit. na Liga": 0,
+        "Promoções": 0,
+        "Despromoções": 0
+    },
+    "nabais": {
+        "Jogos Disputados": 44,
+        "Jogos Vencidos": 21,
+        "Jogos Empatados": 9,
+        "Jogos Perdidos": 14,
+        "Golos Marcados": 81,
+        "Golos Sofridos": 66,
+        "Diferença de Golos": 15,
+        "% de Vitórias": "47%",
+        "Taças": 0,
+        "Vit. na Liga": 0,
+        "Promoções": 0,
+        "Despromoções": 0
+    },
+    "gamy": {
+        "Jogos Disputados": 28,
+        "Jogos Vencidos": 12,
+        "Jogos Empatados": 5,
+        "Jogos Perdidos": 11,
+        "Golos Marcados": 54,
+        "Golos Sofridos": 61,
+        "Diferença de Golos": -7,
+        "% de Vitórias": "42%",
+        "Taças": 0,
+        "Vit. na Liga": 0,
+        "Promoções": 0,
+        "Despromoções": 0
+    },
+    "painatal": {
+        "Jogos Disputados": 22,
+        "Jogos Vencidos": 9,
+        "Jogos Empatados": 4,
+        "Jogos Perdidos": 9,
+        "Golos Marcados": 33,
+        "Golos Sofridos": 47,
+        "Diferença de Golos": -14,
+        "% de Vitórias": "40%",
+        "Taças": 0,
+        "Vit. na Liga": 0,
+        "Promoções": 0,
+        "Despromoções": 1
+    },
+    "cardoso": {
+        "Jogos Disputados": 38,
+        "Jogos Vencidos": 17,
+        "Jogos Empatados": 7,
+        "Jogos Perdidos": 14,
+        "Golos Marcados": 86,
+        "Golos Sofridos": 70,
+        "Diferença de Golos": 16,
+        "% de Vitórias": "44%",
+        "Taças": 0,
+        "Vit. na Liga": 0,
+        "Promoções": 0,
+        "Despromoções": 0
+    },
+    "hugo": {
+        "Jogos Disputados": 36,
+        "Jogos Vencidos": 15,
+        "Jogos Empatados": 8,
+        "Jogos Perdidos": 13,
+        "Golos Marcados": 59,
+        "Golos Sofridos": 51,
+        "Diferença de Golos": 8,
+        "% de Vitórias": "41%",
+        "Taças": 0,
+        "Vit. na Liga": 0,
+        "Promoções": 0,
+        "Despromoções": 0
+    }
+};
+
 const equipas = [
     { nome: "HNK Rijeka", img: "assets/logos/croacia/Rijeka.png", rank: 3 },
     { nome: "NK Osijek", img: "assets/logos/croacia/Osijek.png", rank: 4 },
@@ -540,6 +655,7 @@ function getCoachById(id) {
 function resolveCoachMedia(coach) {
     let folder = coach.assetFolder;
     let files = coachAssetFiles[folder] || [];
+    let statsFiles = files.filter((file) => file.toLowerCase().includes("stats"));
     let usableFiles = files.filter((file) => {
         let name = file.toLowerCase();
         return !name.includes("teste") && !name.includes("stats");
@@ -560,8 +676,49 @@ function resolveCoachMedia(coach) {
 
     return {
         cardPhoto: cardFile ? `assets/Treinadores/${folder}/${cardFile}` : "",
-        profilePhotos: profileFiles.map((file) => `assets/Treinadores/${folder}/${file}`)
+        profilePhotos: profileFiles.map((file) => `assets/Treinadores/${folder}/${file}`),
+        statsPhoto: statsFiles[0] ? `assets/Treinadores/${folder}/${statsFiles[0]}` : ""
     };
+}
+
+function getCoachStats(coach) {
+    return coachStats[coach.id] || null;
+}
+
+function renderCoachStatsMarkup(coach) {
+    let stats = getCoachStats(coach);
+    if (!stats) {
+        return `<div class="coach-modal-stats-empty">Stats em breve</div>`;
+    }
+
+    return `
+        <div class="coach-modal-stats-grid">
+            ${Object.entries(stats).map(([label, value]) => `
+                <div class="coach-stat-card">
+                    <div class="coach-stat-label">${label}</div>
+                    <div class="coach-stat-value">${value}</div>
+                </div>
+            `).join("")}
+        </div>
+    `;
+}
+
+function setCoachModalView(view) {
+    let presentationTab = document.getElementById("coachModalTabPresentation");
+    let statsTab = document.getElementById("coachModalTabStats");
+    let presentationPanel = document.getElementById("coachModalPresentation");
+    let statsPanel = document.getElementById("coachModalStats");
+    let isStats = view === "stats";
+
+    presentationTab?.classList.toggle("active", !isStats);
+    presentationTab?.setAttribute("aria-selected", isStats ? "false" : "true");
+    statsTab?.classList.toggle("active", isStats);
+    statsTab?.setAttribute("aria-selected", isStats ? "true" : "false");
+
+    presentationPanel?.classList.toggle("active", !isStats);
+    if (presentationPanel) presentationPanel.hidden = isStats;
+    statsPanel?.classList.toggle("active", isStats);
+    if (statsPanel) statsPanel.hidden = !isStats;
 }
 
 function renderCoachModal(coach) {
@@ -585,6 +742,14 @@ function renderCoachModal(coach) {
     document.getElementById("coachModalTag").textContent = coach.tag;
     document.getElementById("coachModalDescription").textContent = coach.descricao;
     document.getElementById("coachModalHighlight").textContent = coach.destaque;
+    document.getElementById("coachModalStatsName").textContent = coach.nome;
+
+    let statsMediaEl = document.getElementById("coachModalStatsMedia");
+    if (statsMediaEl) {
+        statsMediaEl.innerHTML = renderCoachStatsMarkup(coach);
+    }
+
+    setCoachModalView("presentation");
 }
 
 function openCoachModal(id) {
@@ -607,6 +772,8 @@ function setupCoachModal() {
     let modal = document.getElementById("coachModal");
     let closeBtn = document.getElementById("coachModalClose");
     let backdrop = document.getElementById("coachModalBackdrop");
+    let presentationTab = document.getElementById("coachModalTabPresentation");
+    let statsTab = document.getElementById("coachModalTabStats");
 
     if (!modal || modal.dataset.bound === "true") return;
 
@@ -617,6 +784,9 @@ function setupCoachModal() {
             closeCoachModal();
         }
     });
+
+    presentationTab?.addEventListener("click", () => setCoachModalView("presentation"));
+    statsTab?.addEventListener("click", () => setCoachModalView("stats"));
 
     modal.dataset.bound = "true";
 }
