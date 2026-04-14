@@ -1449,13 +1449,20 @@ body::after {
 .bonus-player {
     font-family: "Michroma", sans-serif;
     color: #f4f8ff;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
-    letter-spacing: 0.7px;
-    line-height: 1.08;
+    letter-spacing: 0.55px;
+    line-height: 1.18;
+    text-rendering: geometricPrecision;
     text-shadow:
-        0 0 10px rgba(99, 219, 255, 0.12),
-        0 0 18px rgba(255,255,255,0.04);
+        0 0 6px rgba(99, 219, 255, 0.08),
+        0 0 12px rgba(255,255,255,0.03);
+}
+
+.bonus-player .coach-link {
+    display: inline-block;
+    line-height: inherit;
+    text-rendering: geometricPrecision;
 }
 
 .bonus-tipo {
