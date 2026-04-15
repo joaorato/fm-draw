@@ -1810,6 +1810,24 @@ async function capturePanel(panel) {
     return canvas;
 }
 
+function toggleFullscreen() {
+    const btn = document.getElementById("fullscreenBtn");
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().then(() => {
+            btn.classList.add("is-fullscreen");
+        }).catch(() => {});
+    } else {
+        document.exitFullscreen().then(() => {
+            btn.classList.remove("is-fullscreen");
+        }).catch(() => {});
+    }
+}
+
+document.addEventListener("fullscreenchange", () => {
+    const btn = document.getElementById("fullscreenBtn");
+    btn.classList.toggle("is-fullscreen", !!document.fullscreenElement);
+});
+
 renderGeneralTable();
 renderLeagueSelector();
 renderCoachCards();
