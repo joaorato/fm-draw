@@ -461,6 +461,20 @@ let remainingTeams = [];
 let remainingPlayers = [];
 let currentRound = 0;
 let resultados = [];
+
+const DRAW_COMPLETED = true;
+
+const FINAL_RESULTS = [
+    { jogador: "Gonçalo",  equipa: "HNK Rijeka",      img: "assets/logos/croacia/Rijeka.png",        rank: 3 },
+    { jogador: "Gamy",     equipa: "NK Osijek",        img: "assets/logos/croacia/Osijek.png",        rank: 4 },
+    { jogador: "Painatal", equipa: "NK Lokomotiva",    img: "assets/logos/croacia/NK_Lokomotiva.png", rank: 5 },
+    { jogador: "Rato",     equipa: "NK Istra 1961",    img: "assets/logos/croacia/ISTRA.png",         rank: 6 },
+    { jogador: "Nabais",   equipa: "NK Varaždin",      img: "assets/logos/croacia/Varazdin.png",      rank: 7 },
+    { jogador: "Chico",    equipa: "NK Slaven Belupo", img: "assets/logos/croacia/SLAVEN.png",        rank: 8 },
+    { jogador: "Cardoso",  equipa: "HNK Gorica",       img: "assets/logos/croacia/GORICA.png",        rank: 9 },
+    { jogador: "Hugo",     equipa: "HNK Vukovar",      img: "assets/logos/croacia/HNKVUKOVAR.png",    rank: 10 }
+];
+
 const coachByShortName = Object.fromEntries(coachProfiles.map((coach) => [coach.nome, coach]));
 let selectedCoachId = coachProfiles[0].id;
 
@@ -595,6 +609,7 @@ function restoreMuteState() {
 }
 
 function tryPlayDrawMusic() {
+    if (DRAW_COMPLETED) return;
     let music = getMusicElement();
     if (!music) return;
 
@@ -686,7 +701,11 @@ function setActiveTab(tab, pushState) {
     document.getElementById("pastTabBtn").classList.toggle("active", isPast);
 
     if (isDraw) {
-        tryPlayDrawMusic();
+        if (DRAW_COMPLETED) {
+            showCompletedDraw();
+        } else {
+            tryPlayDrawMusic();
+        }
     } else {
         let music = getMusicElement();
         if (music) {
@@ -1706,6 +1725,14 @@ function onPlayerLanded(team, player) {
     current.appendChild(button);
 }
 
+function showCompletedDraw() {
+    document.getElementById("drawBtn").style.display = "none";
+    document.getElementById("muteBtn").style.display = "none";
+    showRemainingSidebars(false);
+    resultados = [...FINAL_RESULTS];
+    showResults();
+}
+
 function showResults() {
     showRemainingSidebars(false);
     let current = document.getElementById("current");
@@ -1738,17 +1765,19 @@ function showResults() {
         table.appendChild(row);
     });
 
-    let shareBtn = document.createElement("button");
-    shareBtn.className = "action-btn gold";
-    shareBtn.textContent = "Partilhar";
-    shareBtn.onclick = () => shareToDiscord(shareBtn);
-    table.appendChild(shareBtn);
+    if (DISCORD_WEBHOOK) {
+        let shareBtn = document.createElement("button");
+        shareBtn.className = "action-btn gold";
+        shareBtn.textContent = "Partilhar";
+        shareBtn.onclick = () => shareToDiscord(shareBtn);
+        table.appendChild(shareBtn);
+    }
 
     scrollToElement(table);
     document.getElementById("drawBtn").innerText = "Sorteio Terminado";
 }
 
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1493234921198850148/NHvFhAmrc7GTThsXfzNUwrLgNwSbzqI6JkztqApSaPF_a8-S8FW1YJGWlr_QtJtSAS3g";
+const DISCORD_WEBHOOK = "";
 
 async function shareToDiscord(btn) {
     btn.disabled = true;
@@ -1809,6 +1838,24 @@ async function capturePanel(panel) {
     images.forEach((img, i) => { img.src = originals[i]; });
     return canvas;
 }
+
+function toggleFullscreen() {
+    const btn = document.getElementById("fullscreenBtn");
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().then(() => {
+            btn.classList.add("is-fullscreen");
+        }).catch(() => {});
+    } else {
+        document.exitFullscreen().then(() => {
+            btn.classList.remove("is-fullscreen");
+        }).catch(() => {});
+    }
+}
+
+document.addEventListener("fullscreenchange", () => {
+    const btn = document.getElementById("fullscreenBtn");
+    btn.classList.toggle("is-fullscreen", !!document.fullscreenElement);
+});
 
 renderGeneralTable();
 renderLeagueSelector();
