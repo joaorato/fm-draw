@@ -996,7 +996,7 @@ body::after {
     min-height: 112px;
     display: grid;
     align-content: start;
-    gap: 8px;
+    gap: 10px;
     padding: 16px;
     border-radius: 16px;
     border: 1px solid rgba(112, 208, 255, 0.11);
@@ -1018,9 +1018,9 @@ body::after {
 
 .coach-insight-label {
     color: rgba(198, 227, 255, 0.62);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 1.7px;
+    letter-spacing: 1.5px;
     line-height: 1.35;
     text-transform: uppercase;
 }
@@ -1028,17 +1028,34 @@ body::after {
 .coach-insight-value {
     color: #f5fbff;
     font-family: "Michroma", sans-serif;
-    font-size: 16px;
-    line-height: 1.35;
+    font-size: 18px;
+    line-height: 1.45;
     text-shadow:
         0 0 14px rgba(99, 219, 255, 0.12),
         0 0 22px rgba(255,255,255,0.03);
 }
 
+.coach-insight-line + .coach-insight-line {
+    margin-top: 6px;
+}
+
+.coach-insight-player {
+    color: inherit;
+}
+
+.coach-insight-inline-meta {
+    color: rgba(221, 236, 255, 0.72);
+    font-family: "Oxanium", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+}
+
 .coach-insight-meta {
     color: rgba(221, 236, 255, 0.7);
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.6;
     letter-spacing: 0.2px;
 }
 

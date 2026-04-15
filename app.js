@@ -277,12 +277,66 @@ const coachProfileExtras = {
             nemesis: { label: "Nemesis", value: "Nabais", meta: "1V · 1E · 2D" }
         },
         legacy: {
-            rating: { label: "Melhor Média", value: "William Osula", meta: "7.10" },
-            scorer: { label: "Melhor Marcador", value: "José Campaña", meta: "16 golos" }
+            rating: { label: "Melhor Jogador", value: "William Osula", meta: "7,10 | 15G | 2A | 23J" },
+            scorer: { label: "Melhor Marcador", value: "José Campaña", meta: "16G | 34(13)J" }
         },
         identity: {
             specialty: { label: "Especialidade", value: "Especialista em jogos a eliminar" },
             tactical: { label: "Assinatura Tática", value: "Pressão alta, circulação rápida" }
+        }
+    },
+    rato: {
+        legacy: {
+            rating: {
+                label: "Melhor Jogador",
+                value: "Kieran Bowie - 7,11 | 34G | 5A | 46(8)J\nRocky Bushiri - 7,11 | 2G | 0A | 42(3)J",
+                meta: "Empate na melhor média"
+            },
+            scorer: { label: "Melhor Marcador", value: "Kieran Bowie", meta: "34G | 46(8)J" }
+        }
+    },
+    nabais: {
+        legacy: {
+            rating: {
+                label: "Melhor Jogador",
+                value: "Charlie Reilly - 7,07 | 8G | 7A | 21(7)J\nImari Samuels - 7,07 | 0G | 7A | 21(10)J",
+                meta: "Empate na melhor média"
+            },
+            scorer: { label: "Melhor Marcador", value: "Joe Westley", meta: "12G | 30(5)J" }
+        }
+    },
+    cardoso: {
+        legacy: {
+            rating: { label: "Melhor Jogador", value: "Cláudio Braga", meta: "7,24 | 23G | 6A | 32(7)J" },
+            scorer: { label: "Melhor Marcador", value: "Lawrence Shankland", meta: "25G | 33(2)J" }
+        }
+    },
+    hugo: {
+        legacy: {
+            rating: { label: "Melhor Jogador", value: "Ross MacIver", meta: "7,06 | 26G | 4A | 40(1)J" },
+            scorer: { label: "Melhor Marcador", value: "Ross MacIver", meta: "26G | 40(1)J" }
+        }
+    },
+    chico: {
+        legacy: {
+            rating: { label: "Melhor Jogador", value: "Marcus Dackers", meta: "7,24 | 23G | 5A | 37(1)J" },
+            scorer: { label: "Melhor Marcador", value: "Marcus Dackers", meta: "23G | 37(1)J" }
+        }
+    },
+    gamy: {
+        legacy: {
+            rating: { label: "Melhor Jogador", value: "Julius Eskesen", meta: "7,02 | 9G | 6A | 24(10)J" },
+            scorer: {
+                label: "Melhor Marcador",
+                value: "Julius Eskesen - 9G | 24(10)J\nZac Sapsford - 9G | 33(9)J",
+                meta: "Empate na melhor marcação"
+            }
+        }
+    },
+    painatal: {
+        legacy: {
+            rating: { label: "Melhor Jogador", value: "Jeremy Bokila", meta: "6,96 | 15G | 2A | 26(8)J" },
+            scorer: { label: "Melhor Marcador", value: "Jeremy Bokila", meta: "15G | 26(8)J" }
         }
     }
 };
@@ -818,22 +872,48 @@ function renderCoachTrophyCabinet(trophies) {
 
 function renderCoachInsightGrid(title, items) {
     let hasItems = items.length > 0;
+    let placeholderBySection = {
+        "Narrativa": [
+            { label: "Maior Vítima", value: "A recolher", meta: "Sem dados ainda" },
+            { label: "Nemesis", value: "A recolher", meta: "Sem dados ainda" }
+        ],
+        "Legado": [
+            { label: "Melhor Jogador", value: "A recolher", meta: "Sem dados ainda" },
+            { label: "Melhor Marcador", value: "A recolher", meta: "Sem dados ainda" }
+        ],
+        "Identidade": [
+            { label: "Especialidade", value: "A recolher", meta: "Sem dados ainda" },
+            { label: "Assinatura Tática", value: "A recolher", meta: "Sem dados ainda" }
+        ]
+    };
     let safeItems = hasItems
         ? items
-        : [
-            { label: "Em breve", value: "A recolher", meta: "Sem dados ainda" },
-            { label: "Em breve", value: "A recolher", meta: "Sem dados ainda" }
-        ];
+        : (placeholderBySection[title] || [
+            { label: "A recolher", value: "A recolher", meta: "Sem dados ainda" },
+            { label: "A recolher", value: "A recolher", meta: "Sem dados ainda" }
+        ]);
+
+    let renderValue = (value) => {
+        let lines = String(value).split("\n");
+        return lines.map((line) => {
+            let parts = line.split(" - ");
+            if (parts.length > 1) {
+                let [name, ...rest] = parts;
+                return `<div class="coach-insight-line"><span class="coach-insight-player">${name}</span><span class="coach-insight-inline-meta"> - ${rest.join(" - ")}</span></div>`;
+            }
+            return `<div class="coach-insight-line">${line}</div>`;
+        }).join("");
+    };
 
     return `
         <div class="coach-stats-section">
             <div class="coach-stats-section-title">${title}</div>
             <div class="coach-insight-grid">
                 ${safeItems.map((item) => `
-                    <div class="coach-insight-card${hasItems ? "" : " empty"}">
+                    <div class="coach-insight-card">
                         <div class="coach-insight-label">${item.label}</div>
-                        <div class="coach-insight-value">${item.value}</div>
-                        <div class="coach-insight-meta">${item.meta || ""}</div>
+                        <div class="coach-insight-value">${renderValue(item.value)}</div>
+                        <div class="coach-insight-meta">${String(item.meta || "").replace(/\n/g, "<br>")}</div>
                     </div>
                 `).join("")}
             </div>
