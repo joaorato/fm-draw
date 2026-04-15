@@ -552,6 +552,7 @@ body::after {
     margin: min(8vh, 72px) auto min(4vh, 36px);
     padding: 28px;
     display: grid;
+    align-items: stretch;
     grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
     gap: 18px;
     border-radius: 24px;
@@ -622,7 +623,8 @@ body::after {
 }
 
 .coach-modal-media {
-    height: clamp(420px, 58vh, 560px);
+    height: 100%;
+    min-height: clamp(420px, 58vh, 560px);
     border-radius: 18px;
     border: 1px solid rgba(112, 208, 255, 0.14);
     background:
@@ -635,7 +637,7 @@ body::after {
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.08),
         inset 0 -84px 120px rgba(1, 6, 26, 0.42);
-    align-self: start;
+    align-self: stretch;
 }
 
 .coach-modal-gallery {
@@ -688,6 +690,15 @@ body::after {
     gap: 14px;
     padding-top: 2px;
     text-align: left;
+}
+
+.coach-modal-wide-panel {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+.coach-modal-wide-panel:not(.active) {
+    display: none;
 }
 
 .coach-modal-tabs {
@@ -791,7 +802,7 @@ body::after {
 .coach-modal-description {
     display: grid;
     gap: 14px;
-    max-width: 58ch;
+    max-width: 100%;
 }
 
 .coach-modal-paragraph {
@@ -802,9 +813,9 @@ body::after {
 }
 
 .coach-modal-highlight {
-    width: fit-content;
+    width: 100%;
     max-width: 100%;
-    padding: 10px 2px 0;
+    padding: 14px 2px 0;
     border: 0;
     background: transparent;
     color: rgba(221, 240, 255, 0.86);
@@ -813,10 +824,15 @@ body::after {
     font-style: italic;
     line-height: 1.65;
     letter-spacing: 0.15px;
-    text-wrap: balance;
     text-shadow:
         0 0 10px rgba(99, 219, 255, 0.08),
         0 0 18px rgba(255,255,255,0.03);
+}
+
+.coach-modal-stats-wide {
+    width: 100%;
+    padding-top: 4px;
+    border-top: 1px solid rgba(170, 224, 255, 0.2);
 }
 
 .coach-modal-stats-media {
@@ -831,19 +847,20 @@ body::after {
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.06),
         inset 0 -50px 90px rgba(1, 6, 26, 0.34);
+    align-self: start;
 }
 
 .coach-modal-stats-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 8px;
     width: 100%;
-    padding: 16px;
+    padding: 10px;
 }
 
 .coach-stat-card {
-    min-height: 88px;
-    padding: 14px 14px 12px;
+    min-height: 58px;
+    padding: 10px 12px 9px;
     border-radius: 16px;
     border: 1px solid rgba(112, 208, 255, 0.12);
     background:
@@ -856,22 +873,173 @@ body::after {
 
 .coach-stat-label {
     color: rgba(198, 227, 255, 0.68);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 1.5px;
-    line-height: 1.45;
+    letter-spacing: 1.3px;
+    line-height: 1.3;
     text-transform: uppercase;
 }
 
 .coach-stat-value {
-    margin-top: 10px;
+    margin-top: 5px;
     color: #f6fbff;
     font-family: "Michroma", sans-serif;
-    font-size: 22px;
-    line-height: 1.15;
+    font-size: 18px;
+    line-height: 1.1;
     text-shadow:
         0 0 16px rgba(99, 219, 255, 0.12),
         0 0 26px rgba(255,255,255,0.03);
+}
+
+.coach-stats-section {
+    display: grid;
+    gap: 12px;
+    width: 100%;
+    padding: 0 0 14px;
+    justify-items: center;
+}
+
+.coach-stats-section-title {
+    margin: 0;
+    color: rgba(224, 241, 255, 0.78);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    justify-self: start;
+}
+
+.coach-trophy-cabinet {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+
+.coach-trophy-slot {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    min-height: 120px;
+    padding: 14px 10px 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(112, 208, 255, 0.08);
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+        radial-gradient(circle at top, rgba(92, 205, 255, 0.05), transparent 65%);
+    color: rgba(165, 183, 213, 0.5);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.03),
+        0 10px 20px rgba(1, 5, 21, 0.16);
+}
+
+.coach-trophy-slot.unlocked {
+    border-color: rgba(238, 196, 84, 0.28);
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015)),
+        radial-gradient(circle at top, rgba(244, 209, 103, 0.12), transparent 62%);
+    color: rgba(255, 226, 145, 0.96);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 14px 28px rgba(2, 7, 26, 0.2),
+        0 0 26px rgba(232, 188, 74, 0.08);
+}
+
+.coach-trophy-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+}
+
+.coach-trophy-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.coach-trophy-label {
+    color: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    text-align: center;
+    text-transform: uppercase;
+    text-wrap: balance;
+}
+
+.coach-trophy-count {
+    min-width: 34px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.04);
+    background: rgba(3, 8, 29, 0.28);
+    color: inherit;
+    font-family: "Oxanium", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1;
+    text-align: center;
+}
+
+.coach-insight-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.coach-insight-card {
+    min-height: 112px;
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(112, 208, 255, 0.11);
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015)),
+        radial-gradient(circle at top left, rgba(94, 206, 255, 0.08), transparent 64%);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 10px 20px rgba(2, 8, 30, 0.15);
+}
+
+.coach-insight-card.empty {
+    border-style: dashed;
+    border-color: rgba(112, 208, 255, 0.08);
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.008));
+    color: rgba(183, 201, 226, 0.55);
+}
+
+.coach-insight-label {
+    color: rgba(198, 227, 255, 0.62);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+    line-height: 1.35;
+    text-transform: uppercase;
+}
+
+.coach-insight-value {
+    color: #f5fbff;
+    font-family: "Michroma", sans-serif;
+    font-size: 16px;
+    line-height: 1.35;
+    text-shadow:
+        0 0 14px rgba(99, 219, 255, 0.12),
+        0 0 22px rgba(255,255,255,0.03);
+}
+
+.coach-insight-meta {
+    color: rgba(221, 236, 255, 0.7);
+    font-size: 13px;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
 }
 
 .coach-modal-stats-empty {
@@ -2327,6 +2495,7 @@ button:disabled {
     .coach-card-media { min-height: 386px; }
     .coach-modal-dialog { grid-template-columns: 1fr; width: min(860px, calc(100vw - 36px)); }
     .coach-modal-media { height: 340px; }
+    .coach-trophy-cabinet { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 760px) {
@@ -2371,9 +2540,15 @@ button:disabled {
     .coach-modal-tag,
     .coach-modal-description { font-size: 14px; line-height: 1.64; }
     .coach-modal-highlight { font-size: 12px; }
+    .coach-modal-stats-wide { padding-top: 0; border-top: 0; }
     .coach-modal-stats-grid { grid-template-columns: 1fr; gap: 10px; padding: 14px; }
     .coach-stat-card { min-height: 76px; }
     .coach-stat-value { font-size: 20px; }
+    .coach-stats-section { padding: 0 0 16px; }
+    .coach-trophy-cabinet,
+    .coach-insight-grid { grid-template-columns: 1fr; }
+    .coach-trophy-slot { min-height: 106px; }
+    .coach-insight-card { min-height: 96px; }
     .final-reveal { padding: 24px 18px 20px; }
     .final-logo-wrap { width: 200px; height: 200px; }
     .final-logo-wrap img { width: 156px; height: 156px; }
@@ -2419,4 +2594,8 @@ button:disabled {
 
 .coach-modal-photo-main {
     cursor: pointer;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }

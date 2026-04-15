@@ -20,7 +20,7 @@ const coachProfiles = [
         nomePerfil: "João Pedro Rato",
         cargo: "O penetrador (de defesas)",
 
-        descricao: "As origens de João Pedro Rato são tudo menos convencionais. Muito antes dos relvados e das conferências de imprensa, passou uma fase curiosa da sua vida no Mónaco, onde trabalhou como arrumador de carros de luxo no icónico Hotel Monte Carlo. Foi aí que, num momento aparentemente banal, estacionou o G-Wagon de Leonardo Jardim. Entre uma chave entregue e uma troca de palavras, nasceu uma conversa improvável que mudaria tudo. Jardim recomendou-lhe vivamente o seu curso de Udemy entitulado “1-2 bem trabalhado”. Rato comprou. Estudou. Obsessivamente. E foi aí que começou a sua nova paixão.\n\nMas a teoria rapidamente deu lugar à prática — e de forma pouco ortodoxa. Durante os seus caóticos meses de Erasmus em Helsínquia, João Pedro Rato entrou diretamente no mundo do futebol sénior ao assumir funções no AC Balls. Ninguém sabe bem como: há quem diga que foi por falta de treinador, outros juram que foi apenas por ser Português, e Portugueses lá são exóticos e percebem do futebol. A verdade é que funcionou. O AC Balls começou a jogar futebol… e que futebol.\n\nA sua entrada no futebol britânico prende-se por um nome algo inusitado: Topi Keskinen, um extremo finlandês. Conheceram-se numa sauna completamente nus e suados, após um jogo do Balls a que Topi tinha assistido. A conversa fluiu, e não só. E assim, Rato, com cunha de Topi, consegue uma entrevista com o Aberdeen FC, clube do velocista louro, esbelto e muito bem equipado.\n\nNo entanto, qual Eusébio chegado de Lourenço Marques, é prontamente desviado no aeroporto por uma limosine forrada a verde garrafa. O Hibernian tinha sabido da sua chegada e não podia deixar fugir este talento para um rival.\n\n A história da temporada fala por si: golos e mais golos, domínio sobre os rivais da cidade e um lugar na tão esperada Champions League para os Hibs.\n\n No entanto, farto da chuva e do frio, Rato decidiu que era hora de um novo desafio. A Croácia, com o seu clima mais ameno permitirá que dispa a sua gabardine e mostre o quão entusiasmante o seu futebol pode ser.",
+        descricao: "As minhas origens são tudo menos convencionais. Muito antes dos relvados e das conferências de imprensa, passei uma fase curiosa da minha vida no Mónaco, onde trabalhei como arrumador de carros de luxo no icónico Hotel Monte Carlo. Foi aí que, num momento aparentemente banal, estacionei o G-Wagon de Leonardo Jardim. Entre uma chave entregue e uma troca de palavras, nasceu uma conversa improvável que mudaria tudo. Jardim recomendou-me vivamente o seu curso de Udemy entitulado “1-2 bem trabalhado”. Comprei. Estudei. Obsessivamente. E foi aí que começou a minha nova paixão.\n\nMas a teoria rapidamente deu lugar à prática — e de forma pouco ortodoxa. Durante os meus caóticos meses de Erasmus em Helsínquia, entrei diretamente no mundo do futebol sénior ao assumir funções no AC Balls. Ninguém sabe bem como: há quem diga que foi por falta de treinador, outros juram que foi apenas por ser português, e portugueses lá são exóticos e percebem do futebol. A verdade é que funcionou. O AC Balls começou a jogar futebol… e que futebol.\n\nA minha entrada no futebol britânico prende-se por um nome algo inusitado: Topi Keskinen, um extremo finlandês. Conhecemo-nos numa sauna completamente nus e suados, após um jogo do Balls a que o Topi tinha assistido. A conversa fluiu, e não só. E assim, com cunha do Topi, consegui uma entrevista com o Aberdeen FC, clube do velocista louro, esbelto e muito bem equipado.\n\nNo entanto, qual Eusébio chegado de Lourenço Marques, fui prontamente desviado no aeroporto por uma limosine forrada a verde garrafa. O Hibernian tinha sabido da minha chegada e não podia deixar fugir este talento para um rival.\n\nA história da temporada fala por si: golos e mais golos, domínio sobre os rivais da cidade e um lugar na tão esperada Champions League para os Hibs.\n\nNo entanto, farto da chuva e do frio, decidi que era hora de um novo desafio. A Croácia, com o seu clima mais ameno, permitirá que dispa a minha gabardine e mostre o quão entusiasmante o meu futebol pode ser.",
         destaque: "\"O meu futebol é como a sauna: muito suor e muita (mas mesmo muita) diversão.\"",
         assetFolder: "Rato"
     },
@@ -260,6 +260,30 @@ const coachStats = {
         "Vit. na Liga": 0,
         "Promoções": 0,
         "Despromoções": 0
+    }
+};
+
+const coachProfileExtras = {
+    goncalo: {
+        trophies: [
+            { key: "league", label: "Liga", count: 0 },
+            { key: "league-cup", label: "Taça da Liga Escocesa", count: 1 },
+            { key: "cup", label: "Taça da Escócia", count: 1 },
+            { key: "europa", label: "Liga Europa", count: 0 },
+            { key: "champions", label: "Champions", count: 0 }
+        ],
+        narrative: {
+            victim: { label: "Maior Vítima", value: "Gamy", meta: "17 golos marcados contra" },
+            nemesis: { label: "Nemesis", value: "Nabais", meta: "1V · 1E · 2D" }
+        },
+        legacy: {
+            rating: { label: "Melhor Média", value: "William Osula", meta: "7.10" },
+            scorer: { label: "Melhor Marcador", value: "José Campaña", meta: "16 golos" }
+        },
+        identity: {
+            specialty: { label: "Especialidade", value: "Especialista em jogos a eliminar" },
+            tactical: { label: "Assinatura Tática", value: "Pressão alta, circulação rápida" }
+        }
     }
 };
 
@@ -730,18 +754,89 @@ function getCoachStats(coach) {
 
 function renderCoachStatsMarkup(coach) {
     let stats = getCoachStats(coach);
-    if (!stats) {
+    return stats
+        ? `
+            <div class="coach-modal-stats-grid">
+                ${Object.entries(stats).map(([label, value]) => `
+                    <div class="coach-stat-card">
+                        <div class="coach-stat-label">${label}</div>
+                        <div class="coach-stat-value">${value}</div>
+                    </div>
+                `).join("")}
+            </div>
+        `
+        : `<div class="coach-modal-stats-empty">Stats em breve</div>`;
+}
+
+function renderCoachStatsWideMarkup(coach) {
+    let stats = getCoachStats(coach);
+    let extras = coachProfileExtras[coach.id];
+    let trophyMarkup = renderCoachTrophyCabinet(extras?.trophies || []);
+    let narrativeMarkup = renderCoachInsightGrid("Narrativa", extras?.narrative ? [extras.narrative.victim, extras.narrative.nemesis] : []);
+    let legacyMarkup = renderCoachInsightGrid("Legado", extras?.legacy ? [extras.legacy.rating, extras.legacy.scorer] : []);
+    let identityMarkup = renderCoachInsightGrid("Identidade", extras?.identity ? [extras.identity.specialty, extras.identity.tactical] : []);
+
+    if (!stats && !extras) {
         return `<div class="coach-modal-stats-empty">Stats em breve</div>`;
     }
 
+    return `${trophyMarkup}${narrativeMarkup}${legacyMarkup}${identityMarkup}`;
+}
+
+function renderCoachTrophyCabinet(trophies) {
+    let defaultTrophies = trophies.length ? trophies : [
+        { key: "league", label: "Liga", count: 0 },
+        { key: "league-cup", label: "Taça da Liga", count: 0 },
+        { key: "cup", label: "Taça", count: 0 },
+        { key: "europa", label: "Liga Europa", count: 0 },
+        { key: "champions", label: "Champions", count: 0 }
+    ];
+
     return `
-        <div class="coach-modal-stats-grid">
-            ${Object.entries(stats).map(([label, value]) => `
-                <div class="coach-stat-card">
-                    <div class="coach-stat-label">${label}</div>
-                    <div class="coach-stat-value">${value}</div>
-                </div>
-            `).join("")}
+        <div class="coach-stats-section">
+            <div class="coach-stats-section-title">Palmarés</div>
+            <div class="coach-trophy-cabinet">
+                ${defaultTrophies.map((trophy) => `
+                    <div class="coach-trophy-slot coach-trophy-slot--${trophy.key}${trophy.count > 0 ? " unlocked" : ""}">
+                        <div class="coach-trophy-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M8 4h8v3c0 2.8-1.7 5.3-4 6.4C9.7 12.3 8 9.8 8 7V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                                <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                <path d="M10 14h4v4h-4z" fill="currentColor" opacity="0.18"/>
+                                <path d="M6 5H4c0 2.4 1.2 4 3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                <path d="M18 5h2c0 2.4-1.2 4-3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="coach-trophy-label">${trophy.label}</div>
+                        <div class="coach-trophy-count">${trophy.count > 0 ? `x${trophy.count}` : "—"}</div>
+                    </div>
+                `).join("")}
+            </div>
+        </div>
+    `;
+}
+
+function renderCoachInsightGrid(title, items) {
+    let hasItems = items.length > 0;
+    let safeItems = hasItems
+        ? items
+        : [
+            { label: "Em breve", value: "A recolher", meta: "Sem dados ainda" },
+            { label: "Em breve", value: "A recolher", meta: "Sem dados ainda" }
+        ];
+
+    return `
+        <div class="coach-stats-section">
+            <div class="coach-stats-section-title">${title}</div>
+            <div class="coach-insight-grid">
+                ${safeItems.map((item) => `
+                    <div class="coach-insight-card${hasItems ? "" : " empty"}">
+                        <div class="coach-insight-label">${item.label}</div>
+                        <div class="coach-insight-value">${item.value}</div>
+                        <div class="coach-insight-meta">${item.meta || ""}</div>
+                    </div>
+                `).join("")}
+            </div>
         </div>
     `;
 }
@@ -760,6 +855,7 @@ function setCoachModalView(view) {
     let statsTab = document.getElementById("coachModalTabStats");
     let presentationPanel = document.getElementById("coachModalPresentation");
     let statsPanel = document.getElementById("coachModalStats");
+    let statsWide = document.getElementById("coachModalStatsWide");
     let isStats = view === "stats";
 
     presentationTab?.classList.toggle("active", !isStats);
@@ -771,6 +867,8 @@ function setCoachModalView(view) {
     if (presentationPanel) presentationPanel.hidden = isStats;
     statsPanel?.classList.toggle("active", isStats);
     if (statsPanel) statsPanel.hidden = !isStats;
+    statsWide?.classList.toggle("active", isStats);
+    if (statsWide) statsWide.hidden = !isStats;
 }
 
 function renderCoachModal(coach) {
@@ -799,6 +897,10 @@ function renderCoachModal(coach) {
     let statsMediaEl = document.getElementById("coachModalStatsMedia");
     if (statsMediaEl) {
         statsMediaEl.innerHTML = renderCoachStatsMarkup(coach);
+    }
+    let statsWideEl = document.getElementById("coachModalStatsWideContent");
+    if (statsWideEl) {
+        statsWideEl.innerHTML = renderCoachStatsWideMarkup(coach);
     }
 
 }
