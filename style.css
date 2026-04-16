@@ -951,6 +951,153 @@ body::after {
     justify-self: start;
 }
 
+/* --- Palmarés flag rail --- */
+.coach-palmares-flags-rail {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-start;
+    justify-self: start;
+    padding: 8px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.coach-palmares-flags-rail::-webkit-scrollbar { display: none; }
+
+.coach-palmares-flag-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    border: 1px solid rgba(112, 208, 255, 0.08);
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+    cursor: pointer;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.15s;
+    overflow: hidden;
+    min-width: 100px;
+    flex-shrink: 0;
+}
+.coach-palmares-flag-item:hover:not(.coach-palmares-flag-item--disabled) {
+    border-color: rgba(112, 208, 255, 0.2);
+    transform: translateY(-2px);
+}
+.coach-palmares-flag-item.active {
+    border-color: rgba(238, 196, 84, 0.4);
+    box-shadow: 0 0 20px rgba(232, 188, 74, 0.1);
+}
+.coach-palmares-flag-item--disabled {
+    pointer-events: none;
+    opacity: 0.45;
+    filter: grayscale(0.8);
+}
+
+.coach-palmares-flag-img {
+    width: 96px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.coach-palmares-flag-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: rgba(224, 241, 255, 0.7);
+}
+
+.coach-palmares-coming-soon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    background: rgba(220, 50, 50, 0.85);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 4px 18px;
+    white-space: nowrap;
+    border-radius: 3px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* --- Palmarés expanded trophies panel --- */
+.coach-palmares-trophies-panel {
+    width: 100%;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.35s ease;
+    margin-top: 0;
+}
+.coach-palmares-trophies-panel.expanded {
+    max-height: 260px;
+    opacity: 1;
+    margin-top: 14px;
+}
+
+.coach-palmares-trophies-panel .coach-trophy-cabinet {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+}
+.coach-palmares-trophies-panel .coach-trophy-cabinet::-webkit-scrollbar { display: none; }
+
+.coach-palmares-trophies-panel .coach-trophy-slot {
+    flex: 0 0 auto;
+    min-width: 120px;
+    scroll-snap-align: start;
+}
+
+/* --- Trophy lightbox --- */
+.trophy-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+.trophy-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(1, 5, 21, 0.85);
+    backdrop-filter: blur(6px);
+}
+.trophy-lightbox-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+.trophy-lightbox-content img {
+    max-width: min(360px, 80vw);
+    max-height: 60vh;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.5));
+}
+.trophy-lightbox-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(224, 241, 255, 0.8);
+}
+
+/* --- Trophy cabinet (standalone grid, kept for any non-palmares usage) --- */
 .coach-trophy-cabinet {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -1024,6 +1171,7 @@ body::after {
     text-align: center;
     text-transform: uppercase;
     text-wrap: balance;
+    margin-top: 8px;
 }
 
 .coach-trophy-count {
@@ -2568,7 +2716,7 @@ button:disabled {
     .coach-card-media { min-height: 386px; }
     .coach-modal-dialog { grid-template-columns: 1fr; width: min(860px, calc(100vw - 36px)); }
     .coach-modal-media { height: 340px; }
-    .coach-trophy-cabinet { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .coach-trophy-cabinet:not(.coach-palmares-trophies-panel .coach-trophy-cabinet) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 760px) {
@@ -2618,9 +2766,11 @@ button:disabled {
     .coach-stat-card { min-height: 76px; }
     .coach-stat-value { font-size: 20px; }
     .coach-stats-section { padding: 0 0 16px; }
-    .coach-trophy-cabinet,
+    .coach-trophy-cabinet:not(.coach-palmares-trophies-panel .coach-trophy-cabinet),
     .coach-insight-grid { grid-template-columns: 1fr; }
     .coach-trophy-slot { min-height: 106px; }
+    .coach-palmares-flag-item { min-width: 85px; padding: 10px 14px; }
+    .coach-palmares-flag-img { width: 72px; height: 48px; }
     .coach-insight-card { min-height: 96px; }
     .final-reveal { padding: 24px 18px 20px; }
     .final-logo-wrap { width: 200px; height: 200px; }

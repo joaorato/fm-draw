@@ -266,31 +266,9 @@ const coachStats = {
 
 const coachProfileExtras = {
     goncalo: {
-        trophies: [
-            {
-                key: "league",
-                label: "Liga",
-                count: 0,
-                icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.png",
-                lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.png"
-            },
-            {
-                key: "league-cup",
-                label: "Taça da Liga Escocesa",
-                count: 1,
-                icon: "assets/logos/trophy_cabinet/escocia/premiersports.png",
-                lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.png"
-            },
-            {
-                key: "cup",
-                label: "Taça da Escócia",
-                count: 1,
-                icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.png",
-                lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.png"
-            },
-            { key: "europa", label: "Liga Europa", count: 0 },
-            { key: "champions", label: "Champions", count: 0 }
-        ],
+        trophyCounts: {
+            escocia: { "league-cup": 1, "cup": 1 }
+        },
         narrative: {
             victim: { label: "Maior Vítima", value: "Gamy", meta: "17 golos marcados contra" },
             nemesis: { label: "Nemesis", value: "Nabais", meta: "1V · 1E · 2D" }
@@ -891,7 +869,7 @@ function renderCoachStatsMarkup(coach) {
 function renderCoachStatsWideMarkup(coach) {
     let stats = getCoachStats(coach);
     let extras = coachProfileExtras[coach.id];
-    let trophyMarkup = renderCoachTrophyCabinet(extras?.trophies || []);
+    let trophyMarkup = renderCoachTrophyCabinet(extras?.trophyCounts || {});
     let narrativeMarkup = renderCoachInsightGrid("Narrativa", extras?.narrative ? [extras.narrative.victim, extras.narrative.nemesis] : []);
     let legacyMarkup = renderCoachInsightGrid("Legado", extras?.legacy ? [extras.legacy.rating, extras.legacy.scorer] : []);
     let identityMarkup = renderCoachInsightGrid("Identidade", extras?.identity ? [extras.identity.specialty, extras.identity.tactical] : []);
@@ -903,66 +881,158 @@ function renderCoachStatsWideMarkup(coach) {
     return `${trophyMarkup}${narrativeMarkup}${legacyMarkup}${identityMarkup}`;
 }
 
-function renderCoachTrophyCabinet(trophies) {
-    let defaultTrophies = trophies.length ? trophies : [
-        {
-            key: "league",
-            label: "Liga",
-            count: 0,
-            icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.png",
-            lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.png"
-        },
-        {
-            key: "league-cup",
-            label: "Taça da Liga",
-            count: 0,
-            icon: "assets/logos/trophy_cabinet/escocia/premiersports.png",
-            lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.png"
-        },
-        {
-            key: "cup",
-            label: "Taça",
-            count: 0,
-            icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.png",
-            lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.png"
-        },
-        { key: "europa", label: "Liga Europa", count: 0 },
-        { key: "champions", label: "Champions", count: 0 }
-    ];
+const palmaresCountries = {
+    croacia: {
+        flag: "assets/flags/croatia.webp",
+        label: "Croácia",
+        available: false,
+        items: []
+    },
+    escocia: {
+        flag: "assets/flags/scotland.webp",
+        label: "Escócia",
+        available: true,
+        items: [
+            {
+                key: "league",
+                label: "Liga",
+                icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.png",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.png"
+            },
+            {
+                key: "league-cup",
+                label: "Taça da Liga",
+                icon: "assets/logos/trophy_cabinet/escocia/premiersports.png",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.png"
+            },
+            {
+                key: "cup",
+                label: "Taça",
+                icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.png",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.png"
+            },
+            { key: "europa", label: "Liga Europa" },
+            { key: "champions", label: "Champions" }
+        ]
+    }
+};
+
+function renderCoachTrophyCabinet(trophyCounts) {
+    let flagsMarkup = Object.entries(palmaresCountries).map(([countryKey, country]) => {
+        let disabled = !country.available;
+        let counts = trophyCounts[countryKey] || {};
+        let items = country.items.map((t) => ({ ...t, count: counts[t.key] || 0 }));
+        return `
+            <div class="coach-palmares-flag-item${disabled ? " coach-palmares-flag-item--disabled" : ""}"
+                 data-country="${countryKey}"
+                 data-available="${country.available}"
+                 data-trophies='${JSON.stringify(items)}'>
+                <img class="coach-palmares-flag-img" src="${country.flag}" alt="${country.label}" loading="lazy">
+                <div class="coach-palmares-flag-label">${country.label}</div>
+                ${disabled ? `<div class="coach-palmares-coming-soon">Coming soon!</div>` : ""}
+            </div>
+        `;
+    }).join("");
 
     return `
         <div class="coach-stats-section">
             <div class="coach-stats-section-title">Palmarés</div>
-            <div class="coach-trophy-cabinet">
-                ${defaultTrophies.map((trophy) => `
-                    <div class="coach-trophy-slot coach-trophy-slot--${trophy.key}${trophy.count > 0 ? " unlocked" : ""}">
-                        <div class="coach-trophy-icon" aria-hidden="true">
-                            ${trophy.icon
-                                ? `<img src="${trophy.count > 0 ? trophy.icon : trophy.lockedIcon}" alt="" class="coach-trophy-img${trophy.count > 0 ? " unlocked" : " locked"}" loading="lazy">`
-                                : trophy.count > 0
-                                ? `<svg viewBox="0 0 24 24" fill="none">
-                                    <path d="M8 4h8v3c0 2.8-1.7 5.3-4 6.4C9.7 12.3 8 9.8 8 7V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                                    <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                                    <path d="M10 14h4v4h-4z" fill="currentColor" opacity="0.18"/>
-                                    <path d="M6 5H4c0 2.4 1.2 4 3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                                    <path d="M18 5h2c0 2.4-1.2 4-3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                                </svg>`
-                                : `<svg viewBox="0 0 24 24" fill="none">
-                                    <path d="M8 4h8v3c0 2.8-1.7 5.3-4 6.4C9.7 12.3 8 9.8 8 7V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                                    <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                                    <path d="M10 14h4v4h-4z" fill="currentColor" opacity="0.18"/>
-                                    <path d="M6 5H4c0 2.4 1.2 4 3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                                    <path d="M18 5h2c0 2.4-1.2 4-3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                                </svg>`
-                            }
-                        </div>
-                        <div class="coach-trophy-label">${trophy.label}</div>
-                        <div class="coach-trophy-count">${trophy.count > 0 ? `x${trophy.count}` : "—"}</div>
-                    </div>
-                `).join("")}
+            <div class="coach-palmares-flags-rail">
+                ${flagsMarkup}
             </div>
+            <div class="coach-palmares-trophies-panel" id="palmaresTrophiesPanel"></div>
         </div>
     `;
+}
+
+function renderTrophySlotsMarkup(items) {
+    return items.map((trophy) => {
+        let imgSrc = trophy.icon ? (trophy.count > 0 ? trophy.icon : trophy.lockedIcon) : "";
+        let clickable = imgSrc ? `data-trophy-img="${imgSrc}" data-trophy-label="${trophy.label}"` : "";
+        return `
+        <div class="coach-trophy-slot coach-trophy-slot--${trophy.key}${trophy.count > 0 ? " unlocked" : ""}"${clickable ? ` ${clickable} style="cursor:pointer"` : ""}>
+            <div class="coach-trophy-icon" aria-hidden="true">
+                ${imgSrc
+                    ? `<img src="${imgSrc}" alt="" class="coach-trophy-img${trophy.count > 0 ? " unlocked" : " locked"}" loading="lazy">`
+                    : `<svg viewBox="0 0 24 24" fill="none">
+                        <path d="M8 4h8v3c0 2.8-1.7 5.3-4 6.4C9.7 12.3 8 9.8 8 7V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                        <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        <path d="M10 14h4v4h-4z" fill="currentColor" opacity="0.18"/>
+                        <path d="M6 5H4c0 2.4 1.2 4 3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        <path d="M18 5h2c0 2.4-1.2 4-3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>`
+                }
+            </div>
+            <div class="coach-trophy-label">${trophy.label}</div>
+            <div class="coach-trophy-count">${trophy.count > 0 ? `x${trophy.count}` : "—"}</div>
+        </div>
+    `}).join("");
+}
+
+let activePalmaresCountry = null;
+
+function setupPalmaresFlagInteraction() {
+    let modal = document.getElementById("coachModal");
+    if (!modal) return;
+    let flags = modal.querySelectorAll(".coach-palmares-flag-item:not(.coach-palmares-flag-item--disabled)");
+    let panel = modal.querySelector("#palmaresTrophiesPanel");
+    if (!panel) return;
+
+    function expandFlag(flag) {
+        modal.querySelectorAll(".coach-palmares-flag-item.active").forEach((f) => f.classList.remove("active"));
+        flag.classList.add("active");
+        activePalmaresCountry = flag.dataset.country;
+        let items = JSON.parse(flag.dataset.trophies || "[]");
+        panel.innerHTML = `<div class="coach-trophy-cabinet">${renderTrophySlotsMarkup(items)}</div>`;
+        panel.classList.add("expanded");
+
+        panel.querySelectorAll(".coach-trophy-slot[data-trophy-img]").forEach((slot) => {
+            slot.addEventListener("click", () => {
+                openTrophyLightbox(slot.dataset.trophyImg, slot.dataset.trophyLabel);
+            });
+        });
+    }
+
+    flags.forEach((flag) => {
+        flag.addEventListener("click", () => {
+            let wasActive = flag.classList.contains("active");
+
+            modal.querySelectorAll(".coach-palmares-flag-item.active").forEach((f) => f.classList.remove("active"));
+
+            if (wasActive) {
+                panel.classList.remove("expanded");
+                panel.innerHTML = "";
+                activePalmaresCountry = null;
+                return;
+            }
+
+            expandFlag(flag);
+        });
+    });
+
+    if (activePalmaresCountry) {
+        let remembered = modal.querySelector(`.coach-palmares-flag-item[data-country="${activePalmaresCountry}"][data-available="true"]`);
+        if (remembered) expandFlag(remembered);
+    }
+}
+
+function openTrophyLightbox(src, label) {
+    let existing = document.getElementById("trophyLightbox");
+    if (existing) existing.remove();
+
+    let lightbox = document.createElement("div");
+    lightbox.id = "trophyLightbox";
+    lightbox.className = "trophy-lightbox";
+    lightbox.innerHTML = `
+        <div class="trophy-lightbox-backdrop"></div>
+        <div class="trophy-lightbox-content">
+            <img src="${src}" alt="${label}">
+            <div class="trophy-lightbox-label">${label}</div>
+        </div>
+    `;
+    document.body.appendChild(lightbox);
+
+    lightbox.addEventListener("click", () => lightbox.remove());
 }
 
 function renderCoachInsightGrid(title, items) {
@@ -1087,6 +1157,7 @@ function openCoachModal(id, preserveTab) {
     renderCoachModal(coach);
     setCoachModalView(currentView);
     setupCoachModalGallery();
+    setupPalmaresFlagInteraction();
     document.getElementById("coachModal").hidden = false;
     document.body.classList.add("modal-open");
 }
