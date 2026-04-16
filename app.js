@@ -886,6 +886,7 @@ function renderCoachStatsWideMarkup(coach) {
 }
 
 function renderCoachTrophyCabinet(trophies) {
+    let lockedScottishIcon = "assets/logos/escocia/locked_Scottish.png";
     let defaultTrophies = trophies.length ? trophies : [
         { key: "league", label: "Liga", count: 0 },
         { key: "league-cup", label: "Taça da Liga", count: 0 },
@@ -901,13 +902,16 @@ function renderCoachTrophyCabinet(trophies) {
                 ${defaultTrophies.map((trophy) => `
                     <div class="coach-trophy-slot coach-trophy-slot--${trophy.key}${trophy.count > 0 ? " unlocked" : ""}">
                         <div class="coach-trophy-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path d="M8 4h8v3c0 2.8-1.7 5.3-4 6.4C9.7 12.3 8 9.8 8 7V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                                <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                                <path d="M10 14h4v4h-4z" fill="currentColor" opacity="0.18"/>
-                                <path d="M6 5H4c0 2.4 1.2 4 3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                                <path d="M18 5h2c0 2.4-1.2 4-3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                            </svg>
+                            ${trophy.count > 0
+                                ? `<svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M8 4h8v3c0 2.8-1.7 5.3-4 6.4C9.7 12.3 8 9.8 8 7V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                                    <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                    <path d="M10 14h4v4h-4z" fill="currentColor" opacity="0.18"/>
+                                    <path d="M6 5H4c0 2.4 1.2 4 3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                    <path d="M18 5h2c0 2.4-1.2 4-3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                </svg>`
+                                : `<img src="${lockedScottishIcon}" alt="" class="coach-trophy-locked-img" loading="lazy">`
+                            }
                         </div>
                         <div class="coach-trophy-label">${trophy.label}</div>
                         <div class="coach-trophy-count">${trophy.count > 0 ? `x${trophy.count}` : "—"}</div>
