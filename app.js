@@ -267,9 +267,27 @@ const coachStats = {
 const coachProfileExtras = {
     goncalo: {
         trophies: [
-            { key: "league", label: "Liga", count: 0 },
-            { key: "league-cup", label: "Taça da Liga Escocesa", count: 1 },
-            { key: "cup", label: "Taça da Escócia", count: 1 },
+            {
+                key: "league",
+                label: "Liga",
+                count: 0,
+                icon: "assets/logos/Palmarés/Escócia/WilliamHillPremiership.png",
+                lockedIcon: "assets/logos/Palmarés/Escócia/WilliamHillPremiership_locked.png"
+            },
+            {
+                key: "league-cup",
+                label: "Taça da Liga Escocesa",
+                count: 1,
+                icon: "assets/logos/Palmarés/Escócia/PremierSports.png",
+                lockedIcon: "assets/logos/Palmarés/Escócia/PremierSports_locked.png"
+            },
+            {
+                key: "cup",
+                label: "Taça da Escócia",
+                count: 1,
+                icon: "assets/logos/Palmarés/Escócia/ScottishGasCup.png",
+                lockedIcon: "assets/logos/Palmarés/Escócia/ScottishGasCup_locked.png"
+            },
             { key: "europa", label: "Liga Europa", count: 0 },
             { key: "champions", label: "Champions", count: 0 }
         ],
@@ -886,11 +904,28 @@ function renderCoachStatsWideMarkup(coach) {
 }
 
 function renderCoachTrophyCabinet(trophies) {
-    let lockedScottishIcon = "assets/logos/escocia/locked_Scottish.png";
     let defaultTrophies = trophies.length ? trophies : [
-        { key: "league", label: "Liga", count: 0 },
-        { key: "league-cup", label: "Taça da Liga", count: 0 },
-        { key: "cup", label: "Taça", count: 0 },
+        {
+            key: "league",
+            label: "Liga",
+            count: 0,
+            icon: "assets/logos/Palmarés/Escócia/WilliamHillPremiership.png",
+            lockedIcon: "assets/logos/Palmarés/Escócia/WilliamHillPremiership_locked.png"
+        },
+        {
+            key: "league-cup",
+            label: "Taça da Liga",
+            count: 0,
+            icon: "assets/logos/Palmarés/Escócia/PremierSports.png",
+            lockedIcon: "assets/logos/Palmarés/Escócia/PremierSports_locked.png"
+        },
+        {
+            key: "cup",
+            label: "Taça",
+            count: 0,
+            icon: "assets/logos/Palmarés/Escócia/ScottishGasCup.png",
+            lockedIcon: "assets/logos/Palmarés/Escócia/ScottishGasCup_locked.png"
+        },
         { key: "europa", label: "Liga Europa", count: 0 },
         { key: "champions", label: "Champions", count: 0 }
     ];
@@ -902,7 +937,9 @@ function renderCoachTrophyCabinet(trophies) {
                 ${defaultTrophies.map((trophy) => `
                     <div class="coach-trophy-slot coach-trophy-slot--${trophy.key}${trophy.count > 0 ? " unlocked" : ""}">
                         <div class="coach-trophy-icon" aria-hidden="true">
-                            ${trophy.count > 0
+                            ${trophy.icon
+                                ? `<img src="${trophy.count > 0 ? trophy.icon : trophy.lockedIcon}" alt="" class="coach-trophy-img${trophy.count > 0 ? " unlocked" : " locked"}" loading="lazy">`
+                                : trophy.count > 0
                                 ? `<svg viewBox="0 0 24 24" fill="none">
                                     <path d="M8 4h8v3c0 2.8-1.7 5.3-4 6.4C9.7 12.3 8 9.8 8 7V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
                                     <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -910,7 +947,13 @@ function renderCoachTrophyCabinet(trophies) {
                                     <path d="M6 5H4c0 2.4 1.2 4 3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
                                     <path d="M18 5h2c0 2.4-1.2 4-3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
                                 </svg>`
-                                : `<img src="${lockedScottishIcon}" alt="" class="coach-trophy-locked-img" loading="lazy">`
+                                : `<svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M8 4h8v3c0 2.8-1.7 5.3-4 6.4C9.7 12.3 8 9.8 8 7V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                                    <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                    <path d="M10 14h4v4h-4z" fill="currentColor" opacity="0.18"/>
+                                    <path d="M6 5H4c0 2.4 1.2 4 3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                    <path d="M18 5h2c0 2.4-1.2 4-3 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                </svg>`
                             }
                         </div>
                         <div class="coach-trophy-label">${trophy.label}</div>
