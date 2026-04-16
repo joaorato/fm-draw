@@ -269,6 +269,9 @@ const coachProfileExtras = {
         trophyCounts: {
             escocia: { "league-cup": 1, "cup": 1 }
         },
+        trophyVisibility: {
+            escocia: ["league", "league-cup", "cup", "europa", "conference"]
+        },
         narrative: {
             victim: { label: "Maior Vítima", value: "Gamy", meta: "17 golos marcados contra" },
             nemesis: { label: "Nemesis", value: "Nabais", meta: "1V · 1E · 2D" }
@@ -283,6 +286,9 @@ const coachProfileExtras = {
         }
     },
     rato: {
+        trophyVisibility: {
+            escocia: ["league", "league-cup", "cup", "europa", "conference"]
+        },
         legacy: {
             rating: {
                 label: "Melhor Jogador",
@@ -869,7 +875,7 @@ function renderCoachStatsMarkup(coach) {
 function renderCoachStatsWideMarkup(coach) {
     let stats = getCoachStats(coach);
     let extras = coachProfileExtras[coach.id];
-    let trophyMarkup = renderCoachTrophyCabinet(extras?.trophyCounts || {});
+    let trophyMarkup = renderCoachTrophyCabinet(coach);
     let narrativeMarkup = renderCoachInsightGrid("Narrativa", extras?.narrative ? [extras.narrative.victim, extras.narrative.nemesis] : []);
     let legacyMarkup = renderCoachInsightGrid("Legado", extras?.legacy ? [extras.legacy.rating, extras.legacy.scorer] : []);
     let identityMarkup = renderCoachInsightGrid("Identidade", extras?.identity ? [extras.identity.specialty, extras.identity.tactical] : []);
@@ -895,33 +901,65 @@ const palmaresCountries = {
         items: [
             {
                 key: "league",
-                label: "Liga",
+                label: "Liga Escocesa",
                 icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.png",
-                lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.png"
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.png",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Williamhillpremiership_locked_clickable.png"
             },
             {
                 key: "league-cup",
-                label: "Taça da Liga",
+                label: "Taça da Liga Escocesa",
                 icon: "assets/logos/trophy_cabinet/escocia/premiersports.png",
-                lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.png"
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.png",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Premiersports_locked_clickable.png",
+                cabinetImage: "assets/logos/trophy_cabinet/escocia/Premiersports_cabinet.png"
             },
             {
                 key: "cup",
-                label: "Taça",
+                label: "Taça Escocesa",
                 icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.png",
-                lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.png"
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.png",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_locked_clickable.png",
+                cabinetImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_cabinet.png"
             },
-            { key: "europa", label: "Liga Europa" },
-            { key: "champions", label: "Champions" }
+            {
+                key: "europa",
+                label: "UEFA Europe League",
+                icon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague.png",
+                lockedIcon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked.png",
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked_clickable.png"
+            },
+            {
+                key: "conference",
+                label: "UEFA Conference League",
+                icon: "assets/logos/trophy_cabinet/UEFA/conference league/UEFAConference.png",
+                lockedIcon: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked.png",
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked_clickable.png"
+            },
+            {
+                key: "champions",
+                label: "UEFA Champions League",
+                icon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague.png",
+                lockedIcon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked.png",
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked_clickable.png"
+            }
         ]
     }
 };
 
-function renderCoachTrophyCabinet(trophyCounts) {
+function renderCoachTrophyCabinet(coach) {
+    let extras = coachProfileExtras[coach.id] || {};
+    let trophyCounts = extras.trophyCounts || {};
+    let defaultVisibleKeys = {
+        escocia: ["league", "league-cup", "cup"]
+    };
     let flagsMarkup = Object.entries(palmaresCountries).map(([countryKey, country]) => {
         let disabled = !country.available;
         let counts = trophyCounts[countryKey] || {};
-        let items = country.items.map((t) => ({ ...t, count: counts[t.key] || 0 }));
+        let visibleKeys = extras.trophyVisibility?.[countryKey] || defaultVisibleKeys[countryKey] || country.items.map((t) => t.key);
+        let items = country.items
+            .filter((t) => visibleKeys.includes(t.key))
+            .map((t) => ({ ...t, count: counts[t.key] || 0 }));
         return `
             <div class="coach-palmares-flag-item${disabled ? " coach-palmares-flag-item--disabled" : ""}"
                  data-country="${countryKey}"
@@ -948,7 +986,10 @@ function renderCoachTrophyCabinet(trophyCounts) {
 function renderTrophySlotsMarkup(items) {
     return items.map((trophy) => {
         let imgSrc = trophy.icon ? (trophy.count > 0 ? trophy.icon : trophy.lockedIcon) : "";
-        let clickable = imgSrc ? `data-trophy-img="${imgSrc}" data-trophy-label="${trophy.label}"` : "";
+        let lightboxSrc = trophy.count > 0
+            ? (trophy.cabinetImage || trophy.icon || "")
+            : (trophy.lockedClickableImage || "");
+        let clickable = lightboxSrc ? `data-trophy-img="${lightboxSrc}" data-trophy-label="${trophy.label}"` : "";
         return `
         <div class="coach-trophy-slot coach-trophy-slot--${trophy.key}${trophy.count > 0 ? " unlocked" : ""}"${clickable ? ` ${clickable} style="cursor:pointer"` : ""}>
             <div class="coach-trophy-icon" aria-hidden="true">
@@ -1899,13 +1940,8 @@ function showResults() {
         row.innerHTML = `
             <div class="table-rank">${entry.rank}&ordm;</div>
             <div class="table-match">
-                <div class="table-player">${entry.jogador}</div>
-                <span class="table-connector" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M7 12H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                        <path d="M12 7L17 12L12 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
+                <div class="table-player">${getCoachLinkMarkup(entry.jogador, "results-player-link")}</div>
+                <span class="table-connector" aria-hidden="true"></span>
                 <div class="table-team">
                     <img class="table-logo" src="${entry.img}" alt="${entry.equipa}">
                     <span class="table-team-name">${entry.equipa}</span>
@@ -1914,6 +1950,8 @@ function showResults() {
         `;
         table.appendChild(row);
     });
+
+    bindCoachLinks(table);
 
     if (DISCORD_WEBHOOK) {
         let shareBtn = document.createElement("button");
