@@ -1001,8 +1001,11 @@ function setupPalmaresFlagInteraction() {
 
             if (wasActive) {
                 panel.classList.remove("expanded");
-                panel.innerHTML = "";
                 activePalmaresCountry = null;
+                panel.addEventListener("transitionend", function handler() {
+                    if (!panel.classList.contains("expanded")) panel.innerHTML = "";
+                    panel.removeEventListener("transitionend", handler);
+                });
                 return;
             }
 
