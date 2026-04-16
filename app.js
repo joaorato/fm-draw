@@ -12,7 +12,7 @@ const coachProfiles = [
         
         descricao: "Sou José Empregos. No futebol, chamam-me Zép Jóbes — e não é por estética, é por impacto. Enquanto muitos seguem ideias, eu crio-as.\n\nComecei onde poucos olham: nos parques. Abordava crianças aleatórias, pois via potencial. Muitos achavam estranho eu falar com crianças que não conhecia de lado nenhum, mas foi para mim o inicio de uma vocação.\n\nNo Real de Massamá, ultrapassei a formação cedo demais. Fiquei porque quis. Porque nem todos estão prontos para subir comigo. Ainda hoje observo jovens — não necessariamente para identificar talento, mas porque gosto de os ver correr. \n\nEstagiei com Guardiola. Ele viu em mim aquilo que o resto demorou a perceber: inevitabilidade e o verdadeiro futuro do futebol internacional. O Aberdeen apostou em mim e eu respondi com troféus. Duas taças. Mata-mata? Não é pressão, é rotina. Por isso me chamam “O Predador de Taças”.\n\nAgora falam da Croácia como um passo atrás. Engraçado. Dizem sempre isso antes de eu chegar… e depois chamam-lhe revolução.\n\nEu não sigo o jogo.\nO jogo adapta-se a mim.\n\nNão sou um treinador.\nSou o padrão que os outros tentam alcançar. \n\nEu sou Zép Jóbes.",
         destaque: "\"O que gosto mais do que ganhar taças? Abordar crianças em parques públicos.\"",
-        assetFolder: "Gonçalo"
+        assetFolder: "goncalo"
     },
     {
         id: "rato",
@@ -22,7 +22,7 @@ const coachProfiles = [
 
         descricao: "As minhas origens são tudo menos convencionais. Muito antes dos relvados e das conferências de imprensa, passei uma fase curiosa da minha vida no Mónaco, onde trabalhei como arrumador de carros de luxo no icónico Hotel Monte Carlo. Foi aí que, num momento aparentemente banal, estacionei o G-Wagon de Leonardo Jardim. Entre uma chave entregue e uma troca de palavras, nasceu uma conversa improvável que mudaria tudo. Jardim recomendou-me vivamente o seu curso de Udemy entitulado “1-2 bem trabalhado”. Comprei. Estudei. Obsessivamente. E foi aí que começou a minha nova paixão.\n\nMas a teoria rapidamente deu lugar à prática — e de forma pouco ortodoxa. Durante os meus caóticos meses de Erasmus em Helsínquia, entrei diretamente no mundo do futebol sénior ao assumir funções no AC Balls. Ninguém sabe bem como: há quem diga que foi por falta de treinador, outros juram que foi apenas por ser português, e portugueses lá são exóticos e percebem do futebol. A verdade é que funcionou. O AC Balls começou a jogar futebol… e que futebol.\n\nA minha entrada no futebol britânico prende-se por um nome algo inusitado: Topi Keskinen, um extremo finlandês. Conhecemo-nos numa sauna completamente nus e suados, após um jogo do Balls a que o Topi tinha assistido. A conversa fluiu, e não só. E assim, com cunha do Topi, consegui uma entrevista com o Aberdeen FC, clube do velocista louro, esbelto e muito bem equipado.\n\nNo entanto, qual Eusébio chegado de Lourenço Marques, fui prontamente desviado no aeroporto por uma limosine forrada a verde garrafa. O Hibernian tinha sabido da minha chegada e não podia deixar fugir este talento para um rival.\n\nA história da temporada fala por si: golos e mais golos, domínio sobre os rivais da cidade e um lugar na tão esperada Champions League para os Hibs.\n\nNo entanto, farto da chuva e do frio, decidi que era hora de um novo desafio. A Croácia, com o seu clima mais ameno, permitirá que dispa a minha gabardine e mostre o quão entusiasmante o meu futebol pode ser.",
         destaque: "\"O meu futebol é como a sauna: muito suor e muita (mas mesmo muita) diversão.\"",
-        assetFolder: "Rato"
+        assetFolder: "rato"
     },
     {
         id: "chico",
@@ -32,7 +32,7 @@ const coachProfiles = [
         tag: "Menos barulho, mais controlo. Vai somando pontos enquanto os outros ainda estão a discutir scouting.",
         descricao: "Tenho um grande apetite por futebol… e por títulos.\n\nAcredito num futebol energético e livre, mas exijo disciplina e rigor dos meus jogadores. Em troca, dou-lhes espaço para que a criatividade floresça e para que possam atingir o seu verdadeiro potencial.\n\nSou pragmático e ambicioso. Encaro todos os desafios sem medo — e isso reflete-se na atitude da minha equipa em campo. Independentemente do adversário ou das circunstâncias, acredito sempre que há uma forma de vencer.\n\nNão me prendo a uma única formação. A minha tática é aquela que melhor potencia os jogadores que tenho. Pode ser um 4-3-3, um 5-2-1-2 ou um 4-4-2 — o importante é adaptar-me para tirar o máximo rendimento da equipa.\n\nAs minhas ideias são influenciadas por treinadores como Klopp, Jorge Jesus e Bielsa, mas a minha filosofia é simples: os jogadores cometem erros, e cabe-nos provocá-los. Para isso, procuro uma pressão alta e intensa.\n\nCom bola, dou liberdade. Quero que os meus jogadores joguem de acordo com os seus pontos fortes, que os criativos criem e que os avançados sigam o seu instinto. Não gosto de limitar decisões — acredito que o futebol também se faz de liberdade dentro de uma estrutura.",
         destaque: "\"Se comprometerem-se comigo, o vosso legado será imortalizado na história do futebol.\"",
-        assetFolder: "Chico"
+        assetFolder: "chico"
     },
     {
         id: "nabais",
@@ -41,7 +41,7 @@ const coachProfiles = [
         cargo: "Prodígio milagreiro",
         descricao: "Vim de uma aldeia tão pequena que até as ovelhas ficavam aborrecidas. Em criança, treinava a correr atrás de galinhas e a discutir com uma baliza que estava sempre torta. De alguma forma, à base de teimosia, táticas duvidosas e litros absurdos de chá, acabei na Escócia como treinador de alto nível. Ainda hoje ninguém percebe muito bem como.\n\nE aqui estou eu, a gritar instruções à chuva como se tivesse nascido para isto — a prova de que se pode sair do nada e chegar a algum lado… mesmo sem fazer grande ideia do que se está a fazer.",
         destaque: "\"Um pastor não escolhe o rebanho… mas escolhe até onde ele pode chegar.\"",
-        assetFolder: "Nabais"
+        assetFolder: "nabais"
     },
     {
         id: "gamy",
@@ -51,7 +51,7 @@ const coachProfiles = [
         tag: "Traz confiança, trash talk e vontade real de transformar qualquer sorteio numa storyline.",
         descricao: "Sou o Gamy Chambelito, nascido no Entroncamento, onde dei os primeiros passos no futebol — ainda longe dos holofotes, mas já com uma personalidade impossível de ignorar.\n\nDepois de me destacar a nível local, dei o salto para Leiria, onde comecei a chamar a atenção pela minha leitura de jogo e, sobretudo, pela forma como ajusto equipas durante as partidas. Mas nunca fui de ficar confortável: a ambição levou-me mais longe e emigrei para a Bélgica, onde assumi os sub-23 do Royal Saint-Gilloise.\n\nFoi aí que comecei realmente a construir o meu nome. Entre resultados consistentes e um estilo comunicativo provocador, conquistei jogadores e dirigentes — muito também pela minha capacidade negocial, assumindo um papel ativo nas transferências.\n\nEsse impacto abriu-me as portas do Dundee United. Entrei forte, com uma identidade clara: intensidade, ajustes táticos constantes e muito “trash talk” para mexer com qualquer adversário.\n\nMas nem tudo foi perfeito. Uma fase pessoal complicada afetou a minha ética de trabalho, refletindo-se nos resultados e acabando por levar à minha saída após uma época abaixo do esperado.\n\nAgora, procuro redenção na Liga Croata. Quero relançar a minha carreira e provar que o meu talento nunca desapareceu. Ainda não se sabe que clube vou liderar — mas uma coisa é certa: onde eu chegar, vou deixar marca.\n\nCarismático, provocador e mestre nas negociações — dentro ou fora de campo, nunca passo despercebido.",
         destaque: "\"Se não ganhamos no campo, ganhamos na negociação.\"",
-        assetFolder: "Gamy"
+        assetFolder: "gamy"
     },
     {
         id: "painatal",
@@ -60,7 +60,7 @@ const coachProfiles = [
         cargo: "O Desertor de serviço",
         descricao: "Houve uma altura em que me chamavam de tudo… menos vencedor. Sou o Pai Natal, treinador guineense conhecido não pelas vitórias, mas pela minha criatividade no fracasso.\n\nA minha carreira começou depois de perder uma aposta. Disse que conseguia treinar melhor do que qualquer um — alguém respondeu: “Duvido.” No dia seguinte, já estava de apito ao pescoço… e sem plano nenhum.\n\nNos primeiros jogos, a minha equipa inovava: ninguém sabia bem em que posição jogava. O guarda-redes aparecia no ataque, o avançado defendia cantos… e eu chamava a isso “futebol imprevisível”. Perdíamos sempre, mas confundíamos tanto o adversário que, às vezes, até tinham pena de nós.\n\nMesmo assim, nunca desanimei. Dava palestras motivacionais do género:\n“Hoje podemos perder… mas vamos perder com estilo!”\n\nE, contra todas as probabilidades, comecei a subir na carreira. Porquê? Porque os clubes achavam que ninguém podia ser tão mau — devia ser estratégia avançada.\n\nUm dia, ganhei um jogo… porque o outro treinador faltou. Fui promovido.\n\nHoje, sou um nome conhecido nas ruas da Croácia — não porque me queiram, mas porque ninguém quer ficar comigo. Dizem que sou um fenómeno: o único treinador que nunca acabou uma época.\n\nE quando me perguntam qual é o segredo do sucesso, respondo sempre:\n“Persistência… e um bocado de sorte… principalmente a sorte. E contratar africanos, também.”",
         destaque: "\"Vencer é opcional, perder é mandatório.\"",
-        assetFolder: "Painatal"
+        assetFolder: "painatal"
     },
     {
         id: "cardoso",
@@ -70,7 +70,7 @@ const coachProfiles = [
         
         descricao: "Desde pequeno, no Cacém, o futebol nunca foi só um jogo. Era refúgio, rotina, identidade. Cresci a jogar em pelados, bolas gastas e sonhos grandes demais para o tamanho da cidade. Como muitos miúdos, quis ser jogador. E fui, durante anos lutei, treinei, sacrifiquei. Mas no fundo, havia sempre outra voz. Eu não queria só jogar, queria perceber o jogo.\n\nQuando a carreira de jogador começou a perder força, não foi o fim. Foi o início. Tirei cursos, estudei tática, analisei jogos até altas horas. Enquanto outros viam futebol, eu desmontava-o.\n\nA oportunidade surgiu longe de casa, no Heart of Midlothian. O primeiro grande salto, a primeira prova real. Mas o futebol não perdoa romantismos. A época foi um desastre. Resultados maus, balneário instável, decisões que hoje sei que tomaria de forma diferente. Foi duro. Muito duro. Houve dúvidas, houve críticas, houve noites em que pensei desistir.\n\nAgora surge um novo capítulo na Croácia. Não é um passo atrás, é um recomeço consciente. Um sítio onde posso reconstruir, aplicar tudo o que aprendi, errar menos e crescer mais.\n\nPorque o sonho nunca foi só jogar futebol.",
         destaque: "\" Defender? O que é isso?\"",
-        assetFolder: "Cardoso"
+        assetFolder: "cardoso"
     },
     {
         id: "hugo",
@@ -80,70 +80,70 @@ const coachProfiles = [
         
         descricao: "Não nasci treinador… acho que virei por acidente.\n\nLembro-me perfeitamente: estava numa aula de educação física, mais preocupado em não me cansar muito, quando olho para um grupo de miúdos a jogar. E não era um jogo qualquer — aquilo parecia futebol a sério, com passes, entreajuda, espírito de equipa… quase digno de FC Barcelona. Foi aí que pensei: “Espera… isto até é bonito.”\n\nO mais irónico? Na altura, eu era campeão em França… mas em voleibol. Saltava mais do que corria, e sinceramente dava menos trabalho. Mas a verdade é que o futebol sempre esteve ali, a puxar por mim.\n\nSou benfiquista daqueles a sério, dos que sofrem mais do que celebram. O sonho? Um dia treinar o SL Benfica… mesmo sabendo que isso vem com um pacote completo de pressão, nervos e anos de vida perdidos.\n\nDecidi complicar a minha vida e mudei-me para o futebol. Passei pelo Falkirk FC, na Escócia, onde fiz uma excelente época — e onde, entre nós, ainda estou a tentar perceber metade do que dizem.\n\nHoje sou treinador de futebol. Não sei se foi a decisão mais fácil… mas de certeza foi a mais divertida.",
         destaque: "\" O meu streamer é melhor que o teu.\"",
-        assetFolder: "Hugo"
+        assetFolder: "hugo"
     }
 ];
 
 const coachAssetFiles = {
-    "Gonçalo": [
-        "gonçalo_card.png",
-        "gonçalo_profile.png",
-        "gonçalo_profile2.png",
-        "gonçalo_profile3.png",
-        "gonçalo_profile4.png",
-        "teste_gonçalo.png",
-        "teste_gonçalo2.png",
-        "teste_gonçalo3.png",
-        "stats_treinador_gonçalo.png"
+    "goncalo": [
+        "goncalo_card.png",
+        "goncalo_profile.png",
+        "goncalo_profile2.png",
+        "goncalo_profile3.png",
+        "goncalo_profile4.png",
+        "teste_goncalo.png",
+        "teste_goncalo2.png",
+        "teste_goncalo3.png",
+        "stats_treinador_goncalo.png"
     ],
-    "Rato": [
-        "Rato_card.png",
+    "rato": [
+        "rato_card.png",
         "rato_profile.png",
         "rato_profile2.png",
         "rato_profile5.png",
         "rato_profile6.png",
         "stats_treinador_rato.png"
     ],
-    "Chico": [
-        "Chico_card.png",
-        "Chico_profile.png",
+    "chico": [
+        "chico_card.png",
+        "chico_profile.png",
         "chico_profile2.png",
         "chico_profile3.png",
-        "ChicoOficial2.png",
+        "chicooficial2.png",
         "stats_treinador_chico.png"
     ],
-    "Nabais": [
+    "nabais": [
         "nabais_card.png",
-        "Nabais_profile_png.png",
+        "nabais_profile_png.png",
         "nabais_profile1.png",
-        "Nabais_profile2.png",
+        "nabais_profile2.png",
         "stats_treinador_nabais.png"
     ],
-    "Gamy": [
-        "Game_card.png",
+    "gamy": [
+        "game_card.png",
         "gamy_profile.png",
         "gamy_profile2.png",
-        "GamyOficial2.png",
+        "gamyoficial2.png",
         "stats_treinador_gamy.png"
     ],
-    "Painatal": [
-        "Painatal_card.png",
+    "painatal": [
+        "painatal_card.png",
         "painatal_profile.png",
         "painatal_profile1.png",
         "painatal_profile2.png",
         "painatal_profile3.png",
         "stats_treinador_painatal.png"
     ],
-    "Cardoso": [
-        "Cardoso_card.png",
-        "Cardoso_profile.png",
-        "Cardoso2_profile.png",
+    "cardoso": [
+        "cardoso_card.png",
+        "cardoso_profile.png",
+        "cardoso2_profile.png",
         "stats_treinador_cardoso.png"
     ],
-    "Hugo": [
+    "hugo": [
         "hugo_card.png",
-        "Hugo_profile.png",
-        "Hugo_profile2.png",
+        "hugo_profile.png",
+        "hugo_profile2.png",
         "hugo_profile3.png",
         "stats_treinador_hugo.png"
     ]
@@ -271,22 +271,22 @@ const coachProfileExtras = {
                 key: "league",
                 label: "Liga",
                 count: 0,
-                icon: "assets/logos/Palmarés/Escócia/WilliamHillPremiership.png",
-                lockedIcon: "assets/logos/Palmarés/Escócia/WilliamHillPremiership_locked.png"
+                icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.png",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.png"
             },
             {
                 key: "league-cup",
                 label: "Taça da Liga Escocesa",
                 count: 1,
-                icon: "assets/logos/Palmarés/Escócia/PremierSports.png",
-                lockedIcon: "assets/logos/Palmarés/Escócia/PremierSports_locked.png"
+                icon: "assets/logos/trophy_cabinet/escocia/premiersports.png",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.png"
             },
             {
                 key: "cup",
                 label: "Taça da Escócia",
                 count: 1,
-                icon: "assets/logos/Palmarés/Escócia/ScottishGasCup.png",
-                lockedIcon: "assets/logos/Palmarés/Escócia/ScottishGasCup_locked.png"
+                icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.png",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.png"
             },
             { key: "europa", label: "Liga Europa", count: 0 },
             { key: "champions", label: "Champions", count: 0 }
@@ -389,14 +389,14 @@ const coachProfileExtras = {
 };
 
 const equipas = [
-    { nome: "HNK Rijeka", img: "assets/logos/croacia/Rijeka.png", rank: 3 },
-    { nome: "NK Osijek", img: "assets/logos/croacia/Osijek.png", rank: 4 },
-    { nome: "NK Lokomotiva", img: "assets/logos/croacia/NK_Lokomotiva.png", rank: 5 },
-    { nome: "NK Slaven Belupo", img: "assets/logos/croacia/SLAVEN.png", rank: 8 },
-    { nome: "NK Istra 1961", img: "assets/logos/croacia/ISTRA.png", rank: 6 },
-    { nome: "HNK Gorica", img: "assets/logos/croacia/GORICA.png", rank: 9 },
-    { nome: "HNK Vukovar", img: "assets/logos/croacia/HNKVUKOVAR.png", rank: 10 },
-    { nome: "NK Varaždin", img: "assets/logos/croacia/Varazdin.png", rank: 7 }
+    { nome: "HNK Rijeka", img: "assets/logos/teams/croacia/rijeka.png", rank: 3 },
+    { nome: "NK Osijek", img: "assets/logos/teams/croacia/osijek.png", rank: 4 },
+    { nome: "NK Lokomotiva", img: "assets/logos/teams/croacia/nk_lokomotiva.png", rank: 5 },
+    { nome: "NK Slaven Belupo", img: "assets/logos/teams/croacia/slaven.png", rank: 8 },
+    { nome: "NK Istra 1961", img: "assets/logos/teams/croacia/istra.png", rank: 6 },
+    { nome: "HNK Gorica", img: "assets/logos/teams/croacia/gorica.png", rank: 9 },
+    { nome: "HNK Vukovar", img: "assets/logos/teams/croacia/hnkvukovar.png", rank: 10 },
+    { nome: "NK Varaždin", img: "assets/logos/teams/croacia/varazdin.png", rank: 7 }
 ];
 
 const scotlandSeasonScores = [
@@ -418,7 +418,7 @@ const leagues = [
         id: "scotland",
         nome: "Liga Escocesa",
         descricao: "Classificação final completa da Premiership, com dados da liga, jogador EMG associado e pontos pela fórmula da época.",
-        logo: "assets/logos/escocia/SPFL_logo,_William_Hill.png",
+        logo: "assets/logos/teams/escocia/spfl.png",
         logoAlt: "William Hill Premiership",
         epoca: "Época 25/26",
         formula: "(prevista - final) × 3",
@@ -431,18 +431,18 @@ const leagues = [
             { tipo: "Vencedor de competição europeia", jogador: null, pontos: 3 }
         ],
         tabela: [
-            { pos: 1, inf: "C", equipa: "Rangers", logo: "assets/logos/escocia/Rangers_FC_logo.svg.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, zone: "championship" },
-            { pos: 2, inf: "--", equipa: "Hibernian", logo: "assets/logos/escocia/Hibernian_FC_logo.svg.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, zone: "championship" },
-            { pos: 3, inf: "--", equipa: "Aberdeen", logo: "assets/logos/escocia/Aberdeen_F.C._logo_2014.svg.png", jogador: "Gonçalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, zone: "europe" },
-            { pos: 4, inf: "--", equipa: "Dundee", logo: "assets/logos/escocia/Dundee_FC_crest.svg.png", jogador: "Nabais", j: 38, v: 17, e: 9, d: 12, gm: 61, gs: 55, dg: 6, pts: 60, prevista: 10, zone: "europe" },
-            { pos: 5, inf: "--", equipa: "Celtic", logo: "assets/logos/escocia/Celtic_FC_logo.png", jogador: null, j: 38, v: 17, e: 8, d: 13, gm: 70, gs: 47, dg: 23, pts: 59, prevista: 1, zone: "" },
-            { pos: 6, inf: "--", equipa: "St. Mirren", logo: "assets/logos/escocia/St_Mirren_FC_crest.svg.png", jogador: null, j: 38, v: 15, e: 10, d: 13, gm: 52, gs: 53, dg: -1, pts: 55, prevista: 8, zone: "" },
-            { pos: 7, inf: "--", equipa: "Hearts", logo: "assets/logos/escocia/Heart_of_Midlothian_FC_logo.png", jogador: "Cardoso", j: 38, v: 16, e: 7, d: 15, gm: 76, gs: 74, dg: 2, pts: 55, prevista: 3, zone: "" },
-            { pos: 8, inf: "--", equipa: "Falkirk", logo: "assets/logos/escocia/Falkirk_FC_logo.png", jogador: "Hugo", j: 38, v: 14, e: 11, d: 13, gm: 65, gs: 62, dg: 3, pts: 53, prevista: 11, zone: "" },
-            { pos: 9, inf: "--", equipa: "Kilmarnock", logo: "assets/logos/escocia/KilmarnockLogo.png", jogador: "Chico", j: 38, v: 14, e: 7, d: 17, gm: 51, gs: 64, dg: -13, pts: 49, prevista: 9, zone: "" },
-            { pos: 10, inf: "--", equipa: "Dundee Utd", logo: "assets/logos/escocia/Dundee_United_FC_logo.png", jogador: "Gamy", j: 38, v: 14, e: 6, d: 18, gm: 60, gs: 71, dg: -11, pts: 48, prevista: 7, zone: "" },
-            { pos: 11, inf: "PI", equipa: "Motherwell", logo: "assets/logos/escocia/Motherwell_FC_crest.svg.png", jogador: null, j: 38, v: 4, e: 8, d: 26, gm: 30, gs: 80, dg: -50, pts: 20, prevista: 5, zone: "playoff" },
-            { pos: 12, inf: "D", equipa: "Livingston", logo: "assets/logos/escocia/Livingston_FC_club_badge_new.png", jogador: "Painatal", j: 38, v: 4, e: 5, d: 29, gm: 41, gs: 101, dg: -60, pts: 17, prevista: 12, zone: "relegated" }
+            { pos: 1, inf: "C", equipa: "Rangers", logo: "assets/logos/teams/escocia/rangers.png", jogador: null, j: 38, v: 22, e: 10, d: 6, gm: 84, gs: 41, dg: 43, pts: 76, prevista: 2, zone: "championship" },
+            { pos: 2, inf: "--", equipa: "Hibernian", logo: "assets/logos/teams/escocia/hibernian.png", jogador: "Rato", j: 38, v: 23, e: 4, d: 11, gm: 85, gs: 57, dg: 28, pts: 73, prevista: 4, zone: "championship" },
+            { pos: 3, inf: "--", equipa: "Aberdeen", logo: "assets/logos/teams/escocia/aberdeen.png", jogador: "Gonçalo", j: 38, v: 21, e: 9, d: 8, gm: 74, gs: 45, dg: 29, pts: 72, prevista: 6, zone: "europe" },
+            { pos: 4, inf: "--", equipa: "Dundee", logo: "assets/logos/teams/escocia/dundee.png", jogador: "Nabais", j: 38, v: 17, e: 9, d: 12, gm: 61, gs: 55, dg: 6, pts: 60, prevista: 10, zone: "europe" },
+            { pos: 5, inf: "--", equipa: "Celtic", logo: "assets/logos/teams/escocia/celtic.png", jogador: null, j: 38, v: 17, e: 8, d: 13, gm: 70, gs: 47, dg: 23, pts: 59, prevista: 1, zone: "" },
+            { pos: 6, inf: "--", equipa: "St. Mirren", logo: "assets/logos/teams/escocia/st_mirren.png", jogador: null, j: 38, v: 15, e: 10, d: 13, gm: 52, gs: 53, dg: -1, pts: 55, prevista: 8, zone: "" },
+            { pos: 7, inf: "--", equipa: "Hearts", logo: "assets/logos/teams/escocia/hearts.png", jogador: "Cardoso", j: 38, v: 16, e: 7, d: 15, gm: 76, gs: 74, dg: 2, pts: 55, prevista: 3, zone: "" },
+            { pos: 8, inf: "--", equipa: "Falkirk", logo: "assets/logos/teams/escocia/falkirk.png", jogador: "Hugo", j: 38, v: 14, e: 11, d: 13, gm: 65, gs: 62, dg: 3, pts: 53, prevista: 11, zone: "" },
+            { pos: 9, inf: "--", equipa: "Kilmarnock", logo: "assets/logos/teams/escocia/kilmarnock.png", jogador: "Chico", j: 38, v: 14, e: 7, d: 17, gm: 51, gs: 64, dg: -13, pts: 49, prevista: 9, zone: "" },
+            { pos: 10, inf: "--", equipa: "Dundee Utd", logo: "assets/logos/teams/escocia/dundee_united.png", jogador: "Gamy", j: 38, v: 14, e: 6, d: 18, gm: 60, gs: 71, dg: -11, pts: 48, prevista: 7, zone: "" },
+            { pos: 11, inf: "PI", equipa: "Motherwell", logo: "assets/logos/teams/escocia/motherwell.png", jogador: null, j: 38, v: 4, e: 8, d: 26, gm: 30, gs: 80, dg: -50, pts: 20, prevista: 5, zone: "playoff" },
+            { pos: 12, inf: "D", equipa: "Livingston", logo: "assets/logos/teams/escocia/livingston.png", jogador: "Painatal", j: 38, v: 4, e: 5, d: 29, gm: 41, gs: 101, dg: -60, pts: 17, prevista: 12, zone: "relegated" }
         ].map((entry) => {
             let emgEntry = scotlandSeasonScores.find((score) => score.equipa === entry.equipa);
             return { ...entry, emgPontos: emgEntry ? emgEntry.pontos : null };
@@ -512,14 +512,14 @@ let resultados = [];
 const DRAW_COMPLETED = true;
 
 const FINAL_RESULTS = [
-    { jogador: "Gonçalo",  equipa: "HNK Rijeka",      img: "assets/logos/croacia/Rijeka.png",        rank: 3 },
-    { jogador: "Gamy",     equipa: "NK Osijek",        img: "assets/logos/croacia/Osijek.png",        rank: 4 },
-    { jogador: "Painatal", equipa: "NK Lokomotiva",    img: "assets/logos/croacia/NK_Lokomotiva.png", rank: 5 },
-    { jogador: "Rato",     equipa: "NK Istra 1961",    img: "assets/logos/croacia/ISTRA.png",         rank: 6 },
-    { jogador: "Nabais",   equipa: "NK Varaždin",      img: "assets/logos/croacia/Varazdin.png",      rank: 7 },
-    { jogador: "Chico",    equipa: "NK Slaven Belupo", img: "assets/logos/croacia/SLAVEN.png",        rank: 8 },
-    { jogador: "Cardoso",  equipa: "HNK Gorica",       img: "assets/logos/croacia/GORICA.png",        rank: 9 },
-    { jogador: "Hugo",     equipa: "HNK Vukovar",      img: "assets/logos/croacia/HNKVUKOVAR.png",    rank: 10 }
+    { jogador: "Gonçalo",  equipa: "HNK Rijeka",      img: "assets/logos/teams/croacia/rijeka.png",        rank: 3 },
+    { jogador: "Gamy",     equipa: "NK Osijek",        img: "assets/logos/teams/croacia/osijek.png",        rank: 4 },
+    { jogador: "Painatal", equipa: "NK Lokomotiva",    img: "assets/logos/teams/croacia/nk_lokomotiva.png", rank: 5 },
+    { jogador: "Rato",     equipa: "NK Istra 1961",    img: "assets/logos/teams/croacia/istra.png",         rank: 6 },
+    { jogador: "Nabais",   equipa: "NK Varaždin",      img: "assets/logos/teams/croacia/varazdin.png",      rank: 7 },
+    { jogador: "Chico",    equipa: "NK Slaven Belupo", img: "assets/logos/teams/croacia/slaven.png",        rank: 8 },
+    { jogador: "Cardoso",  equipa: "HNK Gorica",       img: "assets/logos/teams/croacia/gorica.png",        rank: 9 },
+    { jogador: "Hugo",     equipa: "HNK Vukovar",      img: "assets/logos/teams/croacia/hnkvukovar.png",    rank: 10 }
 ];
 
 const coachByShortName = Object.fromEntries(coachProfiles.map((coach) => [coach.nome, coach]));
@@ -862,9 +862,9 @@ function resolveCoachMedia(coach) {
     }
 
     return {
-        cardPhoto: cardFile ? `assets/Treinadores/${folder}/${cardFile}` : "",
-        profilePhotos: profileFiles.map((file) => `assets/Treinadores/${folder}/${file}`),
-        statsPhoto: statsFiles[0] ? `assets/Treinadores/${folder}/${statsFiles[0]}` : ""
+        cardPhoto: cardFile ? `assets/treinadores/${folder}/${cardFile}` : "",
+        profilePhotos: profileFiles.map((file) => `assets/treinadores/${folder}/${file}`),
+        statsPhoto: statsFiles[0] ? `assets/treinadores/${folder}/${statsFiles[0]}` : ""
     };
 }
 
@@ -909,22 +909,22 @@ function renderCoachTrophyCabinet(trophies) {
             key: "league",
             label: "Liga",
             count: 0,
-            icon: "assets/logos/Palmarés/Escócia/WilliamHillPremiership.png",
-            lockedIcon: "assets/logos/Palmarés/Escócia/WilliamHillPremiership_locked.png"
+            icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.png",
+            lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.png"
         },
         {
             key: "league-cup",
             label: "Taça da Liga",
             count: 0,
-            icon: "assets/logos/Palmarés/Escócia/PremierSports.png",
-            lockedIcon: "assets/logos/Palmarés/Escócia/PremierSports_locked.png"
+            icon: "assets/logos/trophy_cabinet/escocia/premiersports.png",
+            lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.png"
         },
         {
             key: "cup",
             label: "Taça",
             count: 0,
-            icon: "assets/logos/Palmarés/Escócia/ScottishGasCup.png",
-            lockedIcon: "assets/logos/Palmarés/Escócia/ScottishGasCup_locked.png"
+            icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.png",
+            lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.png"
         },
         { key: "europa", label: "Liga Europa", count: 0 },
         { key: "champions", label: "Champions", count: 0 }
