@@ -100,7 +100,8 @@ const coachAssetFiles = {
         "Rato_card.png",
         "rato_profile.png",
         "rato_profile2.png",
-        "rato_profile4.png",
+        "rato_profile5.png",
+        "rato_profile6.png",
         "stats_treinador_rato.png"
     ],
     "Chico": [
