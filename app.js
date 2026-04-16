@@ -282,7 +282,7 @@ const coachProfileExtras = {
             scorer: { label: "Melhor Marcador", value: "José Campaña", meta: "16G | 34(13)J" }
         },
         identity: {
-            specialty: { label: "Especialidade", value: "Especialista em jogos a eliminar" },
+            specialty: { label: "Especialidade", value: "Jogos a eliminar" },
             tactical: { label: "Assinatura Tática", value: "Pressão alta, circulação rápida" }
         }
     },
@@ -294,6 +294,20 @@ const coachProfileExtras = {
                 meta: "Empate na melhor média"
             },
             scorer: { label: "Melhor Marcador", value: "Kieran Bowie", meta: "34G | 46(8)J" }
+        },
+        identity: {
+            specialty: { label: "Especialidade", value: "Output ofensivo" },
+            tactical: { label: "Assinatura Tática", value: "Pressão alta, elevado volume ofensivo e finalização" }
+        }
+    },
+    chico: {
+        legacy: {
+            rating: { label: "Melhor Jogador", value: "Marcus Dackers", meta: "7,24 | 23G | 5A | 37(1)J" },
+            scorer: { label: "Melhor Marcador", value: "Marcus Dackers", meta: "23G | 37(1)J" }
+        },
+        identity: {
+            specialty: { label: "Especialidade", value: "Adaptar-se aos seus atletas" },
+            tactical: { label: "Assinatura Tática", value: "Jogo de corredores com avançado alvo" }
         }
     },
     nabais: {
@@ -304,24 +318,30 @@ const coachProfileExtras = {
                 meta: "Empate na melhor média"
             },
             scorer: { label: "Melhor Marcador", value: "Joe Westley", meta: "12G | 30(5)J" }
+        },
+        identity: {
+            specialty: { label: "Especialidade", value: "Extrair o máximo dos atletas" },
+            tactical: { label: "Assinatura Tática", value: "Bolas paradas e utilização das entrelinhas" }
         }
     },
     cardoso: {
         legacy: {
             rating: { label: "Melhor Jogador", value: "Cláudio Braga", meta: "7,24 | 23G | 6A | 32(7)J" },
             scorer: { label: "Melhor Marcador", value: "Lawrence Shankland", meta: "25G | 33(2)J" }
+        },
+        identity: {
+            specialty: { label: "Especialidade", value: "Futebol ultra-ofensivo" },
+            tactical: { label: "Assinatura Tática", value: "Construção de jogo ofensivo, com ênfase em meio-campo combativo e avançados móveis" }
         }
     },
     hugo: {
         legacy: {
             rating: { label: "Melhor Jogador", value: "Ross MacIver", meta: "7,06 | 26G | 4A | 40(1)J" },
             scorer: { label: "Melhor Marcador", value: "Ross MacIver", meta: "26G | 40(1)J" }
-        }
-    },
-    chico: {
-        legacy: {
-            rating: { label: "Melhor Jogador", value: "Marcus Dackers", meta: "7,24 | 23G | 5A | 37(1)J" },
-            scorer: { label: "Melhor Marcador", value: "Marcus Dackers", meta: "23G | 37(1)J" }
+        },
+        identity: {
+            specialty: { label: "Especialidade", value: "Análise de vídeo" },
+            tactical: { label: "Assinatura Tática", value: "Equipas jovens e ajustes táticos constantes" }
         }
     },
     gamy: {
@@ -332,12 +352,20 @@ const coachProfileExtras = {
                 value: "Julius Eskesen - 9G | 24(10)J\nZac Sapsford - 9G | 33(9)J",
                 meta: "Empate na melhor marcação"
             }
+        },
+        identity: {
+            specialty: { label: "Especialidade", value: "Mercado e criatividade" },
+            tactical: { label: "Assinatura Tática", value: "Ajustes táticos e formações imprevisíveis" }
         }
     },
     painatal: {
         legacy: {
             rating: { label: "Melhor Jogador", value: "Jeremy Bokila", meta: "6,96 | 15G | 2A | 26(8)J" },
             scorer: { label: "Melhor Marcador", value: "Jeremy Bokila", meta: "15G | 26(8)J" }
+        },
+        identity: {
+            specialty: { label: "Especialidade", value: "Recrutamento no continente Africano" },
+            tactical: { label: "Assinatura Tática", value: "Exploração das costas da defesa adversária com velocistas" }
         }
     }
 };
