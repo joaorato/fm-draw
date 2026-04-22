@@ -124,6 +124,8 @@ const coachAssetFiles = {
         "game_card.png",
         "gamy_profile.png",
         "gamy_profile2.png",
+        "gamy_profile3.png",
+        "gamy_profile4.png",
         "gamyoficial2.png",
         "stats_treinador_gamy.png"
     ],
@@ -139,6 +141,8 @@ const coachAssetFiles = {
         "cardoso_card.png",
         "cardoso_profile.png",
         "cardoso2_profile.png",
+        "cardoso_profile4.png",
+        "cardoso_profile5.png",
         "stats_treinador_cardoso.png"
     ],
     "hugo": [
@@ -146,6 +150,8 @@ const coachAssetFiles = {
         "hugo_profile.png",
         "hugo_profile2.png",
         "hugo_profile3.png",
+        "hugo_profile4.png",
+        "hugo_profile5.png",
         "stats_treinador_hugo.png"
     ]
 };
