@@ -1648,6 +1648,10 @@ body::after {
     margin-top: 32px;
 }
 
+#pastView .page-panel {
+    width: min(1380px, calc(100vw - 64px));
+}
+
 #drawView .page-panel {
     margin-top: 32px;
     max-width: 1000px;
@@ -1799,6 +1803,424 @@ body::after {
 .league-chip-icon {
     color: rgba(109, 220, 255, 0.82);
     font-size: 16px;
+}
+
+.league-season-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 340px);
+    gap: 18px;
+    align-items: start;
+}
+
+.league-main-column {
+    min-width: 0;
+}
+
+.league-bonuses-column {
+    min-width: 0;
+}
+
+.league-lower-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 18px;
+    min-width: 0;
+}
+
+.league-calendar-card {
+    grid-column: auto;
+}
+
+.league-side-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 560px;
+    height: 560px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 1px solid rgba(122, 210, 255, 0.08);
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.league-side-card::before {
+    display: none;
+}
+
+.league-side-head {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid rgba(118, 211, 255, 0.1);
+}
+
+.league-side-head span {
+    color: rgba(205, 228, 255, 0.58);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+.league-side-head strong {
+    color: #f4fbff;
+    font-family: "Michroma", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.league-awards-grid {
+    position: relative;
+    display: grid;
+    gap: 10px;
+    padding: 14px 14px 16px;
+    flex: 1;
+    align-content: stretch;
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+}
+
+.league-award-card {
+    min-height: 0;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 13px;
+    border: 1px solid rgba(122, 210, 255, 0.08);
+    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.014));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.025);
+}
+
+.league-award-label {
+    color: rgba(154, 211, 255, 0.72);
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+.league-award-name {
+    margin-top: 4px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.league-award-meta {
+    margin-top: 2px;
+    color: rgba(229, 239, 255, 0.66);
+    font-size: 10.5px;
+    line-height: 1.25;
+}
+
+.league-toty-panel {
+    position: relative;
+    margin: 0;
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    border-radius: 16px;
+    border: 0;
+    background: transparent;
+}
+
+.league-toty-pitch {
+    position: relative;
+    min-height: 0;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid rgba(122, 210, 255, 0.11);
+    background: rgba(5, 52, 61, 0.78);
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.035),
+        inset 0 0 34px rgba(0,0,0,0.18);
+}
+
+.league-toty-lines,
+.league-toty-lines span {
+    position: absolute;
+    pointer-events: none;
+}
+
+.league-toty-lines {
+    inset: 0;
+    z-index: 0;
+}
+
+.league-toty-halfway {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: rgba(155, 225, 255, 0.14);
+}
+
+.league-toty-centre-circle {
+    top: 50%;
+    left: 50%;
+    width: 58px;
+    height: 58px;
+    border: 1px solid rgba(155, 225, 255, 0.14);
+    border-radius: 999px;
+    transform: translate(-50%, -50%);
+}
+
+.league-toty-box {
+    top: 27%;
+    bottom: 27%;
+    width: 17%;
+    border: 1px solid rgba(155, 225, 255, 0.12);
+}
+
+.league-toty-box-left {
+    left: 0;
+    border-left: 0;
+}
+
+.league-toty-box-right {
+    right: 0;
+    border-right: 0;
+}
+
+.league-toty-small-box {
+    top: 39%;
+    bottom: 39%;
+    width: 7%;
+    border: 1px solid rgba(155, 225, 255, 0.11);
+}
+
+.league-toty-small-box-left {
+    left: 0;
+    border-left: 0;
+}
+
+.league-toty-small-box-right {
+    right: 0;
+    border-right: 0;
+}
+
+.league-toty-player {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 90px;
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+}
+
+.league-toty-shirt {
+    width: 23px;
+    height: 21px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px 8px 11px 11px;
+    color: #eaf8ff;
+    font-size: 9px;
+    font-weight: 800;
+    background: linear-gradient(180deg, rgba(39, 125, 255, 0.58), rgba(7, 35, 103, 0.86));
+    border: 1px solid rgba(143, 220, 255, 0.22);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+}
+
+.league-toty-name {
+    max-width: 100%;
+    overflow: hidden;
+    color: #f5fbff;
+    font-size: 9.6px;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.55);
+}
+
+.league-toty-meta {
+    max-width: 100%;
+    overflow: hidden;
+    color: rgba(219, 239, 255, 0.72);
+    font-size: 7.5px;
+    font-weight: 800;
+    letter-spacing: 0.35px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+}
+
+.league-calendar-card {
+    max-height: 560px;
+}
+
+.league-calendar-scroll {
+    position: relative;
+    max-height: none;
+    overflow: auto;
+    display: block;
+    flex: 1;
+    padding: 14px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(118, 211, 255, 0.42) rgba(255,255,255,0.05);
+}
+
+.league-calendar-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.league-calendar-scroll::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 999px;
+}
+
+.league-calendar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(118, 211, 255, 0.42);
+    border-radius: 999px;
+}
+
+.league-fixture-month + .league-fixture-month {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(118, 211, 255, 0.08);
+}
+
+.league-fixture-month-title {
+    position: sticky;
+    top: -14px;
+    z-index: 2;
+    margin: 0 0 8px;
+    padding: 7px 10px;
+    border-radius: 12px;
+    color: #f2fbff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    background:
+        linear-gradient(180deg, rgba(11, 34, 102, 0.98), rgba(8, 22, 72, 0.88)),
+        radial-gradient(circle at left, rgba(103, 219, 255, 0.14), transparent 60%);
+    backdrop-filter: blur(8px);
+}
+
+.league-fixture-list {
+    display: grid;
+    gap: 8px;
+}
+
+.league-fixture-row {
+    padding: 8px 9px;
+    border-radius: 12px;
+    border: 1px solid rgba(118, 211, 255, 0.09);
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));
+}
+
+.league-fixture-meta {
+    display: grid;
+    grid-template-columns: minmax(54px, 0.7fr) minmax(0, 1.6fr) minmax(54px, 0.7fr);
+    align-items: center;
+    margin-bottom: 7px;
+    color: rgba(205, 228, 255, 0.58);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.85px;
+    text-transform: uppercase;
+}
+
+.league-fixture-meta span:first-child {
+    justify-self: start;
+}
+
+.league-fixture-meta span:last-child {
+    grid-column: 2;
+    justify-self: center;
+    color: rgba(244, 250, 255, 0.84);
+}
+
+.league-fixture-match {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+    align-items: center;
+    gap: 7px;
+}
+
+.league-match-team {
+    min-width: 0;
+    display: grid;
+    gap: 3px;
+    justify-items: center;
+    text-align: center;
+}
+
+.league-match-team:last-child {
+    text-align: center;
+}
+
+.league-match-club {
+    max-width: 100%;
+    overflow: hidden;
+    color: rgba(244, 248, 255, 0.86);
+    font-size: 10.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.league-match-team.winner .league-match-club {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(116, 218, 255, 0.18);
+}
+
+.league-match-coach {
+    max-width: 100%;
+    overflow: hidden;
+    color: rgba(145, 211, 255, 0.62);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.league-match-coach .coach-link {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.league-match-coach-empty {
+    color: rgba(205, 228, 255, 0.36);
+}
+
+.league-fixture-score {
+    min-width: 44px;
+    padding: 6px 5px;
+    border-radius: 12px;
+    border: 1px solid rgba(118, 211, 255, 0.16);
+    background:
+        radial-gradient(circle at top, rgba(116, 218, 255, 0.18), transparent 58%),
+        rgba(255,255,255,0.05);
+    color: #ffffff;
+    font-family: "Michroma", sans-serif;
+    font-size: 10px;
+    text-align: center;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 0 16px rgba(72, 178, 255, 0.08);
 }
 
 .league-table-wrap {
@@ -2104,13 +2526,13 @@ body::after {
 }
 
 .bonuses-section {
-    margin-top: 28px;
+    margin-top: 0;
 }
 
 .bonuses-title {
-    margin: 0 0 14px;
+    margin: 0 0 10px;
     font-family: inherit;
-    font-size: 20px;
+    font-size: 17px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
     color: #eaf6ff;
@@ -2118,27 +2540,27 @@ body::after {
 
 .bonuses-list {
     display: grid;
-    gap: 8px;
+    gap: 7px;
 }
 
 .bonus-row {
     display: grid;
-    grid-template-columns: minmax(80px, 0.8fr) minmax(140px, 2fr) 90px;
-    gap: 14px;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr) 54px;
+    gap: 9px;
     align-items: center;
-    padding: 12px 16px;
-    border-radius: 14px;
+    padding: 9px 10px;
+    border-radius: 12px;
     background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
     border: 1px solid rgba(122, 210, 255, 0.08);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 .bonus-row.header {
-    padding-top: 9px;
-    padding-bottom: 9px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     color: #c8e7ff;
-    font-size: 14px;
-    letter-spacing: 1px;
+    font-size: 10px;
+    letter-spacing: 0.75px;
     text-transform: uppercase;
     background: rgba(59,130,246,0.12);
 }
@@ -2146,7 +2568,7 @@ body::after {
 .bonus-player {
     font-family: "Michroma", sans-serif;
     color: #f4f8ff;
-    font-size: 15px;
+    font-size: 10.5px;
     font-weight: 400;
     letter-spacing: 0.55px;
     line-height: 1.18;
@@ -2164,17 +2586,18 @@ body::after {
 
 .bonus-tipo {
     color: rgba(240, 246, 255, 0.85);
-    font-size: 15px;
+    font-size: 11.5px;
+    line-height: 1.25;
 }
 
 .bonus-pontos {
     justify-self: end;
-    min-width: 70px;
-    padding: 7px 12px;
+    min-width: 46px;
+    padding: 6px 8px;
     border-radius: 999px;
     border: 1px solid rgba(255,255,255,0.08);
     background: rgba(255,255,255,0.05);
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
     text-align: center;
 }
@@ -3062,7 +3485,8 @@ button:disabled {
     .nav-logo-btn.active { transform: translateY(-1px) scale(1.03); }
     .nav-btn { min-width: 0; width: 100%; }
     .hero { min-height: calc(100vh - 150px); }
-    .page-panel, .score-panel, .league-panel { width: min(100%, calc(100vw - 36px)); margin-top: 34px; }
+    .page-panel, .score-panel, .league-panel,
+    #pastView .page-panel { width: min(100%, calc(100vw - 36px)); margin-top: 34px; }
     .coaches-panel { margin-top: 34px; }
     .coaches-intro,
     .coach-drag-note { width: min(100%, calc(100vw - 36px)); }
@@ -3073,6 +3497,12 @@ button:disabled {
     .coach-modal-media { height: 340px; }
     .coach-trophy-cabinet:not(.coach-palmares-trophies-panel .coach-trophy-cabinet) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .coach-insight-grid--narrativa { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .league-season-layout { grid-template-columns: 1fr; }
+    .league-lower-grid { grid-template-columns: 1fr; }
+    .league-awards-grid { grid-template-columns: 1fr; }
+    .league-side-card { height: auto; min-height: 0; }
+    .league-calendar-card { height: 560px; max-height: 560px; }
+    .league-calendar-scroll { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 760px) {
@@ -3129,6 +3559,10 @@ button:disabled {
     .coach-palmares-flag-item { min-width: 85px; padding: 10px 14px; }
     .coach-palmares-flag-img { width: 72px; height: 48px; }
     .coach-insight-card { min-height: 96px; }
+    .league-toty-card { height: 430px; }
+    .league-toty-pitch { min-height: 0; }
+    .league-fixture-match { grid-template-columns: 1fr 52px 1fr; }
+    .league-match-club { font-size: 10.5px; }
     .final-reveal { padding: 24px 18px 20px; }
     .final-logo-wrap { width: 200px; height: 200px; }
     .final-logo-wrap img { width: 156px; height: 156px; }
