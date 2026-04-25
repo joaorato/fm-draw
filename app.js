@@ -280,8 +280,11 @@ const coachProfileExtras = {
             escocia: ["league", "league-cup", "cup", "europa", "conference"]
         },
         narrative: {
-            victim: { label: "Maior Vítima", value: "Gamy", meta: "17 golos marcados contra" },
-            nemesis: { label: "Nemesis", value: "Nabais", meta: "1V · 1E · 2D" }
+            victim: { label: "Maior Vítima", value: "Dundee Utd", meta: "17 golos marcados" },
+            biggestWin: { label: "Maior Vitória", value: "5-0 vs Dundee Utd", meta: "Exibição mais autoritária da época" },
+            worstLoss: { label: "Pior Derrota", value: "1-3 vs Dundee", meta: "Resultado mais pesado em termos competitivos" },
+            nemesis: { label: "Némesis", value: "Dundee", meta: "Saldo agregado 5-6 · Registo 1V 1E 2D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "7-3 vs Dundee Utd", meta: "Noite total de caos ofensivo" }
         },
         legacy: {
             rating: { label: "Melhor Jogador", value: "William Osula", meta: "7,10 | 15G | 2A | 23J" },
@@ -295,6 +298,13 @@ const coachProfileExtras = {
     rato: {
         trophyVisibility: {
             escocia: ["league", "league-cup", "cup", "europa", "conference"]
+        },
+        narrative: {
+            victim: { label: "Maior Vítima", value: "Livingston", meta: "20 golos marcados" },
+            biggestWin: { label: "Maior Vitória", value: "7-2 vs Hearts", meta: "Sete golos num recital ofensivo" },
+            worstLoss: { label: "Pior Derrota", value: "0-4 vs Dundee", meta: "Derrota mais pesada da campanha" },
+            nemesis: { label: "Némesis", value: "Aberdeen", meta: "Saldo agregado 11-13 · Registo 2V 1E 3D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "4-4 vs Livingston", meta: "Escolhido pelo volume ofensivo dos dois lados" }
         },
         legacy: {
             rating: {
@@ -310,6 +320,13 @@ const coachProfileExtras = {
         }
     },
     chico: {
+        narrative: {
+            victim: { label: "Maior Vítima", value: "Dundee Utd", meta: "10 golos marcados" },
+            biggestWin: { label: "Maior Vitória", value: "5-2 vs Falkirk\n5-2 vs Dundee Utd", meta: "Duas vitórias máximas em noite de ataque solto" },
+            worstLoss: { label: "Pior Derrota", value: "0-5 vs Falkirk", meta: "Derrota mais dura da época" },
+            nemesis: { label: "Némesis", value: "Hearts", meta: "Saldo agregado 3-10 · Registo 0V 1E 3D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "5-2 vs Falkirk\n5-2 vs Dundee Utd", meta: "Empate técnico entre dois jogos loucos" }
+        },
         legacy: {
             rating: { label: "Melhor Jogador", value: "Marcus Dackers", meta: "7,24 | 23G | 5A | 37(1)J" },
             scorer: { label: "Melhor Marcador", value: "Marcus Dackers", meta: "23G | 37(1)J" }
@@ -320,6 +337,13 @@ const coachProfileExtras = {
         }
     },
     nabais: {
+        narrative: {
+            victim: { label: "Maior Vítima", value: "Livingston", meta: "8 golos marcados" },
+            biggestWin: { label: "Maior Vitória", value: "4-0 vs Hibernian\n4-0 vs Kilmarnock", meta: "Duas exibições máximas sem sofrer" },
+            worstLoss: { label: "Pior Derrota", value: "0-5 vs Falkirk", meta: "Queda mais pesada da campanha" },
+            nemesis: { label: "Némesis", value: "Dundee Utd", meta: "Saldo agregado 6-7 · Registo 1V 1E 2D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "3-4 vs Dundee Utd", meta: "Jogo partido e decidido nos detalhes" }
+        },
         legacy: {
             rating: {
                 label: "Melhor Jogador",
@@ -334,6 +358,13 @@ const coachProfileExtras = {
         }
     },
     cardoso: {
+        narrative: {
+            victim: { label: "Maior Vítima", value: "Dundee Utd\nLivingston", meta: "15 golos marcados a cada um" },
+            biggestWin: { label: "Maior Vitória", value: "5-1 vs Livingston", meta: "Noite de domínio total no último terço" },
+            worstLoss: { label: "Pior Derrota", value: "2-7 vs Hibernian", meta: "Também sofreu um 0-5 frente ao Dundee Utd" },
+            nemesis: { label: "Némesis", value: "Hibernian", meta: "Saldo agregado 6-14 · Registo 0V 0E 3D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "6-4 vs Dundee Utd", meta: "Dez golos em puro descontrolo ofensivo" }
+        },
         legacy: {
             rating: { label: "Melhor Jogador", value: "Cláudio Braga", meta: "7,24 | 23G | 6A | 32(7)J" },
             scorer: { label: "Melhor Marcador", value: "Lawrence Shankland", meta: "25G | 33(2)J" }
@@ -344,6 +375,13 @@ const coachProfileExtras = {
         }
     },
     hugo: {
+        narrative: {
+            victim: { label: "Maior Vítima", value: "Kilmarnock", meta: "11 golos marcados" },
+            biggestWin: { label: "Maior Vitória", value: "5-0 vs Dundee\n5-0 vs Kilmarnock", meta: "Duas noites perfeitas, sem sofrer" },
+            worstLoss: { label: "Pior Derrota", value: "2-5 vs Kilmarnock", meta: "Também perdeu 1-4 frente ao Dundee Utd" },
+            nemesis: { label: "Némesis", value: "Aberdeen", meta: "Saldo agregado 9-12 · Registo 0V 2E 2D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "2-5 vs Kilmarnock", meta: "Partida aberta e desequilibrada até ao fim" }
+        },
         legacy: {
             rating: { label: "Melhor Jogador", value: "Ross MacIver", meta: "7,06 | 26G | 4A | 40(1)J" },
             scorer: { label: "Melhor Marcador", value: "Ross MacIver", meta: "26G | 40(1)J" }
@@ -354,6 +392,13 @@ const coachProfileExtras = {
         }
     },
     gamy: {
+        narrative: {
+            victim: { label: "Maior Vítima", value: "Hearts", meta: "16 golos marcados" },
+            biggestWin: { label: "Maior Vitória", value: "5-0 vs Hearts", meta: "Versão mais letal da equipa em toda a época" },
+            worstLoss: { label: "Pior Derrota", value: "0-5 vs Aberdeen", meta: "Noite em que tudo correu ao contrário" },
+            nemesis: { label: "Némesis", value: "Kilmarnock", meta: "Saldo agregado 6-10 · Registo 0V 2E 2D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "4-6 vs Hearts", meta: "Derrota insana num festival de golos" }
+        },
         legacy: {
             rating: { label: "Melhor Jogador", value: "Julius Eskesen", meta: "7,02 | 9G | 6A | 24(10)J" },
             scorer: {
@@ -368,6 +413,13 @@ const coachProfileExtras = {
         }
     },
     painatal: {
+        narrative: {
+            victim: { label: "Maior Vítima", value: "Hibernian", meta: "10 golos marcados" },
+            biggestWin: { label: "Maior Vitória", value: "1-0 vs Falkirk", meta: "Vitória mínima, mas decisiva" },
+            worstLoss: { label: "Pior Derrota", value: "2-6 vs Hibernian", meta: "Aconteceu por duas vezes" },
+            nemesis: { label: "Némesis", value: "Kilmarnock", meta: "Saldo agregado 2-9 · Registo 0V 0E 4D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "4-4 vs Hibernian", meta: "Jogo descontrolado e memorável" }
+        },
         legacy: {
             rating: { label: "Melhor Jogador", value: "Jeremy Bokila", meta: "6,96 | 15G | 2A | 26(8)J" },
             scorer: { label: "Melhor Marcador", value: "Jeremy Bokila", meta: "15G | 26(8)J" }
@@ -514,6 +566,16 @@ const FINAL_RESULTS = [
 ];
 
 const coachByShortName = Object.fromEntries(coachProfiles.map((coach) => [coach.nome, coach]));
+const coachByNarrativeTeam = {
+    "Aberdeen": { coachName: "Gonçalo", team: "Aberdeen" },
+    "Hibernian": { coachName: "Rato", team: "Hibernian" },
+    "Dundee": { coachName: "Nabais", team: "Dundee" },
+    "Hearts": { coachName: "Cardoso", team: "Hearts" },
+    "Falkirk": { coachName: "Hugo", team: "Falkirk" },
+    "Kilmarnock": { coachName: "Chico", team: "Kilmarnock" },
+    "Dundee Utd": { coachName: "Gamy", team: "Dundee Utd" },
+    "Livingston": { coachName: "Painatal", team: "Livingston" }
+};
 let selectedCoachId = coachProfiles[0].id;
 
 const TOTAL_ROUNDS = jogadores.length;
@@ -883,7 +945,18 @@ function renderCoachStatsWideMarkup(coach) {
     let stats = getCoachStats(coach);
     let extras = coachProfileExtras[coach.id];
     let trophyMarkup = renderCoachTrophyCabinet(coach);
-    let narrativeMarkup = renderCoachInsightGrid("Narrativa", extras?.narrative ? [extras.narrative.victim, extras.narrative.nemesis] : []);
+    let narrativeMarkup = renderCoachInsightGrid(
+        "Narrativa",
+        extras?.narrative
+            ? [
+                extras.narrative.victim,
+                extras.narrative.biggestWin,
+                extras.narrative.worstLoss,
+                extras.narrative.nemesis,
+                extras.narrative.chaotic
+            ].filter(Boolean)
+            : []
+    );
     let legacyMarkup = renderCoachInsightGrid("Legado", extras?.legacy ? [extras.legacy.rating, extras.legacy.scorer] : []);
     let identityMarkup = renderCoachInsightGrid("Identidade", extras?.identity ? [extras.identity.specialty, extras.identity.tactical] : []);
 
@@ -1088,10 +1161,17 @@ function openTrophyLightbox(src, label) {
 
 function renderCoachInsightGrid(title, items) {
     let hasItems = items.length > 0;
+    let sectionSlug = String(title || "").toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, "-");
     let placeholderBySection = {
         "Narrativa": [
             { label: "Maior Vítima", value: "A recolher", meta: "Sem dados ainda" },
-            { label: "Nemesis", value: "A recolher", meta: "Sem dados ainda" }
+            { label: "Maior Vitória", value: "A recolher", meta: "Sem dados ainda" },
+            { label: "Pior Derrota", value: "A recolher", meta: "Sem dados ainda" },
+            { label: "Némesis", value: "A recolher", meta: "Sem dados ainda" },
+            { label: "Jogo Mais Caótico", value: "A recolher", meta: "Sem dados ainda" }
         ],
         "Legado": [
             { label: "Melhor Jogador", value: "A recolher", meta: "Sem dados ainda" },
@@ -1109,6 +1189,159 @@ function renderCoachInsightGrid(title, items) {
             { label: "A recolher", value: "A recolher", meta: "Sem dados ainda" }
         ]);
 
+    let renderLegacyStats = (statsText) => {
+        let stats = String(statsText || "")
+            .split("|")
+            .map((part) => part.trim())
+            .filter(Boolean);
+        if (!stats.length) return "";
+
+        let formatLegacyStat = (stat, index) => {
+            let cleaned = String(stat || "").trim();
+            let isRating = index === 0 && /^\d+([.,]\d+)?$/.test(cleaned);
+            if (isRating) {
+                return {
+                    className: "coach-legacy-stat-chip coach-legacy-stat-chip--rating",
+                    label: "Média",
+                    value: cleaned,
+                    secondary: ""
+                };
+            }
+
+            let goalsMatch = cleaned.match(/^(\d+)\s*G$/i);
+            if (goalsMatch) {
+                return {
+                    className: "coach-legacy-stat-chip",
+                    label: "Golos",
+                    value: goalsMatch[1],
+                    secondary: ""
+                };
+            }
+
+            let assistsMatch = cleaned.match(/^(\d+)\s*A$/i);
+            if (assistsMatch) {
+                return {
+                    className: "coach-legacy-stat-chip",
+                    label: "Assist.",
+                    value: assistsMatch[1],
+                    secondary: ""
+                };
+            }
+
+            let gamesMatch = cleaned.match(/^(\d+)(?:\((\d+)\))?\s*J$/i);
+            if (gamesMatch) {
+                return {
+                    className: "coach-legacy-stat-chip coach-legacy-stat-chip--games",
+                    label: "Jogos",
+                    value: gamesMatch[1],
+                    secondary: gamesMatch[2] ? `(${gamesMatch[2]})` : ""
+                };
+            }
+
+            return {
+                className: "coach-legacy-stat-chip",
+                label: "",
+                value: cleaned,
+                secondary: ""
+            };
+        };
+
+        return `
+            <div class="coach-legacy-stats">
+                ${stats.map((stat, index) => {
+                    let parsed = formatLegacyStat(stat, index);
+                    let label = parsed.label ? `<span class="coach-legacy-stat-prefix">${parsed.label}</span>` : "";
+                    let secondary = parsed.secondary ? `<span class="coach-legacy-stat-secondary">${parsed.secondary}</span>` : "";
+                    return `<span class="${parsed.className}">${label}<span class="coach-legacy-stat-value">${parsed.value}</span>${secondary}</span>`;
+                }).join("")}
+            </div>
+        `;
+    };
+
+    let renderNarrativeTarget = (teamName) => {
+        let coachInfo = coachByNarrativeTeam[String(teamName || "").trim()];
+        if (!coachInfo) return null;
+        let coach = getCoachByShortName(coachInfo.coachName);
+        if (!coach) return null;
+        return `<span class="coach-narrative-target">${getCoachLinkMarkup(coach.nome, "coach-narrative-link")}</span>`;
+    };
+
+    let renderNarrativeOpponents = (line, separatorRegex, separatorLabel) => {
+        let parts = String(line || "").split(separatorRegex).map((part) => part.trim()).filter(Boolean);
+        if (!parts.length) return "";
+        let rendered = parts.map((part) => renderNarrativeTarget(part) || part);
+        return `<div class="coach-insight-line">${rendered.join(`<span class="coach-narrative-separator">${separatorLabel}</span>`)}</div>`;
+    };
+
+    let renderNarrativeValue = (item) => {
+        let input = String(item?.value || "");
+        if (!input) return "";
+        let valueLines = input.split("\n").filter(Boolean);
+        let label = String(item?.label || "");
+
+        if (/Maior Vítima|Némesis/i.test(label)) {
+            return valueLines.map((line) => renderNarrativeOpponents(line, /\s+e\s+/, "e")).join("");
+        }
+
+        if (/Maior Vitória|Pior Derrota|Jogo Mais Caótico/i.test(label)) {
+            return valueLines.map((line) => {
+                let segments = line.split(/\s+ou\s+/).map((segment) => segment.trim()).filter(Boolean);
+                return segments.map((segment) => {
+                    let match = segment.match(/^(.+?)\s+vs\s+(.+)$/i);
+                    if (!match) {
+                        return `<div class="coach-insight-line">${segment}</div>`;
+                    }
+                    let score = match[1].trim();
+                    let target = renderNarrativeTarget(match[2].trim());
+                    if (!target) {
+                        return `<div class="coach-insight-line">${segment}</div>`;
+                    }
+                    return `
+                        <div class="coach-insight-line coach-insight-line--match">
+                            <span class="coach-narrative-match-target">${target}</span>
+                            <span class="coach-narrative-score">
+                                <span class="coach-narrative-score-label">Resultado</span>
+                                <span class="coach-narrative-score-value">${score}</span>
+                            </span>
+                        </div>
+                    `;
+                }).join("");
+            }).join("");
+        }
+
+        return valueLines.map((line) => `<div class="coach-insight-line">${line}</div>`).join("");
+    };
+
+    let renderLegacyCard = (item) => {
+        let lines = String(item.value || "").split("\n").filter(Boolean);
+        let blocks = lines.map((line) => {
+            let parts = line.split(" - ");
+            let name = parts.shift() || "";
+            let inlineStats = parts.length ? parts.join(" - ") : "";
+            return `
+                <div class="coach-legacy-player-block">
+                    <div class="coach-insight-line"><span class="coach-insight-player">${name}</span></div>
+                    ${inlineStats ? renderLegacyStats(inlineStats) : ""}
+                </div>
+            `;
+        }).join("");
+
+        let hasInlineStats = lines.some((line) => line.includes(" - "));
+        let footerStats = !hasInlineStats && String(item.meta || "").includes("|")
+            ? renderLegacyStats(item.meta)
+            : "";
+        let note = String(item.meta || "").includes("|") ? "" : String(item.meta || "").replace(/\n/g, "<br>");
+
+        return `
+            <div class="coach-insight-card${hasItems ? "" : " empty"}">
+                <div class="coach-insight-label"><span>${item.label}</span></div>
+                <div class="coach-insight-value coach-insight-value--legacy">${blocks}</div>
+                ${footerStats}
+                ${note ? `<div class="coach-insight-meta coach-insight-meta--legacy-note">${note}</div>` : ""}
+            </div>
+        `;
+    };
+
     let renderValue = (value) => {
         let lines = String(value).split("\n");
         return lines.map((line) => {
@@ -1122,16 +1355,19 @@ function renderCoachInsightGrid(title, items) {
     };
 
     return `
-        <div class="coach-stats-section">
+        <div class="coach-stats-section coach-stats-section--${sectionSlug}">
             <div class="coach-stats-section-title">${title}</div>
-            <div class="coach-insight-grid">
-                ${safeItems.map((item) => `
-                    <div class="coach-insight-card">
-                        <div class="coach-insight-label">${item.label}</div>
-                        <div class="coach-insight-value">${renderValue(item.value)}</div>
-                        <div class="coach-insight-meta">${String(item.meta || "").replace(/\n/g, "<br>")}</div>
-                    </div>
-                `).join("")}
+            <div class="coach-insight-grid coach-insight-grid--${sectionSlug}">
+                ${safeItems.map((item) => sectionSlug === "legado"
+                    ? renderLegacyCard(item)
+                    : `
+                        <div class="coach-insight-card${hasItems ? "" : " empty"}">
+                            <div class="coach-insight-label"><span>${item.label}</span></div>
+                            <div class="coach-insight-value">${sectionSlug === "narrativa" ? renderNarrativeValue(item) : renderValue(item.value)}</div>
+                            <div class="coach-insight-meta">${String(item.meta || "").replace(/\n/g, "<br>")}</div>
+                        </div>
+                    `
+                ).join("")}
             </div>
         </div>
     `;
@@ -1165,6 +1401,33 @@ function setCoachModalView(view) {
     if (statsPanel) statsPanel.hidden = !isStats;
     statsWide?.classList.toggle("active", isStats);
     if (statsWide) statsWide.hidden = !isStats;
+
+    if (isStats) {
+        requestAnimationFrame(() => fitNarrativeNames(document.getElementById("coachModal")));
+    }
+}
+
+function fitNarrativeNames(scope = document) {
+    if (!scope) return;
+    scope.querySelectorAll(".coach-narrative-link").forEach((link) => {
+        link.style.fontSize = "";
+        link.style.letterSpacing = "";
+        let target = link.closest(".coach-narrative-match-target") || link.parentElement;
+        if (!target) return;
+        let availableWidth = target.clientWidth;
+        if (!availableWidth) return;
+
+        const sizes = [13, 12, 11, 10, 9];
+        link.style.fontSize = `${sizes[0]}px`;
+
+        for (let i = 1; i < sizes.length && link.scrollWidth > availableWidth; i += 1) {
+            link.style.fontSize = `${sizes[i]}px`;
+        }
+
+        if (link.scrollWidth > availableWidth) {
+            link.style.letterSpacing = "0px";
+        }
+    });
 }
 
 function renderCoachModal(coach) {
@@ -1197,6 +1460,7 @@ function renderCoachModal(coach) {
     let statsWideEl = document.getElementById("coachModalStatsWideContent");
     if (statsWideEl) {
         statsWideEl.innerHTML = renderCoachStatsWideMarkup(coach);
+        bindCoachLinks(statsWideEl);
     }
 
 }
@@ -1211,6 +1475,7 @@ function openCoachModal(id, preserveTab) {
     setupPalmaresFlagInteraction();
     document.getElementById("coachModal").hidden = false;
     document.body.classList.add("modal-open");
+    requestAnimationFrame(() => fitNarrativeNames(document.getElementById("coachModal")));
 }
 
 function closeCoachModal() {
