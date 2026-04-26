@@ -2029,6 +2029,97 @@ body::after {
     line-height: 1.35;
 }
 
+.league-transfers-scroll {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    gap: 10px;
+    padding: 14px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(112, 208, 255, 0.35) rgba(255,255,255,0.04);
+}
+
+.league-transfer-card {
+    display: grid;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 15px;
+    border: 1px solid rgba(122, 210, 255, 0.09);
+    background:
+        radial-gradient(circle at 16% 0%, rgba(112, 208, 255, 0.08), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.014));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+}
+
+.league-transfer-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.league-transfer-logo {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(91, 204, 255, 0.12));
+}
+
+.league-transfer-club {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.league-transfer-manager {
+    margin-top: 2px;
+    color: rgba(119, 209, 255, 0.82);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+
+.league-transfer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.league-transfer-grid div {
+    min-width: 0;
+    padding: 8px;
+    border-radius: 11px;
+    background: rgba(3, 15, 53, 0.36);
+    border: 1px solid rgba(112, 208, 255, 0.06);
+}
+
+.league-transfer-grid span {
+    display: block;
+    color: rgba(154, 211, 255, 0.68);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.league-transfer-grid strong {
+    display: block;
+    margin-top: 4px;
+    color: rgba(239, 247, 255, 0.92);
+    font-size: 10.5px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .league-toty-panel {
     position: relative;
     margin: 0;

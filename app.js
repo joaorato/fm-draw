@@ -639,6 +639,14 @@ const leagues = [
             { label: "Última sessão", value: "A recolher", meta: "Resultados ainda por inserir" },
             { label: "Próximos jogos", value: "A definir", meta: "Calendário será adicionado por jornada" }
         ],
+        transfers: croatiaSeedTable.map((entry) => ({
+            equipa: entry.equipa,
+            logo: entry.logo,
+            jogador: entry.jogador || "PC",
+            entradas: "A confirmar",
+            saidas: "A confirmar",
+            alvo: "Por definir"
+        })),
         tabela: croatiaSeedTable.map((entry, index) => ({
             pos: index + 1,
             inf: "--",
@@ -2185,6 +2193,45 @@ function renderLeagueLiveCards(league) {
     `;
 }
 
+function renderLeagueTransfers(league) {
+    if (!league.transfers?.length) return "";
+    let rows = league.transfers.map((item) => `
+        <div class="league-transfer-card">
+            <div class="league-transfer-main">
+                <img src="${item.logo}" alt="${item.equipa}" class="league-transfer-logo" loading="lazy">
+                <div>
+                    <div class="league-transfer-club">${item.equipa}</div>
+                    <div class="league-transfer-manager">${item.jogador}</div>
+                </div>
+            </div>
+            <div class="league-transfer-grid">
+                <div>
+                    <span>Entradas</span>
+                    <strong>${item.entradas}</strong>
+                </div>
+                <div>
+                    <span>Saídas</span>
+                    <strong>${item.saidas}</strong>
+                </div>
+                <div>
+                    <span>Alvo</span>
+                    <strong>${item.alvo}</strong>
+                </div>
+            </div>
+        </div>
+    `).join("");
+
+    return `
+        <section class="league-side-card league-transfers-card">
+            <div class="league-side-head">
+                <span>Mercado por clube</span>
+                <strong>Transferências</strong>
+            </div>
+            <div class="league-transfers-scroll">${rows}</div>
+        </section>
+    `;
+}
+
 function renderLeagueCalendar(league) {
     if (!league.fixtures?.length) return "";
     let months = league.fixtureMonths || [...new Set(league.fixtures.map((fixture) => fixture.month))];
@@ -2231,6 +2278,7 @@ function renderLeagueCalendar(league) {
 function renderLeagueLowerPanel(league) {
     let content = [
         renderLeagueLiveCards(league),
+        renderLeagueTransfers(league),
         renderLeagueAwards(league),
         renderLeagueTeamOfYear(league),
         renderLeagueCalendar(league)
