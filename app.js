@@ -303,7 +303,7 @@ const coachProfileExtras = {
             victim: { label: "Maior Vítima", value: "Livingston", meta: "20 golos marcados" },
             biggestWin: { label: "Maior Vitória", value: "7-2 vs Hearts", meta: "Sete golos num recital ofensivo" },
             worstLoss: { label: "Pior Derrota", value: "0-4 vs Dundee", meta: "Derrota mais pesada da campanha" },
-            nemesis: { label: "Némesis", value: "Aberdeen", meta: "Saldo agregado 11-13 · Registo 2V 1E 3D" },
+            nemesis: { label: "Némesis", value: "Dundee", meta: "Saldo agregado 5-7 · Registo 2V 0E 2D" },
             chaotic: { label: "Jogo Mais Caótico", value: "4-4 vs Livingston", meta: "Escolhido pelo volume ofensivo dos dois lados" }
         },
         legacy: {
@@ -341,7 +341,7 @@ const coachProfileExtras = {
             victim: { label: "Maior Vítima", value: "Livingston", meta: "8 golos marcados" },
             biggestWin: { label: "Maior Vitória", value: "4-0 vs Hibernian\n4-0 vs Kilmarnock", meta: "Duas exibições máximas sem sofrer" },
             worstLoss: { label: "Pior Derrota", value: "0-5 vs Falkirk", meta: "Queda mais pesada da campanha" },
-            nemesis: { label: "Némesis", value: "Dundee Utd", meta: "Saldo agregado 6-7 · Registo 1V 1E 2D" },
+            nemesis: { label: "Némesis", value: "Falkirk", meta: "Saldo agregado 3-7 · Registo 1V 1E 1D" },
             chaotic: { label: "Jogo Mais Caótico", value: "3-4 vs Dundee Utd", meta: "Jogo partido e decidido nos detalhes" }
         },
         legacy: {
@@ -359,8 +359,8 @@ const coachProfileExtras = {
     },
     cardoso: {
         narrative: {
-            victim: { label: "Maior Vítima", value: "Dundee Utd\nLivingston", meta: "15 golos marcados a cada um" },
-            biggestWin: { label: "Maior Vitória", value: "5-1 vs Livingston", meta: "Noite de domínio total no último terço" },
+            victim: { label: "Maior Vítima", value: "Dundee Utd", meta: "20 golos marcados" },
+            biggestWin: { label: "Maior Vitória", value: "5-0 vs Dundee Utd", meta: "Noite de domínio total no último terço" },
             worstLoss: { label: "Pior Derrota", value: "2-7 vs Hibernian", meta: "Também sofreu um 0-5 frente ao Dundee Utd" },
             nemesis: { label: "Némesis", value: "Hibernian", meta: "Saldo agregado 6-14 · Registo 0V 0E 3D" },
             chaotic: { label: "Jogo Mais Caótico", value: "6-4 vs Dundee Utd", meta: "Dez golos em puro descontrolo ofensivo" }
@@ -393,18 +393,18 @@ const coachProfileExtras = {
     },
     gamy: {
         narrative: {
-            victim: { label: "Maior Vítima", value: "Hearts", meta: "16 golos marcados" },
-            biggestWin: { label: "Maior Vitória", value: "5-0 vs Hearts", meta: "Versão mais letal da equipa em toda a época" },
-            worstLoss: { label: "Pior Derrota", value: "0-5 vs Aberdeen", meta: "Noite em que tudo correu ao contrário" },
-            nemesis: { label: "Némesis", value: "Kilmarnock", meta: "Saldo agregado 6-10 · Registo 0V 2E 2D" },
-            chaotic: { label: "Jogo Mais Caótico", value: "4-6 vs Hearts", meta: "Derrota insana num festival de golos" }
+            victim: { label: "Maior Vítima", value: "Falkirk", meta: "11 golos marcados" },
+            biggestWin: { label: "Maior Vitória", value: "4-1 vs Falkirk", meta: "Versão mais letal da equipa em toda a época" },
+            worstLoss: { label: "Pior Derrota", value: "0-5 vs Aberdeen\n0-5 vs Hearts", meta: "Noites em que tudo correu ao contrário" },
+            nemesis: { label: "Némesis", value: "Aberdeen", meta: "Saldo agregado 4-17 · Registo 1V 0E 4D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "4-6 vs Hearts\n3-7 vs Aberdeen", meta: "Dois festivais de golos impossíveis de controlar" }
         },
         legacy: {
             rating: { label: "Melhor Jogador", value: "Julius Eskesen", meta: "7,02 | 9G | 6A | 24(10)J" },
             scorer: {
                 label: "Melhor Marcador",
                 value: "Julius Eskesen - 9G | 24(10)J\nZac Sapsford - 9G | 33(9)J",
-                meta: "Empate na melhor marcação"
+                meta: "Empate no melhor marcador, mas Eskesen tem melhor média de golos por jogo"
             }
         },
         identity: {
@@ -415,10 +415,10 @@ const coachProfileExtras = {
     painatal: {
         narrative: {
             victim: { label: "Maior Vítima", value: "Hibernian", meta: "10 golos marcados" },
-            biggestWin: { label: "Maior Vitória", value: "1-0 vs Falkirk", meta: "Vitória mínima, mas decisiva" },
-            worstLoss: { label: "Pior Derrota", value: "2-6 vs Hibernian", meta: "Aconteceu por duas vezes" },
-            nemesis: { label: "Némesis", value: "Kilmarnock", meta: "Saldo agregado 2-9 · Registo 0V 0E 4D" },
-            chaotic: { label: "Jogo Mais Caótico", value: "4-4 vs Hibernian", meta: "Jogo descontrolado e memorável" }
+            biggestWin: { label: "Maior Vitória", value: "2-0 vs Dundee Utd", meta: "Vitória mais limpa da campanha" },
+            worstLoss: { label: "Pior Derrota", value: "1-5 vs Hearts\n2-6 vs Hibernian", meta: "O 2-6 aconteceu por duas vezes" },
+            nemesis: { label: "Némesis", value: "Hibernian", meta: "Saldo agregado 10-20 · Registo 0V 1E 3D" },
+            chaotic: { label: "Jogo Mais Caótico", value: "4-4 vs Hibernian\n2-6 vs Hibernian", meta: "A rivalidade mais descontrolada da época" }
         },
         legacy: {
             rating: { label: "Melhor Jogador", value: "Jeremy Bokila", meta: "6,96 | 15G | 2A | 26(8)J" },
@@ -461,71 +461,79 @@ function createLeagueMatch(month, competition, date, home, score, away) {
     return { month, competition, date, home, away, homeGoals, awayGoals };
 }
 
-const scotlandFixtureMonths = ["Agosto", "Setembro", "Outubro", "Novembro", "Dezembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio"];
+const scotlandFixtureMonths = ["Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio"];
 
 const scotlandFixtures = [
+    createLeagueMatch("Julho", "Taça da Liga", "15 Jul", "Falkirk", "0-0", "Livingston"),
+    createLeagueMatch("Agosto", "Premiership", "2 Ago", "Kilmarnock", "3-1", "Livingston"),
     createLeagueMatch("Agosto", "Premiership", "3 Ago", "Dundee", "1-2", "Hibernian"),
     createLeagueMatch("Agosto", "Premiership", "3 Ago", "Falkirk", "1-4", "Dundee Utd"),
     createLeagueMatch("Agosto", "Premiership", "4 Ago", "Hearts", "1-3", "Aberdeen"),
-    createLeagueMatch("Agosto", "Premiership", "8 Ago", "Falkirk", "2-2", "Livingston"),
+    createLeagueMatch("Agosto", "Premiership", "8 Ago", "Livingston", "2-2", "Falkirk"),
     createLeagueMatch("Agosto", "Premiership", "10 Ago", "Hibernian", "0-1", "Kilmarnock"),
     createLeagueMatch("Agosto", "Premiership", "11 Ago", "Dundee Utd", "1-4", "Hearts"),
     createLeagueMatch("Agosto", "Premiership", "21 Ago", "Aberdeen", "3-1", "Falkirk"),
-    createLeagueMatch("Agosto", "Premiership", "23 Ago", "Dundee", "0-0", "Kilmarnock"),
+    createLeagueMatch("Agosto", "Premiership", "23 Ago", "Kilmarnock", "0-0", "Dundee"),
     createLeagueMatch("Agosto", "Premiership", "24 Ago", "Dundee Utd", "0-3", "Aberdeen"),
     createLeagueMatch("Agosto", "Premiership", "25 Ago", "Falkirk", "1-0", "Hibernian"),
-    createLeagueMatch("Agosto", "Premiership", "30 Ago", "Hearts", "1-5", "Livingston"),
+    createLeagueMatch("Agosto", "Premiership", "30 Ago", "Livingston", "1-5", "Hearts"),
     createLeagueMatch("Agosto", "Premiership", "31 Ago", "Dundee Utd", "0-1", "Dundee"),
-    createLeagueMatch("Agosto", "Taça da Liga", "17 Ago", "Hibernian", "4-4", "Livingston"),
-    createLeagueMatch("Agosto", "Taça da Liga", "17 Ago", "Dundee Utd", "2-4", "Hearts"),
-    createLeagueMatch("Setembro", "Premiership", "13 Set", "Dundee Utd", "1-2", "Hibernian"),
+    createLeagueMatch("Agosto", "Taça da Liga", "17 Ago", "Livingston", "4-4", "Hibernian"),
+    createLeagueMatch("Agosto", "Taça da Liga", "17 Ago", "Hearts", "2-4", "Dundee Utd"),
+    createLeagueMatch("Setembro", "Premiership", "13 Set", "Hibernian", "1-2", "Dundee Utd"),
     createLeagueMatch("Setembro", "Premiership", "15 Set", "Aberdeen", "3-1", "Livingston"),
     createLeagueMatch("Setembro", "Premiership", "26 Set", "Hearts", "2-1", "Falkirk"),
-    createLeagueMatch("Setembro", "Premiership", "27 Set", "Kilmarnock", "2-2", "Dundee Utd"),
-    createLeagueMatch("Setembro", "Taça da Liga", "19 Set", "Aberdeen", "0-2", "Dundee Utd"),
+    createLeagueMatch("Setembro", "Premiership", "27 Set", "Dundee Utd", "2-2", "Kilmarnock"),
+    createLeagueMatch("Setembro", "Taça da Liga", "19 Set", "Dundee Utd", "0-2", "Aberdeen"),
     createLeagueMatch("Outubro", "Premiership", "4 Out", "Dundee Utd", "1-0", "Livingston"),
     createLeagueMatch("Outubro", "Premiership", "5 Out", "Hearts", "2-7", "Hibernian"),
-    createLeagueMatch("Outubro", "Premiership", "5 Out", "Dundee", "2-0", "Aberdeen"),
+    createLeagueMatch("Outubro", "Premiership", "5 Out", "Aberdeen", "2-0", "Dundee"),
     createLeagueMatch("Outubro", "Premiership", "17 Out", "Hibernian", "6-2", "Livingston"),
-    createLeagueMatch("Outubro", "Premiership", "25 Out", "Dundee", "0-1", "Falkirk"),
-    createLeagueMatch("Outubro", "Premiership", "26 Out", "Hibernian", "0-0", "Aberdeen"),
+    createLeagueMatch("Outubro", "Premiership", "20 Out", "Kilmarnock", "1-4", "Hearts"),
+    createLeagueMatch("Outubro", "Premiership", "25 Out", "Falkirk", "0-1", "Dundee"),
+    createLeagueMatch("Outubro", "Premiership", "26 Out", "Aberdeen", "0-0", "Hibernian"),
     createLeagueMatch("Outubro", "Premiership", "29 Out", "Dundee", "2-2", "Livingston"),
+    createLeagueMatch("Outubro", "Premiership", "29 Out", "Kilmarnock", "0-0", "Aberdeen"),
+    createLeagueMatch("Novembro", "Premiership", "1 Nov", "Hearts", "2-3", "Dundee"),
+    createLeagueMatch("Novembro", "Taça da Liga", "2 Nov", "Aberdeen", "3-1", "Kilmarnock"),
+    createLeagueMatch("Novembro", "Premiership", "5 Nov", "Falkirk", "5-0", "Kilmarnock"),
     createLeagueMatch("Novembro", "Premiership", "7 Nov", "Falkirk", "1-0", "Livingston"),
     createLeagueMatch("Novembro", "Premiership", "9 Nov", "Hearts", "6-4", "Dundee Utd"),
     createLeagueMatch("Novembro", "Premiership", "21 Nov", "Aberdeen", "0-0", "Hearts"),
-    createLeagueMatch("Novembro", "Premiership", "22 Nov", "Dundee", "2-0", "Hibernian"),
+    createLeagueMatch("Novembro", "Premiership", "22 Nov", "Hibernian", "2-0", "Dundee"),
     createLeagueMatch("Novembro", "Premiership", "22 Nov", "Dundee Utd", "2-1", "Falkirk"),
-    createLeagueMatch("Novembro", "Premiership", "29 Nov", "Dundee Utd", "1-0", "Kilmarnock"),
-    createLeagueMatch("Novembro", "Premiership", "30 Nov", "Aberdeen", "1-1", "Livingston"),
-    createLeagueMatch("Novembro", "Taça da Liga", "2 Nov", "Aberdeen", "3-1", "Kilmarnock"),
+    createLeagueMatch("Novembro", "Premiership", "29 Nov", "Kilmarnock", "1-0", "Dundee Utd"),
+    createLeagueMatch("Novembro", "Premiership", "30 Nov", "Livingston", "1-1", "Aberdeen"),
+    createLeagueMatch("Dezembro", "Premiership", "3 Dez", "Livingston", "2-6", "Hibernian"),
     createLeagueMatch("Dezembro", "Premiership", "3 Dez", "Hearts", "3-0", "Kilmarnock"),
     createLeagueMatch("Dezembro", "Premiership", "6 Dez", "Dundee", "3-1", "Aberdeen"),
-    createLeagueMatch("Dezembro", "Premiership", "8 Dez", "Falkirk", "1-1", "Hibernian"),
+    createLeagueMatch("Dezembro", "Premiership", "8 Dez", "Hibernian", "1-1", "Falkirk"),
     createLeagueMatch("Dezembro", "Premiership", "12 Dez", "Livingston", "1-3", "Dundee"),
+    createLeagueMatch("Dezembro", "Premiership", "19 Dez", "Kilmarnock", "5-2", "Falkirk"),
     createLeagueMatch("Dezembro", "Premiership", "21 Dez", "Dundee Utd", "2-4", "Hibernian"),
     createLeagueMatch("Dezembro", "Premiership", "27 Dez", "Dundee", "2-2", "Falkirk"),
-    createLeagueMatch("Dezembro", "Premiership", "27 Dez", "Hearts", "3-1", "Hibernian"),
-    createLeagueMatch("Dezembro", "Premiership", "27 Dez", "Dundee Utd", "0-1", "Aberdeen"),
+    createLeagueMatch("Dezembro", "Premiership", "27 Dez", "Hibernian", "3-1", "Hearts"),
+    createLeagueMatch("Dezembro", "Premiership", "27 Dez", "Aberdeen", "0-1", "Dundee Utd"),
     createLeagueMatch("Dezembro", "Premiership", "30 Dez", "Falkirk", "1-3", "Hearts"),
     createLeagueMatch("Dezembro", "Premiership", "30 Dez", "Dundee", "4-0", "Kilmarnock"),
-    createLeagueMatch("Dezembro", "Premiership", "30 Dez", "Aberdeen", "1-2", "Hibernian"),
+    createLeagueMatch("Dezembro", "Premiership", "30 Dez", "Hibernian", "1-2", "Aberdeen"),
     createLeagueMatch("Dezembro", "Premiership", "30 Dez", "Dundee Utd", "0-2", "Livingston"),
     createLeagueMatch("Janeiro", "Premiership", "3 Jan", "Falkirk", "3-3", "Aberdeen"),
     createLeagueMatch("Janeiro", "Premiership", "3 Jan", "Kilmarnock", "0-2", "Hibernian"),
     createLeagueMatch("Janeiro", "Premiership", "3 Jan", "Hearts", "4-1", "Livingston"),
     createLeagueMatch("Janeiro", "Premiership", "3 Jan", "Dundee Utd", "1-1", "Dundee"),
     createLeagueMatch("Janeiro", "Premiership", "6 Jan", "Aberdeen", "1-0", "Kilmarnock"),
-    createLeagueMatch("Janeiro", "Premiership", "10 Jan", "Hearts", "1-0", "Dundee"),
+    createLeagueMatch("Janeiro", "Premiership", "10 Jan", "Dundee", "1-0", "Hearts"),
     createLeagueMatch("Janeiro", "Premiership", "10 Jan", "Livingston", "0-2", "Kilmarnock"),
-    createLeagueMatch("Janeiro", "Premiership", "21 Jan", "Hibernian", "1-3", "Falkirk"),
+    createLeagueMatch("Janeiro", "Premiership", "23 Jan", "Falkirk", "1-3", "Hibernian"),
     createLeagueMatch("Janeiro", "Premiership", "24 Jan", "Aberdeen", "3-0", "Livingston"),
-    createLeagueMatch("Janeiro", "Premiership", "30 Jan", "Aberdeen", "0-3", "Kilmarnock"),
+    createLeagueMatch("Janeiro", "Premiership", "30 Jan", "Kilmarnock", "0-3", "Aberdeen"),
     createLeagueMatch("Janeiro", "Premiership", "31 Jan", "Dundee Utd", "2-3", "Hearts"),
     createLeagueMatch("Janeiro", "Taça da Escócia", "17 Jan", "Hibernian", "1-0", "Kilmarnock"),
     createLeagueMatch("Janeiro", "Taça da Escócia", "17 Jan", "Dundee", "3-4", "Dundee Utd"),
-    createLeagueMatch("Fevereiro", "Premiership", "4 Fev", "Dundee Utd", "6-2", "Hibernian"),
-    createLeagueMatch("Fevereiro", "Premiership", "4 Fev", "Falkirk", "1-0", "Livingston"),
-    createLeagueMatch("Fevereiro", "Premiership", "11 Fev", "Dundee", "5-0", "Falkirk"),
+    createLeagueMatch("Fevereiro", "Premiership", "4 Fev", "Hibernian", "6-2", "Dundee Utd"),
+    createLeagueMatch("Fevereiro", "Premiership", "4 Fev", "Livingston", "1-0", "Falkirk"),
+    createLeagueMatch("Fevereiro", "Premiership", "11 Fev", "Falkirk", "5-0", "Dundee"),
     createLeagueMatch("Fevereiro", "Premiership", "11 Fev", "Dundee Utd", "0-5", "Aberdeen"),
     createLeagueMatch("Fevereiro", "Premiership", "11 Fev", "Hearts", "3-4", "Hibernian"),
     createLeagueMatch("Fevereiro", "Premiership", "14 Fev", "Dundee", "3-2", "Livingston"),
@@ -537,26 +545,27 @@ const scotlandFixtures = [
     createLeagueMatch("Fevereiro", "Premiership", "28 Fev", "Falkirk", "3-0", "Kilmarnock"),
     createLeagueMatch("Fevereiro", "Taça da Escócia", "7 Fev", "Aberdeen", "7-3", "Dundee Utd"),
     createLeagueMatch("Março", "Premiership", "1 Mar", "Dundee", "2-1", "Hibernian"),
-    createLeagueMatch("Março", "Premiership", "14 Mar", "Dundee Utd", "2-1", "Dundee"),
-    createLeagueMatch("Março", "Premiership", "14 Mar", "Hearts", "1-1", "Kilmarnock"),
-    createLeagueMatch("Março", "Premiership", "15 Mar", "Livingston", "4-2", "Hibernian"),
-    createLeagueMatch("Março", "Premiership", "16 Mar", "Falkirk", "3-3", "Aberdeen"),
+    createLeagueMatch("Março", "Premiership", "14 Mar", "Dundee", "2-1", "Dundee Utd"),
+    createLeagueMatch("Março", "Premiership", "14 Mar", "Kilmarnock", "1-1", "Hearts"),
+    createLeagueMatch("Março", "Premiership", "15 Mar", "Hibernian", "4-2", "Livingston"),
+    createLeagueMatch("Março", "Premiership", "16 Mar", "Aberdeen", "3-3", "Falkirk"),
     createLeagueMatch("Março", "Premiership", "21 Mar", "Hearts", "1-1", "Dundee"),
     createLeagueMatch("Março", "Premiership", "21 Mar", "Livingston", "1-0", "Kilmarnock"),
     createLeagueMatch("Abril", "Premiership", "3 Abr", "Hibernian", "2-1", "Kilmarnock"),
     createLeagueMatch("Abril", "Premiership", "6 Abr", "Livingston", "2-2", "Hearts"),
-    createLeagueMatch("Abril", "Premiership", "11 Abr", "Dundee", "0-1", "Kilmarnock"),
-    createLeagueMatch("Abril", "Premiership", "11 Abr", "Hibernian", "3-2", "Aberdeen"),
+    createLeagueMatch("Abril", "Premiership", "11 Abr", "Kilmarnock", "0-1", "Dundee"),
+    createLeagueMatch("Abril", "Premiership", "11 Abr", "Aberdeen", "3-2", "Hibernian"),
+    createLeagueMatch("Abril", "Premiership", "11 Abr", "Dundee Utd", "3-1", "Livingston"),
     createLeagueMatch("Abril", "Premiership", "25 Abr", "Dundee Utd", "0-5", "Hearts"),
     createLeagueMatch("Abril", "Premiership", "25 Abr", "Livingston", "1-3", "Kilmarnock"),
-    createLeagueMatch("Abril", "Premiership", "26 Abr", "Dundee", "0-4", "Hibernian"),
-    createLeagueMatch("Abril", "Conference League", "9 Abr", "Hibernian", "1-2", "Aberdeen"),
+    createLeagueMatch("Abril", "Premiership", "26 Abr", "Hibernian", "0-4", "Dundee"),
+    createLeagueMatch("Abril", "Conference League", "9 Abr", "Aberdeen", "1-2", "Hibernian"),
     createLeagueMatch("Abril", "Conference League", "16 Abr", "Hibernian", "2-4", "Aberdeen"),
     createLeagueMatch("Abril", "Taça da Escócia", "21 Abr", "Falkirk", "2-3", "Aberdeen"),
     createLeagueMatch("Maio", "Premiership - Top", "3 Mai", "Hibernian", "4-3", "Aberdeen"),
     createLeagueMatch("Maio", "Premiership - Top", "10 Mai", "Dundee", "2-2", "Aberdeen"),
-    createLeagueMatch("Maio", "Premiership - Bottom", "2 Mai", "Falkirk", "1-1", "Kilmarnock"),
-    createLeagueMatch("Maio", "Premiership - Bottom", "2 Mai", "Dundee Utd", "0-2", "Livingston"),
+    createLeagueMatch("Maio", "Premiership - Bottom", "2 Mai", "Kilmarnock", "1-1", "Falkirk"),
+    createLeagueMatch("Maio", "Premiership - Bottom", "2 Mai", "Livingston", "0-2", "Dundee Utd"),
     createLeagueMatch("Maio", "Premiership - Bottom", "9 Mai", "Falkirk", "2-1", "Hearts"),
     createLeagueMatch("Maio", "Premiership - Bottom", "9 Mai", "Kilmarnock", "5-2", "Dundee Utd"),
     createLeagueMatch("Maio", "Premiership - Bottom", "13 Mai", "Hearts", "4-2", "Livingston"),
@@ -576,22 +585,84 @@ const scotlandLeagueMerits = {
     ],
     teamOfYear: [
         { name: "Dimitar Mitov", number: 1, role: "GR", team: "Aberdeen", x: 92, y: 50 },
-        { name: "Sterling", number: 21, role: "DD", team: "Rangers", x: 73, y: 20 },
-        { name: "Souttar", number: 5, role: "DC", team: "Rangers", x: 73, y: 39 },
-        { name: "Rocky Bushiri", number: 33, role: "DC", team: "Hibernian", x: 73, y: 61 },
-        { name: "Cadden", number: 19, role: "DE", team: "Hibernian", x: 73, y: 80 },
-        { name: "Topi Keskinen", number: 81, role: "MD", team: "Aberdeen", x: 48, y: 18 },
-        { name: "McGregor", number: 42, role: "MC", team: "Celtic", x: 48, y: 39 },
-        { name: "Rothwell", number: 6, role: "MC", team: "Rangers", x: 48, y: 61 },
-        { name: "Moore", number: 47, role: "ME", team: "Rangers", x: 48, y: 82 },
-        { name: "Kieron Bowie", number: 9, role: "PL", team: "Hibernian", x: 20, y: 41 },
-        { name: "Cláudio Braga", number: 10, role: "PL", team: "Hearts", x: 20, y: 59 }
+        { name: "Rocky Bushiri", number: 33, role: "DC", team: "Hibernian", x: 73, y: 30 },
+        { name: "Auston Trusty", number: 6, role: "DC", team: "Celtic", x: 76, y: 50 },
+        { name: "Mats Knoester", number: 5, role: "DC", team: "Aberdeen", x: 73, y: 70 },
+        { name: "Martin Boyle", number: 10, role: "MD", team: "Hibernian", x: 50, y: 20 },
+        { name: "Topi Keskinen", number: 81, role: "MC", team: "Aberdeen", x: 48, y: 40 },
+        { name: "Kieran Dowell", number: 20, role: "MC", team: "Rangers", x: 48, y: 60 },
+        { name: "Mikey Moore", number: 47, role: "ME", team: "Rangers", x: 50, y: 80 },
+        { name: "Youssef Chermiti", number: 9, role: "PL", team: "Rangers", x: 22, y: 30 },
+        { name: "Kieron Bowie", number: 9, role: "PL", team: "Hibernian", x: 18, y: 50 },
+        { name: "Cláudio Braga", number: 10, role: "PL", team: "Hearts", x: 22, y: 70 }
     ]
 };
 
+const croatiaSeedTable = [
+    { equipa: "Dinamo Zagreb", logo: "assets/logos/teams/croacia/dinamo_zagreb_logo.png", jogador: null, prevista: 1 },
+    { equipa: "Hajduk Split", logo: "assets/logos/teams/croacia/hajduksplit.png", jogador: null, prevista: 2 },
+    { equipa: "HNK Rijeka", logo: "assets/logos/teams/croacia/rijeka.png", jogador: "Gonçalo", prevista: 3 },
+    { equipa: "NK Osijek", logo: "assets/logos/teams/croacia/osijek.png", jogador: "Gamy", prevista: 4 },
+    { equipa: "NK Lokomotiva", logo: "assets/logos/teams/croacia/nk_lokomotiva.png", jogador: "Painatal", prevista: 5 },
+    { equipa: "NK Istra 1961", logo: "assets/logos/teams/croacia/istra.png", jogador: "Rato", prevista: 6 },
+    { equipa: "NK Varaždin", logo: "assets/logos/teams/croacia/varazdin.png", jogador: "Nabais", prevista: 7 },
+    { equipa: "NK Slaven Belupo", logo: "assets/logos/teams/croacia/slaven.png", jogador: "Chico", prevista: 8 },
+    { equipa: "HNK Gorica", logo: "assets/logos/teams/croacia/gorica.png", jogador: "Cardoso", prevista: 9 },
+    { equipa: "HNK Vukovar", logo: "assets/logos/teams/croacia/hnkvukovar.png", jogador: "Hugo", prevista: 10 }
+];
+
+const croatiaSeasonScores = croatiaSeedTable
+    .filter((entry) => entry.jogador)
+    .map((entry) => ({
+        jogador: entry.jogador,
+        equipa: entry.equipa,
+        prevista: entry.prevista,
+        final: entry.prevista,
+        pontos: 0
+    }));
+
 const leagues = [
     {
+        id: "croatia",
+        status: "live",
+        statusLabel: "Em curso",
+        nome: "Liga Croata",
+        descricao: "Dashboard vivo da nova liga EMG na Croácia. A classificação, sessões e métricas vão sendo atualizadas após cada noite de jogos.",
+        logo: "assets/logos/teams/croacia/supersport_hnl.png",
+        logoAlt: "SuperSport HNL",
+        epoca: "Época 26/27",
+        formula: "(prevista - atual) × 3",
+        scores: croatiaSeasonScores,
+        tacas: [],
+        liveCards: [
+            { label: "Estado", value: "Liga em curso", meta: "Pronta para updates por sessão" },
+            { label: "Última sessão", value: "A recolher", meta: "Resultados ainda por inserir" },
+            { label: "Próximos jogos", value: "A definir", meta: "Calendário será adicionado por jornada" }
+        ],
+        tabela: croatiaSeedTable.map((entry, index) => ({
+            pos: index + 1,
+            inf: "--",
+            equipa: entry.equipa,
+            logo: entry.logo,
+            jogador: entry.jogador,
+            j: 0,
+            v: 0,
+            e: 0,
+            d: 0,
+            gm: 0,
+            gs: 0,
+            dg: 0,
+            pts: 0,
+            prevista: entry.prevista,
+            emgPontos: entry.jogador ? 0 : null,
+            form: [],
+            zone: index === 0 ? "championship" : index <= 3 ? "europe" : index === 8 ? "playoff" : index === 9 ? "relegated" : ""
+        }))
+    },
+    {
         id: "scotland",
+        status: "completed",
+        statusLabel: "Concluída",
         nome: "Liga Escocesa",
         descricao: "Classificação final completa da Premiership, com dados da liga, jogador EMG associado e pontos pela fórmula da época.",
         logo: "assets/logos/teams/escocia/spfl.png",
@@ -630,6 +701,10 @@ const leagues = [
 ];
 
 function calcBonuses(league) {
+    if (league.status === "live") {
+        return league.bonuses || [];
+    }
+
     let bonuses = [];
     let tabela = league.tabela;
 
@@ -1997,7 +2072,7 @@ function renderLeagueSelector() {
     leagues.forEach((league) => {
         let option = document.createElement("option");
         option.value = league.id;
-        option.textContent = league.nome;
+        option.textContent = league.statusLabel ? `${league.nome} — ${league.statusLabel}` : league.nome;
         select.appendChild(option);
     });
     renderLeague(leagues[0].id);
@@ -2019,8 +2094,24 @@ function renderLeagueTeamName(league, teamName, extraClass = "") {
     `;
 }
 
+function renderFormDots(form = []) {
+    let normalized = [...form].slice(-5);
+    while (normalized.length < 5) normalized.unshift("-");
+
+    return `
+        <div class="standings-form">
+            ${normalized.map((result) => {
+                let key = String(result).toUpperCase();
+                let label = key === "W" ? "V" : key === "L" ? "D" : key;
+                let className = key === "W" || key === "V" ? "win" : key === "E" ? "draw" : key === "L" || key === "D" ? "loss" : "empty";
+                return `<span class="standings-form-dot ${className}">${label === "-" ? "" : label}</span>`;
+            }).join("")}
+        </div>
+    `;
+}
+
 function renderLeagueAwards(league) {
-    if (!league.merits) return "";
+    if (!league.merits?.awards?.length) return "";
     let awards = league.merits.awards.map((award) => `
         <div class="league-award-card">
             <div class="league-award-label">${award.label}</div>
@@ -2073,6 +2164,27 @@ function renderLeagueTeamOfYear(league) {
     `;
 }
 
+function renderLeagueLiveCards(league) {
+    if (!league.liveCards?.length) return "";
+    let cards = league.liveCards.map((card) => `
+        <div class="league-live-card">
+            <div class="league-live-label">${card.label}</div>
+            <div class="league-live-value">${card.value}</div>
+            <div class="league-live-meta">${card.meta}</div>
+        </div>
+    `).join("");
+
+    return `
+        <section class="league-side-card league-live-panel-card">
+            <div class="league-side-head">
+                <span>Dashboard vivo</span>
+                <strong>Época Atual</strong>
+            </div>
+            <div class="league-live-grid">${cards}</div>
+        </section>
+    `;
+}
+
 function renderLeagueCalendar(league) {
     if (!league.fixtures?.length) return "";
     let months = league.fixtureMonths || [...new Set(league.fixtures.map((fixture) => fixture.month))];
@@ -2117,11 +2229,18 @@ function renderLeagueCalendar(league) {
 }
 
 function renderLeagueLowerPanel(league) {
+    let content = [
+        renderLeagueLiveCards(league),
+        renderLeagueAwards(league),
+        renderLeagueTeamOfYear(league),
+        renderLeagueCalendar(league)
+    ].filter(Boolean).join("");
+
+    if (!content) return "";
+
     return `
         <div class="league-lower-grid">
-            ${renderLeagueAwards(league)}
-            ${renderLeagueTeamOfYear(league)}
-            ${renderLeagueCalendar(league)}
+            ${content}
         </div>
     `;
 }
@@ -2129,6 +2248,7 @@ function renderLeagueLowerPanel(league) {
 function renderLeague(leagueId) {
     let league = leagues.find((l) => l.id === leagueId);
     let panel = document.getElementById("leaguePanel");
+    let isLive = league.status === "live";
 
     let rows = "";
     league.tabela.forEach((entry) => {
@@ -2138,9 +2258,12 @@ function renderLeague(leagueId) {
         let emgMarkup = entry.emgPontos === null
             ? `<div class="standings-points-cell" data-col="14"><div class="standings-points neutral">--</div></div>`
             : `<div class="standings-points-cell" data-col="14"><div class="standings-points ${getPointsClass(entry.emgPontos)}">${formatPoints(entry.emgPontos)}</div></div>`;
+        let formMarkup = isLive
+            ? `<div class="standings-form-cell" data-col="15">${renderFormDots(entry.form)}</div>`
+            : "";
 
         rows += `
-            <div class="standings-row ${entry.zone ? `zone-${entry.zone}` : ""}">
+            <div class="standings-row ${isLive ? "live" : ""} ${entry.zone ? `zone-${entry.zone}` : ""}">
                 <div class="standings-cell-center standings-pos" data-col="1">${entry.pos}</div>
                 <div class="standings-cell-center standings-inf" data-col="2">${entry.inf}</div>
                 <div class="standings-team" data-col="3">
@@ -2161,6 +2284,7 @@ function renderLeague(leagueId) {
                 <div class="standings-cell-center" data-col="12">${entry.pts}</div>
                 <div class="standings-cell-center" data-col="13">${entry.prevista}</div>
                 ${emgMarkup}
+                ${formMarkup}
             </div>
         `;
     });
@@ -2185,14 +2309,47 @@ function renderLeague(leagueId) {
             <div class="league-chip">
                 <img class="league-chip-logo" src="${league.logo}" alt="${league.logoAlt}">
             </div>
+            ${league.statusLabel ? `<div class="league-chip league-status-chip ${league.status === "live" ? "live" : "completed"}">${league.statusLabel}</div>` : ""}
             <div class="league-chip muted">${league.epoca}</div>
             <div class="league-chip muted">Fórmula: ${league.formula}</div>
+            ${isLive ? `
+                <div class="league-live-tip">
+                    <button class="info-tip league-info-tip" type="button" aria-label="Explicação da liga em curso">
+                        <span class="info-tip-icon">i</span>
+                    </button>
+                    <div class="league-live-popover">
+                        <div class="formula-section">
+                            <div class="formula-heading">Liga em curso</div>
+                            <div class="formula-line">A classificação da Croácia é atualizada por sessão.</div>
+                            <div class="formula-line">A coluna <strong>Form</strong> mostra os últimos 5 jogos: V, E ou D.</div>
+                            <div class="formula-line">Os bónus finais só entram quando a época terminar.</div>
+                        </div>
+                        <div class="formula-section">
+                            <div class="formula-heading">Bónus</div>
+                            <div class="formula-list">
+                                <div>Campeão da Liga: <strong>+10</strong></div>
+                                <div>Melhor humano (não acumula se for campeão): <strong>+5</strong></div>
+                                <div>Vencedores de Taças: <strong>+5</strong></div>
+                                <div>Finalistas de Taças: <strong>+2</strong></div>
+                                <div>Vencedor de competição Europeia: <strong>+3</strong></div>
+                            </div>
+                        </div>
+                        <div class="formula-section">
+                            <div class="formula-heading">Penalizações</div>
+                            <div class="formula-list">
+                                <div>Último classificado: <strong>-5</strong></div>
+                                <div>Pior humano (não acumula se for último): <strong>-2</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ` : ""}
         </div>
-        <div class="league-season-layout">
+        <div class="league-season-layout ${isLive ? "live" : ""}">
             <div class="league-main-column">
                 <div class="league-table-wrap">
                     <div class="standings-standings">
-                        <div class="standings-row header">
+                        <div class="standings-row header ${isLive ? "live" : ""}">
                             <div data-col="1">Pos</div>
                             <div data-col="2">Inf</div>
                             <div data-col="3">Equipa</div>
@@ -2207,12 +2364,13 @@ function renderLeague(leagueId) {
                             <div data-col="12">Pts</div>
                             <div data-col="13">Prev.</div>
                             <div data-col="14">EMG</div>
+                            ${isLive ? `<div data-col="15">Form</div>` : ""}
                         </div>
                         ${rows}
                     </div>
                 </div>
             </div>
-            <aside class="league-bonuses-column">
+            ${isLive ? "" : `<aside class="league-bonuses-column">
                 <div class="bonuses-section">
                     <h3 class="bonuses-title">Bónus e Penalizações</h3>
                     <div class="bonuses-list">
@@ -2224,7 +2382,7 @@ function renderLeague(leagueId) {
                         ${bonusRows}
                     </div>
                 </div>
-            </aside>
+            </aside>`}
         </div>
         ${renderLeagueLowerPanel(league)}
     `;
