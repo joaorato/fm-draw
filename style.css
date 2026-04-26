@@ -2034,90 +2034,175 @@ body::after {
     flex: 1;
     min-height: 0;
     display: grid;
-    gap: 10px;
-    padding: 14px;
+    align-content: start;
+    gap: 0;
+    padding: 0 10px 10px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(112, 208, 255, 0.35) rgba(255,255,255,0.04);
 }
 
-.league-transfer-card {
+.league-transfer-table-head,
+.league-transfer-row {
     display: grid;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 15px;
-    border: 1px solid rgba(122, 210, 255, 0.09);
-    background:
-        radial-gradient(circle at 16% 0%, rgba(112, 208, 255, 0.08), transparent 38%),
-        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.014));
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
-}
-
-.league-transfer-main {
-    display: flex;
+    grid-template-columns: 50px minmax(104px, 1fr) minmax(138px, 1.28fr) minmax(58px, 0.5fr);
     align-items: center;
-    gap: 10px;
-    min-width: 0;
-}
-
-.league-transfer-logo {
-    width: 34px;
-    height: 34px;
-    object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(91, 204, 255, 0.12));
-}
-
-.league-transfer-club {
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.league-transfer-manager {
-    margin-top: 2px;
-    color: rgba(119, 209, 255, 0.82);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-}
-
-.league-transfer-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
-}
-
-.league-transfer-grid div {
     min-width: 0;
-    padding: 8px;
-    border-radius: 11px;
-    background: rgba(3, 15, 53, 0.36);
-    border: 1px solid rgba(112, 208, 255, 0.06);
 }
 
-.league-transfer-grid span {
-    display: block;
-    color: rgba(154, 211, 255, 0.68);
-    font-size: 8px;
+.league-transfer-table-head {
+    padding: 8px 10px 7px;
+    color: rgba(183, 220, 255, 0.64);
+    font-size: 9px;
     font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase;
+    border-top: 1px solid rgba(112, 208, 255, 0.08);
+    border-bottom: 1px solid rgba(112, 208, 255, 0.08);
 }
 
-.league-transfer-grid strong {
-    display: block;
-    margin-top: 4px;
-    color: rgba(239, 247, 255, 0.92);
-    font-size: 10.5px;
-    line-height: 1.2;
+.league-transfer-row {
+    min-height: 42px;
+    padding: 7px 8px;
+    border-radius: 11px;
+    border: 1px solid transparent;
+    color: rgba(241, 248, 255, 0.92);
+    background:
+        radial-gradient(circle at 12% 0%, rgba(94, 218, 255, 0.065), transparent 38%),
+        linear-gradient(90deg, rgba(255,255,255,0.045), rgba(255,255,255,0.014));
+}
+
+.league-transfer-row:nth-child(even) {
+    background:
+        radial-gradient(circle at 12% 0%, rgba(94, 218, 255, 0.075), transparent 38%),
+        linear-gradient(90deg, rgba(112, 208, 255, 0.06), rgba(255,255,255,0.016));
+}
+
+.league-transfer-row:hover {
+    border-color: rgba(112, 208, 255, 0.2);
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.03),
+        0 0 22px rgba(36, 205, 255, 0.06);
+}
+
+.league-transfer-row.incoming {
+    box-shadow: inset 2px 0 0 rgba(110, 255, 193, 0.55);
+}
+
+.league-transfer-row.outgoing {
+    box-shadow: inset 2px 0 0 rgba(255, 86, 107, 0.62);
+}
+
+.league-transfer-date {
+    color: rgba(242, 248, 255, 0.86);
+    font-size: 9.5px;
+    font-weight: 700;
+}
+
+.league-transfer-player {
+    min-width: 0;
+    display: grid;
+    gap: 2px;
+}
+
+.league-transfer-player-name {
+    color: #ffffff;
+    font-size: 11.8px;
+    font-weight: 800;
+    letter-spacing: 0.1px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.league-transfer-type {
+    width: fit-content;
+    padding: 2px 5px;
+    border-radius: 999px;
+    color: rgba(214, 243, 255, 0.82);
+    font-size: 6.8px;
+    font-weight: 900;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    background: rgba(112, 208, 255, 0.08);
+    border: 1px solid rgba(112, 208, 255, 0.1);
+}
+
+.league-transfer-route {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(22px, 1fr) 12px minmax(22px, 1fr);
+    align-items: center;
+    gap: 5px;
+}
+
+.league-transfer-club-cell {
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 5px;
+    border-radius: 8px;
+    background: rgba(3, 15, 53, 0.22);
+    border: 1px solid rgba(112, 208, 255, 0.045);
+}
+
+.league-transfer-club-cell--logo-only {
+    justify-content: center;
+    justify-self: center;
+    width: 31px;
+    height: 28px;
+    padding: 3px;
+}
+
+.league-transfer-club-cell:last-child {
+    justify-content: flex-start;
+}
+
+.league-transfer-club-cell--logo-only:last-child {
+    justify-content: center;
+}
+
+.league-transfer-team-logo {
+    width: 21px;
+    height: 21px;
+    flex: 0 0 auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 7px rgba(112, 208, 255, 0.16));
+}
+
+.league-transfer-club-name {
+    min-width: 0;
+    color: rgba(246, 250, 255, 0.92);
+    font-size: 10.6px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.league-transfer-club-name.muted {
+    color: rgba(194, 214, 235, 0.45);
+    font-style: italic;
+}
+
+.league-transfer-arrow {
+    color: rgba(93, 230, 220, 0.82);
+    font-size: 11px;
+    text-align: center;
+}
+
+.league-transfer-value {
+    justify-self: end;
+    max-width: 100%;
+    color: #ffffff;
+    font-size: 9.4px;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
 }
 
 .league-toty-panel {
@@ -2330,7 +2415,7 @@ body::after {
     grid-template-columns: minmax(54px, 0.7fr) minmax(0, 1.6fr) minmax(54px, 0.7fr);
     align-items: center;
     margin-bottom: 7px;
-    color: rgba(205, 228, 255, 0.58);
+    color: rgba(245, 250, 255, 0.9);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.85px;
@@ -2344,7 +2429,7 @@ body::after {
 .league-fixture-meta span:last-child {
     grid-column: 2;
     justify-self: center;
-    color: rgba(244, 250, 255, 0.84);
+    color: #ffffff;
 }
 
 .league-fixture-match {
@@ -2366,10 +2451,27 @@ body::after {
     text-align: center;
 }
 
+.league-match-club-row {
+    max-width: 100%;
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.league-match-logo {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(112, 208, 255, 0.16));
+}
+
 .league-match-club {
     max-width: 100%;
     overflow: hidden;
-    color: rgba(244, 248, 255, 0.86);
+    color: #ffffff;
     font-size: 10.5px;
     font-weight: 700;
     white-space: nowrap;

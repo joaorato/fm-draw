@@ -457,6 +457,10 @@ const scotlandSeasonScores = [
 })).sort((a, b) => b.pontos - a.pontos || a.final - b.final);
 
 function createLeagueMatch(month, competition, date, home, score, away) {
+    if (score.trim() === "-") {
+        return { month, competition, date, home, away, homeGoals: null, awayGoals: null };
+    }
+
     let [homeGoals, awayGoals] = score.split("-").map((value) => Number(value.trim()));
     return { month, competition, date, home, away, homeGoals, awayGoals };
 }
@@ -611,6 +615,11 @@ const croatiaSeedTable = [
     { equipa: "HNK Vukovar", logo: "assets/logos/teams/croacia/hnkvukovar.png", jogador: "Hugo", prevista: 10 }
 ];
 
+const croatiaAlphabeticalTable = [...croatiaSeedTable].sort((a, b) => {
+    let clean = (team) => team.equipa.replace(/^(HNK|NK)\s+/i, "");
+    return clean(a).localeCompare(clean(b), "pt", { sensitivity: "base" });
+});
+
 const croatiaSeasonScores = croatiaSeedTable
     .filter((entry) => entry.jogador)
     .map((entry) => ({
@@ -620,6 +629,214 @@ const croatiaSeasonScores = croatiaSeedTable
         final: entry.prevista,
         pontos: 0
     }));
+
+const croatiaFixtureMonths = ["Agosto", "Setembro", "Outubro", "Novembro", "Dezembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio"];
+
+const croatiaFixtures = [
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "Dinamo Zagreb", "-", "NK Istra 1961"),
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "HNK Gorica", "-", "NK Osijek"),
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "Hajduk Split", "-", "NK Varaždin"),
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "HNK Rijeka", "-", "NK Lokomotiva"),
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "HNK Vukovar", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Istra 1961", "-", "HNK Rijeka"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Lokomotiva", "-", "Hajduk Split"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Osijek", "-", "HNK Vukovar"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Slaven Belupo", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Varaždin", "-", "HNK Gorica"),
+    createLeagueMatch("Agosto", "HNL", "16 Ago", "Dinamo Zagreb", "-", "NK Osijek"),
+    createLeagueMatch("Agosto", "HNL", "16 Ago", "HNK Gorica", "-", "Hajduk Split"),
+    createLeagueMatch("Agosto", "HNL", "16 Ago", "NK Istra 1961", "-", "NK Lokomotiva"),
+    createLeagueMatch("Agosto", "HNL", "16 Ago", "HNK Rijeka", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Agosto", "HNL", "16 Ago", "HNK Vukovar", "-", "NK Varaždin"),
+    createLeagueMatch("Agosto", "HNL", "23 Ago", "Hajduk Split", "-", "HNK Vukovar"),
+    createLeagueMatch("Agosto", "HNL", "23 Ago", "NK Lokomotiva", "-", "HNK Gorica"),
+    createLeagueMatch("Agosto", "HNL", "23 Ago", "NK Osijek", "-", "HNK Rijeka"),
+    createLeagueMatch("Agosto", "HNL", "23 Ago", "NK Slaven Belupo", "-", "NK Istra 1961"),
+    createLeagueMatch("Agosto", "HNL", "23 Ago", "NK Varaždin", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Agosto", "HNL", "30 Ago", "Dinamo Zagreb", "-", "Hajduk Split"),
+    createLeagueMatch("Agosto", "HNL", "30 Ago", "NK Istra 1961", "-", "NK Osijek"),
+    createLeagueMatch("Agosto", "HNL", "30 Ago", "HNK Rijeka", "-", "NK Varaždin"),
+    createLeagueMatch("Agosto", "HNL", "30 Ago", "NK Slaven Belupo", "-", "NK Lokomotiva"),
+    createLeagueMatch("Agosto", "HNL", "30 Ago", "HNK Vukovar", "-", "HNK Gorica"),
+    createLeagueMatch("Setembro", "HNL", "13 Set", "HNK Gorica", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Setembro", "HNL", "13 Set", "Hajduk Split", "-", "HNK Rijeka"),
+    createLeagueMatch("Setembro", "HNL", "13 Set", "NK Lokomotiva", "-", "HNK Vukovar"),
+    createLeagueMatch("Setembro", "HNL", "13 Set", "NK Osijek", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Setembro", "HNL", "13 Set", "NK Varaždin", "-", "NK Istra 1961"),
+    createLeagueMatch("Setembro", "HNL", "20 Set", "Dinamo Zagreb", "-", "HNK Vukovar"),
+    createLeagueMatch("Setembro", "HNL", "20 Set", "NK Istra 1961", "-", "Hajduk Split"),
+    createLeagueMatch("Setembro", "HNL", "20 Set", "NK Osijek", "-", "NK Lokomotiva"),
+    createLeagueMatch("Setembro", "HNL", "20 Set", "HNK Rijeka", "-", "HNK Gorica"),
+    createLeagueMatch("Setembro", "HNL", "20 Set", "NK Slaven Belupo", "-", "NK Varaždin"),
+    createLeagueMatch("Setembro", "HNL", "27 Set", "HNK Gorica", "-", "NK Istra 1961"),
+    createLeagueMatch("Setembro", "HNL", "27 Set", "Hajduk Split", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Setembro", "HNL", "27 Set", "NK Lokomotiva", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Setembro", "HNL", "27 Set", "NK Varaždin", "-", "NK Osijek"),
+    createLeagueMatch("Setembro", "HNL", "27 Set", "HNK Vukovar", "-", "HNK Rijeka"),
+    createLeagueMatch("Outubro", "HNL", "4 Out", "NK Istra 1961", "-", "HNK Vukovar"),
+    createLeagueMatch("Outubro", "HNL", "4 Out", "NK Lokomotiva", "-", "NK Varaždin"),
+    createLeagueMatch("Outubro", "HNL", "4 Out", "NK Osijek", "-", "Hajduk Split"),
+    createLeagueMatch("Outubro", "HNL", "4 Out", "HNK Rijeka", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Outubro", "HNL", "4 Out", "NK Slaven Belupo", "-", "HNK Gorica"),
+    createLeagueMatch("Outubro", "HNL", "18 Out", "Dinamo Zagreb", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Outubro", "HNL", "18 Out", "HNK Gorica", "-", "NK Varaždin"),
+    createLeagueMatch("Outubro", "HNL", "18 Out", "Hajduk Split", "-", "NK Lokomotiva"),
+    createLeagueMatch("Outubro", "HNL", "18 Out", "HNK Rijeka", "-", "NK Istra 1961"),
+    createLeagueMatch("Outubro", "HNL", "18 Out", "HNK Vukovar", "-", "NK Osijek"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Istra 1961", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Lokomotiva", "-", "HNK Rijeka"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Osijek", "-", "HNK Gorica"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Slaven Belupo", "-", "HNK Vukovar"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Varaždin", "-", "Hajduk Split"),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "Hajduk Split", "-", "HNK Gorica"),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Lokomotiva", "-", "NK Istra 1961"),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Osijek", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Slaven Belupo", "-", "HNK Rijeka"),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Varaždin", "-", "HNK Vukovar"),
+    createLeagueMatch("Novembro", "HNL", "8 Nov", "Dinamo Zagreb", "-", "NK Varaždin"),
+    createLeagueMatch("Novembro", "HNL", "8 Nov", "HNK Gorica", "-", "NK Lokomotiva"),
+    createLeagueMatch("Novembro", "HNL", "8 Nov", "NK Istra 1961", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Novembro", "HNL", "8 Nov", "HNK Rijeka", "-", "NK Osijek"),
+    createLeagueMatch("Novembro", "HNL", "8 Nov", "HNK Vukovar", "-", "Hajduk Split"),
+    createLeagueMatch("Novembro", "HNL", "22 Nov", "HNK Gorica", "-", "HNK Vukovar"),
+    createLeagueMatch("Novembro", "HNL", "22 Nov", "Hajduk Split", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Novembro", "HNL", "22 Nov", "NK Lokomotiva", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Novembro", "HNL", "22 Nov", "NK Osijek", "-", "NK Istra 1961"),
+    createLeagueMatch("Novembro", "HNL", "22 Nov", "NK Varaždin", "-", "HNK Rijeka"),
+    createLeagueMatch("Novembro", "HNL", "29 Nov", "Dinamo Zagreb", "-", "HNK Gorica"),
+    createLeagueMatch("Novembro", "HNL", "29 Nov", "NK Istra 1961", "-", "NK Varaždin"),
+    createLeagueMatch("Novembro", "HNL", "29 Nov", "HNK Rijeka", "-", "Hajduk Split"),
+    createLeagueMatch("Novembro", "HNL", "29 Nov", "NK Slaven Belupo", "-", "NK Osijek"),
+    createLeagueMatch("Novembro", "HNL", "29 Nov", "HNK Vukovar", "-", "NK Lokomotiva"),
+    createLeagueMatch("Dezembro", "HNL", "6 Dez", "HNK Gorica", "-", "HNK Rijeka"),
+    createLeagueMatch("Dezembro", "HNL", "6 Dez", "Hajduk Split", "-", "NK Istra 1961"),
+    createLeagueMatch("Dezembro", "HNL", "6 Dez", "NK Lokomotiva", "-", "NK Osijek"),
+    createLeagueMatch("Dezembro", "HNL", "6 Dez", "NK Varaždin", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Dezembro", "HNL", "6 Dez", "HNK Vukovar", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Dezembro", "HNL", "13 Dez", "Dinamo Zagreb", "-", "NK Lokomotiva"),
+    createLeagueMatch("Dezembro", "HNL", "13 Dez", "NK Istra 1961", "-", "HNK Gorica"),
+    createLeagueMatch("Dezembro", "HNL", "13 Dez", "NK Osijek", "-", "NK Varaždin"),
+    createLeagueMatch("Dezembro", "HNL", "13 Dez", "HNK Rijeka", "-", "HNK Vukovar"),
+    createLeagueMatch("Dezembro", "HNL", "13 Dez", "NK Slaven Belupo", "-", "Hajduk Split"),
+    createLeagueMatch("Dezembro", "HNL", "20 Dez", "Dinamo Zagreb", "-", "HNK Rijeka"),
+    createLeagueMatch("Dezembro", "HNL", "20 Dez", "HNK Gorica", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Dezembro", "HNL", "20 Dez", "Hajduk Split", "-", "NK Osijek"),
+    createLeagueMatch("Dezembro", "HNL", "20 Dez", "NK Varaždin", "-", "NK Lokomotiva"),
+    createLeagueMatch("Dezembro", "HNL", "20 Dez", "HNK Vukovar", "-", "NK Istra 1961"),
+    createLeagueMatch("Janeiro", "HNL", "24 Jan", "NK Istra 1961", "-", "HNK Rijeka"),
+    createLeagueMatch("Janeiro", "HNL", "24 Jan", "NK Lokomotiva", "-", "Hajduk Split"),
+    createLeagueMatch("Janeiro", "HNL", "24 Jan", "NK Osijek", "-", "HNK Vukovar"),
+    createLeagueMatch("Janeiro", "HNL", "24 Jan", "NK Slaven Belupo", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Janeiro", "HNL", "24 Jan", "NK Varaždin", "-", "HNK Gorica"),
+    createLeagueMatch("Janeiro", "HNL", "31 Jan", "Dinamo Zagreb", "-", "NK Istra 1961"),
+    createLeagueMatch("Janeiro", "HNL", "31 Jan", "HNK Gorica", "-", "NK Osijek"),
+    createLeagueMatch("Janeiro", "HNL", "31 Jan", "Hajduk Split", "-", "NK Varaždin"),
+    createLeagueMatch("Janeiro", "HNL", "31 Jan", "HNK Rijeka", "-", "NK Lokomotiva"),
+    createLeagueMatch("Janeiro", "HNL", "31 Jan", "HNK Vukovar", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Fevereiro", "HNL", "7 Fev", "Dinamo Zagreb", "-", "NK Osijek"),
+    createLeagueMatch("Fevereiro", "HNL", "7 Fev", "HNK Gorica", "-", "Hajduk Split"),
+    createLeagueMatch("Fevereiro", "HNL", "7 Fev", "NK Istra 1961", "-", "NK Lokomotiva"),
+    createLeagueMatch("Fevereiro", "HNL", "7 Fev", "HNK Rijeka", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Fevereiro", "HNL", "7 Fev", "HNK Vukovar", "-", "NK Varaždin"),
+    createLeagueMatch("Fevereiro", "HNL", "14 Fev", "Hajduk Split", "-", "HNK Vukovar"),
+    createLeagueMatch("Fevereiro", "HNL", "14 Fev", "NK Lokomotiva", "-", "HNK Gorica"),
+    createLeagueMatch("Fevereiro", "HNL", "14 Fev", "NK Osijek", "-", "HNK Rijeka"),
+    createLeagueMatch("Fevereiro", "HNL", "14 Fev", "NK Slaven Belupo", "-", "NK Istra 1961"),
+    createLeagueMatch("Fevereiro", "HNL", "14 Fev", "NK Varaždin", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Fevereiro", "HNL", "21 Fev", "Dinamo Zagreb", "-", "Hajduk Split"),
+    createLeagueMatch("Fevereiro", "HNL", "21 Fev", "NK Istra 1961", "-", "NK Osijek"),
+    createLeagueMatch("Fevereiro", "HNL", "21 Fev", "HNK Rijeka", "-", "NK Varaždin"),
+    createLeagueMatch("Fevereiro", "HNL", "21 Fev", "NK Slaven Belupo", "-", "NK Lokomotiva"),
+    createLeagueMatch("Fevereiro", "HNL", "21 Fev", "HNK Vukovar", "-", "HNK Gorica"),
+    createLeagueMatch("Fevereiro", "HNL", "28 Fev", "HNK Gorica", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Fevereiro", "HNL", "28 Fev", "Hajduk Split", "-", "HNK Rijeka"),
+    createLeagueMatch("Fevereiro", "HNL", "28 Fev", "NK Lokomotiva", "-", "HNK Vukovar"),
+    createLeagueMatch("Fevereiro", "HNL", "28 Fev", "NK Osijek", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Fevereiro", "HNL", "28 Fev", "NK Varaždin", "-", "NK Istra 1961"),
+    createLeagueMatch("Março", "HNL", "7 Mar", "Dinamo Zagreb", "-", "HNK Vukovar"),
+    createLeagueMatch("Março", "HNL", "7 Mar", "NK Istra 1961", "-", "Hajduk Split"),
+    createLeagueMatch("Março", "HNL", "7 Mar", "NK Osijek", "-", "NK Lokomotiva"),
+    createLeagueMatch("Março", "HNL", "7 Mar", "HNK Rijeka", "-", "HNK Gorica"),
+    createLeagueMatch("Março", "HNL", "7 Mar", "NK Slaven Belupo", "-", "NK Varaždin"),
+    createLeagueMatch("Março", "HNL", "14 Mar", "HNK Gorica", "-", "NK Istra 1961"),
+    createLeagueMatch("Março", "HNL", "14 Mar", "Hajduk Split", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Março", "HNL", "14 Mar", "NK Lokomotiva", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Março", "HNL", "14 Mar", "NK Varaždin", "-", "NK Osijek"),
+    createLeagueMatch("Março", "HNL", "14 Mar", "HNK Vukovar", "-", "HNK Rijeka"),
+    createLeagueMatch("Março", "HNL", "21 Mar", "NK Istra 1961", "-", "HNK Vukovar"),
+    createLeagueMatch("Março", "HNL", "21 Mar", "NK Lokomotiva", "-", "NK Varaždin"),
+    createLeagueMatch("Março", "HNL", "21 Mar", "NK Osijek", "-", "Hajduk Split"),
+    createLeagueMatch("Março", "HNL", "21 Mar", "HNK Rijeka", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Março", "HNL", "21 Mar", "NK Slaven Belupo", "-", "HNK Gorica"),
+    createLeagueMatch("Abril", "HNL", "4 Abr", "Dinamo Zagreb", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Abril", "HNL", "4 Abr", "HNK Gorica", "-", "NK Varaždin"),
+    createLeagueMatch("Abril", "HNL", "4 Abr", "Hajduk Split", "-", "NK Lokomotiva"),
+    createLeagueMatch("Abril", "HNL", "4 Abr", "HNK Rijeka", "-", "NK Istra 1961"),
+    createLeagueMatch("Abril", "HNL", "4 Abr", "HNK Vukovar", "-", "NK Osijek"),
+    createLeagueMatch("Abril", "HNL", "11 Abr", "NK Istra 1961", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Abril", "HNL", "11 Abr", "NK Lokomotiva", "-", "HNK Rijeka"),
+    createLeagueMatch("Abril", "HNL", "11 Abr", "NK Osijek", "-", "HNK Gorica"),
+    createLeagueMatch("Abril", "HNL", "11 Abr", "NK Slaven Belupo", "-", "HNK Vukovar"),
+    createLeagueMatch("Abril", "HNL", "11 Abr", "NK Varaždin", "-", "Hajduk Split"),
+    createLeagueMatch("Abril", "HNL", "18 Abr", "Hajduk Split", "-", "HNK Gorica"),
+    createLeagueMatch("Abril", "HNL", "18 Abr", "NK Lokomotiva", "-", "NK Istra 1961"),
+    createLeagueMatch("Abril", "HNL", "18 Abr", "NK Osijek", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Abril", "HNL", "18 Abr", "NK Slaven Belupo", "-", "HNK Rijeka"),
+    createLeagueMatch("Abril", "HNL", "18 Abr", "NK Varaždin", "-", "HNK Vukovar"),
+    createLeagueMatch("Abril", "HNL", "22 Abr", "Dinamo Zagreb", "-", "NK Varaždin"),
+    createLeagueMatch("Abril", "HNL", "22 Abr", "HNK Gorica", "-", "NK Lokomotiva"),
+    createLeagueMatch("Abril", "HNL", "22 Abr", "NK Istra 1961", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Abril", "HNL", "22 Abr", "HNK Rijeka", "-", "NK Osijek"),
+    createLeagueMatch("Abril", "HNL", "22 Abr", "HNK Vukovar", "-", "Hajduk Split"),
+    createLeagueMatch("Abril", "HNL", "25 Abr", "HNK Gorica", "-", "HNK Vukovar"),
+    createLeagueMatch("Abril", "HNL", "25 Abr", "Hajduk Split", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Abril", "HNL", "25 Abr", "NK Lokomotiva", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Abril", "HNL", "25 Abr", "NK Osijek", "-", "NK Istra 1961"),
+    createLeagueMatch("Abril", "HNL", "25 Abr", "NK Varaždin", "-", "HNK Rijeka"),
+    createLeagueMatch("Maio", "HNL", "2 Mai", "Dinamo Zagreb", "-", "HNK Gorica"),
+    createLeagueMatch("Maio", "HNL", "2 Mai", "NK Istra 1961", "-", "NK Varaždin"),
+    createLeagueMatch("Maio", "HNL", "2 Mai", "HNK Rijeka", "-", "Hajduk Split"),
+    createLeagueMatch("Maio", "HNL", "2 Mai", "NK Slaven Belupo", "-", "NK Osijek"),
+    createLeagueMatch("Maio", "HNL", "2 Mai", "HNK Vukovar", "-", "NK Lokomotiva"),
+    createLeagueMatch("Maio", "HNL", "9 Mai", "HNK Gorica", "-", "HNK Rijeka"),
+    createLeagueMatch("Maio", "HNL", "9 Mai", "Hajduk Split", "-", "NK Istra 1961"),
+    createLeagueMatch("Maio", "HNL", "9 Mai", "NK Lokomotiva", "-", "NK Osijek"),
+    createLeagueMatch("Maio", "HNL", "9 Mai", "NK Varaždin", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Maio", "HNL", "9 Mai", "HNK Vukovar", "-", "Dinamo Zagreb"),
+    createLeagueMatch("Maio", "HNL", "16 Mai", "Dinamo Zagreb", "-", "NK Lokomotiva"),
+    createLeagueMatch("Maio", "HNL", "16 Mai", "NK Istra 1961", "-", "HNK Gorica"),
+    createLeagueMatch("Maio", "HNL", "16 Mai", "NK Osijek", "-", "NK Varaždin"),
+    createLeagueMatch("Maio", "HNL", "16 Mai", "HNK Rijeka", "-", "HNK Vukovar"),
+    createLeagueMatch("Maio", "HNL", "16 Mai", "NK Slaven Belupo", "-", "Hajduk Split"),
+    createLeagueMatch("Maio", "HNL", "23 Mai", "Dinamo Zagreb", "-", "HNK Rijeka"),
+    createLeagueMatch("Maio", "HNL", "23 Mai", "HNK Gorica", "-", "NK Slaven Belupo"),
+    createLeagueMatch("Maio", "HNL", "23 Mai", "Hajduk Split", "-", "NK Osijek"),
+    createLeagueMatch("Maio", "HNL", "23 Mai", "NK Varaždin", "-", "NK Lokomotiva"),
+    createLeagueMatch("Maio", "HNL", "23 Mai", "HNK Vukovar", "-", "NK Istra 1961")
+];
+
+croatiaFixtures.forEach((fixture, index) => {
+    fixture.round = Math.floor(index / 5) + 1;
+});
+
+const croatiaTransfers = [
+    { date: "16/07/2025", player: "L. Islić", from: "", to: "NK Slaven Belupo", value: "Livre" },
+    { date: "16/07/2025", player: "F. Taraba", from: "NK Istra 1961", to: "Juventus", value: "4M €" },
+    { date: "15/07/2025", player: "N. Gaitán", from: "", to: "NK Osijek", value: "Livre" },
+    { date: "15/07/2025", player: "A. Boršić", from: "NK Varaždin", to: "Deportivo La Coruña", value: "245m € (300m €)" },
+    { date: "14/07/2025", player: "R. Ćosić", from: "", to: "NK Slaven Belupo", value: "Livre" },
+    { date: "13/07/2025", player: "R. Tanashchuk", from: "", to: "NK Istra 1961", value: "Livre" },
+    { date: "11/07/2025", player: "P. Horvat", from: "Dinamo Zagreb", to: "HNK Vukovar", value: "Empréstimo" },
+    { date: "10/07/2025", player: "I. Dabo", from: "Shakhtar", to: "NK Istra 1961", value: "Empréstimo" },
+    { date: "09/07/2025", player: "I. Canjuga", from: "NK Varaždin", to: "Rudeš", value: "Empréstimo" },
+    { date: "08/07/2025", player: "T. Kralevski", from: "NK Lokomotiva", to: "Jarun", value: "Empréstimo - 310 €" },
+    { date: "06/07/2025", player: "Paizinho", from: "NK Varaždin", to: "CR Caála", value: "Empréstimo" },
+    { date: "06/07/2025", player: "S. Habek", from: "NK Varaždin", to: "Zrinski Osječko 1664", value: "Empréstimo" },
+    { date: "05/07/2025", player: "I. Beviakva", from: "HNK Rijeka", to: "Orijent", value: "Empréstimo" },
+    { date: "03/07/2025", player: "F. Jagarčec", from: "NK Varaždin", to: "Zrinski Osječko 1664", value: "Empréstimo" },
+    { date: "01/07/2025", player: "G. Kovačević", from: "Dinamo Zagreb", to: "NK Lokomotiva", value: "Empréstimo" },
+    { date: "30/06/2025", player: "J. Córdoba", from: "Dinamo Zagreb", to: "NK Lokomotiva", value: "Empréstimo" }
+];
 
 const leagues = [
     {
@@ -633,21 +850,17 @@ const leagues = [
         epoca: "Época 26/27",
         formula: "(prevista - atual) × 3",
         scores: croatiaSeasonScores,
+        fixtures: croatiaFixtures,
+        fixtureMonths: croatiaFixtureMonths,
+        fixtureGroupBy: "round",
         tacas: [],
         liveCards: [
             { label: "Estado", value: "Liga em curso", meta: "Pronta para updates por sessão" },
             { label: "Última sessão", value: "A recolher", meta: "Resultados ainda por inserir" },
-            { label: "Próximos jogos", value: "A definir", meta: "Calendário será adicionado por jornada" }
+            { label: "Calendário", value: "36 jornadas", meta: "Fixture list carregada para a época completa" }
         ],
-        transfers: croatiaSeedTable.map((entry) => ({
-            equipa: entry.equipa,
-            logo: entry.logo,
-            jogador: entry.jogador || "PC",
-            entradas: "A confirmar",
-            saidas: "A confirmar",
-            alvo: "Por definir"
-        })),
-        tabela: croatiaSeedTable.map((entry, index) => ({
+        transfers: croatiaTransfers,
+        tabela: croatiaAlphabeticalTable.map((entry, index) => ({
             pos: index + 1,
             inf: "--",
             equipa: entry.equipa,
@@ -664,7 +877,7 @@ const leagues = [
             prevista: entry.prevista,
             emgPontos: entry.jogador ? 0 : null,
             form: [],
-            zone: index === 0 ? "championship" : index <= 3 ? "europe" : index === 8 ? "playoff" : index === 9 ? "relegated" : ""
+            zone: ""
         }))
     },
     {
@@ -2094,9 +2307,13 @@ function renderLeagueTeamName(league, teamName, extraClass = "") {
     let entry = getLeagueTeamEntry(league, teamName);
     let coach = entry?.jogador;
     let coachMarkup = coach ? getCoachLinkMarkup(coach, "league-match-coach-link") : `<span class="league-match-coach-empty">PC</span>`;
+    let logoMarkup = entry?.logo ? `<img src="${entry.logo}" alt="${teamName}" class="league-match-logo" loading="lazy">` : "";
     return `
         <span class="league-match-team ${extraClass}">
-            <span class="league-match-club">${teamName}</span>
+            <span class="league-match-club-row">
+                ${logoMarkup}
+                <span class="league-match-club">${teamName}</span>
+            </span>
             <span class="league-match-coach">${coachMarkup}</span>
         </span>
     `;
@@ -2193,39 +2410,68 @@ function renderLeagueLiveCards(league) {
     `;
 }
 
+function renderTransferClub(league, clubName) {
+    if (!clubName) {
+        return `<span class="league-transfer-club-name muted">Sem clube</span>`;
+    }
+
+    let entry = getLeagueTeamEntry(league, clubName);
+    if (entry?.logo) {
+        return `
+            <span class="league-transfer-club-cell league-transfer-club-cell--logo-only" title="${clubName}">
+                <img src="${entry.logo}" alt="${clubName}" class="league-transfer-team-logo" loading="lazy">
+            </span>
+        `;
+    }
+
+    return `
+        <span class="league-transfer-club-cell">
+            <span class="league-transfer-club-name" title="${clubName}">${clubName}</span>
+        </span>
+    `;
+}
+
+function formatTransferValue(value) {
+    return String(value || "")
+        .replace(/Empréstimo/g, "Emp.")
+        .replace(/Emp\\. -/g, "Emp. ·");
+}
+
 function renderLeagueTransfers(league) {
     if (!league.transfers?.length) return "";
-    let rows = league.transfers.map((item) => `
-        <div class="league-transfer-card">
-            <div class="league-transfer-main">
-                <img src="${item.logo}" alt="${item.equipa}" class="league-transfer-logo" loading="lazy">
-                <div>
-                    <div class="league-transfer-club">${item.equipa}</div>
-                    <div class="league-transfer-manager">${item.jogador}</div>
+    let humanTeams = new Set((league.tabela || []).filter((entry) => entry.jogador).map((entry) => entry.equipa));
+    let rows = league.transfers.map((item) => {
+        let isIncoming = humanTeams.has(item.to);
+        let type = isIncoming ? "Entrada" : "Saída";
+
+        return `
+            <div class="league-transfer-row ${isIncoming ? "incoming" : "outgoing"}">
+                <div class="league-transfer-date">${item.date}</div>
+                <div class="league-transfer-player">
+                    <div class="league-transfer-player-name" title="${item.player}">${item.player}</div>
+                    <div class="league-transfer-type">${type}</div>
                 </div>
+                <div class="league-transfer-route">
+                    ${renderTransferClub(league, item.from)}
+                    <span class="league-transfer-arrow">→</span>
+                    ${renderTransferClub(league, item.to)}
+                </div>
+                <div class="league-transfer-value" title="${item.value}">${formatTransferValue(item.value)}</div>
             </div>
-            <div class="league-transfer-grid">
-                <div>
-                    <span>Entradas</span>
-                    <strong>${item.entradas}</strong>
-                </div>
-                <div>
-                    <span>Saídas</span>
-                    <strong>${item.saidas}</strong>
-                </div>
-                <div>
-                    <span>Alvo</span>
-                    <strong>${item.alvo}</strong>
-                </div>
-            </div>
-        </div>
-    `).join("");
+        `;
+    }).join("");
 
     return `
         <section class="league-side-card league-transfers-card">
             <div class="league-side-head">
-                <span>Mercado por clube</span>
+                <span>Histórico do mercado</span>
                 <strong>Transferências</strong>
+            </div>
+            <div class="league-transfer-table-head">
+                <span>Data</span>
+                <span>Jogador</span>
+                <span>Movimento</span>
+                <span>Valor</span>
             </div>
             <div class="league-transfers-scroll">${rows}</div>
         </section>
@@ -2234,13 +2480,27 @@ function renderLeagueTransfers(league) {
 
 function renderLeagueCalendar(league) {
     if (!league.fixtures?.length) return "";
-    let months = league.fixtureMonths || [...new Set(league.fixtures.map((fixture) => fixture.month))];
-    let monthBlocks = months.map((month) => {
-        let matches = league.fixtures.filter((fixture) => fixture.month === month);
+    let groupByRound = league.fixtureGroupBy === "round";
+    let groups = groupByRound
+        ? [...new Set(league.fixtures.map((fixture) => fixture.round))].map((round) => ({
+            key: round,
+            label: `Jornada ${round}`,
+            matches: league.fixtures.filter((fixture) => fixture.round === round)
+        }))
+        : (league.fixtureMonths || [...new Set(league.fixtures.map((fixture) => fixture.month))]).map((month) => ({
+            key: month,
+            label: month,
+            matches: league.fixtures.filter((fixture) => fixture.month === month)
+        }));
+
+    let monthBlocks = groups.map((group) => {
+        let matches = group.matches;
         if (!matches.length) return "";
         let rows = matches.map((fixture) => {
-            let homeWinner = fixture.homeGoals > fixture.awayGoals ? "winner" : "";
-            let awayWinner = fixture.awayGoals > fixture.homeGoals ? "winner" : "";
+            let hasResult = Number.isFinite(fixture.homeGoals) && Number.isFinite(fixture.awayGoals);
+            let homeWinner = hasResult && fixture.homeGoals > fixture.awayGoals ? "winner" : "";
+            let awayWinner = hasResult && fixture.awayGoals > fixture.homeGoals ? "winner" : "";
+            let scoreLabel = hasResult ? `${fixture.homeGoals}-${fixture.awayGoals}` : "-";
             return `
                 <div class="league-fixture-row">
                     <div class="league-fixture-meta">
@@ -2249,7 +2509,7 @@ function renderLeagueCalendar(league) {
                     </div>
                     <div class="league-fixture-match">
                         ${renderLeagueTeamName(league, fixture.home, homeWinner)}
-                        <span class="league-fixture-score">${fixture.homeGoals}-${fixture.awayGoals}</span>
+                        <span class="league-fixture-score">${scoreLabel}</span>
                         ${renderLeagueTeamName(league, fixture.away, awayWinner)}
                     </div>
                 </div>
@@ -2258,7 +2518,7 @@ function renderLeagueCalendar(league) {
 
         return `
             <div class="league-fixture-month">
-                <div class="league-fixture-month-title">${month}</div>
+                <div class="league-fixture-month-title">${group.label}</div>
                 <div class="league-fixture-list">${rows}</div>
             </div>
         `;
