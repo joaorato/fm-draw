@@ -584,7 +584,7 @@ const scotlandLeagueMerits = {
         { label: "Melhor marcador", name: "Kieron Bowie", team: "Hibernian", meta: "27 golos · 37 presenças" },
         { label: "Melhor assistente", name: "Martin Boyle", team: "Hibernian", meta: "13 assistências" },
         { label: "Melhor defesa", name: "Auston Trusty", team: "Celtic", meta: "Referência defensiva" },
-        { label: "Melhor médio", name: "Kieran Dowell", team: "Rangers", meta: "Motor do meio-campo" },
+        { label: "Melhor médio", name: "Mikey Moore", team: "Rangers", meta: "Motor do meio-campo" },
         { label: "Melhor guarda-redes", name: "Dimitar Mitov", team: "Aberdeen", meta: "Guarda-redes do ano" }
     ],
     teamOfYear: [
@@ -859,6 +859,40 @@ const leagues = [
             { label: "Última sessão", value: "A recolher", meta: "Resultados ainda por inserir" },
             { label: "Calendário", value: "36 jornadas", meta: "Fixture list carregada para a época completa" }
         ],
+        livePages: [
+            {
+                id: "recentes",
+                label: "Resultados recentes",
+                eyebrow: "Última sessão",
+                title: "A recolher",
+                copy: "Quando começarem a entrar resultados, esta página mostra os jogos mais recentes da Liga Croata sem obrigar o utilizador a procurar no calendário.",
+                items: ["Último resultado", "Jogo da noite", "Maior surpresa"]
+            },
+            {
+                id: "noticias",
+                label: "Notícias",
+                eyebrow: "Sala de imprensa",
+                title: "Mercado aberto",
+                copy: "Espaço para pequenas manchetes, provocações e storylines da save. A ideia é transformar cada sessão num resumo rápido e fácil de acompanhar.",
+                items: ["Rumores", "Conferências", "Tensão entre treinadores"]
+            },
+            {
+                id: "estatisticas",
+                label: "Estatísticas da Liga",
+                eyebrow: "Data hub",
+                title: "Números da época",
+                copy: "Aqui entram métricas gerais da competição: golos, média por jogo, melhor ataque, melhor defesa e tendências da forma recente.",
+                items: ["Golos totais", "Melhor ataque", "Melhor defesa"]
+            },
+            {
+                id: "treinador-mes",
+                label: "Treinador do mês",
+                eyebrow: "Destaque mensal",
+                title: "Por atribuir",
+                copy: "Quando houver dados suficientes, esta página pode destacar o treinador do mês com registo, momento-chave e mini narrativa.",
+                items: ["Registo", "Momento-chave", "Quote da imprensa"]
+            }
+        ],
         transfers: croatiaTransfers,
         tabela: croatiaAlphabeticalTable.map((entry, index) => ({
             pos: index + 1,
@@ -1009,6 +1043,7 @@ const coachByNarrativeTeam = {
     "Livingston": { coachName: "Painatal", team: "Livingston" }
 };
 let selectedCoachId = coachProfiles[0].id;
+let activeLeagueLivePage = {};
 
 const TOTAL_ROUNDS = jogadores.length;
 const ITEM_WIDTH_TEAM = 126;
@@ -2390,6 +2425,37 @@ function renderLeagueTeamOfYear(league) {
 }
 
 function renderLeagueLiveCards(league) {
+    if (league.livePages?.length) {
+        let activePageId = activeLeagueLivePage[league.id] || league.livePages[0].id;
+        let activePage = league.livePages.find((page) => page.id === activePageId) || league.livePages[0];
+        let tabs = league.livePages.map((page) => `
+            <button
+                class="league-live-tab ${page.id === activePage.id ? "active" : ""}"
+                type="button"
+                onclick="setLeagueLivePage('${league.id}', '${page.id}')"
+                aria-pressed="${page.id === activePage.id ? "true" : "false"}"
+            >
+                ${page.label}
+            </button>
+        `).join("");
+        let items = (activePage.items || []).map((item) => `<span>${item}</span>`).join("");
+
+        return `
+            <section class="league-side-card league-live-panel-card">
+                <div class="league-side-head centered">
+                    <strong>Época Atual</strong>
+                </div>
+                <div class="league-live-tabs" role="tablist" aria-label="Páginas da época atual">${tabs}</div>
+                <div class="league-live-page">
+                    <div class="league-live-page-eyebrow">${activePage.eyebrow}</div>
+                    <div class="league-live-page-title">${activePage.title}</div>
+                    <p class="league-live-page-copy">${activePage.copy}</p>
+                    <div class="league-live-page-tags">${items}</div>
+                </div>
+            </section>
+        `;
+    }
+
     if (!league.liveCards?.length) return "";
     let cards = league.liveCards.map((card) => `
         <div class="league-live-card">
@@ -2408,6 +2474,11 @@ function renderLeagueLiveCards(league) {
             <div class="league-live-grid">${cards}</div>
         </section>
     `;
+}
+
+function setLeagueLivePage(leagueId, pageId) {
+    activeLeagueLivePage[leagueId] = pageId;
+    renderLeague(leagueId);
 }
 
 function renderTransferClub(league, clubName) {
@@ -2463,8 +2534,7 @@ function renderLeagueTransfers(league) {
 
     return `
         <section class="league-side-card league-transfers-card">
-            <div class="league-side-head">
-                <span>Histórico do mercado</span>
+            <div class="league-side-head centered">
                 <strong>Transferências</strong>
             </div>
             <div class="league-transfer-table-head">
@@ -2526,8 +2596,7 @@ function renderLeagueCalendar(league) {
 
     return `
         <section class="league-side-card league-calendar-card">
-            <div class="league-side-head">
-                <span>Jogos entre treinadores</span>
+            <div class="league-side-head centered">
                 <strong>Calendário</strong>
             </div>
             <div class="league-calendar-scroll">${monthBlocks}</div>
