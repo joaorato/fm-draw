@@ -602,6 +602,45 @@ const scotlandLeagueMerits = {
     ]
 };
 
+const scotlandSideStats = [
+    {
+        title: "Golos Esperados (xG) a Favor",
+        columns: ["Pos", "Equipa", "xGM", "Jgs", "Gls", "Pos. Liga"],
+        rows: [
+            { pos: "1", team: "Aberdeen", xgm: "86,23", jgs: "38", gls: "74", leaguePos: "3" },
+            { pos: "2", team: "Hibernian", xgm: "74,49", jgs: "38", gls: "85", leaguePos: "2" },
+            { pos: "3", team: "Dundee", xgm: "67,72", jgs: "38", gls: "61", leaguePos: "4" },
+            { pos: "4º", team: "Rangers", xgm: "67,59", jgs: "38", gls: "84", leaguePos: "1" },
+            { pos: "5º", team: "Celtic", xgm: "60,33", jgs: "38", gls: "70", leaguePos: "5" },
+            { pos: "6º", team: "Falkirk", xgm: "59,80", jgs: "38", gls: "65", leaguePos: "8" },
+            { pos: "7º", team: "Hearts", xgm: "56,87", jgs: "38", gls: "76", leaguePos: "7" },
+            { pos: "8º", team: "Kilmarnock", xgm: "54,06", jgs: "38", gls: "51", leaguePos: "9" },
+            { pos: "9º", team: "Dundee Utd", xgm: "51,45", jgs: "38", gls: "60", leaguePos: "10" },
+            { pos: "10º", team: "St. Mirren", xgm: "48,86", jgs: "38", gls: "52", leaguePos: "6" },
+            { pos: "11º", team: "Livingston", xgm: "33,64", jgs: "38", gls: "41", leaguePos: "12" },
+            { pos: "12º", team: "Motherwell", xgm: "30,34", jgs: "38", gls: "30", leaguePos: "11" }
+        ]
+    },
+    {
+        title: "Golos",
+        columns: ["Pos", "Equipa", "Gls", "Jgs", "Gl/Jog", "Pos. Liga"],
+        rows: [
+            { pos: "1", team: "Hibernian", gls: "85", jgs: "38", perGame: "2,24", leaguePos: "2" },
+            { pos: "2", team: "Rangers", gls: "84", jgs: "38", perGame: "2,21", leaguePos: "1" },
+            { pos: "3", team: "Hearts", gls: "76", jgs: "38", perGame: "2,00", leaguePos: "7" },
+            { pos: "4º", team: "Aberdeen", gls: "74", jgs: "38", perGame: "1,95", leaguePos: "3" },
+            { pos: "5º", team: "Celtic", gls: "70", jgs: "38", perGame: "1,84", leaguePos: "5" },
+            { pos: "6º", team: "Falkirk", gls: "65", jgs: "38", perGame: "1,71", leaguePos: "8" },
+            { pos: "7º", team: "Dundee", gls: "61", jgs: "38", perGame: "1,61", leaguePos: "4" },
+            { pos: "8º", team: "Dundee Utd", gls: "60", jgs: "38", perGame: "1,58", leaguePos: "10" },
+            { pos: "9º", team: "St. Mirren", gls: "52", jgs: "38", perGame: "1,37", leaguePos: "6" },
+            { pos: "10º", team: "Kilmarnock", gls: "51", jgs: "38", perGame: "1,34", leaguePos: "9" },
+            { pos: "11º", team: "Livingston", gls: "41", jgs: "38", perGame: "1,08", leaguePos: "12" },
+            { pos: "12º", team: "Motherwell", gls: "30", jgs: "38", perGame: "0,79", leaguePos: "11" }
+        ]
+    }
+];
+
 const croatiaSeedTable = [
     { equipa: "Dinamo Zagreb", logo: "assets/logos/teams/croacia/dinamo_zagreb_logo.png", jogador: null, prevista: 1 },
     { equipa: "Hajduk Split", logo: "assets/logos/teams/croacia/hajduksplit.png", jogador: null, prevista: 2 },
@@ -928,6 +967,7 @@ const leagues = [
         fixtures: scotlandFixtures,
         fixtureMonths: scotlandFixtureMonths,
         merits: scotlandLeagueMerits,
+        sideStats: scotlandSideStats,
         tacas: [
             { tipo: "Vencedor da Taça da Liga", jogador: "Gonçalo", pontos: 5 },
             { tipo: "Finalista da Taça da Liga", jogador: null, pontos: 2 },
@@ -2622,6 +2662,89 @@ function renderLeagueLowerPanel(league) {
     `;
 }
 
+function renderLeagueSideStats(league) {
+    if (!league.sideStats?.length) return "";
+
+    let panels = league.sideStats.map((stat, index) => {
+        let rows = stat.rows.map((row) => {
+            let teamEntry = getLeagueTeamEntry(league, row.team);
+            let metric = index === 0 ? row.xgm : row.gls;
+            let extra = index === 0 ? row.gls : row.perGame;
+
+            return `
+                <div class="side-stat-row">
+                    <span class="side-stat-pos">${row.pos}</span>
+                    <span class="side-stat-team" title="${row.team}">
+                        ${teamEntry?.logo ? `<img src="${teamEntry.logo}" alt="${row.team}" class="side-stat-logo" loading="lazy">` : ""}
+                        <span>${row.team}</span>
+                    </span>
+                    <strong>${metric}</strong>
+                    <span>${row.jgs}</span>
+                    <span>${extra}</span>
+                    <span>${row.leaguePos}</span>
+                </div>
+            `;
+        }).join("");
+
+        return `
+            <article class="side-stat-table ${index === 0 ? "active" : ""}" data-side-stat-panel="${index}" data-side-stat-title="${stat.title}">
+                <div class="side-stat-head">
+                    ${stat.columns.map((column) => `<span title="${column}">${column}</span>`).join("")}
+                </div>
+                <div class="side-stat-body">${rows}</div>
+            </article>
+        `;
+    }).join("");
+
+    return `
+        <section class="league-side-stats">
+            <div class="side-stats-head">
+                <h3 class="side-stats-title">Estatísticas da Liga</h3>
+                <div class="side-stat-controls" aria-label="Escolher estatística">
+                    <button class="side-stat-arrow" type="button" data-side-stat-direction="-1" aria-label="Estatística anterior">‹</button>
+                    <span class="side-stat-current" title="${league.sideStats[0].title}">${league.sideStats[0].title}</span>
+                    <button class="side-stat-arrow" type="button" data-side-stat-direction="1" aria-label="Estatística seguinte">›</button>
+                </div>
+            </div>
+            ${panels}
+        </section>
+    `;
+}
+
+function setupLeagueSideStats(scope = document) {
+    scope.querySelectorAll(".league-side-stats").forEach((container) => {
+        let panels = [...container.querySelectorAll(".side-stat-table")];
+        let label = container.querySelector(".side-stat-current");
+        let currentIndex = panels.findIndex((panel) => panel.classList.contains("active"));
+        if (currentIndex < 0) currentIndex = 0;
+
+        let setActivePanel = (index) => {
+            currentIndex = (index + panels.length) % panels.length;
+            panels.forEach((panel, panelIndex) => {
+                let active = panelIndex === currentIndex;
+                panel.classList.toggle("active", active);
+                if (active && label) {
+                    label.textContent = panel.dataset.sideStatTitle || "";
+                    label.title = panel.dataset.sideStatTitle || "";
+                }
+            });
+        };
+
+        panels.forEach((panel, index) => {
+            if (index === currentIndex && label) {
+                label.textContent = panel.dataset.sideStatTitle || "";
+                label.title = panel.dataset.sideStatTitle || "";
+            }
+        });
+
+        container.querySelectorAll(".side-stat-arrow").forEach((button) => {
+            button.addEventListener("click", () => {
+                setActivePanel(currentIndex + Number(button.dataset.sideStatDirection || 1));
+            });
+        });
+    });
+}
+
 function renderLeague(leagueId) {
     let league = leagues.find((l) => l.id === leagueId);
     let panel = document.getElementById("leaguePanel");
@@ -2759,12 +2882,14 @@ function renderLeague(leagueId) {
                         ${bonusRows}
                     </div>
                 </div>
+                ${renderLeagueSideStats(league)}
             </aside>`}
         </div>
         ${renderLeagueLowerPanel(league)}
     `;
 
     setupStandingsColumnHover(panel);
+    setupLeagueSideStats(panel);
     bindCoachLinks(panel);
 }
 
