@@ -1086,6 +1086,7 @@ let selectedCoachId = coachProfiles[0].id;
 let activeLeagueLivePage = {};
 let leagueLiveAutoTimer = null;
 let pausedLeagueLivePages = new Set();
+let activeLeagueId = "croacia";
 
 const TOTAL_ROUNDS = jogadores.length;
 const ITEM_WIDTH_TEAM = 126;
@@ -2366,15 +2367,63 @@ function renderGeneralTable() {
 }
 
 function renderLeagueSelector() {
-    let select = document.getElementById("leagueSelect");
-    select.innerHTML = "";
-    leagues.forEach((league) => {
-        let option = document.createElement("option");
-        option.value = league.id;
-        option.textContent = league.statusLabel ? `${league.nome} — ${league.statusLabel}` : league.nome;
-        select.appendChild(option);
-    });
-    renderLeague(leagues[0].id);
+    let selector = document.getElementById("leagueSelector");
+    if (!selector) return;
+
+    let activeLeague = leagues.find((league) => league.id === activeLeagueId) || leagues[0];
+    activeLeagueId = activeLeague.id;
+
+    let options = leagues.map((league) => {
+        let label = league.statusLabel ? `${league.nome} — ${league.statusLabel}` : league.nome;
+        return `
+            <button
+                class="league-main-option ${league.id === activeLeague.id ? "active" : ""}"
+                type="button"
+                onclick="selectMainLeague('${league.id}')"
+                aria-pressed="${league.id === activeLeague.id ? "true" : "false"}"
+            >
+                ${label}
+            </button>
+        `;
+    }).join("");
+
+    let activeLabel = activeLeague.statusLabel ? `${activeLeague.nome} — ${activeLeague.statusLabel}` : activeLeague.nome;
+    selector.innerHTML = `
+        <div class="league-main-select-wrap">
+            <button class="league-main-select" type="button" onclick="toggleMainLeagueMenu()" aria-expanded="false" aria-label="Escolher liga">
+                ${activeLabel}
+            </button>
+            <div class="league-main-menu">
+                ${options}
+            </div>
+        </div>
+    `;
+
+    renderLeague(activeLeague.id);
+}
+
+function closeMainLeagueMenu() {
+    let menu = document.querySelector(".league-main-select-wrap.open");
+    if (!menu) return;
+    menu.classList.remove("open");
+    menu.querySelector(".league-main-select")?.setAttribute("aria-expanded", "false");
+}
+
+function toggleMainLeagueMenu() {
+    let menu = document.querySelector(".league-main-select-wrap");
+    if (!menu) return;
+    let willOpen = !menu.classList.contains("open");
+    closeMainLeagueMenu();
+    if (willOpen) {
+        menu.classList.add("open");
+        menu.querySelector(".league-main-select")?.setAttribute("aria-expanded", "true");
+    }
+}
+
+function selectMainLeague(leagueId) {
+    activeLeagueId = leagueId;
+    closeMainLeagueMenu();
+    renderLeagueSelector();
 }
 
 function getLeagueTeamEntry(league, teamName) {
@@ -2588,6 +2637,9 @@ function pauseLeagueLiveCarousel(leagueId) {
 document.addEventListener("click", (event) => {
     if (!event.target.closest(".league-live-select-wrap")) {
         closeLeagueLiveMenus();
+    }
+    if (!event.target.closest(".league-main-select-wrap")) {
+        closeMainLeagueMenu();
     }
 });
 

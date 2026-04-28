@@ -4057,40 +4057,113 @@ button:disabled {
 
 .league-selector {
     margin-bottom: 22px;
+    position: relative;
+    z-index: 30;
 }
 
-.league-select {
+.league-main-select-wrap {
+    position: relative;
     width: 100%;
     max-width: 340px;
-    padding: 14px 18px;
-    border-radius: 14px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
-    background: linear-gradient(180deg, rgba(57, 194, 194, 0.16), rgba(57, 194, 194, 0.08));
-    color: #eaf6ff;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    cursor: pointer;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2395cbff' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 6l3.5 4 3.5-4z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.league-select:hover,
-.league-select:focus {
+.league-main-select-wrap::after {
+    content: "›";
+    position: absolute;
+    right: 16px;
+    top: 25px;
+    color: rgba(112, 208, 255, 0.92);
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1;
+    transform: translateY(-50%) rotate(90deg);
+    pointer-events: none;
+}
+
+.league-main-select {
+    width: 100%;
+    min-height: 50px;
+    padding: 13px 44px 13px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(112, 208, 255, 0.16);
+    color: #eaf6ff;
+    background: linear-gradient(180deg, rgba(18, 50, 118, 0.82), rgba(8, 22, 72, 0.82));
+    font-family: "Oxanium", sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    text-align: left;
+    cursor: pointer;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        inset 0 0 18px rgba(112, 208, 255, 0.035),
+        0 0 14px rgba(36, 205, 255, 0.035);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.league-main-select:hover,
+.league-main-select:focus {
     border-color: rgba(106, 196, 255, 0.4);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 0 12px rgba(86, 184, 255, 0.18);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.055),
+        inset 0 0 22px rgba(112, 208, 255, 0.045),
+        0 0 18px rgba(86, 184, 255, 0.12);
     outline: none;
 }
 
-.league-select option {
-    background: #0a1e74;
-    color: #eaf6ff;
+.league-main-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    left: 0;
+    display: grid;
+    gap: 5px;
+    padding: 7px;
+    border-radius: 14px;
+    border: 1px solid rgba(112, 208, 255, 0.24);
+    background: linear-gradient(180deg, rgba(7, 23, 76, 0.98), rgba(3, 12, 45, 0.98));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 18px 34px rgba(0, 0, 0, 0.34),
+        0 0 24px rgba(36, 205, 255, 0.08);
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.league-main-select-wrap.open .league-main-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.league-main-option {
+    width: 100%;
+    padding: 10px 11px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: rgba(222, 239, 255, 0.82);
+    background: transparent;
+    font-family: "Oxanium", sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.league-main-option:hover,
+.league-main-option.active {
+    color: #ffffff;
+    border-color: rgba(112, 208, 255, 0.18);
+    background:
+        radial-gradient(circle at 12% 50%, rgba(112, 208, 255, 0.18), transparent 48%),
+        rgba(30, 73, 148, 0.52);
+}
+
+.league-main-option:hover {
+    transform: translateX(2px);
 }
 
 .league-card h3 {
