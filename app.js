@@ -1084,6 +1084,8 @@ const coachByNarrativeTeam = {
 };
 let selectedCoachId = coachProfiles[0].id;
 let activeLeagueLivePage = {};
+let leagueLiveAutoTimer = null;
+let pausedLeagueLivePages = new Set();
 
 const TOTAL_ROUNDS = jogadores.length;
 const ITEM_WIDTH_TEAM = 126;
@@ -1091,6 +1093,7 @@ const ITEM_WIDTH_PLAYER = 164;
 const SPIN_DURATION = 7000;
 const TEAM_SPIN_LOOPS = 5;
 const PLAYER_SPIN_LOOPS = 6;
+const LEAGUE_LIVE_AUTO_MS = 11000;
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -2468,11 +2471,11 @@ function renderLeagueLiveCards(league) {
     if (league.livePages?.length) {
         let activePageId = activeLeagueLivePage[league.id] || league.livePages[0].id;
         let activePage = league.livePages.find((page) => page.id === activePageId) || league.livePages[0];
-        let tabs = league.livePages.map((page) => `
+        let options = league.livePages.map((page) => `
             <button
-                class="league-live-tab ${page.id === activePage.id ? "active" : ""}"
+                class="league-live-option ${page.id === activePage.id ? "active" : ""}"
                 type="button"
-                onclick="setLeagueLivePage('${league.id}', '${page.id}')"
+                onclick="selectLeagueLivePage('${league.id}', '${page.id}')"
                 aria-pressed="${page.id === activePage.id ? "true" : "false"}"
             >
                 ${page.label}
@@ -2485,13 +2488,29 @@ function renderLeagueLiveCards(league) {
                 <div class="league-side-head centered">
                     <strong>Época Atual</strong>
                 </div>
-                <div class="league-live-tabs" role="tablist" aria-label="Páginas da época atual">${tabs}</div>
-                <div class="league-live-page">
-                    <div class="league-live-page-eyebrow">${activePage.eyebrow}</div>
-                    <div class="league-live-page-title">${activePage.title}</div>
-                    <p class="league-live-page-copy">${activePage.copy}</p>
-                    <div class="league-live-page-tags">${items}</div>
+                <div class="league-live-selector">
+                    <button class="league-live-section-arrow" type="button" onclick="stepLeagueLivePage('${league.id}', -1)" aria-label="Secção anterior">‹</button>
+                    <div class="league-live-select-wrap">
+                        <button class="league-live-select" type="button" onclick="toggleLeagueLiveMenu('${league.id}')" aria-expanded="false" aria-label="Escolher secção da época atual">
+                            ${activePage.label}
+                        </button>
+                        <div class="league-live-menu" data-live-menu="${league.id}">
+                            ${options}
+                        </div>
+                    </div>
+                    <button class="league-live-section-arrow" type="button" onclick="stepLeagueLivePage('${league.id}', 1)" aria-label="Secção seguinte">›</button>
                 </div>
+                <button class="league-live-page" type="button" data-live-page="${activePage.id}" onclick="pauseLeagueLiveCarousel('${league.id}')" aria-label="Pausar carrossel para ler: ${activePage.label}">
+                    <div class="league-live-page-content">
+                        <div class="league-live-page-kicker">
+                            <span class="league-live-status-dot"></span>
+                            <span>${activePage.eyebrow}</span>
+                        </div>
+                        <div class="league-live-page-title">${activePage.title}</div>
+                        <p class="league-live-page-copy">${activePage.copy}</p>
+                    </div>
+                    <div class="league-live-page-tags">${items}</div>
+                </button>
             </section>
         `;
     }
@@ -2517,8 +2536,79 @@ function renderLeagueLiveCards(league) {
 }
 
 function setLeagueLivePage(leagueId, pageId) {
+    pausedLeagueLivePages.delete(leagueId);
     activeLeagueLivePage[leagueId] = pageId;
     renderLeague(leagueId);
+}
+
+function closeLeagueLiveMenus() {
+    document.querySelectorAll(".league-live-select-wrap.open").forEach((menu) => {
+        menu.classList.remove("open");
+        menu.querySelector(".league-live-select")?.setAttribute("aria-expanded", "false");
+    });
+}
+
+function toggleLeagueLiveMenu(leagueId) {
+    let menu = document.querySelector(`[data-live-menu="${leagueId}"]`)?.closest(".league-live-select-wrap");
+    if (!menu) return;
+
+    let willOpen = !menu.classList.contains("open");
+    closeLeagueLiveMenus();
+
+    if (willOpen) {
+        pausedLeagueLivePages.add(leagueId);
+        if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
+        menu.classList.add("open");
+        menu.querySelector(".league-live-select")?.setAttribute("aria-expanded", "true");
+    }
+}
+
+function selectLeagueLivePage(leagueId, pageId) {
+    closeLeagueLiveMenus();
+    setLeagueLivePage(leagueId, pageId);
+}
+
+function stepLeagueLivePage(leagueId, direction = 1) {
+    let league = leagues.find((entry) => entry.id === leagueId);
+    if (!league?.livePages?.length) return;
+
+    let currentPageId = activeLeagueLivePage[league.id] || league.livePages[0].id;
+    let currentIndex = league.livePages.findIndex((page) => page.id === currentPageId);
+    let nextIndex = (currentIndex + Number(direction || 1) + league.livePages.length) % league.livePages.length;
+    pausedLeagueLivePages.delete(league.id);
+    activeLeagueLivePage[league.id] = league.livePages[nextIndex].id;
+    renderLeague(league.id);
+}
+
+function pauseLeagueLiveCarousel(leagueId) {
+    pausedLeagueLivePages.add(leagueId);
+    if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
+}
+
+document.addEventListener("click", (event) => {
+    if (!event.target.closest(".league-live-select-wrap")) {
+        closeLeagueLiveMenus();
+    }
+});
+
+function scheduleLeagueLiveAutoAdvance(league) {
+    if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
+    if (!league.livePages || league.livePages.length < 2) return;
+    if (pausedLeagueLivePages.has(league.id)) return;
+
+    leagueLiveAutoTimer = setTimeout(() => {
+        if (document.hidden) {
+            scheduleLeagueLiveAutoAdvance(league);
+            return;
+        }
+        if (pausedLeagueLivePages.has(league.id)) return;
+
+        let currentPageId = activeLeagueLivePage[league.id] || league.livePages[0].id;
+        let currentIndex = league.livePages.findIndex((page) => page.id === currentPageId);
+        let nextPage = league.livePages[(currentIndex + 1 + league.livePages.length) % league.livePages.length];
+        activeLeagueLivePage[league.id] = nextPage.id;
+        renderLeague(league.id);
+    }, LEAGUE_LIVE_AUTO_MS);
 }
 
 function renderTransferClub(league, clubName) {
@@ -2890,6 +2980,7 @@ function renderLeague(leagueId) {
 
     setupStandingsColumnHover(panel);
     setupLeagueSideStats(panel);
+    scheduleLeagueLiveAutoAdvance(league);
     bindCoachLinks(panel);
 }
 

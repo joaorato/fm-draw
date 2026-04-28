@@ -2016,63 +2016,190 @@ body::after {
     align-content: start;
 }
 
-.league-live-tabs {
+.league-live-selector {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
     gap: 8px;
-    padding: 12px 14px 0;
+    margin: 12px 14px 0;
 }
 
-.league-live-tab {
-    min-width: 0;
-    min-height: 34px;
-    padding: 8px 9px;
-    border: 1px solid rgba(112, 208, 255, 0.12);
-    border-radius: 12px;
-    color: rgba(210, 232, 255, 0.72);
+.league-live-select-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(112, 208, 255, 0.16);
     background:
-        radial-gradient(circle at 50% 0%, rgba(112, 208, 255, 0.08), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012));
-    font-size: 8.8px;
+        linear-gradient(180deg, rgba(18, 50, 118, 0.82), rgba(8, 22, 72, 0.82));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        inset 0 0 18px rgba(112, 208, 255, 0.035),
+        0 0 14px rgba(36, 205, 255, 0.035);
+    z-index: 10;
+}
+
+.league-live-section-arrow {
+    width: 18px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    color: rgba(158, 218, 255, 0.82);
+    background: transparent;
+    font-size: 20px;
     font-weight: 900;
-    letter-spacing: 0.8px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.18s ease, transform 0.18s ease, text-shadow 0.18s ease;
+}
+
+.league-live-section-arrow:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+    text-shadow: 0 0 12px rgba(112, 208, 255, 0.72);
+}
+
+.league-live-select-wrap::after {
+    content: "›";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    color: rgba(112, 208, 255, 0.92);
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1;
+    transform: translateY(-50%) rotate(90deg);
+    pointer-events: none;
+}
+
+.league-live-select {
+    min-width: 0;
+    width: 100%;
+    padding: 4px 24px;
+    border: 0;
+    outline: 0;
+    color: #ffffff;
+    background: transparent;
+    font-family: "Oxanium", sans-serif;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-align: center;
     text-transform: uppercase;
     cursor: pointer;
-    transition: border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
 
-.league-live-tab:hover,
-.league-live-tab.active {
-    color: #ffffff;
-    border-color: rgba(112, 208, 255, 0.34);
-    box-shadow:
-        inset 0 0 18px rgba(112, 208, 255, 0.08),
-        0 0 22px rgba(36, 205, 255, 0.08);
-}
-
-.league-live-tab.active {
-    transform: translateY(-1px);
+.league-live-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    left: 0;
+    display: grid;
+    gap: 5px;
+    padding: 7px;
+    border-radius: 14px;
+    border: 1px solid rgba(112, 208, 255, 0.24);
     background:
-        radial-gradient(circle at 50% 0%, rgba(112, 208, 255, 0.18), transparent 66%),
-        linear-gradient(180deg, rgba(43, 109, 205, 0.32), rgba(255,255,255,0.018));
+        linear-gradient(180deg, rgba(7, 23, 76, 0.98), rgba(3, 12, 45, 0.98));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 18px 34px rgba(0, 0, 0, 0.34),
+        0 0 24px rgba(36, 205, 255, 0.08);
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.league-live-select-wrap.open .league-live-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.league-live-option {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: rgba(222, 239, 255, 0.78);
+    background: transparent;
+    font-family: "Oxanium", sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.9px;
+    text-align: left;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.league-live-option:hover,
+.league-live-option.active {
+    color: #ffffff;
+    border-color: rgba(112, 208, 255, 0.18);
+    background:
+        radial-gradient(circle at 12% 50%, rgba(112, 208, 255, 0.18), transparent 48%),
+        rgba(30, 73, 148, 0.52);
+}
+
+.league-live-option:hover {
+    transform: translateX(2px);
 }
 
 .league-live-page {
+    position: relative;
     margin: 14px;
     min-height: 0;
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 18px;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 22px;
     border-radius: 17px;
     border: 1px solid rgba(122, 210, 255, 0.1);
-    background: rgba(13, 31, 88, 0.46);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-    isolation: isolate;
+    color: inherit;
+    background: rgba(11, 29, 85, 0.82) !important;
+    background-image: none !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.045);
+    isolation: auto;
+    animation: league-live-page-in 0.26s ease both;
+    text-align: left;
+    cursor: pointer;
+    appearance: none;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
 
-.league-live-page-eyebrow {
+.league-live-page:hover {
+    border-color: rgba(112, 208, 255, 0.2);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.055),
+        0 0 24px rgba(36, 205, 255, 0.055);
+}
+
+.league-live-page::before {
+    content: none !important;
+    display: none !important;
+}
+
+.league-live-page::after {
+    content: none !important;
+    display: none !important;
+}
+
+.league-live-page-content {
+    max-width: 92%;
+}
+
+.league-live-page-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     color: rgba(255, 255, 255, 0.88);
     font-size: 9px;
     font-weight: 900;
@@ -2080,39 +2207,64 @@ body::after {
     text-transform: uppercase;
 }
 
+.league-live-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #70d0ff;
+    box-shadow: 0 0 14px rgba(112, 208, 255, 0.8);
+}
+
 .league-live-page-title {
-    margin-top: 8px;
+    margin-top: 10px;
     color: #ffffff;
     font-family: "Michroma", sans-serif;
-    font-size: 20px;
+    font-size: clamp(18px, 2.1vw, 27px);
     font-weight: 400;
     letter-spacing: 0.4px;
+    text-shadow: 0 0 18px rgba(112, 208, 255, 0.12);
 }
 
 .league-live-page-copy {
-    margin: 12px 0 0;
-    color: rgba(229, 239, 255, 0.74);
-    font-size: 12px;
-    line-height: 1.55;
+    max-width: 44ch;
+    margin: 14px 0 0;
+    color: rgba(229, 239, 255, 0.78);
+    font-size: 12.2px;
+    line-height: 1.6;
 }
 
 .league-live-page-tags {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
-    margin-top: 18px;
+    margin-top: auto;
 }
 
 .league-live-page-tags span {
-    padding: 6px 9px;
-    border-radius: 999px;
-    color: rgba(224, 243, 255, 0.82);
-    background: rgba(112, 208, 255, 0.08);
-    border: 1px solid rgba(112, 208, 255, 0.12);
-    font-size: 8.5px;
+    min-width: 0;
+    padding: 9px 8px;
+    border-radius: 12px;
+    color: rgba(224, 243, 255, 0.86);
+    background: rgba(17, 48, 116, 0.72);
+    border: 1px solid rgba(112, 208, 255, 0.15);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    font-size: 8.1px;
     font-weight: 900;
-    letter-spacing: 0.9px;
+    letter-spacing: 0.75px;
+    line-height: 1.2;
+    text-align: center;
     text-transform: uppercase;
+}
+
+@keyframes league-live-page-in {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .league-live-card {
