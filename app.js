@@ -456,13 +456,46 @@ const scotlandSeasonScores = [
     pontos: (entry.prevista - entry.final) * 3
 })).sort((a, b) => b.pontos - a.pontos || a.final - b.final);
 
+const fixtureMonthNumbers = {
+    Jan: "01",
+    Fev: "02",
+    Mar: "03",
+    Abr: "04",
+    Mai: "05",
+    Jun: "06",
+    Jul: "07",
+    Ago: "08",
+    Set: "09",
+    Out: "10",
+    Nov: "11",
+    Dez: "12"
+};
+
+function slugifyFixturePart(value) {
+    return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[’']/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+}
+
+function createFixtureKey(date, home, away, year = "2025") {
+    let [dayRaw, monthRaw] = String(date || "").trim().split(/\s+/);
+    let day = String(Number.parseInt(dayRaw, 10) || 0).padStart(2, "0");
+    let month = fixtureMonthNumbers[monthRaw] || "00";
+    return `${year}-${month}-${day}-${slugifyFixturePart(home)}-${slugifyFixturePart(away)}`;
+}
+
 function createLeagueMatch(month, competition, date, home, score, away) {
+    let fixtureKey = createFixtureKey(date, home, away);
     if (score.trim() === "-") {
-        return { month, competition, date, home, away, homeGoals: null, awayGoals: null };
+        return { fixtureKey, month, competition, date, home, away, homeGoals: null, awayGoals: null };
     }
 
     let [homeGoals, awayGoals] = score.split("-").map((value) => Number(value.trim()));
-    return { month, competition, date, home, away, homeGoals, awayGoals };
+    return { fixtureKey, month, competition, date, home, away, homeGoals, awayGoals };
 }
 
 const scotlandFixtureMonths = ["Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio"];
@@ -654,12 +687,24 @@ const croatiaSeedTable = [
     { equipa: "HNK Vukovar", logo: "assets/logos/teams/croacia/hnkvukovar.png", jogador: "Hugo", prevista: 10 }
 ];
 
-const croatiaAlphabeticalTable = [...croatiaSeedTable].sort((a, b) => {
-    let clean = (team) => team.equipa.replace(/^(HNK|NK)\s+/i, "");
-    return clean(a).localeCompare(clean(b), "pt", { sensitivity: "base" });
-});
+function getCroatiaSeedEntry(teamName) {
+    return croatiaSeedTable.find((entry) => entry.equipa === teamName) || null;
+}
 
-const croatiaSeasonScores = croatiaSeedTable
+const croatiaCurrentTable = [
+    { pos: 1, inf: "↑", equipa: "HNK Rijeka", j: 2, v: 1, e: 1, d: 0, gm: 4, gs: 2, dg: 2, pts: 4, form: ["V", "E"] },
+    { pos: 2, inf: "↑", equipa: "Hajduk Split", j: 2, v: 1, e: 1, d: 0, gm: 5, gs: 4, dg: 1, pts: 4, form: ["V", "E"] },
+    { pos: 3, inf: "↑", equipa: "NK Osijek", j: 2, v: 1, e: 1, d: 0, gm: 3, gs: 2, dg: 1, pts: 4, form: ["E", "V"] },
+    { pos: 4, inf: "↓", equipa: "HNK Vukovar", j: 2, v: 1, e: 0, d: 1, gm: 5, gs: 2, dg: 3, pts: 3, form: ["V", "D"] },
+    { pos: 5, inf: "↑", equipa: "NK Varaždin", j: 2, v: 1, e: 0, d: 1, gm: 5, gs: 3, dg: 2, pts: 3, form: ["D", "V"] },
+    { pos: 6, inf: "--", equipa: "Dinamo Zagreb", j: 2, v: 0, e: 2, d: 0, gm: 1, gs: 1, dg: 0, pts: 2, form: ["E", "E"] },
+    { pos: 7, inf: "--", equipa: "NK Istra 1961", j: 2, v: 0, e: 2, d: 0, gm: 1, gs: 1, dg: 0, pts: 2, form: ["E", "E"] },
+    { pos: 8, inf: "↑", equipa: "NK Lokomotiva", j: 2, v: 0, e: 1, d: 1, gm: 3, gs: 5, dg: -2, pts: 1, form: ["D", "E"] },
+    { pos: 9, inf: "↓", equipa: "HNK Gorica", j: 2, v: 0, e: 1, d: 1, gm: 1, gs: 4, dg: -3, pts: 1, form: ["E", "D"] },
+    { pos: 10, inf: "--", equipa: "NK Slaven Belupo", j: 2, v: 0, e: 1, d: 1, gm: 1, gs: 5, dg: -4, pts: 1, form: ["D", "E"] }
+].map((row) => ({ ...row, ...getCroatiaSeedEntry(row.equipa) }));
+
+const croatiaSeasonScores = croatiaCurrentTable
     .filter((entry) => entry.jogador)
     .map((entry) => ({
         jogador: entry.jogador,
@@ -672,16 +717,16 @@ const croatiaSeasonScores = croatiaSeedTable
 const croatiaFixtureMonths = ["Agosto", "Setembro", "Outubro", "Novembro", "Dezembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio"];
 
 const croatiaFixtures = [
-    createLeagueMatch("Agosto", "HNL", "2 Ago", "Dinamo Zagreb", "-", "NK Istra 1961"),
-    createLeagueMatch("Agosto", "HNL", "2 Ago", "HNK Gorica", "-", "NK Osijek"),
-    createLeagueMatch("Agosto", "HNL", "2 Ago", "Hajduk Split", "-", "NK Varaždin"),
-    createLeagueMatch("Agosto", "HNL", "2 Ago", "HNK Rijeka", "-", "NK Lokomotiva"),
-    createLeagueMatch("Agosto", "HNL", "2 Ago", "HNK Vukovar", "-", "NK Slaven Belupo"),
-    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Istra 1961", "-", "HNK Rijeka"),
-    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Lokomotiva", "-", "Hajduk Split"),
-    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Osijek", "-", "HNK Vukovar"),
-    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Slaven Belupo", "-", "Dinamo Zagreb"),
-    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Varaždin", "-", "HNK Gorica"),
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "Dinamo Zagreb", "0-0", "NK Istra 1961"),
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "HNK Gorica", "1-1", "NK Osijek"),
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "Hajduk Split", "3-2", "NK Varaždin"),
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "HNK Rijeka", "3-1", "NK Lokomotiva"),
+    createLeagueMatch("Agosto", "HNL", "2 Ago", "HNK Vukovar", "4-0", "NK Slaven Belupo"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Istra 1961", "1-1", "HNK Rijeka"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Lokomotiva", "2-2", "Hajduk Split"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Osijek", "2-1", "HNK Vukovar"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Slaven Belupo", "1-1", "Dinamo Zagreb"),
+    createLeagueMatch("Agosto", "HNL", "9 Ago", "NK Varaždin", "3-0", "HNK Gorica"),
     createLeagueMatch("Agosto", "HNL", "16 Ago", "Dinamo Zagreb", "-", "NK Osijek"),
     createLeagueMatch("Agosto", "HNL", "16 Ago", "HNK Gorica", "-", "Hajduk Split"),
     createLeagueMatch("Agosto", "HNL", "16 Ago", "NK Istra 1961", "-", "NK Lokomotiva"),
@@ -854,11 +899,569 @@ const croatiaFixtures = [
     createLeagueMatch("Maio", "HNL", "23 Mai", "HNK Vukovar", "-", "NK Istra 1961")
 ];
 
+const croatiaRoundOneReports = [
+    {
+        fixtureKey: "2025-08-02-dinamo-zagreb-nk-istra-1961",
+        date: "Sábado 2 de Agosto de 2025",
+        stadium: "Maksimir",
+        weather: "Calmo",
+        playerOfMatch: "Franko Kolić",
+        rating: "7,65",
+        coaches: { home: "M. Kovačević", away: "João Pedro Rato" },
+        formations: {
+            home: {
+                name: "4-3-3 DM",
+                players: [
+                    [{ number: "9", name: "Dion Beljo", rating: "6,3", pos: "AvR" }],
+                    [{ number: "10", name: "Vidović", rating: "6,6", pos: "EAI" }, { number: "30", name: "Topić", rating: "6,3", pos: "EAI" }],
+                    [{ number: "27", name: "Mišić", rating: "6,8", pos: "MC" }, { number: "14", name: "Soldo", rating: "6,8", pos: "MC" }],
+                    [{ number: "4", name: "Bennacer", rating: "7,2", pos: "CJR" }],
+                    [{ number: "22", name: "Pérez Vinlöf", rating: "6,8", pos: "AI" }, { number: "26", name: "McKenna", rating: "6,9", pos: "CC" }, { number: "36", name: "Domínguez", rating: "6,7", pos: "CC" }, { number: "25", name: "Valinčić", rating: "6,5", pos: "AI" }],
+                    [{ number: "40", name: "Livaković", rating: "7,1", pos: "GR" }]
+                ]
+            },
+            away: {
+                name: "4-2-3-1",
+                players: [
+                    [{ number: "9", name: "Prevljak", rating: "6,4", pos: "AAE" }],
+                    [{ number: "11", name: "Goričan", rating: "6,5", pos: "AA" }, { number: "17", name: "Frederiksen", rating: "6,3", pos: "SA" }, { number: "7", name: "Rozić", rating: "6,3", pos: "Ex" }],
+                    [{ number: "10", name: "Lončar", rating: "7,0", pos: "MAA" }, { number: "5", name: "Radošević", rating: "7,0", pos: "MD" }],
+                    [{ number: "26", name: "Heister", rating: "6,4", pos: "AI" }, { number: "8", name: "Maurić", rating: "6,8", pos: "CC" }, { number: "3", name: "Nasraoui", rating: "6,6", pos: "DC" }, { number: "97", name: "Kadusić", rating: "6,6", pos: "AI" }],
+                    [{ number: "1", name: "Kolić", rating: "7,7", pos: "GR" }]
+                ]
+            }
+        },
+        events: { home: [], away: [] },
+        stats: [
+            { label: "Posse", home: "49%", away: "51%" },
+            { label: "Remates", home: "17", away: "8" },
+            { label: "Remates à Baliza", home: "8", away: "5" },
+            { label: "xG", home: "1,01", away: "0,21" },
+            { label: "PADPAD", home: "26,94", away: "28,08" },
+            { label: "Oportunidades Flagrantes", home: "0", away: "0" },
+            { label: "Cantos", home: "12", away: "6" },
+            { label: "Passes Completados", home: "90%", away: "88%" },
+            { label: "Cruzamentos Completados", home: "18%", away: "13%" },
+            { label: "Faltas", home: "8", away: "9" },
+            { label: "Cartões amarelos", home: "0", away: "1" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "119", away: "119" },
+            { label: "Classificação Média", home: "6,7", away: "6,7" }
+        ]
+    },
+    {
+        fixtureKey: "2025-08-02-hnk-gorica-nk-osijek",
+        date: "Sábado 2 de Agosto de 2025",
+        stadium: "Gradski stadion Velika Gorica",
+        weather: "Tempestuoso",
+        playerOfMatch: "Jakov Filipović",
+        rating: "7,68",
+        coaches: { home: "Miguel Cardoso", away: "Gamy Chambelito" },
+        formations: {
+            home: {
+                name: "4-3-3 DM",
+                players: [
+                    [{ number: "18", name: "Fiolić", rating: "6,2", pos: "Ex" }, { number: "24", name: "Pavičić", rating: "6,7", pos: "MO" }, { number: "20", name: "Vrzić", rating: "6,4", pos: "Ex" }],
+                    [{ number: "10", name: "Pršir", rating: "6,6", pos: "CJA" }, { number: "7", name: "Bakić", rating: "6,4", pos: "ME" }],
+                    [{ number: "36", name: "Kavelj", rating: "6,5", pos: "CJR" }],
+                    [{ number: "19", name: "Čabraja", rating: "6,2", pos: "AI" }, { number: "4", name: "J. Filipović", rating: "7,7", pos: "DC", goal: true }, { number: "45", name: "Perić", rating: "6,5", pos: "CP" }, { number: "9", name: "Bogojević", rating: "6,7", pos: "AI" }],
+                    [{ number: "21", name: "Matijaš", rating: "6,3", pos: "GRC" }]
+                ]
+            },
+            away: {
+                name: "4-2-3-1",
+                players: [
+                    [{ number: "39", name: "Bukvić", rating: "6,5", pos: "AvR" }],
+                    [{ number: "11", name: "Omerović", rating: "7,0", pos: "CL", goal: true }, { number: "16", name: "Petrusenko", rating: "6,8", pos: "ME" }, { number: "17", name: "Jakupović", rating: "6,2", pos: "CJA" }],
+                    [{ number: "6", name: "Nico Gaitán", rating: "6,4", pos: "CJA" }],
+                    [{ number: "38", name: "Čolina", rating: "6,8", pos: "AI" }, { number: "23", name: "Vrbančić", rating: "6,5", pos: "MD" }, { number: "29", name: "Karačić", rating: "6,2", pos: "AI" }],
+                    [{ number: "26", name: "Jelenić", rating: "6,8", pos: "CC" }, { number: "15", name: "Mersinaj", rating: "7,1", pos: "DC" }],
+                    [{ number: "31", name: "Malenica", rating: "6,8", pos: "GR" }]
+                ]
+            }
+        },
+        events: {
+            home: ["61' J. Filipović J. Pršir"],
+            away: ["30' N. Omerović"]
+        },
+        stats: [
+            { label: "Posse", home: "31%", away: "69%" },
+            { label: "Remates", home: "10", away: "13" },
+            { label: "Remates à Baliza", home: "7", away: "4" },
+            { label: "xG", home: "0,73", away: "0,55" },
+            { label: "PADPAD", home: "24,40", away: "10,77" },
+            { label: "Oportunidades Flagrantes", home: "0", away: "0" },
+            { label: "Cantos", home: "4", away: "6" },
+            { label: "Passes Completados", home: "84%", away: "90%" },
+            { label: "Cruzamentos Completados", home: "25%", away: "12%" },
+            { label: "Faltas", home: "7", away: "16" },
+            { label: "Cartões amarelos", home: "1", away: "3" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "120", away: "121" },
+            { label: "Classificação Média", home: "6,6", away: "6,6" }
+        ]
+    },
+    {
+        fixtureKey: "2025-08-02-hajduk-split-nk-varazdin",
+        date: "Sábado 2 de Agosto de 2025",
+        stadium: "Stadion Poljud",
+        weather: "Calmo",
+        playerOfMatch: "Ante Rebić",
+        rating: "9,08",
+        coaches: { home: "Gonzalo Garcia", away: "João Nabais" },
+        formations: {
+            home: {
+                name: "4-3-3 DM",
+                players: [
+                    [{ number: "10", name: "Livaja", rating: "8,0", pos: "AR", goal: true }],
+                    [{ number: "9", name: "A. Rebić", rating: "9,1", pos: "EAI", goal: true }, { number: "11", name: "Šego", rating: "7,2", pos: "EAI" }],
+                    [{ number: "23", name: "Krovinović", rating: "6,9", pos: "MC" }, { number: "21", name: "Pukštas", rating: "6,9", pos: "ME" }],
+                    [{ number: "6", name: "Hugo G.", rating: "6,5", pos: "MD" }],
+                    [{ number: "32", name: "Hrgović", rating: "7,2", pos: "AI" }, { number: "14", name: "Raçi", rating: "6,7", pos: "CC" }, { number: "15", name: "Marešić", rating: "7,0", pos: "CC" }, { number: "8", name: "Sigur", rating: "6,7", pos: "DL" }],
+                    [{ number: "13", name: "Ivušić", rating: "6,6", pos: "GRC" }]
+                ]
+            },
+            away: {
+                name: "4-2-3-1",
+                players: [
+                    [{ number: "10", name: "Biró", rating: "6,5", pos: "AR" }],
+                    [{ number: "7", name: "Vuk", rating: "6,2", pos: "Ex" }, { number: "27", name: "Latković", rating: "6,7", pos: "CJA" }, { number: "12", name: "Bočkaj", rating: "6,9", pos: "AI" }],
+                    [{ number: "8", name: "Duvnjak", rating: "7,4", pos: "CJR", goal: true }, { number: "24", name: "Marina", rating: "6,3", pos: "MAA" }],
+                    [{ number: "3", name: "Sikošek", rating: "6,3", pos: "AI" }, { number: "44", name: "Barać", rating: "7,2", pos: "DC", goal: true }, { number: "16", name: "Tepšić", rating: "6,3", pos: "CC" }, { number: "23", name: "Maglica", rating: "7,3", pos: "AI", goal: true }],
+                    [{ number: "1", name: "Zelenika", rating: "6,8", pos: "GR" }]
+                ]
+            }
+        },
+        events: {
+            home: ["8' M. Livaja M. Šego", "70' A. Rebić Š. Hrgović", "90+4' A. Rebić M. Livaja"],
+            away: ["21' F. Maglica T. Duvnjak", "75' P. Bočkaj M. Barać"]
+        },
+        stats: [
+            { label: "Posse", home: "61%", away: "39%" },
+            { label: "Remates", home: "23", away: "8" },
+            { label: "Remates à Baliza", home: "10", away: "4" },
+            { label: "xG", home: "1,67", away: "0,77" },
+            { label: "PADPAD", home: "17,24", away: "22,86" },
+            { label: "Oportunidades Flagrantes", home: "0", away: "0" },
+            { label: "Cantos", home: "14", away: "4" },
+            { label: "Passes Completados", home: "92%", away: "86%" },
+            { label: "Cruzamentos Completados", home: "16%", away: "8%" },
+            { label: "Faltas", home: "12", away: "7" },
+            { label: "Cartões amarelos", home: "0", away: "0" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "119", away: "119" },
+            { label: "Classificação Média", home: "7,1", away: "6,7" }
+        ]
+    },
+    {
+        fixtureKey: "2025-08-02-hnk-rijeka-nk-lokomotiva",
+        date: "Sábado 2 de Agosto de 2025",
+        stadium: "Rujevica",
+        weather: "Brisa",
+        playerOfMatch: "Tiago Dantas",
+        rating: "8,72",
+        coaches: { home: "Zép Jóbes", away: "P. Natal" },
+        formations: {
+            home: {
+                name: "3-4-2-1",
+                players: [
+                    [{ number: "9", name: "Duje Čop", rating: "6,5", pos: "AvR" }],
+                    [{ number: "10", name: "Fruk", rating: "6,9", pos: "ME" }, { number: "26", name: "Dantas", rating: "8,7", pos: "MO", goal: true }],
+                    [{ number: "34", name: "Devetak", rating: "6,7", pos: "AI" }, { number: "21", name: "Lacoux", rating: "6,7", pos: "MD" }, { number: "11", name: "André", rating: "7,7", pos: "CJR", goal: true }, { number: "22", name: "Oreč", rating: "7,7", pos: "AI" }],
+                    [{ number: "51", name: "Husić", rating: "6,9", pos: "DC" }, { number: "6", name: "Radeljić", rating: "7,1", pos: "DC" }, { number: "45", name: "Majstorović", rating: "6,7", pos: "DC" }],
+                    [{ number: "13", name: "Zlomislić", rating: "6,6", pos: "GR" }]
+                ]
+            },
+            away: {
+                name: "4-2-3-1",
+                players: [
+                    [{ number: "19", name: "Rui Pedro", rating: "6,1", pos: "AC" }],
+                    [{ number: "6", name: "Stojaković", rating: "6,7", pos: "AA", goal: true }, { number: "22", name: "Trajkovski", rating: "6,2", pos: "MO" }, { number: "27", name: "Córdoba", rating: "6,6", pos: "AA" }],
+                    [{ number: "68", name: "Antolić", rating: "6,5", pos: "MC" }, { number: "14", name: "Belcar", rating: "6,4", pos: "MC" }],
+                    [{ number: "34", name: "Pajač", rating: "6,2", pos: "AI" }, { number: "21", name: "Sigali", rating: "6,7", pos: "CC" }, { number: "11", name: "Kolinger", rating: "6,4", pos: "DC" }, { number: "22", name: "Vešović", rating: "6,7", pos: "AI" }],
+                    [{ number: "12", name: "Posavec", rating: "6,5", pos: "GR" }]
+                ]
+            }
+        },
+        events: {
+            home: ["5' Tiago Dantas A. Oreč", "12' Tiago Dantas T. Fruk", "28' André Tiago Dantas"],
+            away: ["46' M. Šitum A. Stojaković"]
+        },
+        stats: [
+            { label: "Posse", home: "50%", away: "50%" },
+            { label: "Remates", home: "12", away: "13" },
+            { label: "Remates à Baliza", home: "7", away: "4" },
+            { label: "xG", home: "1,54", away: "0,98" },
+            { label: "PADPAD", home: "22,39", away: "35,55" },
+            { label: "Oportunidades Flagrantes", home: "1", away: "0" },
+            { label: "Cantos", home: "4", away: "3" },
+            { label: "Passes Completados", home: "92%", away: "87%" },
+            { label: "Cruzamentos Completados", home: "15%", away: "36%" },
+            { label: "Faltas", home: "13", away: "12" },
+            { label: "Cartões amarelos", home: "2", away: "1" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "115", away: "114" },
+            { label: "Classificação Média", home: "7,1", away: "6,5" }
+        ]
+    },
+    {
+        fixtureKey: "2025-08-02-hnk-vukovar-nk-slaven-belupo",
+        date: "Sábado 2 de Agosto de 2025",
+        stadium: "Stadion HNK Cibalia",
+        weather: "Calmo",
+        playerOfMatch: "Mario Tićinović",
+        rating: "9,81",
+        coaches: { home: "Hugo Macedo", away: "Francisco Pinto" },
+        formations: {
+            home: {
+                name: "3-4-1-2",
+                players: [
+                    [{ number: "21", name: "Puljić", rating: "8,0", pos: "AAE", goal: true }, { number: "9", name: "Kulušić", rating: "9,1", pos: "AC", goal: true }],
+                    [{ number: "10", name: "Gonzalez", rating: "7,4", pos: "CL" }],
+                    [{ number: "3", name: "Bosec", rating: "7,2", pos: "AI" }, { number: "13", name: "Čaić", rating: "6,5", pos: "MD" }, { number: "18", name: "Antolković", rating: "7,1", pos: "MAA" }, { number: "91", name: "Tićinović", rating: "9,8", pos: "AI", goal: true }],
+                    [{ number: "5", name: "Elez", rating: "6,9", pos: "CC" }, { number: "34", name: "Tadić", rating: "7,2", pos: "DC" }, { number: "4", name: "Mitrović", rating: "7,3", pos: "CC" }],
+                    [{ number: "14", name: "Pintol", rating: "7,3", pos: "GR" }]
+                ]
+            },
+            away: {
+                name: "4-3-1-2",
+                players: [
+                    [{ number: "90", name: "Nestorovski", rating: "6,3", pos: "AR" }, { number: "7", name: "Dabro", rating: "6,4", pos: "AC" }],
+                    [{ number: "15", name: "Čubelić", rating: "6,1", pos: "MO" }],
+                    [{ number: "3", name: "Jakir", rating: "6,1", pos: "AI" }, { number: "21", name: "Crepulja", rating: "5,9", pos: "CJR" }, { number: "8", name: "Mrowca", rating: "6,1", pos: "MD" }, { number: "18", name: "Krušelj", rating: "6,5", pos: "AI" }],
+                    [{ number: "4", name: "Ković", rating: "6,5", pos: "CC" }, { number: "6", name: "Božić", rating: "6,8", pos: "CC" }, { number: "2", name: "Međimorec", rating: "6,7", pos: "DC" }],
+                    [{ number: "", name: "Hadžikić", rating: "6,5", pos: "GR" }]
+                ]
+            }
+        },
+        events: {
+            home: ["25' J. Puljić L. Kulušić", "39' L. Kulušić M. Tićinović", "57' L. Kulušić J. Puljić", "90+3' M. Tićinović R. Gonzalez"],
+            away: []
+        },
+        stats: [
+            { label: "Posse", home: "46%", away: "54%" },
+            { label: "Remates", home: "18", away: "9" },
+            { label: "Remates à Baliza", home: "9", away: "4" },
+            { label: "xG", home: "2,25", away: "0,57" },
+            { label: "PADPAD", home: "24,11", away: "12,92" },
+            { label: "Oportunidades Flagrantes", home: "2", away: "0" },
+            { label: "Cantos", home: "9", away: "5" },
+            { label: "Passes Completados", home: "86%", away: "87%" },
+            { label: "Cruzamentos Completados", home: "22%", away: "25%" },
+            { label: "Faltas", home: "13", away: "9" },
+            { label: "Cartões amarelos", home: "2", away: "4" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "123", away: "119" },
+            { label: "Classificação Média", home: "7,6", away: "6,4" }
+        ]
+    }
+];
+
+const croatiaRoundTwoReports = [
+    {
+        fixtureKey: "2025-08-09-nk-istra-1961-hnk-rijeka",
+        date: "Sábado 9 de Agosto de 2025",
+        stadium: "Aldo Drosina",
+        weather: "Calmo",
+        playerOfMatch: "Silvio Goričan",
+        rating: "7,33",
+        coaches: { home: "João Pedro Rato", away: "Zép Jóbes" },
+        formations: {
+            home: {
+                name: "4-2-3-1",
+                players: [
+                    [{ number: "9", name: "Prevljak", rating: "7,0", pos: "AAE", goal: true }],
+                    [{ number: "11", name: "Goričan", rating: "7,3", pos: "AA" }, { number: "17", name: "Frederiksen", rating: "6,2", pos: "SA" }, { number: "7", name: "Rozić", rating: "6,3", pos: "Ex" }],
+                    [{ number: "10", name: "Lončar", rating: "6,6", pos: "MAA" }, { number: "5", name: "Radošević", rating: "6,9", pos: "MD" }],
+                    [{ number: "26", name: "Heister", rating: "6,2", pos: "AI" }, { number: "8", name: "Maurić", rating: "6,6", pos: "CC" }, { number: "3", name: "Nasraoui", rating: "6,6", pos: "DC" }, { number: "97", name: "Kadusić", rating: "6,4", pos: "AI" }],
+                    [{ number: "1", name: "Kolić", rating: "6,7", pos: "GR" }]
+                ]
+            },
+            away: {
+                name: "4-2-3-1",
+                players: [
+                    [{ number: "10", name: "Fruk", rating: "6,6", pos: "AvR" }],
+                    [{ number: "14", name: "Gojak", rating: "7,2", pos: "ME", goal: true }, { number: "26", name: "Dantas", rating: "6,9", pos: "MO" }],
+                    [{ number: "34", name: "Devetak", rating: "6,5", pos: "AI" }, { number: "21", name: "Lacoux", rating: "7,0", pos: "MD" }, { number: "11", name: "André", rating: "6,8", pos: "CJR" }, { number: "23", name: "Lasickas", rating: "7,0", pos: "AI" }],
+                    [{ number: "51", name: "Husić", rating: "6,8", pos: "DC" }, { number: "6", name: "Radeljić", rating: "6,7", pos: "DC" }, { number: "45", name: "Majstorović", rating: "6,8", pos: "DC" }],
+                    [{ number: "13", name: "Zlomislić", rating: "6,9", pos: "GR" }]
+                ]
+            }
+        },
+        events: {
+            home: ["58' S. Prevljak S. Goričan"],
+            away: ["19' A. Gojak Tiago Dantas"]
+        },
+        stats: [
+            { label: "Posse", home: "38%", away: "62%" },
+            { label: "Remates", home: "9", away: "9" },
+            { label: "Remates à Baliza", home: "7", away: "4" },
+            { label: "xG", home: "0,82", away: "0,78" },
+            { label: "PADPAD", home: "30,06", away: "29,33" },
+            { label: "Oportunidades Flagrantes", home: "1", away: "0" },
+            { label: "Cantos", home: "6", away: "2" },
+            { label: "Passes Completados", home: "88%", away: "92%" },
+            { label: "Cruzamentos Completados", home: "9%", away: "5%" },
+            { label: "Faltas", home: "12", away: "9" },
+            { label: "Cartões amarelos", home: "0", away: "0" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "125", away: "124" },
+            { label: "Classificação Média", home: "6,6", away: "6,8" }
+        ]
+    },
+    {
+        fixtureKey: "2025-08-09-nk-lokomotiva-hajduk-split",
+        date: "Sábado 9 de Agosto de 2025",
+        stadium: "Maksimir",
+        weather: "Calmo",
+        playerOfMatch: "Michele Šego",
+        rating: "7,82",
+        coaches: { home: "P. Natal", away: "Gonzalo García" },
+        formations: {
+            home: {
+                name: "4-2-3-1",
+                players: [
+                    [{ number: "19", name: "Rui Pedro", rating: "6,8", pos: "AC", goal: true }],
+                    [{ number: "9", name: "Redmond", rating: "6,2", pos: "AA" }, { number: "7", name: "Trajkovski", rating: "6,5", pos: "MO" }, { number: "27", name: "Córdoba", rating: "6,9", pos: "AA", goal: true }],
+                    [{ number: "68", name: "Antolić", rating: "6,8", pos: "MC" }, { number: "69", name: "Rog", rating: "6,9", pos: "MC" }],
+                    [{ number: "22", name: "Leovac", rating: "6,6", pos: "AI" }, { number: "14", name: "Sigali", rating: "6,6", pos: "CC" }, { number: "15", name: "Kolinger", rating: "6,7", pos: "DC" }, { number: "8", name: "Vešović", rating: "6,9", pos: "AI" }],
+                    [{ number: "1", name: "Posavec", rating: "7,5", pos: "GR" }]
+                ]
+            },
+            away: {
+                name: "4-3-3 DM",
+                players: [
+                    [{ number: "10", name: "Livaja", rating: "7,1", pos: "AR", goal: true }],
+                    [{ number: "9", name: "A. Rebić", rating: "6,9", pos: "EAI" }, { number: "11", name: "Šego", rating: "7,8", pos: "EAI" }],
+                    [{ number: "7", name: "Kalik", rating: "7,0", pos: "MC" }, { number: "23", name: "Krovinović", rating: "7,7", pos: "MO", goal: true }],
+                    [{ number: "6", name: "Hugo G.", rating: "6,5", pos: "MD" }],
+                    [{ number: "32", name: "Hrgović", rating: "6,5", pos: "AI" }, { number: "14", name: "Raçi", rating: "6,6", pos: "CC" }, { number: "15", name: "Marešić", rating: "6,6", pos: "CC" }, { number: "8", name: "Sigur", rating: "6,7", pos: "DL" }],
+                    [{ number: "13", name: "Ivušić", rating: "6,3", pos: "GRC" }]
+                ]
+            }
+        },
+        events: {
+            home: ["38' Rui Pedro M. Vešović", "41' J. Córdoba D. Antolić"],
+            away: ["4' F. Krovinović A. Kalik", "58' M. Livaja M. Šego"]
+        },
+        stats: [
+            { label: "Posse", home: "54%", away: "46%" },
+            { label: "Remates", home: "7", away: "17" },
+            { label: "Remates à Baliza", home: "5", away: "11" },
+            { label: "xG", home: "0,61", away: "1,10" },
+            { label: "PADPAD", home: "18,86", away: "27,33" },
+            { label: "Oportunidades Flagrantes", home: "0", away: "0" },
+            { label: "Cantos", home: "1", away: "9" },
+            { label: "Passes Completados", home: "89%", away: "91%" },
+            { label: "Cruzamentos Completados", home: "40%", away: "17%" },
+            { label: "Faltas", home: "13", away: "12" },
+            { label: "Cartões amarelos", home: "1", away: "1" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "114", away: "118" },
+            { label: "Classificação Média", home: "6,8", away: "6,8" }
+        ]
+    },
+    {
+        fixtureKey: "2025-08-09-nk-osijek-hnk-vukovar",
+        date: "Sábado 9 de Agosto de 2025",
+        stadium: "Opus Arena",
+        weather: "Calmo",
+        playerOfMatch: "Juan Moreno",
+        rating: "7,42",
+        coaches: { home: "Gamy Chambelito", away: "Hugo Macedo" },
+        formations: {
+            home: {
+                name: "4-2-3-1",
+                players: [
+                    [{ number: "17", name: "Jakupović", rating: "6,1", pos: "AvR" }],
+                    [{ number: "6", name: "Nico Gaitán", rating: "6,3", pos: "CL" }, { number: "99", name: "Teklić", rating: "6,7", pos: "ME" }, { number: "10", name: "Shopov", rating: "6,3", pos: "CJA" }],
+                    [{ number: "23", name: "Vrbančić", rating: "6,6", pos: "CJA" }],
+                    [{ number: "38", name: "Čolina", rating: "7,1", pos: "AI" }, { number: "16", name: "Petrusenko", rating: "7,1", pos: "MD" }, { number: "29", name: "Karačić", rating: "7,3", pos: "AI", goal: true }],
+                    [{ number: "26", name: "Jelenić", rating: "6,7", pos: "CC" }, { number: "15", name: "Mersinaj", rating: "6,9", pos: "DC" }],
+                    [{ number: "31", name: "Malenica", rating: "6,6", pos: "GR" }]
+                ]
+            },
+            away: {
+                name: "4-3-1-2",
+                players: [
+                    [{ number: "21", name: "Puljić", rating: "7,1", pos: "AAE", goal: true }, { number: "9", name: "Kulušić", rating: "6,4", pos: "AC" }],
+                    [{ number: "10", name: "Gonzalez", rating: "6,0", pos: "CL" }],
+                    [{ number: "3", name: "Bosec", rating: "7,0", pos: "AI" }, { number: "13", name: "Čaić", rating: "6,4", pos: "MD" }, { number: "18", name: "Antolković", rating: "6,4", pos: "MAA" }, { number: "91", name: "Tićinović", rating: "6,5", pos: "AI" }],
+                    [{ number: "5", name: "Elez", rating: "6,7", pos: "CC" }, { number: "34", name: "Tadić", rating: "6,4", pos: "DC" }, { number: "4", name: "Mitrović", rating: "7,1", pos: "CC" }],
+                    [{ number: "1", name: "Bulat", rating: "6,6", pos: "GR" }]
+                ]
+            }
+        },
+        events: {
+            home: ["4' M. Tadić (AG)", "43' F. Karačić O. Petrusenko"],
+            away: ["46' J. Puljić J. Moreno"]
+        },
+        stats: [
+            { label: "Posse", home: "61%", away: "39%" },
+            { label: "Remates", home: "16", away: "8" },
+            { label: "Remates à Baliza", home: "3", away: "3" },
+            { label: "xG", home: "1,22", away: "1,43" },
+            { label: "PADPAD", home: "20,40", away: "17,85" },
+            { label: "Oportunidades Flagrantes", home: "1", away: "2" },
+            { label: "Cantos", home: "7", away: "3" },
+            { label: "Passes Completados", home: "85%", away: "81%" },
+            { label: "Cruzamentos Completados", home: "18%", away: "12%" },
+            { label: "Faltas", home: "16", away: "18" },
+            { label: "Cartões amarelos", home: "2", away: "1" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "123", away: "125" },
+            { label: "Classificação Média", home: "6,7", away: "6,7" }
+        ]
+    },
+    {
+        fixtureKey: "2025-08-09-nk-slaven-belupo-dinamo-zagreb",
+        date: "Sábado 9 de Agosto de 2025",
+        stadium: "Gradski stadion Ivan Kušek Apaš",
+        weather: "Calmo",
+        playerOfMatch: "Ivan Božić",
+        rating: "7,76",
+        coaches: { home: "Francisco Pinto", away: "M. Kovačević" },
+        formations: {
+            home: {
+                name: "4-3-1-2",
+                players: [
+                    [{ number: "90", name: "Nestorovski", rating: "6,9", pos: "AR" }, { number: "7", name: "Dabro", rating: "6,7", pos: "AC" }],
+                    [{ number: "15", name: "Čubelić", rating: "6,3", pos: "MO" }],
+                    [{ number: "3", name: "Jakir", rating: "6,7", pos: "AI" }, { number: "21", name: "Crepulja", rating: "6,8", pos: "CJR" }, { number: "8", name: "Mrowca", rating: "7,5", pos: "MD" }, { number: "18", name: "Krušelj", rating: "6,3", pos: "AI" }],
+                    [{ number: "4", name: "Ković", rating: "7,2", pos: "CC" }, { number: "6", name: "Božić", rating: "6,6", pos: "CC", goal: true }, { number: "2", name: "Međimorec", rating: "7,1", pos: "DC" }],
+                    [{ number: "1", name: "Hadžikić", rating: "6,8", pos: "GR" }]
+                ]
+            },
+            away: {
+                name: "4-3-3 DM",
+                players: [
+                    [{ number: "9", name: "Dion Beljo", rating: "6,6", pos: "AvR" }],
+                    [{ number: "11", name: "Hoxha", rating: "6,4", pos: "EAI" }, { number: "30", name: "Topić", rating: "6,4", pos: "EAI" }],
+                    [{ number: "27", name: "Mišić", rating: "6,6", pos: "MC" }, { number: "8", name: "Zajc", rating: "7,7", pos: "MC", goal: true }],
+                    [{ number: "4", name: "Bennacer", rating: "6,9", pos: "MD" }],
+                    [{ number: "22", name: "Pérez Vinlöf", rating: "6,9", pos: "AI" }, { number: "26", name: "McKenna", rating: "6,9", pos: "CC" }, { number: "36", name: "Domínguez", rating: "6,6", pos: "CC" }, { number: "25", name: "Valinčić", rating: "6,4", pos: "AI" }],
+                    [{ number: "40", name: "Livaković", rating: "6,5", pos: "GR" }]
+                ]
+            }
+        },
+        events: {
+            home: ["73' I. Božić I. Nestorovski"],
+            away: ["56' M. Zajc"]
+        },
+        stats: [
+            { label: "Posse", home: "62%", away: "38%" },
+            { label: "Remates", home: "10", away: "16" },
+            { label: "Remates à Baliza", home: "2", away: "6" },
+            { label: "xG", home: "0,84", away: "1,18" },
+            { label: "PADPAD", home: "13,00", away: "25,91" },
+            { label: "Oportunidades Flagrantes", home: "0", away: "1" },
+            { label: "Cantos", home: "7", away: "9" },
+            { label: "Passes Completados", home: "89%", away: "86%" },
+            { label: "Cruzamentos Completados", home: "10%", away: "14%" },
+            { label: "Faltas", home: "4", away: "8" },
+            { label: "Cartões amarelos", home: "1", away: "0" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "128", away: "129" },
+            { label: "Classificação Média", home: "6,8", away: "6,7" }
+        ]
+    },
+    {
+        fixtureKey: "2025-08-09-nk-varazdin-hnk-gorica",
+        date: "Sábado 9 de Agosto de 2025",
+        stadium: "Anđelko Herjavec",
+        weather: "Calmo",
+        playerOfMatch: "Aleksa Latković",
+        rating: "8,30",
+        coaches: { home: "João Nabais", away: "Miguel Cardoso" },
+        formations: {
+            home: {
+                name: "4-2-3-1",
+                players: [
+                    [{ number: "9", name: "Jurić", rating: "6,4", pos: "AR" }],
+                    [{ number: "7", name: "Vuk", rating: "6,8", pos: "Ex" }, { number: "27", name: "Latković", rating: "8,3", pos: "CJA" }, { number: "12", name: "Bočkaj", rating: "7,0", pos: "AI" }],
+                    [{ number: "8", name: "Duvnjak", rating: "7,3", pos: "CJR" }, { number: "6", name: "Puclin", rating: "7,7", pos: "MAA", goal: true }],
+                    [{ number: "3", name: "Sikošek", rating: "6,5", pos: "AI" }, { number: "44", name: "Barać", rating: "7,1", pos: "DC" }, { number: "16", name: "Tepšić", rating: "7,0", pos: "CC" }, { number: "23", name: "Maglica", rating: "7,5", pos: "AI" }],
+                    [{ number: "1", name: "Zelenika", rating: "7,3", pos: "GR" }]
+                ]
+            },
+            away: {
+                name: "4-3-3 DM",
+                players: [
+                    [{ number: "18", name: "Fiolić", rating: "6,7", pos: "Ex" }, { number: "24", name: "Pavičić", rating: "5,7", pos: "MO" }, { number: "20", name: "Vrzić", rating: "5,7", pos: "Ex" }],
+                    [{ number: "10", name: "Pršir", rating: "6,1", pos: "CJA" }, { number: "7", name: "Bakić", rating: "6,4", pos: "ME" }],
+                    [{ number: "36", name: "Kavelj", rating: "6,4", pos: "CJR" }],
+                    [{ number: "19", name: "Čabraja", rating: "6,4", pos: "AI" }, { number: "4", name: "J. Filipović", rating: "6,3", pos: "DC" }, { number: "45", name: "Perić", rating: "6,3", pos: "CP" }, { number: "9", name: "Bogojević", rating: "5,9", pos: "AI" }],
+                    [{ number: "44", name: "Matijaš", rating: "6,6", pos: "GRC" }]
+                ]
+            }
+        },
+        events: {
+            home: ["14' D. Puclin A. Latković", "80' B. Biró A. Latković", "86' B. Biró I. Tavares"],
+            away: []
+        },
+        stats: [
+            { label: "Posse", home: "65%", away: "35%" },
+            { label: "Remates", home: "21", away: "9" },
+            { label: "Remates à Baliza", home: "10", away: "3" },
+            { label: "xG", home: "2,23", away: "0,56" },
+            { label: "PADPAD", home: "14,53", away: "28,69" },
+            { label: "Oportunidades Flagrantes", home: "2", away: "0" },
+            { label: "Cantos", home: "6", away: "5" },
+            { label: "Passes Completados", home: "91%", away: "83%" },
+            { label: "Cruzamentos Completados", home: "23%", away: "25%" },
+            { label: "Faltas", home: "8", away: "18" },
+            { label: "Cartões amarelos", home: "0", away: "1" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "114", away: "113" },
+            { label: "Classificação Média", home: "7,2", away: "6,2" }
+        ]
+    }
+];
+
+const croatiaMatchReports = [...croatiaRoundOneReports, ...croatiaRoundTwoReports];
+const croatiaMatchReportsByFixtureKey = new Map(croatiaMatchReports.map((report) => [report.fixtureKey, report]));
+
 croatiaFixtures.forEach((fixture, index) => {
     fixture.round = Math.floor(index / 5) + 1;
+    fixture.report = croatiaMatchReportsByFixtureKey.get(fixture.fixtureKey) || null;
+    if (fixture.report) {
+        fixture.report.id = fixture.report.fixtureKey;
+        fixture.report.fixture = fixture;
+    }
 });
 
 const croatiaTransfers = [
+    { date: "05/08/2025", player: "R. Tugarev", from: "", to: "NK Osijek", value: "Livre" },
+    { date: "05/08/2025", player: "B. Matić", from: "", to: "HNK Vukovar", value: "Livre" },
+    { date: "05/08/2025", player: "Jean Carlos", from: "Raków Częstochowa", to: "HNK Rijeka", value: "775m €" },
+    { date: "04/08/2025", player: "N. Redmond", from: "", to: "NK Lokomotiva", value: "Livre" },
+    { date: "03/08/2025", player: "D. Pintarić", from: "NK Varaždin", to: "BSK Bijelo Brdo", value: "Empréstimo" },
+    { date: "02/08/2025", player: "D. Ereiz", from: "Karlovac 1919", to: "NK Slaven Belupo", value: "Empréstimo" },
+    { date: "02/08/2025", player: "J. Moreno", from: "", to: "HNK Vukovar", value: "Livre" },
+    { date: "01/08/2025", player: "I. Marić", from: "", to: "HNK Vukovar", value: "Livre" },
+    { date: "01/08/2025", player: "D. Melnjak", from: "Hajduk Split", to: "Gaziantep FK", value: "145m € (175m €)" },
+    { date: "30/07/2025", player: "J. Ziković", from: "NK Istra 1961", to: "Novigrad 1947", value: "Empréstimo - 1,7m €" },
+    { date: "28/07/2025", player: "P. Antolković", from: "Sesvete", to: "HNK Vukovar", value: "Empréstimo" },
+    { date: "28/07/2025", player: "L. Posinković", from: "NK Varaždin", to: "Velež Mostar", value: "Empréstimo" },
+    { date: "26/07/2025", player: "G. Rukavina", from: "HNK Rijeka", to: "AC Reggiana", value: "170m €" },
+    { date: "26/07/2025", player: "D. Legbo", from: "HNK Rijeka", to: "HJK", value: "57m €" },
+    { date: "25/07/2025", player: "K. Kelly", from: "Liverpool", to: "HNK Vukovar", value: "Empréstimo" },
+    { date: "25/07/2025", player: "P. Andrić", from: "NK Lokomotiva", to: "LASK", value: "450m € (500m €)" },
+    { date: "25/07/2025", player: "S. Mrowca", from: "", to: "NK Slaven Belupo", value: "Livre" },
+    { date: "24/07/2025", player: "L. Pitt", from: "Liverpool", to: "HNK Vukovar", value: "Empréstimo" },
+    { date: "24/07/2025", player: "F. Jazvić", from: "", to: "NK Slaven Belupo", value: "Livre" },
+    { date: "24/07/2025", player: "M. Gagulić", from: "NK Osijek", to: "Dugopolje", value: "Empréstimo" },
+    { date: "24/07/2025", player: "I. Ribar", from: "Rudeš", to: "HNK Vukovar", value: "Empréstimo" },
+    { date: "23/07/2025", player: "T. Blackett", from: "", to: "HNK Rijeka", value: "Livre" },
+    { date: "22/07/2025", player: "Vágner", from: "", to: "HNK Rijeka", value: "Livre" },
+    { date: "22/07/2025", player: "G. Stepinac", from: "Karlovac 1919", to: "NK Slaven Belupo", value: "Empréstimo" },
+    { date: "21/07/2025", player: "L. Ratshukudu", from: "NK Slaven Belupo", to: "Highbury FC", value: "Empréstimo" },
+    { date: "21/07/2025", player: "S. Miettinen", from: "NK Istra 1961", to: "AC Horsens", value: "140m € (175m €)" },
+    { date: "20/07/2025", player: "André", from: "Corinthians", to: "HNK Rijeka", value: "Empréstimo - 150m €" },
+    { date: "20/07/2025", player: "T. Lacoux", from: "Újpest", to: "HNK Rijeka", value: "850m €" },
+    { date: "19/07/2025", player: "B. Biró", from: "Kisvárda", to: "NK Varaždin", value: "Empréstimo" },
+    { date: "18/07/2025", player: "M. Mitrović", from: "", to: "HNK Vukovar", value: "Livre" },
+    { date: "17/07/2025", player: "Rui Pedro", from: "", to: "NK Lokomotiva", value: "Livre" },
     { date: "16/07/2025", player: "L. Islić", from: "", to: "NK Slaven Belupo", value: "Livre" },
     { date: "16/07/2025", player: "F. Taraba", from: "NK Istra 1961", to: "Juventus", value: "4M €" },
     { date: "15/07/2025", player: "N. Gaitán", from: "", to: "NK Osijek", value: "Livre" },
@@ -887,7 +1490,7 @@ const leagues = [
         logo: "assets/logos/teams/croacia/supersport_hnl.png",
         logoAlt: "SuperSport HNL",
         epoca: "Época 26/27",
-        formula: "(prevista - atual) × 3",
+        formula: "Pontos EMG entram no fim da época",
         scores: croatiaSeasonScores,
         fixtures: croatiaFixtures,
         fixtureMonths: croatiaFixtureMonths,
@@ -933,23 +1536,23 @@ const leagues = [
             }
         ],
         transfers: croatiaTransfers,
-        tabela: croatiaAlphabeticalTable.map((entry, index) => ({
-            pos: index + 1,
-            inf: "--",
+        tabela: croatiaCurrentTable.map((entry) => ({
+            pos: entry.pos,
+            inf: entry.inf,
             equipa: entry.equipa,
             logo: entry.logo,
             jogador: entry.jogador,
-            j: 0,
-            v: 0,
-            e: 0,
-            d: 0,
-            gm: 0,
-            gs: 0,
-            dg: 0,
-            pts: 0,
+            j: entry.j,
+            v: entry.v,
+            e: entry.e,
+            d: entry.d,
+            gm: entry.gm,
+            gs: entry.gs,
+            dg: entry.dg,
+            pts: entry.pts,
             prevista: entry.prevista,
             emgPontos: entry.jogador ? 0 : null,
-            form: [],
+            form: entry.form,
             zone: ""
         }))
     },
@@ -1039,6 +1642,7 @@ function calcBonuses(league) {
 }
 
 const generalScores = leagues
+    .filter((league) => league.status === "completed")
     .flatMap((league) => [...league.scores, ...calcBonuses(league)])
     .reduce((acc, entry) => {
         let existing = acc.find((e) => e.jogador === entry.jogador);
@@ -2446,6 +3050,274 @@ function renderLeagueTeamName(league, teamName, extraClass = "") {
     `;
 }
 
+function getMatchReportById(reportId) {
+    return leagues
+        .flatMap((league) => league.fixtures || [])
+        .map((fixture) => fixture.report)
+        .find((report) => report?.id === reportId) || null;
+}
+
+function getReportTeamMarkup(report, side) {
+    let fixture = report.fixture;
+    let teamName = side === "home" ? fixture.home : fixture.away;
+    let league = leagues.find((entry) => entry.fixtures?.includes(fixture));
+    let team = league ? getLeagueTeamEntry(league, teamName) : null;
+    let logoMarkup = team?.logo ? `<img src="${team.logo}" alt="${teamName}" class="match-report-team-logo">` : "";
+    return `
+        <div class="match-report-team match-report-team-${side}">
+            ${side === "away" ? logoMarkup : ""}
+            <div>
+                <strong>${teamName}</strong>
+                <span>${report.coaches?.[side] || team?.jogador || "PC"}</span>
+            </div>
+            ${side === "home" ? logoMarkup : ""}
+        </div>
+    `;
+}
+
+function getReportStatNumber(value) {
+    let normalized = String(value).replace("%", "").replace(",", ".").replace(/[^\d.-]/g, "");
+    let parsed = Number(normalized);
+    return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function renderMatchReportStats(report) {
+    return report.stats.map((stat) => {
+        let homeValue = getReportStatNumber(stat.home);
+        let awayValue = getReportStatNumber(stat.away);
+        let total = homeValue + awayValue || 1;
+        let homeWidth = Math.max(4, (homeValue / total) * 100);
+        let awayWidth = Math.max(4, (awayValue / total) * 100);
+        return `
+            <div class="match-report-stat">
+                <div class="match-report-stat-label">${stat.label}</div>
+                <div class="match-report-stat-row">
+                    <span>${stat.home}</span>
+                    <div class="match-report-bars" aria-hidden="true">
+                        <i class="home" style="width:${homeWidth}%"></i>
+                        <i class="away" style="width:${awayWidth}%"></i>
+                    </div>
+                    <span>${stat.away}</span>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+function getFormationPlayerNames(formation = {}) {
+    return (formation.players || [])
+        .flat()
+        .map((player) => player?.name)
+        .filter(Boolean)
+        .sort((a, b) => b.length - a.length);
+}
+
+function parseMatchReportEvent(event = "", playerNames = []) {
+    const eventMatch = event.match(/^(\d+(?:\+\d+)?)'\s+(.+)$/);
+    if (!eventMatch) {
+        return { minute: "", scorer: event, assist: "" };
+    }
+
+    const [, minute, body] = eventMatch;
+    if (body.includes("(AG)")) {
+        return { minute, scorer: body.replace(/\s*\(AG\)\s*/g, ""), assist: "Autogolo" };
+    }
+
+    const knownScorer = playerNames.find((name) => body === name || body.startsWith(`${name} `));
+    if (knownScorer) {
+        return {
+            minute,
+            scorer: knownScorer,
+            assist: body.slice(knownScorer.length).trim()
+        };
+    }
+
+    const parts = body.split(/\s+/);
+    if (parts.length <= 2) {
+        return { minute, scorer: body, assist: "" };
+    }
+
+    return {
+        minute,
+        scorer: parts.slice(0, 2).join(" "),
+        assist: parts.slice(2).join(" ")
+    };
+}
+
+function renderMatchReportEvents(events = [], formation = {}) {
+    if (!events.length) {
+        return `<span class="match-report-empty">Sem golos</span>`;
+    }
+
+    const playerNames = getFormationPlayerNames(formation);
+    return events.map((event) => {
+        const parsed = parseMatchReportEvent(event, playerNames);
+        return `
+            <span class="match-report-goal">
+                <i aria-hidden="true">⚽</i>
+                <span class="match-report-goal-minute">${parsed.minute}'</span>
+                <span class="match-report-goal-main">
+                    <b>${parsed.scorer}</b>
+                    ${parsed.assist ? `<em>Assist. ${parsed.assist}</em>` : ""}
+                </span>
+            </span>
+        `;
+    }).join("");
+}
+
+const matchFormationLayouts = {
+    "4-3-3 DM": [["PL"], ["E", "D"], ["MC", "MC"], ["MD"], ["DE", "DC", "DC", "DD"], ["GR"]],
+    "4-2-3-1": [["PL"], ["E", "MO", "D"], ["MC", "MC"], ["DE", "DC", "DC", "DD"], ["GR"]],
+    "3-4-2-1": [["PL"], ["MO", "MO"], ["ME", "MC", "MC", "MD"], ["DC", "DC", "DC"], ["GR"]],
+    "3-4-1-2": [["PL", "PL"], ["MO"], ["ME", "MC", "MC", "MD"], ["DC", "DC", "DC"], ["GR"]],
+    "4-3-1-2": [["PL", "PL"], ["MO"], ["MC", "MC", "MC"], ["DE", "DC", "DC", "DD"], ["GR"]]
+};
+
+function getReportFormation(report, side) {
+    let formation = report.formations?.[side];
+    if (!formation) return { name: "Sem dados", players: [] };
+    if (typeof formation === "string") {
+        return {
+            name: formation,
+            players: (matchFormationLayouts[formation] || [[formation]]).map((row) => row.map((pos) => ({ pos })))
+        };
+    }
+    return {
+        name: formation.name || "Sem dados",
+        players: formation.players || []
+    };
+}
+
+function renderFormationPlayer(player) {
+    if (!player) return "";
+    if (typeof player === "string") {
+        player = { pos: player };
+    }
+
+    let hasDetails = player.name || player.number || player.rating;
+    let number = player.number || "";
+    let name = player.name || "";
+    let rating = player.rating || "";
+    let position = player.pos || "";
+
+    if (!hasDetails) {
+        return `<span class="match-report-player-node is-placeholder"><span class="match-report-player-pos-only">${position}</span></span>`;
+    }
+
+    return `
+        <span class="match-report-player-node" title="${[number ? `#${number}` : "", name, position, rating].filter(Boolean).join(" · ")}">
+            ${player.goal ? `<span class="match-report-player-goal" aria-hidden="true">⚽</span>` : ""}
+            <span class="match-report-shirt">${number}</span>
+            <span class="match-report-player-badge">
+                ${rating ? `<b>${rating}</b>` : ""}
+                ${position ? `<em>${position}</em>` : ""}
+            </span>
+            ${name ? `<span class="match-report-player-name">${name}</span>` : ""}
+        </span>
+    `;
+}
+
+function renderFormationPitch(report, side) {
+    let formation = getReportFormation(report, side);
+    let rows = formation.players;
+    let totalRows = rows.length;
+    return `
+        <div class="match-report-pitch match-report-pitch-${side}">
+            ${rows.map((row, index) => `
+                <div class="match-report-pitch-row match-report-pitch-row-${index + 1}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
+                    ${row.map((player) => renderFormationPlayer(player)).join("")}
+                </div>
+            `).join("")}
+        </div>
+    `;
+}
+
+function renderFormationTeamHeader(report, side) {
+    let fixture = report.fixture;
+    let teamName = side === "home" ? fixture.home : fixture.away;
+    let league = leagues.find((entry) => entry.fixtures?.includes(fixture));
+    let team = league ? getLeagueTeamEntry(league, teamName) : null;
+    let formation = getReportFormation(report, side);
+    let logoMarkup = team?.logo ? `<img src="${team.logo}" alt="${teamName}">` : "";
+    return `
+        <div class="match-report-tactic-head">
+            <span>${logoMarkup}${teamName}</span>
+            <strong>${formation.name}</strong>
+        </div>
+    `;
+}
+
+function renderMatchReportTacticCard(report, side) {
+    if (!report.formations) return "";
+    return `
+        <section class="match-report-tactic-card match-report-tactic-card-${side}" aria-label="Formação ${side === "home" ? "da equipa da casa" : "da equipa visitante"}">
+            ${renderFormationTeamHeader(report, side)}
+            ${renderFormationPitch(report, side)}
+        </section>
+    `;
+}
+
+function openMatchReport(reportId) {
+    let report = getMatchReportById(reportId);
+    if (!report) return;
+
+    closeMatchReport();
+
+    let fixture = report.fixture;
+    let score = `${fixture.homeGoals}-${fixture.awayGoals}`;
+    let modal = document.createElement("div");
+    modal.id = "matchReportModal";
+    modal.className = "match-report-modal";
+    modal.innerHTML = `
+        <div class="match-report-backdrop" onclick="closeMatchReport()"></div>
+        <article class="match-report-dialog" role="dialog" aria-modal="true" aria-label="Relatório do jogo">
+            <button class="match-report-close" type="button" onclick="closeMatchReport()" aria-label="Fechar relatório">&times;</button>
+            <header class="match-report-hero">
+                <span class="match-report-league">Hrvatska nogometna liga</span>
+                <div class="match-report-scoreline">
+                    ${getReportTeamMarkup(report, "home")}
+                    <strong class="match-report-score">${score}</strong>
+                    ${getReportTeamMarkup(report, "away")}
+                </div>
+                <div class="match-report-meta">
+                    <span>${report.date}</span>
+                    <span>${report.stadium}</span>
+                    <span>${report.weather}</span>
+                    <span class="match-report-mvp">&#9733; ${report.playerOfMatch} <b>${report.rating}</b></span>
+                </div>
+            </header>
+            <div class="match-report-body">
+                ${renderMatchReportTacticCard(report, "home")}
+                <div class="match-report-center">
+                    <section class="match-report-card match-report-events">
+                        <h3>Eventos do jogo</h3>
+                        <div class="match-report-events-grid">
+                            <div>${renderMatchReportEvents(report.events.home, report.formations?.home)}</div>
+                            <div>${renderMatchReportEvents(report.events.away, report.formations?.away)}</div>
+                        </div>
+                    </section>
+                    <section class="match-report-card match-report-data">
+                        <h3>Dados do jogo</h3>
+                        ${renderMatchReportStats(report)}
+                    </section>
+                </div>
+                ${renderMatchReportTacticCard(report, "away")}
+            </div>
+        </article>
+    `;
+    document.body.appendChild(modal);
+    document.body.classList.add("modal-open");
+}
+
+function closeMatchReport() {
+    let modal = document.getElementById("matchReportModal");
+    if (!modal) return;
+    modal.remove();
+    if (!document.getElementById("coachModal") || document.getElementById("coachModal").hidden) {
+        document.body.classList.remove("modal-open");
+    }
+}
+
 function renderFormDots(form = []) {
     let normalized = [...form].slice(-5);
     while (normalized.length < 5) normalized.unshift("-");
@@ -2665,13 +3537,14 @@ function scheduleLeagueLiveAutoAdvance(league) {
 
 function renderTransferClub(league, clubName) {
     if (!clubName) {
-        return `<span class="league-transfer-club-name muted">Sem clube</span>`;
+        return `<span class="league-transfer-club-name muted" title="Sem clube">Sem clube</span>`;
     }
 
     let entry = getLeagueTeamEntry(league, clubName);
+    let clubTitle = escapeAttribute(clubName);
     if (entry?.logo) {
         return `
-            <span class="league-transfer-club-cell league-transfer-club-cell--logo-only" title="${clubName}">
+            <span class="league-transfer-club-cell league-transfer-club-cell--logo-only" title="${clubTitle}">
                 <img src="${entry.logo}" alt="${clubName}" class="league-transfer-team-logo" loading="lazy">
             </span>
         `;
@@ -2679,7 +3552,7 @@ function renderTransferClub(league, clubName) {
 
     return `
         <span class="league-transfer-club-cell">
-            <span class="league-transfer-club-name" title="${clubName}">${clubName}</span>
+            <span class="league-transfer-club-name" title="${clubTitle}">${clubName}</span>
         </span>
     `;
 }
@@ -2690,29 +3563,47 @@ function formatTransferValue(value) {
         .replace(/Emp\\. -/g, "Emp. ·");
 }
 
+function escapeAttribute(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
 function renderLeagueTransfers(league) {
     if (!league.transfers?.length) return "";
     let humanTeams = new Set((league.tabela || []).filter((entry) => entry.jogador).map((entry) => entry.equipa));
-    let rows = league.transfers.map((item) => {
-        let isIncoming = humanTeams.has(item.to);
-        let type = isIncoming ? "Entrada" : "Saída";
+    let parseDate = (date) => {
+        let [day, month, year] = String(date).split("/").map(Number);
+        return new Date(year, month - 1, day).getTime();
+    };
+    let rows = [...league.transfers]
+        .sort((a, b) => parseDate(b.date) - parseDate(a.date))
+        .map((item) => {
+            let isIncoming = humanTeams.has(item.to);
+            let type = isIncoming ? "Entrada" : "Saída";
+            let playerTitle = escapeAttribute(item.player);
+            let valueTitle = escapeAttribute(item.value);
+            let routeTitle = escapeAttribute(`${item.from || "Sem clube"} → ${item.to || "Sem clube"}`);
+            let rowTitle = escapeAttribute(`${item.date} · ${item.player} · ${item.from || "Sem clube"} → ${item.to || "Sem clube"} · ${item.value}`);
 
-        return `
-            <div class="league-transfer-row ${isIncoming ? "incoming" : "outgoing"}">
-                <div class="league-transfer-date">${item.date}</div>
-                <div class="league-transfer-player">
-                    <div class="league-transfer-player-name" title="${item.player}">${item.player}</div>
-                    <div class="league-transfer-type">${type}</div>
+            return `
+                <div class="league-transfer-row ${isIncoming ? "incoming" : "outgoing"}" title="${rowTitle}">
+                    <div class="league-transfer-date">${item.date}</div>
+                    <div class="league-transfer-player">
+                        <div class="league-transfer-player-name" title="${playerTitle}">${item.player}</div>
+                        <div class="league-transfer-type">${type}</div>
+                    </div>
+                    <div class="league-transfer-route" title="${routeTitle}">
+                        ${renderTransferClub(league, item.from)}
+                        <span class="league-transfer-arrow">→</span>
+                        ${renderTransferClub(league, item.to)}
+                    </div>
+                    <div class="league-transfer-value" title="${valueTitle}">${formatTransferValue(item.value)}</div>
                 </div>
-                <div class="league-transfer-route">
-                    ${renderTransferClub(league, item.from)}
-                    <span class="league-transfer-arrow">→</span>
-                    ${renderTransferClub(league, item.to)}
-                </div>
-                <div class="league-transfer-value" title="${item.value}">${formatTransferValue(item.value)}</div>
-            </div>
-        `;
-    }).join("");
+            `;
+        }).join("");
 
     return `
         <section class="league-side-card league-transfers-card">
@@ -2753,6 +3644,9 @@ function renderLeagueCalendar(league) {
             let homeWinner = hasResult && fixture.homeGoals > fixture.awayGoals ? "winner" : "";
             let awayWinner = hasResult && fixture.awayGoals > fixture.homeGoals ? "winner" : "";
             let scoreLabel = hasResult ? `${fixture.homeGoals}-${fixture.awayGoals}` : "-";
+            let scoreMarkup = fixture.report
+                ? `<button class="league-fixture-score is-clickable" type="button" onclick="openMatchReport('${fixture.report.id}')" title="Ver estatísticas do jogo">${scoreLabel}</button>`
+                : `<span class="league-fixture-score">${scoreLabel}</span>`;
             return `
                 <div class="league-fixture-row">
                     <div class="league-fixture-meta">
@@ -2761,7 +3655,7 @@ function renderLeagueCalendar(league) {
                     </div>
                     <div class="league-fixture-match">
                         ${renderLeagueTeamName(league, fixture.home, homeWinner)}
-                        <span class="league-fixture-score">${scoreLabel}</span>
+                        ${scoreMarkup}
                         ${renderLeagueTeamName(league, fixture.away, awayWinner)}
                     </div>
                 </div>
@@ -2891,6 +3785,7 @@ function renderLeague(leagueId) {
     let league = leagues.find((l) => l.id === leagueId);
     let panel = document.getElementById("leaguePanel");
     let isLive = league.status === "live";
+    let transferScrollTop = panel.querySelector(".league-transfers-scroll")?.scrollTop || 0;
 
     let rows = "";
     league.tabela.forEach((entry) => {
@@ -2903,11 +3798,12 @@ function renderLeague(leagueId) {
         let formMarkup = isLive
             ? `<div class="standings-form-cell" data-col="15">${renderFormDots(entry.form)}</div>`
             : "";
+        let infState = entry.inf === "↑" ? "up" : entry.inf === "↓" ? "down" : "";
 
         rows += `
             <div class="standings-row ${isLive ? "live" : ""} ${entry.zone ? `zone-${entry.zone}` : ""}">
                 <div class="standings-cell-center standings-pos" data-col="1">${entry.pos}</div>
-                <div class="standings-cell-center standings-inf" data-col="2">${entry.inf}</div>
+                <div class="standings-cell-center standings-inf ${infState}" data-col="2">${entry.inf}</div>
                 <div class="standings-team" data-col="3">
                     <img class="standings-team-logo" src="${entry.logo}" alt="${entry.equipa}">
                     <div class="standings-team-stack">
@@ -3032,6 +3928,8 @@ function renderLeague(leagueId) {
 
     setupStandingsColumnHover(panel);
     setupLeagueSideStats(panel);
+    let transferScroll = panel.querySelector(".league-transfers-scroll");
+    if (transferScroll) transferScroll.scrollTop = transferScrollTop;
     scheduleLeagueLiveAutoAdvance(league);
     bindCoachLinks(panel);
 }
