@@ -1490,7 +1490,7 @@ const leagues = [
         logo: "assets/logos/teams/croacia/supersport_hnl.png",
         logoAlt: "SuperSport HNL",
         epoca: "Época 26/27",
-        formula: "Pontos EMG entram no fim da época",
+        formula: "(prevista - final) × 3",
         scores: croatiaSeasonScores,
         fixtures: croatiaFixtures,
         fixtureMonths: croatiaFixtureMonths,
