@@ -3786,6 +3786,7 @@ function renderLeague(leagueId) {
     let panel = document.getElementById("leaguePanel");
     let isLive = league.status === "live";
     let transferScrollTop = panel.querySelector(".league-transfers-scroll")?.scrollTop || 0;
+    let calendarScrollTop = panel.querySelector(".league-calendar-scroll")?.scrollTop || 0;
 
     let rows = "";
     league.tabela.forEach((entry) => {
@@ -3930,6 +3931,8 @@ function renderLeague(leagueId) {
     setupLeagueSideStats(panel);
     let transferScroll = panel.querySelector(".league-transfers-scroll");
     if (transferScroll) transferScroll.scrollTop = transferScrollTop;
+    let calendarScroll = panel.querySelector(".league-calendar-scroll");
+    if (calendarScroll) calendarScroll.scrollTop = calendarScrollTop;
     scheduleLeagueLiveAutoAdvance(league);
     bindCoachLinks(panel);
 }
