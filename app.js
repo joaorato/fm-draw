@@ -1505,28 +1505,31 @@ const leagues = [
             {
                 id: "noticias",
                 label: "Notícias",
-                eyebrow: "Sala de imprensa",
-                title: "Mercado aberto",
-                copy: "Espaço para pequenas manchetes, provocações e storylines da save. A ideia é transformar cada sessão num resumo rápido e fácil de acompanhar.",
-                items: ["Rumores", "Conferências", "Tensão entre treinadores"],
                 news: [
                     {
                         eyebrow: "Sala de imprensa",
-                        title: "Mercado aberto",
-                        copy: "Espaço para pequenas manchetes, provocações e storylines da save. A ideia é transformar cada sessão num resumo rápido e fácil de acompanhar.",
-                        items: ["Rumores", "Conferências", "Tensão entre treinadores"]
+                        title: "Acordo fechado: Rui Pedro assina pela Lokomotiva Zagreb",
+                        highlight: "Rui Pedro",
+                        copy: "Zagreb, 14 de Julho — Está confirmado. Rui Pedro é o mais recente reforço do NK Lokomotiva Zagreb, num negócio fechado nas últimas horas que já começa a agitar o mercado da Liga EMG. O avançado português chega com expectativas elevadas, depois de uma época sólida onde se destacou pela consistência ofensiva e presença em momentos decisivos.",
+                        image: "assets/treinadores/painatal/painatal_new.png",
+                        quote: "É um projeto ambicioso. Quero deixar marca desde o primeiro jogo.",
+                        quoteBy: "Rui Pedro"
                     },
                     {
                         eyebrow: "Pré-época",
                         title: "Croácia ganha forma",
                         copy: "A nova liga já tem calendário, equipas sorteadas e treinadores prontos para começar a criar rivalidades. Falta só a bola rolar.",
-                        items: ["Calendário", "Rivalidades", "Expectativa"]
+                        image: "assets/treinadores/painatal/painatal_new.png",
+                        quote: "A primeira jornada vai dizer muito sobre quem veio preparado.",
+                        quoteBy: "Liga EMG"
                     },
                     {
                         eyebrow: "Mercado",
                         title: "Primeiros movimentos",
                         copy: "As transferências já começam a contar histórias: entradas cirúrgicas, empréstimos suspeitos e negócios que prometem aquecer a época.",
-                        items: ["Entradas", "Saídas", "Negócios"]
+                        image: "assets/treinadores/painatal/painatal_new.png",
+                        quote: "No mercado também se ganham pontos psicológicos.",
+                        quoteBy: "Redação EMG"
                     }
                 ]
             },
@@ -3416,24 +3419,25 @@ function renderLeagueTeamOfYear(league) {
 function renderLeagueLiveCards(league) {
     if (league.livePages?.length) {
         let defaultPage = league.livePages.find((page) => page.id === "noticias") || league.livePages[0];
-        let activePageId = activeLeagueLivePage[league.id] || defaultPage.id;
-        let activePage = league.livePages.find((page) => page.id === activePageId) || league.livePages[0];
-        let options = league.livePages.map((page) => `
-            <button
-                class="league-live-option ${page.id === activePage.id ? "active" : ""}"
-                type="button"
-                onclick="selectLeagueLivePage('${league.id}', '${page.id}')"
-                aria-pressed="${page.id === activePage.id ? "true" : "false"}"
-            >
-                ${page.label}
-            </button>
-        `).join("");
+        let activePage = defaultPage;
         let newsItems = activePage.news || [];
         let activeNewsIndex = Math.min(activeLeagueNewsIndex[league.id] || 0, Math.max(newsItems.length - 1, 0));
         let activeNews = newsItems[activeNewsIndex] || activePage;
-        let displayPage = activePage.id === "noticias" ? activeNews : activePage;
-        let items = (displayPage.items || []).map((item) => `<span>${item}</span>`).join("");
-        let newsControls = activePage.id === "noticias" && newsItems.length > 1
+        let displayPage = activeNews;
+        let image = displayPage.image || "assets/treinadores/painatal/painatal_new.png";
+        let title = displayPage.highlight
+            ? displayPage.title.replace(displayPage.highlight, `<span>${displayPage.highlight}</span>`)
+            : displayPage.title;
+        let quoteMarkup = displayPage.quote
+            ? `
+                <aside class="league-news-quote">
+                    <span>“</span>
+                    <p>${displayPage.quote}</p>
+                    ${displayPage.quoteBy ? `<strong>— ${displayPage.quoteBy}</strong>` : ""}
+                </aside>
+            `
+            : "";
+        let newsControls = newsItems.length > 1
             ? `
                 <div class="league-news-carousel">
                     <button class="league-news-arrow" type="button" onclick="stepLeagueNews('${league.id}', -1)" aria-label="Notícia anterior">‹</button>
@@ -3458,28 +3462,18 @@ function renderLeagueLiveCards(league) {
                 <div class="league-side-head centered">
                     <strong>Época Atual</strong>
                 </div>
-                <div class="league-live-selector single">
-                    <div class="league-live-select-wrap">
-                        <button class="league-live-select" type="button" onclick="toggleLeagueLiveMenu('${league.id}')" aria-expanded="false" aria-label="Escolher secção da época atual">
-                            ${activePage.label}
-                        </button>
-                        <div class="league-live-menu" data-live-menu="${league.id}">
-                            ${options}
-                        </div>
-                    </div>
-                </div>
-                <button class="league-live-page" type="button" data-live-page="${activePage.id}" onclick="pauseLeagueLiveCarousel('${league.id}')" aria-label="Pausar carrossel para ler: ${activePage.label}">
+                <article class="league-live-page is-news" style="--news-bg: url('${image}')" data-live-page="noticias" onclick="pauseLeagueLiveCarousel('${league.id}')" aria-label="Pausar carrossel para ler a notícia">
                     <div class="league-live-page-content">
                         <div class="league-live-page-kicker">
                             <span class="league-live-status-dot"></span>
                             <span>${displayPage.eyebrow}</span>
                         </div>
-                        <div class="league-live-page-title">${displayPage.title}</div>
+                        <div class="league-live-page-title">${title}</div>
                         <p class="league-live-page-copy">${displayPage.copy}</p>
                     </div>
-                    <div class="league-live-page-tags">${items}</div>
-                </button>
-                ${newsControls}
+                    ${quoteMarkup}
+                    ${newsControls}
+                </article>
             </section>
         `;
     }
@@ -3587,9 +3581,8 @@ document.addEventListener("click", (event) => {
 
 function scheduleLeagueLiveAutoAdvance(league) {
     if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
-    let activePageId = activeLeagueLivePage[league.id] || "noticias";
     let newsPage = league.livePages?.find((page) => page.id === "noticias");
-    if (activePageId !== "noticias" || !newsPage?.news || newsPage.news.length < 2) return;
+    if (!newsPage?.news || newsPage.news.length < 2) return;
     if (pausedLeagueLivePages.has(league.id)) return;
 
     leagueLiveAutoTimer = setTimeout(() => {
