@@ -1503,28 +1503,32 @@ const leagues = [
         ],
         livePages: [
             {
-                id: "recentes",
-                label: "Resultados recentes",
-                eyebrow: "Última sessão",
-                title: "A recolher",
-                copy: "Quando começarem a entrar resultados, esta página mostra os jogos mais recentes da Liga Croata sem obrigar o utilizador a procurar no calendário.",
-                items: ["Último resultado", "Jogo da noite", "Maior surpresa"]
-            },
-            {
                 id: "noticias",
                 label: "Notícias",
                 eyebrow: "Sala de imprensa",
                 title: "Mercado aberto",
                 copy: "Espaço para pequenas manchetes, provocações e storylines da save. A ideia é transformar cada sessão num resumo rápido e fácil de acompanhar.",
-                items: ["Rumores", "Conferências", "Tensão entre treinadores"]
-            },
-            {
-                id: "estatisticas",
-                label: "Estatísticas da Liga",
-                eyebrow: "Data hub",
-                title: "Números da época",
-                copy: "Aqui entram métricas gerais da competição: golos, média por jogo, melhor ataque, melhor defesa e tendências da forma recente.",
-                items: ["Golos totais", "Melhor ataque", "Melhor defesa"]
+                items: ["Rumores", "Conferências", "Tensão entre treinadores"],
+                news: [
+                    {
+                        eyebrow: "Sala de imprensa",
+                        title: "Mercado aberto",
+                        copy: "Espaço para pequenas manchetes, provocações e storylines da save. A ideia é transformar cada sessão num resumo rápido e fácil de acompanhar.",
+                        items: ["Rumores", "Conferências", "Tensão entre treinadores"]
+                    },
+                    {
+                        eyebrow: "Pré-época",
+                        title: "Croácia ganha forma",
+                        copy: "A nova liga já tem calendário, equipas sorteadas e treinadores prontos para começar a criar rivalidades. Falta só a bola rolar.",
+                        items: ["Calendário", "Rivalidades", "Expectativa"]
+                    },
+                    {
+                        eyebrow: "Mercado",
+                        title: "Primeiros movimentos",
+                        copy: "As transferências já começam a contar histórias: entradas cirúrgicas, empréstimos suspeitos e negócios que prometem aquecer a época.",
+                        items: ["Entradas", "Saídas", "Negócios"]
+                    }
+                ]
             },
             {
                 id: "treinador-mes",
@@ -1688,6 +1692,7 @@ const coachByNarrativeTeam = {
 };
 let selectedCoachId = coachProfiles[0].id;
 let activeLeagueLivePage = {};
+let activeLeagueNewsIndex = {};
 let leagueLiveAutoTimer = null;
 let pausedLeagueLivePages = new Set();
 let activeLeagueId = "croacia";
@@ -3173,6 +3178,26 @@ const matchFormationLayouts = {
     "4-3-1-2": [["PL", "PL"], ["MO"], ["MC", "MC", "MC"], ["DE", "DC", "DC", "DD"], ["GR"]]
 };
 
+function getFormationPlayerPosition(player) {
+    return (typeof player === "string" ? player : player?.pos || "").toUpperCase();
+}
+
+function inferThreeCenterBackFormationName(formation) {
+    let rows = formation?.players || [];
+    if (rows.length < 4) return formation?.name;
+
+    let defenseRow = rows[rows.length - 2] || [];
+    let centerBackPositions = new Set(["DC", "CC"]);
+    let hasThreeCenterBacks = defenseRow.length === 3
+        && defenseRow.every((player) => centerBackPositions.has(getFormationPlayerPosition(player)));
+
+    if (!hasThreeCenterBacks) return formation?.name;
+
+    let outfieldRows = rows.slice(0, -1);
+    let shape = [defenseRow.length, ...outfieldRows.slice(0, -1).map((row) => row.length).reverse()];
+    return shape.join("-");
+}
+
 function getReportFormation(report, side) {
     let formation = report.formations?.[side];
     if (!formation) return { name: "Sem dados", players: [] };
@@ -3183,7 +3208,7 @@ function getReportFormation(report, side) {
         };
     }
     return {
-        name: formation.name || "Sem dados",
+        name: inferThreeCenterBackFormationName(formation) || formation.name || "Sem dados",
         players: formation.players || []
     };
 }
@@ -3390,7 +3415,8 @@ function renderLeagueTeamOfYear(league) {
 
 function renderLeagueLiveCards(league) {
     if (league.livePages?.length) {
-        let activePageId = activeLeagueLivePage[league.id] || league.livePages[0].id;
+        let defaultPage = league.livePages.find((page) => page.id === "noticias") || league.livePages[0];
+        let activePageId = activeLeagueLivePage[league.id] || defaultPage.id;
         let activePage = league.livePages.find((page) => page.id === activePageId) || league.livePages[0];
         let options = league.livePages.map((page) => `
             <button
@@ -3402,15 +3428,37 @@ function renderLeagueLiveCards(league) {
                 ${page.label}
             </button>
         `).join("");
-        let items = (activePage.items || []).map((item) => `<span>${item}</span>`).join("");
+        let newsItems = activePage.news || [];
+        let activeNewsIndex = Math.min(activeLeagueNewsIndex[league.id] || 0, Math.max(newsItems.length - 1, 0));
+        let activeNews = newsItems[activeNewsIndex] || activePage;
+        let displayPage = activePage.id === "noticias" ? activeNews : activePage;
+        let items = (displayPage.items || []).map((item) => `<span>${item}</span>`).join("");
+        let newsControls = activePage.id === "noticias" && newsItems.length > 1
+            ? `
+                <div class="league-news-carousel">
+                    <button class="league-news-arrow" type="button" onclick="stepLeagueNews('${league.id}', -1)" aria-label="Notícia anterior">‹</button>
+                    <div class="league-news-dots" aria-label="Indicador de notícias">
+                        ${newsItems.map((_, index) => `
+                            <button
+                                class="league-news-dot ${index === activeNewsIndex ? "active" : ""}"
+                                type="button"
+                                onclick="selectLeagueNews('${league.id}', ${index})"
+                                aria-label="Ver notícia ${index + 1}"
+                                aria-pressed="${index === activeNewsIndex ? "true" : "false"}"
+                            ></button>
+                        `).join("")}
+                    </div>
+                    <button class="league-news-arrow" type="button" onclick="stepLeagueNews('${league.id}', 1)" aria-label="Notícia seguinte">›</button>
+                </div>
+            `
+            : "";
 
         return `
             <section class="league-side-card league-live-panel-card">
                 <div class="league-side-head centered">
                     <strong>Época Atual</strong>
                 </div>
-                <div class="league-live-selector">
-                    <button class="league-live-section-arrow" type="button" onclick="stepLeagueLivePage('${league.id}', -1)" aria-label="Secção anterior">‹</button>
+                <div class="league-live-selector single">
                     <div class="league-live-select-wrap">
                         <button class="league-live-select" type="button" onclick="toggleLeagueLiveMenu('${league.id}')" aria-expanded="false" aria-label="Escolher secção da época atual">
                             ${activePage.label}
@@ -3419,19 +3467,19 @@ function renderLeagueLiveCards(league) {
                             ${options}
                         </div>
                     </div>
-                    <button class="league-live-section-arrow" type="button" onclick="stepLeagueLivePage('${league.id}', 1)" aria-label="Secção seguinte">›</button>
                 </div>
                 <button class="league-live-page" type="button" data-live-page="${activePage.id}" onclick="pauseLeagueLiveCarousel('${league.id}')" aria-label="Pausar carrossel para ler: ${activePage.label}">
                     <div class="league-live-page-content">
                         <div class="league-live-page-kicker">
                             <span class="league-live-status-dot"></span>
-                            <span>${activePage.eyebrow}</span>
+                            <span>${displayPage.eyebrow}</span>
                         </div>
-                        <div class="league-live-page-title">${activePage.title}</div>
-                        <p class="league-live-page-copy">${activePage.copy}</p>
+                        <div class="league-live-page-title">${displayPage.title}</div>
+                        <p class="league-live-page-copy">${displayPage.copy}</p>
                     </div>
                     <div class="league-live-page-tags">${items}</div>
                 </button>
+                ${newsControls}
             </section>
         `;
     }
@@ -3489,6 +3537,28 @@ function selectLeagueLivePage(leagueId, pageId) {
     setLeagueLivePage(leagueId, pageId);
 }
 
+function selectLeagueNews(leagueId, index) {
+    let league = leagues.find((entry) => entry.id === leagueId);
+    let newsPage = league?.livePages?.find((page) => page.id === "noticias");
+    if (!newsPage?.news?.length) return;
+
+    pausedLeagueLivePages.add(leagueId);
+    if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
+    activeLeagueLivePage[leagueId] = "noticias";
+    activeLeagueNewsIndex[leagueId] = Math.max(0, Math.min(index, newsPage.news.length - 1));
+    renderLeague(leagueId);
+}
+
+function stepLeagueNews(leagueId, direction = 1) {
+    let league = leagues.find((entry) => entry.id === leagueId);
+    let newsPage = league?.livePages?.find((page) => page.id === "noticias");
+    if (!newsPage?.news?.length) return;
+
+    let currentIndex = activeLeagueNewsIndex[leagueId] || 0;
+    let nextIndex = (currentIndex + Number(direction || 1) + newsPage.news.length) % newsPage.news.length;
+    selectLeagueNews(leagueId, nextIndex);
+}
+
 function stepLeagueLivePage(leagueId, direction = 1) {
     let league = leagues.find((entry) => entry.id === leagueId);
     if (!league?.livePages?.length) return;
@@ -3517,7 +3587,9 @@ document.addEventListener("click", (event) => {
 
 function scheduleLeagueLiveAutoAdvance(league) {
     if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
-    if (!league.livePages || league.livePages.length < 2) return;
+    let activePageId = activeLeagueLivePage[league.id] || "noticias";
+    let newsPage = league.livePages?.find((page) => page.id === "noticias");
+    if (activePageId !== "noticias" || !newsPage?.news || newsPage.news.length < 2) return;
     if (pausedLeagueLivePages.has(league.id)) return;
 
     leagueLiveAutoTimer = setTimeout(() => {
@@ -3527,10 +3599,9 @@ function scheduleLeagueLiveAutoAdvance(league) {
         }
         if (pausedLeagueLivePages.has(league.id)) return;
 
-        let currentPageId = activeLeagueLivePage[league.id] || league.livePages[0].id;
-        let currentIndex = league.livePages.findIndex((page) => page.id === currentPageId);
-        let nextPage = league.livePages[(currentIndex + 1 + league.livePages.length) % league.livePages.length];
-        activeLeagueLivePage[league.id] = nextPage.id;
+        let currentIndex = activeLeagueNewsIndex[league.id] || 0;
+        activeLeagueLivePage[league.id] = "noticias";
+        activeLeagueNewsIndex[league.id] = (currentIndex + 1 + newsPage.news.length) % newsPage.news.length;
         renderLeague(league.id);
     }, LEAGUE_LIVE_AUTO_MS);
 }
@@ -3927,7 +3998,6 @@ function renderLeague(leagueId) {
         ${renderLeagueLowerPanel(league)}
     `;
 
-    setupStandingsColumnHover(panel);
     setupLeagueSideStats(panel);
     let transferScroll = panel.querySelector(".league-transfers-scroll");
     if (transferScroll) transferScroll.scrollTop = transferScrollTop;
