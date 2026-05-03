@@ -2200,21 +2200,21 @@ body::after {
     min-height: 0;
     flex: 1;
     margin: 0;
-    padding: 28px 26px 76px;
+    padding: 28px 24px 72px;
     overflow: hidden;
     border: 0;
     border-radius: 0 0 20px 20px;
     background:
-        var(--news-bg) center / cover no-repeat,
+        var(--news-bg) 82% 46% / auto 100% no-repeat,
         linear-gradient(180deg, rgba(7, 20, 64, 0.94), rgba(5, 14, 46, 0.98)) !important;
     box-shadow: none;
-    cursor: default;
+    cursor: pointer;
     isolation: isolate;
 }
 
 .league-live-page.is-news:hover {
     border-color: transparent;
-    box-shadow: none;
+    box-shadow: inset 0 0 0 1px rgba(112, 208, 255, 0.18);
     transform: none;
 }
 
@@ -2225,9 +2225,9 @@ body::after {
     z-index: 0;
     display: block !important;
     background:
-        linear-gradient(90deg, rgba(2, 11, 38, 0.96) 0%, rgba(3, 16, 50, 0.86) 34%, rgba(4, 18, 54, 0.34) 64%, rgba(2, 10, 34, 0.58) 100%),
-        linear-gradient(180deg, rgba(3, 12, 43, 0.12) 0%, rgba(3, 12, 43, 0.08) 54%, rgba(3, 10, 32, 0.94) 100%),
-        radial-gradient(circle at 18% 20%, rgba(86, 204, 255, 0.18), transparent 34%);
+        linear-gradient(90deg, rgba(2, 10, 34, 0.99) 0%, rgba(2, 12, 38, 0.94) 39%, rgba(3, 15, 46, 0.48) 66%, rgba(2, 10, 34, 0.18) 100%),
+        linear-gradient(180deg, rgba(2, 10, 34, 0.06) 0%, rgba(3, 12, 40, 0.1) 52%, rgba(2, 9, 30, 0.94) 100%),
+        radial-gradient(circle at 18% 19%, rgba(50, 200, 255, 0.18), transparent 30%);
     pointer-events: none;
 }
 
@@ -2239,11 +2239,11 @@ body::after {
     left: 0;
     z-index: 1;
     display: block !important;
-    height: 92px;
+    height: 118px;
     background:
-        linear-gradient(180deg, transparent, rgba(3, 13, 44, 0.78)),
-        rgba(4, 16, 52, 0.26);
-    backdrop-filter: blur(10px);
+        linear-gradient(180deg, transparent, rgba(2, 9, 30, 0.84)),
+        rgba(4, 16, 52, 0.18);
+    backdrop-filter: blur(8px);
     pointer-events: none;
 }
 
@@ -2254,7 +2254,15 @@ body::after {
 }
 
 .league-live-page.is-news .league-live-page-content {
-    max-width: min(48ch, 64%);
+    max-width: min(30ch, 56%);
+}
+
+.league-live-page.is-news .league-live-page-kicker {
+    gap: 10px;
+    color: #25bfff;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 16px rgba(37, 191, 255, 0.28);
 }
 
 .league-live-page-kicker {
@@ -2288,16 +2296,16 @@ body::after {
 
 .league-live-page.is-news .league-live-page-title {
     max-width: 11ch;
-    margin-top: 14px;
+    margin-top: 18px;
     font-family: "Oxanium", sans-serif;
-    font-size: clamp(28px, 3.8vw, 48px);
+    font-size: clamp(26px, 2.4vw, 38px);
     font-weight: 900;
-    line-height: 1.03;
-    letter-spacing: 0.8px;
+    line-height: 1;
+    letter-spacing: 0.9px;
     text-transform: uppercase;
     text-shadow:
-        0 2px 18px rgba(0, 0, 0, 0.5),
-        0 0 16px rgba(112, 208, 255, 0.14);
+        0 3px 18px rgba(0, 0, 0, 0.72),
+        0 0 18px rgba(112, 208, 255, 0.12);
 }
 
 .league-live-page.is-news .league-live-page-title span {
@@ -2310,7 +2318,7 @@ body::after {
 .league-live-page.is-news .league-live-page-title::after {
     content: "";
     display: block;
-    width: 46px;
+    width: 42px;
     height: 3px;
     margin-top: 16px;
     border-radius: 999px;
@@ -2327,12 +2335,42 @@ body::after {
 }
 
 .league-live-page.is-news .league-live-page-copy {
-    max-width: 38ch;
+    max-width: 28ch;
     color: rgba(239, 247, 255, 0.9);
-    font-size: 12.2px;
-    font-weight: 650;
-    line-height: 1.6;
+    font-size: clamp(11px, 0.72vw, 13px);
+    font-weight: 600;
+    line-height: 1.5;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+}
+
+.league-live-page.is-news .league-live-page-copy + .league-live-page-copy {
+    display: none;
+}
+
+.league-live-page.is-news .news-inline-highlight {
+    color: #25bfff;
+    font-weight: 900;
+}
+
+.league-news-read-more {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    color: #70d0ff;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 14px rgba(112, 208, 255, 0.28);
+}
+
+.league-news-read-more::after {
+    content: "›";
+    font-size: 14px;
+    line-height: 1;
 }
 
 .league-live-page-tags {
@@ -2361,40 +2399,44 @@ body::after {
 .league-news-quote {
     position: absolute;
     z-index: 2;
-    right: 22px;
-    bottom: 96px;
-    width: min(42%, 220px);
-    padding: 17px 18px 15px;
-    border-radius: 16px;
+    right: 30px;
+    bottom: 98px;
+    width: min(44%, 260px);
+    padding: 22px 24px 20px;
+    border-radius: 18px;
     color: #ffffff;
     background:
-        linear-gradient(180deg, rgba(13, 76, 168, 0.9), rgba(6, 34, 103, 0.92));
-    border: 1px solid rgba(112, 208, 255, 0.2);
+        linear-gradient(180deg, rgba(13, 83, 184, 0.9), rgba(4, 28, 91, 0.94));
+    border: 1px solid rgba(112, 208, 255, 0.28);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        0 18px 34px rgba(0, 0, 0, 0.3),
-        0 0 26px rgba(38, 154, 255, 0.13);
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 22px 46px rgba(0, 0, 0, 0.36),
+        0 0 30px rgba(38, 154, 255, 0.16);
+}
+
+.league-live-page.is-news .league-news-quote {
+    display: none;
 }
 
 .league-news-quote span {
     display: block;
     color: #70d0ff;
-    font-size: 32px;
+    font-size: 42px;
     font-weight: 900;
     line-height: 0.65;
 }
 
 .league-news-quote p {
-    margin: 10px 0 12px;
+    margin: 14px 0 16px;
     color: rgba(255,255,255,0.92);
-    font-size: 11px;
+    font-size: clamp(11px, 0.82vw, 15px);
     font-weight: 800;
-    line-height: 1.45;
+    line-height: 1.5;
 }
 
 .league-news-quote strong {
     color: #70d0ff;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 900;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -2410,9 +2452,9 @@ body::after {
 
 .league-live-page.is-news .league-news-carousel {
     position: absolute;
-    right: 22px;
-    bottom: 18px;
-    left: 22px;
+    right: 24px;
+    bottom: 20px;
+    left: 24px;
     z-index: 3;
     margin: 0;
     grid-template-columns: 34px minmax(0, 1fr) 34px;
@@ -2440,11 +2482,198 @@ body::after {
     width: 34px;
     height: 34px;
     border-color: rgba(112, 208, 255, 0.18);
-    background: rgba(6, 25, 72, 0.46);
-    backdrop-filter: blur(10px);
+    background: rgba(6, 25, 72, 0.58);
+    backdrop-filter: blur(12px);
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.07),
-        0 0 18px rgba(24, 118, 255, 0.12);
+        0 0 22px rgba(24, 118, 255, 0.16);
+}
+
+.league-news-article-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 28px;
+}
+
+.league-news-article-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(1, 7, 26, 0.78);
+    backdrop-filter: blur(14px);
+}
+
+.league-news-article-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(1120px, calc(100vw - 48px));
+    height: min(820px, calc(100vh - 48px));
+    overflow: hidden;
+    border: 1px solid rgba(112, 208, 255, 0.18);
+    border-radius: 28px;
+    background:
+        linear-gradient(180deg, rgba(7, 22, 68, 0.98), rgba(4, 13, 43, 0.98));
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 34px 90px rgba(0, 0, 0, 0.58),
+        0 0 38px rgba(37, 139, 255, 0.14);
+}
+
+.league-news-article-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 6;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(112, 208, 255, 0.24);
+    border-radius: 50%;
+    color: #ffffff;
+    background: rgba(16, 58, 139, 0.72);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 0 22px rgba(60, 164, 255, 0.14);
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.league-news-article-header {
+    height: 86px;
+    display: grid;
+    place-items: center;
+    border-bottom: 1px solid rgba(112, 208, 255, 0.14);
+    background:
+        linear-gradient(180deg, rgba(10, 32, 88, 0.78), rgba(5, 17, 52, 0.62));
+}
+
+.league-news-article-header strong {
+    color: #ffffff;
+    font-size: clamp(20px, 2.2vw, 32px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.league-news-article-body {
+    position: relative;
+    height: calc(100% - 86px);
+    padding: clamp(38px, 4.4vw, 64px);
+    background:
+        linear-gradient(90deg, rgba(1, 7, 24, 0.98) 0%, rgba(1, 9, 31, 0.9) 35%, rgba(4, 16, 48, 0.44) 59%, rgba(2, 8, 26, 0.1) 100%),
+        linear-gradient(180deg, rgba(2, 8, 28, 0.05), rgba(2, 8, 28, 0.92)),
+        var(--news-bg) 78% center / cover no-repeat;
+}
+
+.league-news-article-copy {
+    position: relative;
+    z-index: 2;
+    width: min(44ch, 45%);
+}
+
+.league-news-article-title {
+    max-width: 11ch;
+    margin: 28px 0 0;
+    color: #ffffff;
+    font-family: "Oxanium", sans-serif;
+    font-size: clamp(44px, 5.2vw, 74px);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow:
+        0 3px 22px rgba(0, 0, 0, 0.72),
+        0 0 24px rgba(112, 208, 255, 0.12);
+}
+
+.league-news-article-title span {
+    color: #25bfff;
+    text-shadow:
+        0 2px 20px rgba(0, 0, 0, 0.58),
+        0 0 22px rgba(37, 191, 255, 0.34);
+}
+
+.league-news-article-divider {
+    width: 56px;
+    height: 4px;
+    margin: 28px 0;
+    border-radius: 999px;
+    background: #70d0ff;
+    box-shadow: 0 0 18px rgba(112, 208, 255, 0.55);
+}
+
+.league-news-article-text p {
+    margin: 0 0 20px;
+    color: rgba(240, 247, 255, 0.92);
+    font-size: clamp(15px, 1.25vw, 19px);
+    font-weight: 500;
+    line-height: 1.7;
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.54);
+}
+
+.league-news-article-text strong,
+.league-news-article-text .news-inline-highlight {
+    color: #70d0ff;
+    font-weight: 900;
+}
+
+.league-news-article-quote {
+    position: absolute;
+    right: clamp(42px, 6vw, 86px);
+    bottom: clamp(52px, 7vw, 98px);
+    z-index: 3;
+    width: min(36%, 420px);
+    padding: 28px 32px;
+    border: 1px solid rgba(112, 208, 255, 0.25);
+    border-radius: 22px;
+    background:
+        linear-gradient(180deg, rgba(14, 87, 195, 0.84), rgba(4, 24, 78, 0.9));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 24px 52px rgba(0, 0, 0, 0.4),
+        0 0 36px rgba(44, 154, 255, 0.16);
+}
+
+.league-news-article-quote span {
+    display: block;
+    color: #70d0ff;
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 0.65;
+}
+
+.league-news-article-quote p {
+    margin: 18px 0 18px;
+    color: rgba(255,255,255,0.94);
+    font-size: clamp(16px, 1.35vw, 22px);
+    font-weight: 800;
+    line-height: 1.45;
+}
+
+.league-news-article-quote strong {
+    color: #70d0ff;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.league-news-article-counter {
+    position: absolute;
+    right: 32px;
+    bottom: 24px;
+    z-index: 4;
+    color: rgba(208, 231, 255, 0.72);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .league-news-arrow:hover {

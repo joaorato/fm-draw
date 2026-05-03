@@ -1508,9 +1508,12 @@ const leagues = [
                 news: [
                     {
                         eyebrow: "Sala de imprensa",
-                        title: "Acordo fechado: Rui Pedro assina pela Lokomotiva Zagreb",
+                        title: "Rui Pedro assina pelo Lokomotiva",
                         highlight: "Rui Pedro",
-                        copy: "Zagreb, 14 de Julho — Está confirmado. Rui Pedro é o mais recente reforço do NK Lokomotiva Zagreb, num negócio fechado nas últimas horas que já começa a agitar o mercado da Liga EMG. O avançado português chega com expectativas elevadas, depois de uma época sólida onde se destacou pela consistência ofensiva e presença em momentos decisivos.",
+                        copy: [
+                            "<strong>Zagreb, 14 de Julho</strong> — Está confirmado. <span class=\"news-inline-highlight\">Rui Pedro</span> é o mais recente reforço do <span class=\"news-inline-highlight\">NK Lokomotiva Zagreb</span>, num negócio fechado nas últimas horas que já começa a agitar o mercado da Liga EMG.",
+                            "O avançado português chega com estatuto de contratação forte, depois de uma época marcada pela consistência ofensiva e por momentos decisivos."
+                        ],
                         image: "assets/treinadores/painatal/painatal_new.png",
                         quote: "É um projeto ambicioso. Quero deixar marca desde o primeiro jogo.",
                         quoteBy: "Rui Pedro"
@@ -3428,6 +3431,8 @@ function renderLeagueLiveCards(league) {
         let title = displayPage.highlight
             ? displayPage.title.replace(displayPage.highlight, `<span>${displayPage.highlight}</span>`)
             : displayPage.title;
+        let copyBlocks = Array.isArray(displayPage.copy) ? displayPage.copy : [displayPage.copy].filter(Boolean);
+        let copyMarkup = copyBlocks.map((paragraph) => `<p class="league-live-page-copy">${paragraph}</p>`).join("");
         let quoteMarkup = displayPage.quote
             ? `
                 <aside class="league-news-quote">
@@ -3440,19 +3445,19 @@ function renderLeagueLiveCards(league) {
         let newsControls = newsItems.length > 1
             ? `
                 <div class="league-news-carousel">
-                    <button class="league-news-arrow" type="button" onclick="stepLeagueNews('${league.id}', -1)" aria-label="Notícia anterior">‹</button>
+                    <button class="league-news-arrow" type="button" onclick="event.stopPropagation(); stepLeagueNews('${league.id}', -1)" aria-label="Notícia anterior">‹</button>
                     <div class="league-news-dots" aria-label="Indicador de notícias">
                         ${newsItems.map((_, index) => `
                             <button
                                 class="league-news-dot ${index === activeNewsIndex ? "active" : ""}"
                                 type="button"
-                                onclick="selectLeagueNews('${league.id}', ${index})"
+                                onclick="event.stopPropagation(); selectLeagueNews('${league.id}', ${index})"
                                 aria-label="Ver notícia ${index + 1}"
                                 aria-pressed="${index === activeNewsIndex ? "true" : "false"}"
                             ></button>
                         `).join("")}
                     </div>
-                    <button class="league-news-arrow" type="button" onclick="stepLeagueNews('${league.id}', 1)" aria-label="Notícia seguinte">›</button>
+                    <button class="league-news-arrow" type="button" onclick="event.stopPropagation(); stepLeagueNews('${league.id}', 1)" aria-label="Notícia seguinte">›</button>
                 </div>
             `
             : "";
@@ -3462,14 +3467,15 @@ function renderLeagueLiveCards(league) {
                 <div class="league-side-head centered">
                     <strong>Época Atual</strong>
                 </div>
-                <article class="league-live-page is-news" style="--news-bg: url('${image}')" data-live-page="noticias" onclick="pauseLeagueLiveCarousel('${league.id}')" aria-label="Pausar carrossel para ler a notícia">
+                <article class="league-live-page is-news" style="--news-bg: url('${image}')" data-live-page="noticias" onclick="openLeagueNewsArticle('${league.id}', ${activeNewsIndex})" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); openLeagueNewsArticle('${league.id}', ${activeNewsIndex}); }" role="button" tabindex="0" aria-label="Abrir notícia completa">
                     <div class="league-live-page-content">
                         <div class="league-live-page-kicker">
                             <span class="league-live-status-dot"></span>
                             <span>${displayPage.eyebrow}</span>
                         </div>
                         <div class="league-live-page-title">${title}</div>
-                        <p class="league-live-page-copy">${displayPage.copy}</p>
+                        ${copyMarkup}
+                        <span class="league-news-read-more">Ler artigo completo</span>
                     </div>
                     ${quoteMarkup}
                     ${newsControls}
@@ -3553,6 +3559,93 @@ function stepLeagueNews(leagueId, direction = 1) {
     selectLeagueNews(leagueId, nextIndex);
 }
 
+function getLeagueNewsArticle(leagueId, index) {
+    let league = leagues.find((entry) => entry.id === leagueId);
+    let newsPage = league?.livePages?.find((page) => page.id === "noticias");
+    if (!newsPage?.news?.length) return null;
+
+    let safeIndex = Math.max(0, Math.min(Number(index) || 0, newsPage.news.length - 1));
+    return {
+        league,
+        article: newsPage.news[safeIndex],
+        index: safeIndex,
+        total: newsPage.news.length
+    };
+}
+
+function renderLeagueNewsCopy(copy) {
+    let blocks = Array.isArray(copy) ? copy : [copy].filter(Boolean);
+    return blocks.map((paragraph) => `<p>${paragraph}</p>`).join("");
+}
+
+function openLeagueNewsArticle(leagueId, index) {
+    let newsData = getLeagueNewsArticle(leagueId, index);
+    if (!newsData) return;
+
+    let { article, index: activeIndex, total } = newsData;
+    let image = article.image || "assets/treinadores/painatal/painatal_new.png";
+    let title = article.highlight
+        ? article.title.replace(article.highlight, `<span>${article.highlight}</span>`)
+        : article.title;
+    let quoteMarkup = article.quote
+        ? `
+            <aside class="league-news-article-quote">
+                <span>“</span>
+                <p>${article.quote}</p>
+                ${article.quoteBy ? `<strong>— ${article.quoteBy}</strong>` : ""}
+            </aside>
+        `
+        : "";
+
+    pausedLeagueLivePages.add(leagueId);
+    if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
+
+    let existingModal = document.getElementById("leagueNewsArticleModal");
+    existingModal?.remove();
+
+    let modal = document.createElement("div");
+    modal.id = "leagueNewsArticleModal";
+    modal.className = "league-news-article-modal";
+    modal.innerHTML = `
+        <div class="league-news-article-backdrop" onclick="closeLeagueNewsArticle()"></div>
+        <article class="league-news-article-dialog" style="--news-bg: url('${image}')">
+            <button class="league-news-article-close" type="button" onclick="closeLeagueNewsArticle()" aria-label="Fechar notícia">×</button>
+            <header class="league-news-article-header">
+                <strong>Época Atual</strong>
+            </header>
+            <section class="league-news-article-body">
+                <div class="league-news-article-copy">
+                    <div class="league-live-page-kicker">
+                        <span class="league-live-status-dot"></span>
+                        <span>${article.eyebrow || "Sala de imprensa"}</span>
+                    </div>
+                    <h2 class="league-news-article-title">${title}</h2>
+                    <div class="league-news-article-divider"></div>
+                    <div class="league-news-article-text">
+                        ${renderLeagueNewsCopy(article.copy)}
+                    </div>
+                </div>
+                ${quoteMarkup}
+                ${total > 1 ? `
+                    <div class="league-news-article-counter">${activeIndex + 1} / ${total}</div>
+                ` : ""}
+            </section>
+        </article>
+    `;
+
+    document.body.appendChild(modal);
+    document.body.classList.add("modal-open");
+}
+
+function closeLeagueNewsArticle() {
+    let modal = document.getElementById("leagueNewsArticleModal");
+    if (!modal) return;
+    modal.remove();
+    if (!document.getElementById("matchReportModal") && (!document.getElementById("coachModal") || document.getElementById("coachModal").hidden)) {
+        document.body.classList.remove("modal-open");
+    }
+}
+
 function stepLeagueLivePage(leagueId, direction = 1) {
     let league = leagues.find((entry) => entry.id === leagueId);
     if (!league?.livePages?.length) return;
@@ -3576,6 +3669,12 @@ document.addEventListener("click", (event) => {
     }
     if (!event.target.closest(".league-main-select-wrap")) {
         closeMainLeagueMenu();
+    }
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.getElementById("leagueNewsArticleModal")) {
+        closeLeagueNewsArticle();
     }
 });
 
