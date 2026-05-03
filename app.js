@@ -1511,7 +1511,7 @@ const leagues = [
                         title: "Rui Pedro assina pelo Lokomotiva",
                         highlight: "Rui Pedro",
                         copy: [
-                            "<strong>Zagreb, 14 de Julho</strong> — Está confirmado. <span class=\"news-inline-highlight\">Rui Pedro</span> é o mais recente reforço do <span class=\"news-inline-highlight\">NK Lokomotiva Zagreb</span>, num negócio fechado nas últimas horas que já começa a agitar o mercado da Liga EMG.",
+                            "<strong>Zagreb, 14 de Julho</strong> — Está confirmado. <span class=\"news-inline-highlight\">Rui Pedro</span> é o mais recente reforço do <span class=\"news-inline-highlight\">NK Lokomotiva Zagreb</span>, num negócio fechado nas últimas horas que já começa a agitar o mercado da Liga Croata.",
                             "O avançado português chega com estatuto de contratação forte, depois de uma época marcada pela consistência ofensiva e por momentos decisivos."
                         ],
                         image: "assets/treinadores/painatal/painatal_new.png",
@@ -3465,7 +3465,7 @@ function renderLeagueLiveCards(league) {
         return `
             <section class="league-side-card league-live-panel-card">
                 <div class="league-side-head centered">
-                    <strong>Época Atual</strong>
+                    <strong>Notícias</strong>
                 </div>
                 <article class="league-live-page is-news" style="--news-bg: url('${image}')" data-live-page="noticias" onclick="openLeagueNewsArticle('${league.id}', ${activeNewsIndex})" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); openLeagueNewsArticle('${league.id}', ${activeNewsIndex}); }" role="button" tabindex="0" aria-label="Abrir notícia completa">
                     <div class="league-live-page-content">
@@ -3596,6 +3596,25 @@ function openLeagueNewsArticle(leagueId, index) {
             </aside>
         `
         : "";
+    let articleControls = total > 1
+        ? `
+            <div class="league-news-article-carousel">
+                <button class="league-news-article-arrow" type="button" onclick="openLeagueNewsArticle('${leagueId}', ${(activeIndex - 1 + total) % total})" aria-label="Notícia anterior">‹</button>
+                <div class="league-news-article-dots" aria-label="Indicador de notícias">
+                    ${Array.from({ length: total }, (_, dotIndex) => `
+                        <button
+                            class="league-news-dot ${dotIndex === activeIndex ? "active" : ""}"
+                            type="button"
+                            onclick="openLeagueNewsArticle('${leagueId}', ${dotIndex})"
+                            aria-label="Ver notícia ${dotIndex + 1}"
+                            aria-pressed="${dotIndex === activeIndex ? "true" : "false"}"
+                        ></button>
+                    `).join("")}
+                </div>
+                <button class="league-news-article-arrow" type="button" onclick="openLeagueNewsArticle('${leagueId}', ${(activeIndex + 1) % total})" aria-label="Notícia seguinte">›</button>
+            </div>
+        `
+        : "";
 
     pausedLeagueLivePages.add(leagueId);
     if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
@@ -3611,7 +3630,7 @@ function openLeagueNewsArticle(leagueId, index) {
         <article class="league-news-article-dialog" style="--news-bg: url('${image}')">
             <button class="league-news-article-close" type="button" onclick="closeLeagueNewsArticle()" aria-label="Fechar notícia">×</button>
             <header class="league-news-article-header">
-                <strong>Época Atual</strong>
+                <strong>Notícias</strong>
             </header>
             <section class="league-news-article-body">
                 <div class="league-news-article-copy">
@@ -3626,9 +3645,7 @@ function openLeagueNewsArticle(leagueId, index) {
                     </div>
                 </div>
                 ${quoteMarkup}
-                ${total > 1 ? `
-                    <div class="league-news-article-counter">${activeIndex + 1} / ${total}</div>
-                ` : ""}
+                ${articleControls}
             </section>
         </article>
     `;
