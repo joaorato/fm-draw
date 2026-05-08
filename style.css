@@ -2212,6 +2212,18 @@ body::after {
     isolation: isolate;
 }
 
+.league-live-page.is-news.is-hugo-news {
+    background:
+        var(--news-bg) 72% 42% / cover no-repeat,
+        linear-gradient(180deg, rgba(7, 20, 64, 0.94), rgba(5, 14, 46, 0.98)) !important;
+}
+
+.league-live-page.is-news.is-logo-news {
+    background:
+        var(--news-bg) 72% 42% / min(44%, 300px) auto no-repeat,
+        linear-gradient(180deg, rgba(7, 20, 64, 0.94), rgba(5, 14, 46, 0.98)) !important;
+}
+
 .league-live-page.is-news:hover {
     border-color: transparent;
     box-shadow: inset 0 0 0 1px rgba(112, 208, 255, 0.18);
@@ -2351,6 +2363,17 @@ body::after {
 
 .league-live-page.is-news .league-live-page-copy + .league-live-page-copy {
     display: none;
+}
+
+.league-live-page.is-news.is-hugo-news .league-live-page-copy {
+    max-width: 29ch;
+    font-size: clamp(10.5px, 0.68vw, 12.5px);
+    line-height: 1.43;
+}
+
+.league-live-page.is-news.is-hugo-news .league-live-page-copy + .league-live-page-copy {
+    display: block;
+    margin-top: 11px;
 }
 
 .league-live-page.is-news .news-inline-highlight {
@@ -2541,6 +2564,20 @@ body::after {
     pointer-events: none;
 }
 
+.league-news-article-dialog.is-logo-bg::before {
+    background:
+        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.92) 32%, rgba(4, 16, 48, 0.72) 64%, rgba(2, 8, 26, 0.34) 100%),
+        linear-gradient(180deg, rgba(2, 8, 28, 0.1) 0%, rgba(2, 8, 28, 0.12) 46%, rgba(4, 18, 54, 0.28) 100%),
+        var(--news-bg) 50% 58px / min(31%, 300px) auto no-repeat;
+}
+
+.league-news-article-dialog.is-hugo-profile::before {
+    background:
+        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.92) 34%, rgba(4, 16, 48, 0.56) 61%, rgba(2, 8, 26, 0.16) 100%),
+        linear-gradient(180deg, rgba(2, 8, 28, 0.08) 0%, rgba(2, 8, 28, 0.12) 54%, rgba(4, 18, 54, 0.32) 100%),
+        var(--news-bg) 68% 42% / cover no-repeat;
+}
+
 .league-news-article-close {
     position: absolute;
     top: 24px;
@@ -2564,37 +2601,24 @@ body::after {
     cursor: pointer;
 }
 
-.league-news-article-header {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 2;
-    height: 128px;
-    display: grid;
-    align-items: start;
-    justify-items: center;
-    padding-top: 27px;
-    border-bottom: 0;
-    background:
-        linear-gradient(180deg, rgba(7, 25, 78, 0.76) 0%, rgba(5, 17, 54, 0.46) 48%, rgba(4, 15, 48, 0) 100%);
-    pointer-events: none;
-}
-
-.league-news-article-header strong {
-    color: #ffffff;
-    font-size: clamp(20px, 2.2vw, 32px);
-    font-weight: 900;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-}
-
 .league-news-article-body {
     position: relative;
     height: 100%;
-    padding: 130px 48px 104px;
+    padding: 78px clamp(42px, 4vw, 64px) 132px;
     overflow: hidden;
     background: transparent;
+    display: grid;
+    grid-template-columns: minmax(0, 41ch) minmax(300px, 420px);
+    gap: clamp(38px, 7vw, 118px);
+    align-content: stretch;
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-body {
+    overflow-y: auto;
+    grid-template-columns: minmax(0, 38ch) minmax(360px, 1fr);
+    gap: clamp(34px, 5vw, 74px);
+    align-content: start;
+    padding-bottom: 42px;
 }
 
 .league-news-article-body::before {
@@ -2628,10 +2652,15 @@ body::after {
     pointer-events: none;
 }
 
+.league-news-article-dialog.is-long-read .league-news-article-body::after {
+    display: none;
+}
+
 .league-news-article-copy {
     position: relative;
     z-index: 2;
-    width: min(43ch, 43%);
+    width: min(43ch, 100%);
+    min-width: 0;
 }
 
 .league-news-article-title {
@@ -2656,6 +2685,22 @@ body::after {
         0 0 22px rgba(37, 191, 255, 0.34);
 }
 
+.league-news-article-dialog.is-logo-bg .league-news-article-title {
+    max-width: 15ch;
+    font-size: clamp(34px, 3.25vw, 48px);
+    line-height: 1.04;
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-title {
+    max-width: 13ch;
+    font-size: clamp(34px, 3.25vw, 48px);
+    line-height: 1.03;
+}
+
+.league-news-article-dialog.is-logo-bg .league-news-article-divider {
+    margin: 18px 0;
+}
+
 .league-news-article-divider {
     width: 56px;
     height: 4px;
@@ -2675,17 +2720,78 @@ body::after {
 }
 
 .league-news-article-text strong,
-.league-news-article-text .news-inline-highlight {
+.league-news-article-text .news-inline-highlight,
+.league-news-article-side-text strong,
+.league-news-article-side-text .news-inline-highlight {
     color: #70d0ff;
     font-weight: 900;
 }
 
-.league-news-article-quote {
-    position: absolute;
-    right: 56px;
-    bottom: 112px;
+.league-news-article-side {
+    position: relative;
     z-index: 3;
-    width: min(36%, 360px);
+    align-self: end;
+    display: grid;
+    gap: 20px;
+    min-width: 0;
+}
+
+.league-news-article-side-text {
+    max-width: 39ch;
+    padding-left: 20px;
+    border-left: 2px solid rgba(112, 208, 255, 0.42);
+    filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.28));
+}
+
+.league-news-article-side-text p {
+    margin: 0 0 14px;
+    color: rgba(240, 247, 255, 0.9);
+    font-size: clamp(13px, 0.98vw, 16px);
+    font-weight: 500;
+    line-height: 1.58;
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.56);
+}
+
+.league-news-article-side-text p:last-child {
+    margin-bottom: 0;
+}
+
+.league-news-article-dialog.is-logo-bg .league-news-article-side {
+    gap: 16px;
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-side {
+    align-self: start;
+    gap: 14px;
+}
+
+.league-news-article-dialog.is-logo-bg .league-news-article-side-text {
+    max-width: 42ch;
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-side-text {
+    max-width: 62ch;
+    padding-left: 0;
+    border-left: 0;
+    filter: none;
+}
+
+.league-news-article-dialog.is-logo-bg .league-news-article-side-text p {
+    font-size: clamp(12.5px, 0.9vw, 14.5px);
+    line-height: 1.5;
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-side-text p {
+    margin-bottom: 11px;
+    font-size: clamp(12px, 0.84vw, 14px);
+    line-height: 1.46;
+}
+
+.league-news-article-quote {
+    position: relative;
+    justify-self: stretch;
+    z-index: 3;
+    width: 100%;
     padding: 22px 26px;
     border: 1px solid rgba(112, 208, 255, 0.25);
     border-radius: 22px;
@@ -2697,12 +2803,40 @@ body::after {
         0 0 36px rgba(44, 154, 255, 0.16);
 }
 
+.league-news-article-dialog.is-logo-bg .league-news-article-quote {
+    justify-self: start;
+    width: min(100%, 330px);
+    padding: 16px 20px;
+    border-radius: 18px;
+    background:
+        linear-gradient(180deg, rgba(13, 78, 180, 0.74), rgba(4, 24, 78, 0.82));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 18px 38px rgba(0, 0, 0, 0.34),
+        0 0 26px rgba(44, 154, 255, 0.12);
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-quote {
+    justify-self: start;
+    width: min(100%, 340px);
+    padding: 16px 20px;
+    border-radius: 18px;
+}
+
 .league-news-article-quote span {
     display: block;
     color: #70d0ff;
     font-size: 42px;
     font-weight: 900;
     line-height: 0.65;
+}
+
+.league-news-article-dialog.is-logo-bg .league-news-article-quote span {
+    font-size: 30px;
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-quote span {
+    font-size: 30px;
 }
 
 .league-news-article-quote p {
@@ -2713,6 +2847,18 @@ body::after {
     line-height: 1.45;
 }
 
+.league-news-article-dialog.is-logo-bg .league-news-article-quote p {
+    margin: 10px 0 10px;
+    font-size: clamp(13px, 0.92vw, 15px);
+    line-height: 1.42;
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-quote p {
+    margin: 10px 0 10px;
+    font-size: clamp(13px, 0.92vw, 15px);
+    line-height: 1.42;
+}
+
 .league-news-article-quote strong {
     color: #70d0ff;
     font-size: 13px;
@@ -2721,20 +2867,37 @@ body::after {
     text-transform: uppercase;
 }
 
+.league-news-article-dialog.is-logo-bg .league-news-article-quote strong {
+    font-size: 11.5px;
+    letter-spacing: 0.8px;
+}
+
 .league-news-article-carousel {
     position: absolute;
-    right: clamp(42px, 5vw, 64px);
-    bottom: 28px;
-    left: clamp(42px, 5vw, 64px);
+    right: clamp(22px, 2.6vw, 38px);
+    bottom: 24px;
+    left: clamp(22px, 2.6vw, 38px);
     z-index: 4;
     display: grid;
-    grid-template-columns: 58px minmax(0, 1fr) 58px;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
     align-items: center;
 }
 
+.league-news-article-dialog.is-long-read .league-news-article-carousel {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    grid-column: 1 / -1;
+    z-index: 5;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 0;
+}
+
 .league-news-article-arrow {
-    width: 58px;
-    height: 58px;
+    width: 52px;
+    height: 52px;
     display: grid;
     place-items: center;
     padding: 0;
@@ -2746,7 +2909,7 @@ body::after {
         inset 0 1px 0 rgba(255,255,255,0.08),
         0 0 24px rgba(24, 118, 255, 0.18);
     backdrop-filter: blur(12px);
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 900;
     line-height: 1;
     cursor: pointer;
@@ -5661,6 +5824,18 @@ button:disabled {
             linear-gradient(180deg, rgba(2, 8, 28, 0.18) 0%, rgba(2, 8, 28, 0.2) 56%, rgba(4, 18, 54, 0.38) 100%),
             var(--news-bg) 58% center / cover no-repeat;
     }
+    .league-news-article-dialog.is-logo-bg::before {
+        background:
+            linear-gradient(90deg, rgba(1, 7, 24, 0.98) 0%, rgba(2, 9, 31, 0.92) 64%, rgba(3, 12, 38, 0.56) 100%),
+            linear-gradient(180deg, rgba(2, 8, 28, 0.18) 0%, rgba(2, 8, 28, 0.2) 56%, rgba(4, 18, 54, 0.38) 100%),
+            var(--news-bg) 50% 42px / min(46%, 210px) auto no-repeat;
+    }
+    .league-news-article-dialog.is-hugo-profile::before {
+        background:
+            linear-gradient(90deg, rgba(1, 7, 24, 0.98) 0%, rgba(2, 9, 31, 0.9) 56%, rgba(3, 12, 38, 0.54) 100%),
+            linear-gradient(180deg, rgba(2, 8, 28, 0.18) 0%, rgba(2, 8, 28, 0.22) 56%, rgba(4, 18, 54, 0.42) 100%),
+            var(--news-bg) 66% center / cover no-repeat;
+    }
     .league-news-article-close {
         top: 14px;
         right: 14px;
@@ -5668,18 +5843,15 @@ button:disabled {
         height: 36px;
         font-size: 24px;
     }
-    .league-news-article-header {
-        height: 100px;
-        padding-top: 21px;
-        padding-right: 46px;
-    }
-    .league-news-article-header strong {
-        font-size: 20px;
-        letter-spacing: 2.2px;
-    }
     .league-news-article-body {
         height: 100%;
-        padding: 96px 24px 88px;
+        padding: 72px 24px 104px;
+        display: block;
+    }
+    .league-news-article-dialog.is-long-read .league-news-article-body {
+        display: block;
+        overflow-y: auto;
+        padding-bottom: 32px;
     }
     .league-news-article-body::after {
         height: 142px;
@@ -5694,6 +5866,14 @@ button:disabled {
         font-size: clamp(30px, 10vw, 42px);
         line-height: 1;
     }
+    .league-news-article-dialog.is-logo-bg .league-news-article-title {
+        max-width: 13.5ch;
+        font-size: clamp(28px, 8vw, 36px);
+    }
+    .league-news-article-dialog.is-long-read .league-news-article-title {
+        max-width: 12.5ch;
+        font-size: clamp(28px, 8vw, 36px);
+    }
     .league-news-article-divider {
         width: 46px;
         height: 3px;
@@ -5702,6 +5882,26 @@ button:disabled {
     .league-news-article-text p {
         font-size: 13px;
         line-height: 1.48;
+    }
+    .league-news-article-side {
+        display: block;
+        margin-top: 14px;
+    }
+    .league-news-article-side-text {
+        max-width: 32ch;
+        padding-left: 14px;
+    }
+    .league-news-article-side-text p {
+        font-size: 12.5px;
+        line-height: 1.45;
+    }
+    .league-news-article-dialog.is-logo-bg .league-news-article-side-text p {
+        font-size: 12px;
+        line-height: 1.42;
+    }
+    .league-news-article-dialog.is-long-read .league-news-article-side-text p {
+        font-size: 12px;
+        line-height: 1.42;
     }
     .league-news-article-quote {
         display: none;
@@ -5716,6 +5916,10 @@ button:disabled {
         width: 44px;
         height: 44px;
         font-size: 30px;
+    }
+    .league-news-article-dialog.is-long-read .league-news-article-carousel {
+        margin-top: 20px;
+        padding-top: 16px;
     }
     .match-report-modal { padding: 12px; }
     .match-report-dialog { border-radius: 20px; }

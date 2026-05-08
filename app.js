@@ -2228,20 +2228,43 @@ const leagues = [
                         quoteBy: "Rui Pedro"
                     },
                     {
-                        eyebrow: "Pré-época",
-                        title: "Croácia ganha forma",
-                        copy: "A nova liga já tem calendário, equipas sorteadas e treinadores prontos para começar a criar rivalidades. Falta só a bola rolar.",
-                        image: "assets/treinadores/painatal/painatal_new.png",
-                        quote: "A primeira jornada vai dizer muito sobre quem veio preparado.",
-                        quoteBy: "Liga EMG"
+                        eyebrow: "Arranque da liga",
+                        title: "Croácia abre novo capítulo",
+                        highlight: "Croácia",
+                        copy: [
+                            "<strong>Zagreb, Agosto</strong> — A <span class=\"news-inline-highlight\">Liga EMG</span> troca a Escócia pela Croácia depois de uma época que deixou rivalidades abertas, treinadores expostos e a sensação de que quase ninguém saiu exatamente igual. O novo campeonato chega com menos margem para desculpas e com oito projetos a tentar provar que aprenderam alguma coisa.",
+                            "Zép entra na Rijeka com estatuto de candidato e pressão para confirmar favoritismo. Rato pega no Istra 1961 como quem procura uma equipa incómoda, capaz de roubar pontos a qualquer um. Chico quer dar identidade ao Slaven Belupo, Nabais tenta transformar o Varaždin numa ameaça real e Gamy aparece no Osijek com ambição suficiente para mexer cedo na tabela.",
+                            "Painatal tem no Lokomotiva uma oportunidade para reescrever a narrativa depois dos altos e baixos anteriores. Cardoso procura estabilidade no Gorica, enquanto Hugo chega ao Vukovar como um dos nomes mais imprevisíveis do grupo. A experiência escocesa fica como aviso: reputação ajuda a começar, mas na Liga EMG só os resultados sustentam a conversa."
+                        ],
+                        image: "assets/logos/teams/croacia/supersport_hnl.png",
+                        quote: "A Croácia vai mostrar quem trouxe lições da Escócia e quem trouxe só histórias.",
+                        quoteBy: "Redação EMG"
                     },
                     {
-                        eyebrow: "Mercado",
-                        title: "Primeiros movimentos",
-                        copy: "As transferências já começam a contar histórias: entradas cirúrgicas, empréstimos suspeitos e negócios que prometem aquecer a época.",
-                        image: "assets/treinadores/painatal/painatal_new.png",
-                        quote: "No mercado também se ganham pontos psicológicos.",
-                        quoteBy: "Redação EMG"
+                        eyebrow: "Sala de imprensa",
+                        title: "Hugo Macedo assume o Vukovar",
+                        highlight: "Hugo Macedo",
+                        previewCopy: [
+                            "<strong>Vukovar, 18 de Julho</strong> — O <span class=\"news-inline-highlight\">HNK Vukovar 1991</span> oficializou <span class=\"news-inline-highlight\">Hugo Macedo</span> como novo treinador principal. Conhecido pelo detalhe táctico quase obsessivo, o técnico português promete trazer um futebol moderno, agressivo e carregado de... instruções.",
+                            "Nos bastidores, fala-se de um modelo de jogo particularmente exigente para os laterais."
+                        ],
+                        previewQuote: "",
+                        copy: [
+                            "<strong>Vukovar, 18 de Julho</strong> — O <span class=\"news-inline-highlight\">HNK Vukovar 1991</span> apresentou oficialmente <span class=\"news-inline-highlight\">Hugo Macedo</span> como novo treinador da equipa principal, numa contratação que promete trazer intensidade, preparação detalhada e uma quantidade preocupante de sliders mexidos antes de cada jogo.",
+                            "Depois de uma passagem pela Escócia marcada por uma evolução tática “repentina”, Hugo chega à Croácia já com reputação de ser um dos treinadores mais dedicados da EMG no que toca a análise de vídeo. Segundo fontes próximas da equipa técnica, o novo treinador passa horas a estudar futebol internacional, tendências modernas e “conteúdo educativo altamente específico”.",
+                            "A direção do Vukovar acredita que encontrou um técnico capaz de elevar imediatamente o nível competitivo da equipa: <span class=\"news-inline-highlight\">“O mister Hugo está sempre atualizado. Às vezes até demais.”</span>",
+                            "Jogadores que já participaram nos primeiros treinos admitem alguma dificuldade em acompanhar todas as indicações tácticas, especialmente os laterais, que aparentemente recebem mais instruções individuais do que o resto da equipa junto.",
+                            "Um elemento do balneário revelou: <span class=\"news-inline-highlight\">“O lateral esquerdo tem literalmente uma folha A4 só para ele.”</span>",
+                            "Entre as ordens dadas aos corredores defensivos estarão instruções como subir mais, subir menos, cruzar cedo, cruzar atrasado, temporizar, pressionar mais, pressionar menos, fechar dentro, abrir na linha e “ser criativo mas disciplinado”.",
+                            "Questionado sobre algumas dessas decisões tácticas durante a apresentação, Hugo Macedo mostrou-se surpreendido: <span class=\"news-inline-highlight\">“Sinceramente nem me lembro de ter colocado metade dessas instruções. O meu adjunto às vezes gosta de explorar opções.”</span>",
+                            "A resposta gerou alguns sorrisos entre jornalistas presentes, sobretudo porque o treinador ficou conhecido na Escócia por utilizar praticamente todas as instruções de equipa disponíveis ao mesmo tempo, criando aquilo que um antigo jogador descreveu como <span class=\"news-inline-highlight\">“um futebol impossível de prever. Inclusive para nós.”</span>",
+                            "Apesar das inevitáveis brincadeiras, existe curiosidade genuína para perceber o impacto do técnico português na Croácia. Até porque, independentemente das críticas, Hugo continua a apresentar uma impressionante capacidade de aparecer constantemente alinhado com as tendências mais recentes do futebol europeu.",
+                            "Nos bastidores do Vukovar já se comenta que o treinador pediu três monitores extra para análise, acesso permanente à sala de vídeo e uma internet “minimamente capaz de aguentar 4K”.",
+                            "A estreia oficial está marcada para as próximas semanas, num jogo onde muitos adeptos estarão atentos não só ao resultado... mas também ao número de instruções individuais atribuídas aos laterais."
+                        ],
+                        image: "assets/treinadores/hugo/hugo_profile3.png",
+                        quote: "Hoje em dia o futebol evolui muito rápido. Temos de estudar constantemente.",
+                        quoteBy: "Hugo Macedo"
                     }
                 ]
             },
@@ -4137,16 +4160,23 @@ function renderLeagueLiveCards(league) {
         let activeNews = newsItems[activeNewsIndex] || activePage;
         let displayPage = activeNews;
         let image = displayPage.image || "assets/treinadores/painatal/painatal_new.png";
+        let liveNewsClass = [
+            image.includes("hugo_profile3") ? "is-hugo-news" : "",
+            image.includes("supersport_hnl") ? "is-logo-news" : ""
+        ].filter(Boolean).join(" ");
+        liveNewsClass = liveNewsClass ? ` ${liveNewsClass}` : "";
         let title = displayPage.highlight
             ? displayPage.title.replace(displayPage.highlight, `<span>${displayPage.highlight}</span>`)
             : displayPage.title;
-        let copyBlocks = Array.isArray(displayPage.copy) ? displayPage.copy : [displayPage.copy].filter(Boolean);
+        let previewCopy = displayPage.previewCopy ?? displayPage.copy;
+        let copyBlocks = Array.isArray(previewCopy) ? previewCopy : [previewCopy].filter(Boolean);
         let copyMarkup = copyBlocks.map((paragraph) => `<p class="league-live-page-copy">${paragraph}</p>`).join("");
-        let quoteMarkup = displayPage.quote
+        let previewQuote = displayPage.previewQuote ?? displayPage.quote;
+        let quoteMarkup = previewQuote
             ? `
                 <aside class="league-news-quote">
                     <span>“</span>
-                    <p>${displayPage.quote}</p>
+                    <p>${previewQuote}</p>
                     ${displayPage.quoteBy ? `<strong>— ${displayPage.quoteBy}</strong>` : ""}
                 </aside>
             `
@@ -4176,7 +4206,7 @@ function renderLeagueLiveCards(league) {
                 <div class="league-side-head centered">
                     <strong>Notícias</strong>
                 </div>
-                <article class="league-live-page is-news" style="--news-bg: url('${image}')" data-live-page="noticias" onclick="openLeagueNewsArticle('${league.id}', ${activeNewsIndex})" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); openLeagueNewsArticle('${league.id}', ${activeNewsIndex}); }" role="button" tabindex="0" aria-label="Abrir notícia completa">
+                <article class="league-live-page is-news${liveNewsClass}" style="--news-bg: url('${image}')" data-live-page="noticias" onclick="openLeagueNewsArticle('${league.id}', ${activeNewsIndex})" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); openLeagueNewsArticle('${league.id}', ${activeNewsIndex}); }" role="button" tabindex="0" aria-label="Abrir notícia completa">
                     <div class="league-live-page-content">
                         <div class="league-live-page-kicker">
                             <span class="league-live-status-dot"></span>
@@ -4293,9 +4323,18 @@ function openLeagueNewsArticle(leagueId, index) {
 
     let { article, index: activeIndex, total } = newsData;
     let image = article.image || "assets/treinadores/painatal/painatal_new.png";
+    let copyBlocks = Array.isArray(article.copy) ? article.copy : [article.copy].filter(Boolean);
+    let articleModifiers = [
+        image.includes("supersport_hnl") ? "is-logo-bg" : "",
+        image.includes("hugo_profile3") ? "is-hugo-profile" : "",
+        copyBlocks.length > 4 ? "is-long-read" : ""
+    ].filter(Boolean).join(" ");
+    let articleClass = `league-news-article-dialog${articleModifiers ? ` ${articleModifiers}` : ""}`;
     let title = article.highlight
         ? article.title.replace(article.highlight, `<span>${article.highlight}</span>`)
         : article.title;
+    let introCopyMarkup = renderLeagueNewsCopy(copyBlocks.slice(0, 1));
+    let sideCopyMarkup = renderLeagueNewsCopy(copyBlocks.slice(1));
     let quoteMarkup = article.quote
         ? `
             <aside class="league-news-article-quote">
@@ -4303,6 +4342,14 @@ function openLeagueNewsArticle(leagueId, index) {
                 <p>${article.quote}</p>
                 ${article.quoteBy ? `<strong>— ${article.quoteBy}</strong>` : ""}
             </aside>
+        `
+        : "";
+    let sideMarkup = sideCopyMarkup || quoteMarkup
+        ? `
+            <div class="league-news-article-side">
+                ${sideCopyMarkup ? `<div class="league-news-article-side-text">${sideCopyMarkup}</div>` : ""}
+                ${quoteMarkup}
+            </div>
         `
         : "";
     let articleControls = total > 1
@@ -4338,11 +4385,8 @@ function openLeagueNewsArticle(leagueId, index) {
     modal.className = "league-news-article-modal";
     modal.innerHTML = `
         <div class="league-news-article-backdrop" onclick="closeLeagueNewsArticle()"></div>
-        <article class="league-news-article-dialog" style="--news-bg: url('${image}')">
+        <article class="${articleClass}" style="--news-bg: url('${image}')">
             <button class="league-news-article-close" type="button" onclick="closeLeagueNewsArticle()" aria-label="Fechar notícia">×</button>
-            <header class="league-news-article-header">
-                <strong>Notícias</strong>
-            </header>
             <section class="league-news-article-body">
                 <div class="league-news-article-copy">
                     <div class="league-live-page-kicker">
@@ -4352,10 +4396,10 @@ function openLeagueNewsArticle(leagueId, index) {
                     <h2 class="league-news-article-title">${title}</h2>
                     <div class="league-news-article-divider"></div>
                     <div class="league-news-article-text">
-                        ${renderLeagueNewsCopy(article.copy)}
+                        ${introCopyMarkup}
                     </div>
                 </div>
-                ${quoteMarkup}
+                ${sideMarkup}
                 ${articleControls}
             </section>
         </article>
