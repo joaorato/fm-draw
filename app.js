@@ -3618,6 +3618,8 @@ function openLeagueNewsArticle(leagueId, index) {
 
     pausedLeagueLivePages.add(leagueId);
     if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
+    activeLeagueLivePage[leagueId] = "noticias";
+    activeLeagueNewsIndex[leagueId] = activeIndex;
 
     let existingModal = document.getElementById("leagueNewsArticleModal");
     existingModal?.remove();
