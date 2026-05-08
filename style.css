@@ -2845,6 +2845,67 @@ body::after {
     line-height: 1.35;
 }
 
+.league-transfers-head {
+    align-items: center;
+    justify-content: center;
+}
+
+.league-transfer-window {
+    position: relative;
+    display: inline-grid;
+    gap: 2px;
+    justify-items: end;
+    min-width: 112px;
+    padding: 7px 10px 7px 14px;
+    border: 1px solid rgba(105, 255, 218, 0.26);
+    border-radius: 999px;
+    color: #ffffff;
+    background:
+        radial-gradient(circle at 14% 50%, rgba(72, 255, 209, 0.22), transparent 46%),
+        linear-gradient(180deg, rgba(9, 73, 101, 0.84), rgba(4, 30, 78, 0.86));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 0 22px rgba(36, 205, 255, 0.08);
+}
+
+.league-transfers-head .league-transfer-window {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.league-transfer-window::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #63ffd1;
+    box-shadow: 0 0 12px rgba(99, 255, 209, 0.76);
+    transform: translateY(-50%);
+}
+
+.league-transfer-window span {
+    color: rgba(226, 255, 248, 0.92);
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 0.85px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.league-transfer-window b {
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
 .league-transfers-scroll {
     position: relative;
     flex: 1;
@@ -3352,11 +3413,15 @@ button.league-fixture-score {
     cursor: pointer;
 }
 
+.league-fixture-score.is-result,
 .league-fixture-score.is-clickable {
     border-color: rgba(58, 240, 220, 0.42);
     background:
         radial-gradient(circle at top, rgba(80, 232, 255, 0.24), transparent 62%),
         linear-gradient(180deg, rgba(19, 52, 114, 0.88), rgba(10, 25, 72, 0.9));
+}
+
+.league-fixture-score.is-clickable {
     transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
 }
 
