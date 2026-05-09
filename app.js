@@ -4482,9 +4482,9 @@ function openLeagueNewsArticle(leagueId, index) {
                     </div>
                 </div>
                 ${sideMarkup}
-                ${articleControls}
             </section>
         </article>
+        ${articleControls}
     `;
 
     document.body.appendChild(modal);

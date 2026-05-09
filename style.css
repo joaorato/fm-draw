@@ -2477,11 +2477,11 @@ body::after {
 .league-live-page.is-news .league-news-carousel {
     position: absolute;
     right: 24px;
-    bottom: 20px;
+    bottom: 18px;
     left: 24px;
     z-index: 3;
     margin: 0;
-    grid-template-columns: 34px minmax(0, 1fr) 34px;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
 }
 
 .league-news-arrow {
@@ -2503,14 +2503,14 @@ body::after {
 }
 
 .league-live-page.is-news .league-news-arrow {
-    width: 34px;
-    height: 34px;
-    border-color: rgba(112, 208, 255, 0.18);
-    background: rgba(6, 25, 72, 0.58);
+    width: 40px;
+    height: 40px;
+    border-color: rgba(112, 208, 255, 0.24);
+    background: rgba(6, 25, 72, 0.7);
     backdrop-filter: blur(12px);
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.07),
-        0 0 22px rgba(24, 118, 255, 0.16);
+        0 0 24px rgba(24, 118, 255, 0.18);
 }
 
 .league-news-article-modal {
@@ -2907,29 +2907,24 @@ body::after {
 }
 
 .league-news-article-carousel {
-    position: absolute;
-    right: clamp(22px, 2.6vw, 38px);
-    bottom: 24px;
-    left: clamp(22px, 2.6vw, 38px);
-    z-index: 4;
-    display: grid;
-    grid-template-columns: 52px minmax(0, 1fr) 52px;
-    align-items: center;
+    position: fixed;
+    inset: 0;
+    z-index: 1002;
+    display: block;
+    pointer-events: none;
 }
 
-.league-news-article-dialog.is-long-read .league-news-article-carousel {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    grid-column: 1 / -1;
-    z-index: 5;
-    margin-top: 22px;
-    padding-top: 18px;
-    border-top: 0;
+.league-news-article-carousel .league-news-article-arrow:first-child {
+    left: clamp(18px, calc((100vw - min(1160px, calc(100vw - 48px))) / 2 + 18px), 92px);
+}
+
+.league-news-article-carousel .league-news-article-arrow:last-child {
+    right: clamp(18px, calc((100vw - min(1160px, calc(100vw - 48px))) / 2 + 18px), 92px);
 }
 
 .league-news-article-arrow {
+    position: absolute;
+    top: 50%;
     width: 52px;
     height: 52px;
     display: grid;
@@ -2947,7 +2942,9 @@ body::after {
     font-weight: 900;
     line-height: 1;
     cursor: pointer;
+    transform: translateY(-50%);
     transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    pointer-events: auto;
 }
 
 .league-news-article-arrow:hover {
@@ -2955,14 +2952,19 @@ body::after {
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.1),
         0 0 30px rgba(112, 208, 255, 0.22);
-    transform: translateY(-1px);
+    transform: translateY(calc(-50% - 1px));
 }
 
 .league-news-article-dots {
+    position: absolute;
+    bottom: clamp(20px, 4vh, 40px);
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+    pointer-events: auto;
 }
 
 .league-news-arrow:hover {
@@ -2979,6 +2981,18 @@ body::after {
     align-items: center;
     justify-content: center;
     gap: 7px;
+}
+
+.league-live-page.is-news .league-news-dots {
+    justify-self: center;
+    padding: 8px 12px;
+    border: 1px solid rgba(112, 208, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(4, 18, 58, 0.48);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 0 26px rgba(24, 118, 255, 0.14);
+    backdrop-filter: blur(12px);
 }
 
 .league-news-dot {
@@ -5947,20 +5961,19 @@ button:disabled {
     .league-news-article-quote {
         display: none;
     }
-    .league-news-article-carousel {
-        right: 22px;
-        bottom: 22px;
-        left: 22px;
-        grid-template-columns: 44px minmax(0, 1fr) 44px;
+    .league-news-article-carousel .league-news-article-arrow:first-child {
+        left: 12px;
+    }
+    .league-news-article-carousel .league-news-article-arrow:last-child {
+        right: 12px;
     }
     .league-news-article-arrow {
         width: 44px;
         height: 44px;
         font-size: 30px;
     }
-    .league-news-article-dialog.is-long-read .league-news-article-carousel {
-        margin-top: 20px;
-        padding-top: 16px;
+    .league-news-article-dots {
+        bottom: 18px;
     }
     .match-report-modal { padding: 12px; }
     .match-report-dialog { border-radius: 20px; }
