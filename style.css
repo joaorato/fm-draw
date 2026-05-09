@@ -2957,7 +2957,7 @@ body::after {
 
 .league-news-article-dots {
     position: absolute;
-    bottom: clamp(20px, 4vh, 40px);
+    bottom: max(34px, calc((100vh - min(840px, calc(100vh - 48px))) / 2 + 24px));
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -5973,7 +5973,7 @@ button:disabled {
         font-size: 30px;
     }
     .league-news-article-dots {
-        bottom: 18px;
+        bottom: max(24px, calc((100vh - min(760px, calc(100vh - 24px))) / 2 + 18px));
     }
     .match-report-modal { padding: 12px; }
     .match-report-dialog { border-radius: 20px; }

@@ -2490,7 +2490,7 @@ const ITEM_WIDTH_PLAYER = 164;
 const SPIN_DURATION = 7000;
 const TEAM_SPIN_LOOPS = 5;
 const PLAYER_SPIN_LOOPS = 6;
-const LEAGUE_LIVE_AUTO_MS = 11000;
+const LEAGUE_LIVE_AUTO_MS = 7000;
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
