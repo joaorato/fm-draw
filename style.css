@@ -2212,15 +2212,10 @@ body::after {
     isolation: isolate;
 }
 
-.league-live-page.is-news.is-hugo-news {
-    background:
-        var(--news-bg) 72% 42% / cover no-repeat,
-        linear-gradient(180deg, rgba(7, 20, 64, 0.94), rgba(5, 14, 46, 0.98)) !important;
-}
-
+.league-live-page.is-news.is-cover-news,
 .league-live-page.is-news.is-logo-news {
     background:
-        var(--news-bg) 72% 42% / min(44%, 300px) auto no-repeat,
+        var(--news-bg) var(--news-card-position, 50% top) / var(--news-card-size, auto 100%) no-repeat,
         linear-gradient(180deg, rgba(7, 20, 64, 0.94), rgba(5, 14, 46, 0.98)) !important;
 }
 
@@ -2365,13 +2360,13 @@ body::after {
     display: none;
 }
 
-.league-live-page.is-news.is-hugo-news .league-live-page-copy {
+.league-live-page.is-news.is-portrait-news .league-live-page-copy {
     max-width: 29ch;
     font-size: clamp(10.5px, 0.68vw, 12.5px);
     line-height: 1.43;
 }
 
-.league-live-page.is-news.is-hugo-news .league-live-page-copy + .league-live-page-copy {
+.league-live-page.is-news.is-portrait-news .league-live-page-copy + .league-live-page-copy {
     display: block;
     margin-top: 11px;
 }
@@ -2551,6 +2546,12 @@ body::after {
     isolation: isolate;
 }
 
+.league-news-article-dialog.is-long-read {
+    height: auto;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+}
+
 .league-news-article-dialog::before {
     content: "";
     position: absolute;
@@ -2560,7 +2561,7 @@ body::after {
         linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.9) 31%, rgba(4, 16, 48, 0.5) 54%, rgba(2, 8, 26, 0.1) 100%),
         linear-gradient(180deg, rgba(2, 8, 28, 0.08) 0%, rgba(2, 8, 28, 0.08) 56%, rgba(4, 18, 54, 0.28) 100%),
         radial-gradient(circle at 88% 18%, rgba(255,255,255,0.08), transparent 22%),
-        var(--news-bg) 60% center / cover no-repeat;
+        var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
     pointer-events: none;
 }
 
@@ -2568,14 +2569,14 @@ body::after {
     background:
         linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.92) 32%, rgba(4, 16, 48, 0.72) 64%, rgba(2, 8, 26, 0.34) 100%),
         linear-gradient(180deg, rgba(2, 8, 28, 0.1) 0%, rgba(2, 8, 28, 0.12) 46%, rgba(4, 18, 54, 0.28) 100%),
-        var(--news-bg) 50% 58px / min(31%, 300px) auto no-repeat;
+        var(--news-bg) var(--news-article-position, 50% 58px) / var(--news-article-size, min(31%, 300px) auto) no-repeat;
 }
 
-.league-news-article-dialog.is-hugo-profile::before {
+.league-news-article-dialog.is-photo-cover::before {
     background:
         linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.92) 34%, rgba(4, 16, 48, 0.56) 61%, rgba(2, 8, 26, 0.16) 100%),
         linear-gradient(180deg, rgba(2, 8, 28, 0.08) 0%, rgba(2, 8, 28, 0.12) 54%, rgba(4, 18, 54, 0.32) 100%),
-        var(--news-bg) 68% 42% / cover no-repeat;
+        var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
 }
 
 .league-news-article-close {
@@ -2614,7 +2615,9 @@ body::after {
 }
 
 .league-news-article-dialog.is-long-read .league-news-article-body {
-    overflow-y: auto;
+    height: auto;
+    min-height: min(840px, calc(100vh - 48px));
+    overflow: visible;
     grid-template-columns: minmax(0, 38ch) minmax(360px, 1fr);
     gap: clamp(34px, 5vw, 74px);
     align-content: start;
@@ -2653,7 +2656,38 @@ body::after {
 }
 
 .league-news-article-dialog.is-long-read .league-news-article-body::after {
+    display: block;
+    height: 210px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(2, 9, 30, 0) 0%,
+            rgba(6, 25, 72, 0.08) 42%,
+            rgba(6, 25, 72, 0.2) 72%,
+            rgba(5, 18, 54, 0.36) 100%
+        );
+    backdrop-filter: blur(2px);
+    mask-image: linear-gradient(180deg, transparent 0%, transparent 26%, #000 72%, #000 100%);
+}
+
+.league-news-article-dialog.is-long-read::before {
     display: none;
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-body::before {
+    background:
+        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.9) 31%, rgba(4, 16, 48, 0.5) 54%, rgba(2, 8, 26, 0.1) 100%),
+        linear-gradient(180deg, rgba(2, 8, 28, 0.08) 0%, rgba(2, 8, 28, 0.08) 56%, rgba(4, 18, 54, 0.28) 100%),
+        radial-gradient(circle at 88% 18%, rgba(255,255,255,0.08), transparent 22%),
+        var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
+    border-radius: inherit;
+}
+
+.league-news-article-dialog.is-long-read.is-photo-cover .league-news-article-body::before {
+    background:
+        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.92) 34%, rgba(4, 16, 48, 0.56) 61%, rgba(2, 8, 26, 0.16) 100%),
+        linear-gradient(180deg, rgba(2, 8, 28, 0.08) 0%, rgba(2, 8, 28, 0.12) 54%, rgba(4, 18, 54, 0.32) 100%),
+        var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
 }
 
 .league-news-article-copy {
@@ -5818,23 +5852,28 @@ button:disabled {
         height: min(760px, calc(100vh - 24px));
         border-radius: 22px;
     }
+    .league-news-article-dialog.is-long-read {
+        height: auto;
+        max-height: calc(100vh - 24px);
+        overflow-y: auto;
+    }
     .league-news-article-dialog::before {
         background:
             linear-gradient(90deg, rgba(1, 7, 24, 0.98) 0%, rgba(2, 9, 31, 0.9) 54%, rgba(3, 12, 38, 0.48) 100%),
             linear-gradient(180deg, rgba(2, 8, 28, 0.18) 0%, rgba(2, 8, 28, 0.2) 56%, rgba(4, 18, 54, 0.38) 100%),
-            var(--news-bg) 58% center / cover no-repeat;
+            var(--news-bg) var(--news-article-position, 58% center) / var(--news-article-size, cover) no-repeat;
     }
     .league-news-article-dialog.is-logo-bg::before {
         background:
             linear-gradient(90deg, rgba(1, 7, 24, 0.98) 0%, rgba(2, 9, 31, 0.92) 64%, rgba(3, 12, 38, 0.56) 100%),
             linear-gradient(180deg, rgba(2, 8, 28, 0.18) 0%, rgba(2, 8, 28, 0.2) 56%, rgba(4, 18, 54, 0.38) 100%),
-            var(--news-bg) 50% 42px / min(46%, 210px) auto no-repeat;
+            var(--news-bg) var(--news-article-position, 50% 42px) / var(--news-article-size, min(46%, 210px) auto) no-repeat;
     }
-    .league-news-article-dialog.is-hugo-profile::before {
+    .league-news-article-dialog.is-photo-cover::before {
         background:
             linear-gradient(90deg, rgba(1, 7, 24, 0.98) 0%, rgba(2, 9, 31, 0.9) 56%, rgba(3, 12, 38, 0.54) 100%),
             linear-gradient(180deg, rgba(2, 8, 28, 0.18) 0%, rgba(2, 8, 28, 0.22) 56%, rgba(4, 18, 54, 0.42) 100%),
-            var(--news-bg) 66% center / cover no-repeat;
+            var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
     }
     .league-news-article-close {
         top: 14px;
@@ -5850,7 +5889,9 @@ button:disabled {
     }
     .league-news-article-dialog.is-long-read .league-news-article-body {
         display: block;
-        overflow-y: auto;
+        height: auto;
+        min-height: min(760px, calc(100vh - 24px));
+        overflow: visible;
         padding-bottom: 32px;
     }
     .league-news-article-body::after {

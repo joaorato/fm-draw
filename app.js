@@ -2216,27 +2216,56 @@ const leagues = [
                 label: "Notícias",
                 news: [
                     {
-                        eyebrow: "Sala de imprensa",
-                        title: "Rui Pedro assina pelo Lokomotiva",
-                        highlight: "Rui Pedro",
-                        copy: [
-                            "<strong>Zagreb, 14 de Julho</strong> — Está confirmado. <span class=\"news-inline-highlight\">Rui Pedro</span> é o mais recente reforço do <span class=\"news-inline-highlight\">NK Lokomotiva Zagreb</span>, num negócio fechado nas últimas horas que já começa a agitar o mercado da Liga Croata.",
-                            "O avançado português chega com estatuto de contratação forte, depois de uma época marcada pela consistência ofensiva e por momentos decisivos."
+                        eyebrow: "EMG Croácia",
+                        title: "Istra empata aos 90+6 e instala o caos",
+                        articleTitle: "Istra empata aos 90+6 e a polémica volta a perseguir Rato",
+                        highlight: "Istra",
+                        previewCopy: [
+                            "<strong>Pula, 17 de Agosto</strong> — O <span class=\"news-inline-highlight\">NK Istra 1961</span> empatou frente ao <span class=\"news-inline-highlight\">NK Lokomotiva Zagreb</span> aos 90+6... apesar de apenas terem sido dados 5 minutos de compensação.",
+                            "O treinador do Lokomotiva, Painatal, terminou o jogo absolutamente furioso e terá perguntado à equipa de arbitragem: <span class=\"news-inline-highlight\">“Vocês estavam à espera do terceiro?”</span>"
                         ],
-                        image: "assets/treinadores/painatal/painatal_new.png",
-                        quote: "É um projeto ambicioso. Quero deixar marca desde o primeiro jogo.",
-                        quoteBy: "Rui Pedro"
+                        previewQuote: "",
+                        copy: [
+                            "<strong>Pula, 17 de Agosto</strong> — O empate tardio do <span class=\"news-inline-highlight\">NK Istra 1961</span> frente ao <span class=\"news-inline-highlight\">NK Lokomotiva Zagreb</span> já é um dos momentos mais polémicos do arranque da temporada croata.",
+                            "O golo surgiu aos 90+6, apesar de apenas cinco minutos de compensação terem sido mostrados pelo quarto árbitro, e reacendeu imediatamente as eternas suspeitas que parecem acompanhar as equipas treinadas por João Rato desde os tempos da Escócia.",
+                            "Ao longo das últimas épocas, vários episódios caricatos acabaram por criar uma aura quase mística à volta do treinador português: golos em claro fora de jogo que passaram despercebidos, penalties extremamente “interpretativos”, descontos inesperadamente longos e um número estatisticamente curioso de ressaltos aos 90 minutos.",
+                            "No caso do encontro desta noite, o Lokomotiva vencia por 2-1 até ao minuto 95, altura em que os jogadores começaram naturalmente a gerir posse e a baixar linhas, acreditando que o apito final estava iminente.",
+                            "Só que... aparentemente ainda faltava jogar.",
+                            "O Istra lançou mais um ataque já depois dos cinco minutos regulamentares e acabou por chegar ao empate, mergulhando o estádio num misto de euforia e confusão absoluta.",
+                            "Depois do apito final, Painatal continuou explosivo a pedir explicações ao árbitro e, já na conferência de imprensa, não escondeu a irritação: <span class=\"news-inline-highlight\">“Se era para jogar até o Istra marcar, podiam ter avisado antes. Tínhamos poupado tempo a todos.”</span>",
+                            "Pouco depois, já mais calmo, acrescentou: <span class=\"news-inline-highlight\">“Não estou a dizer nada. Só acho curioso que estas coisas aconteçam tantas vezes ao mesmo treinador.”</span>",
+                            "Do lado do Istra, João Rato recusou qualquer polémica: <span class=\"news-inline-highlight\">“O árbitro deu o tempo que entendeu necessário. Nós jogámos até ao fim.”</span>",
+                            "Ainda assim, vários jornalistas presentes notaram um sorriso discreto do treinador enquanto abandonava a sala de imprensa.",
+                            "Entretanto, a liga já confirmou que não existe qualquer investigação em curso relacionada com a arbitragem do encontro, apesar da crescente pressão mediática em torno do caso."
+                        ],
+                        image: "assets/treinadores/painatal/painatal_news2.png",
+                        visual: {
+                            type: "photo",
+                            cardPosition: "58% 42%",
+                            cardSize: "cover",
+                            articlePosition: "60% center",
+                            articleSize: "cover"
+                        },
+                        quote: "O problema não é jogar até aos 96. O problema é nunca sabermos quando acaba.",
+                        quoteBy: "Painatal"
                     },
                     {
                         eyebrow: "Arranque da liga",
                         title: "Croácia abre novo capítulo",
                         highlight: "Croácia",
                         copy: [
-                            "<strong>Zagreb, Agosto</strong> — A <span class=\"news-inline-highlight\">Liga EMG</span> troca a Escócia pela Croácia depois de uma época que deixou rivalidades abertas, treinadores expostos e a sensação de que quase ninguém saiu exatamente igual. O novo campeonato chega com menos margem para desculpas e com oito projetos a tentar provar que aprenderam alguma coisa.",
+                            "<strong>Zagreb, 1 de Agosto</strong> — A <span class=\"news-inline-highlight\">Liga EMG</span> troca a Escócia pela Croácia depois de uma época que deixou rivalidades abertas, treinadores expostos e a sensação de que quase ninguém saiu exatamente igual. O novo campeonato chega com menos margem para desculpas e com oito projetos a tentar provar que aprenderam alguma coisa.",
                             "Zép entra na Rijeka com estatuto de candidato e pressão para confirmar favoritismo. Rato pega no Istra 1961 como quem procura uma equipa incómoda, capaz de roubar pontos a qualquer um. Chico quer dar identidade ao Slaven Belupo, Nabais tenta transformar o Varaždin numa ameaça real e Gamy aparece no Osijek com ambição suficiente para mexer cedo na tabela.",
                             "Painatal tem no Lokomotiva uma oportunidade para reescrever a narrativa depois dos altos e baixos anteriores. Cardoso procura estabilidade no Gorica, enquanto Hugo chega ao Vukovar como um dos nomes mais imprevisíveis do grupo. A experiência escocesa fica como aviso: reputação ajuda a começar, mas na Liga EMG só os resultados sustentam a conversa."
                         ],
                         image: "assets/logos/teams/croacia/supersport_hnl.png",
+                        visual: {
+                            type: "logo",
+                            cardPosition: "72% 42%",
+                            cardSize: "min(44%, 300px) auto",
+                            articlePosition: "50% 58px",
+                            articleSize: "min(31%, 300px) auto"
+                        },
                         quote: "A Croácia vai mostrar quem trouxe lições da Escócia e quem trouxe só histórias.",
                         quoteBy: "Redação EMG"
                     },
@@ -2245,12 +2274,12 @@ const leagues = [
                         title: "Hugo Macedo assume o Vukovar",
                         highlight: "Hugo Macedo",
                         previewCopy: [
-                            "<strong>Vukovar, 18 de Julho</strong> — O <span class=\"news-inline-highlight\">HNK Vukovar 1991</span> oficializou <span class=\"news-inline-highlight\">Hugo Macedo</span> como novo treinador principal. Conhecido pelo detalhe táctico quase obsessivo, o técnico português promete trazer um futebol moderno, agressivo e carregado de... instruções.",
+                            "<strong>Vukovar, 20 de Julho</strong> — O <span class=\"news-inline-highlight\">HNK Vukovar 1991</span> oficializou <span class=\"news-inline-highlight\">Hugo Macedo</span> como novo treinador principal. Conhecido pelo detalhe táctico quase obsessivo, o técnico português promete trazer um futebol moderno, agressivo e carregado de... instruções.",
                             "Nos bastidores, fala-se de um modelo de jogo particularmente exigente para os laterais."
                         ],
                         previewQuote: "",
                         copy: [
-                            "<strong>Vukovar, 18 de Julho</strong> — O <span class=\"news-inline-highlight\">HNK Vukovar 1991</span> apresentou oficialmente <span class=\"news-inline-highlight\">Hugo Macedo</span> como novo treinador da equipa principal, numa contratação que promete trazer intensidade, preparação detalhada e uma quantidade preocupante de sliders mexidos antes de cada jogo.",
+                            "<strong>Vukovar, 20 de Julho</strong> — O <span class=\"news-inline-highlight\">HNK Vukovar 1991</span> apresentou oficialmente <span class=\"news-inline-highlight\">Hugo Macedo</span> como novo treinador da equipa principal, numa contratação que promete trazer intensidade, preparação detalhada e uma quantidade preocupante de sliders mexidos antes de cada jogo.",
                             "Depois de uma passagem pela Escócia marcada por uma evolução tática “repentina”, Hugo chega à Croácia já com reputação de ser um dos treinadores mais dedicados da EMG no que toca a análise de vídeo. Segundo fontes próximas da equipa técnica, o novo treinador passa horas a estudar futebol internacional, tendências modernas e “conteúdo educativo altamente específico”.",
                             "A direção do Vukovar acredita que encontrou um técnico capaz de elevar imediatamente o nível competitivo da equipa: <span class=\"news-inline-highlight\">“O mister Hugo está sempre atualizado. Às vezes até demais.”</span>",
                             "Jogadores que já participaram nos primeiros treinos admitem alguma dificuldade em acompanhar todas as indicações tácticas, especialmente os laterais, que aparentemente recebem mais instruções individuais do que o resto da equipa junto.",
@@ -2263,8 +2292,28 @@ const leagues = [
                             "A estreia oficial está marcada para as próximas semanas, num jogo onde muitos adeptos estarão atentos não só ao resultado... mas também ao número de instruções individuais atribuídas aos laterais."
                         ],
                         image: "assets/treinadores/hugo/hugo_profile3.png",
+                        visual: {
+                            type: "portrait",
+                            cardPosition: "72% 42%",
+                            cardSize: "cover",
+                            articlePosition: "68% 42%",
+                            articleSize: "cover"
+                        },
                         quote: "Hoje em dia o futebol evolui muito rápido. Temos de estudar constantemente.",
                         quoteBy: "Hugo Macedo"
+                    },
+                    {
+                        eyebrow: "Sala de imprensa",
+                        title: "Rui Pedro assina pelo Lokomotiva",
+                        highlight: "Rui Pedro",
+                        copy: [
+                            "<strong>Zagreb, 18 de Julho</strong> — Está confirmado. <span class=\"news-inline-highlight\">Rui Pedro</span> é o mais recente reforço do <span class=\"news-inline-highlight\">NK Lokomotiva Zagreb</span>, num negócio fechado nas últimas horas que já começa a agitar o mercado da Liga Croata.",
+                            "O avançado português chega com estatuto de contratação forte, depois de uma época marcada pela consistência ofensiva e por momentos decisivos."
+                        ],
+                        image: "assets/treinadores/painatal/painatal_new.png",
+                        visual: { type: "photo" },
+                        quote: "É um projeto ambicioso. Quero deixar marca desde o primeiro jogo.",
+                        quoteBy: "Rui Pedro"
                     }
                 ]
             },
@@ -4151,6 +4200,42 @@ function renderLeagueTeamOfYear(league) {
     `;
 }
 
+function getLeagueNewsVisual(article) {
+    let image = article.image || "assets/treinadores/painatal/painatal_new.png";
+    let visual = article.visual || {};
+    let type = visual.type || (
+        image.includes("supersport_hnl") ? "logo" :
+        image.includes("hugo_profile3") ? "portrait" :
+        "photo"
+    );
+
+    let cardPosition = visual.cardPosition || (type === "logo" ? "72% 42%" : type === "portrait" ? "72% 42%" : "50% top");
+    let cardSize = visual.cardSize || (type === "logo" ? "min(44%, 300px) auto" : type === "portrait" ? "cover" : "auto 100%");
+    let articlePosition = visual.articlePosition || (type === "logo" ? "50% 58px" : type === "portrait" ? "68% 42%" : "60% center");
+    let articleSize = visual.articleSize || (type === "logo" ? "min(31%, 300px) auto" : "cover");
+
+    return {
+        image,
+        type,
+        cardClass: [
+            type === "logo" ? "is-logo-news" : "",
+            type === "portrait" ? "is-portrait-news" : "",
+            cardSize === "cover" ? "is-cover-news" : ""
+        ].filter(Boolean).join(" "),
+        articleClass: [
+            type === "logo" ? "is-logo-bg" : "",
+            type !== "logo" && articleSize === "cover" ? "is-photo-cover" : ""
+        ].filter(Boolean).join(" "),
+        style: [
+            `--news-bg: url('${image}')`,
+            `--news-card-position: ${cardPosition}`,
+            `--news-card-size: ${cardSize}`,
+            `--news-article-position: ${articlePosition}`,
+            `--news-article-size: ${articleSize}`
+        ].join("; ")
+    };
+}
+
 function renderLeagueLiveCards(league) {
     if (league.livePages?.length) {
         let defaultPage = league.livePages.find((page) => page.id === "noticias") || league.livePages[0];
@@ -4159,11 +4244,8 @@ function renderLeagueLiveCards(league) {
         let activeNewsIndex = Math.min(activeLeagueNewsIndex[league.id] || 0, Math.max(newsItems.length - 1, 0));
         let activeNews = newsItems[activeNewsIndex] || activePage;
         let displayPage = activeNews;
-        let image = displayPage.image || "assets/treinadores/painatal/painatal_new.png";
-        let liveNewsClass = [
-            image.includes("hugo_profile3") ? "is-hugo-news" : "",
-            image.includes("supersport_hnl") ? "is-logo-news" : ""
-        ].filter(Boolean).join(" ");
+        let visual = getLeagueNewsVisual(displayPage);
+        let liveNewsClass = visual.cardClass;
         liveNewsClass = liveNewsClass ? ` ${liveNewsClass}` : "";
         let title = displayPage.highlight
             ? displayPage.title.replace(displayPage.highlight, `<span>${displayPage.highlight}</span>`)
@@ -4206,7 +4288,7 @@ function renderLeagueLiveCards(league) {
                 <div class="league-side-head centered">
                     <strong>Notícias</strong>
                 </div>
-                <article class="league-live-page is-news${liveNewsClass}" style="--news-bg: url('${image}')" data-live-page="noticias" onclick="openLeagueNewsArticle('${league.id}', ${activeNewsIndex})" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); openLeagueNewsArticle('${league.id}', ${activeNewsIndex}); }" role="button" tabindex="0" aria-label="Abrir notícia completa">
+                <article class="league-live-page is-news${liveNewsClass}" style="${visual.style}" data-live-page="noticias" onclick="openLeagueNewsArticle('${league.id}', ${activeNewsIndex})" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); openLeagueNewsArticle('${league.id}', ${activeNewsIndex}); }" role="button" tabindex="0" aria-label="Abrir notícia completa">
                     <div class="league-live-page-content">
                         <div class="league-live-page-kicker">
                             <span class="league-live-status-dot"></span>
@@ -4322,17 +4404,17 @@ function openLeagueNewsArticle(leagueId, index) {
     if (!newsData) return;
 
     let { article, index: activeIndex, total } = newsData;
-    let image = article.image || "assets/treinadores/painatal/painatal_new.png";
+    let visual = getLeagueNewsVisual(article);
     let copyBlocks = Array.isArray(article.copy) ? article.copy : [article.copy].filter(Boolean);
     let articleModifiers = [
-        image.includes("supersport_hnl") ? "is-logo-bg" : "",
-        image.includes("hugo_profile3") ? "is-hugo-profile" : "",
+        visual.articleClass,
         copyBlocks.length > 4 ? "is-long-read" : ""
     ].filter(Boolean).join(" ");
     let articleClass = `league-news-article-dialog${articleModifiers ? ` ${articleModifiers}` : ""}`;
+    let articleTitle = article.articleTitle || article.title;
     let title = article.highlight
-        ? article.title.replace(article.highlight, `<span>${article.highlight}</span>`)
-        : article.title;
+        ? articleTitle.replace(article.highlight, `<span>${article.highlight}</span>`)
+        : articleTitle;
     let introCopyMarkup = renderLeagueNewsCopy(copyBlocks.slice(0, 1));
     let sideCopyMarkup = renderLeagueNewsCopy(copyBlocks.slice(1));
     let quoteMarkup = article.quote
@@ -4385,7 +4467,7 @@ function openLeagueNewsArticle(leagueId, index) {
     modal.className = "league-news-article-modal";
     modal.innerHTML = `
         <div class="league-news-article-backdrop" onclick="closeLeagueNewsArticle()"></div>
-        <article class="${articleClass}" style="--news-bg: url('${image}')">
+        <article class="${articleClass}" style="${visual.style}">
             <button class="league-news-article-close" type="button" onclick="closeLeagueNewsArticle()" aria-label="Fechar notícia">×</button>
             <section class="league-news-article-body">
                 <div class="league-news-article-copy">
