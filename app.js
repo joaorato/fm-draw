@@ -2226,7 +2226,7 @@ const leagues = [
                         ],
                         previewQuote: "",
                         copy: [
-                            "<strong>Osijek, 27 de Julho</strong> — O ambiente aqueceu seriamente antes mesmo da bola rolar para o encontro entre <span class=\"news-inline-highlight\">NK Osijek</span> e <span class=\"news-inline-highlight\">NK Slaven Belupo</span>, depois de um intenso bate-boca entre os treinadores das duas equipas nas respetivas conferências de imprensa.",
+                            "<strong>Osijek, 12 de Setembro</strong> — O ambiente aqueceu seriamente antes mesmo da bola rolar para o encontro entre <span class=\"news-inline-highlight\">NK Osijek</span> e <span class=\"news-inline-highlight\">NK Slaven Belupo</span>, depois de um intenso bate-boca entre os treinadores das duas equipas nas respetivas conferências de imprensa.",
                             "Tudo começou quando Francisco Pinto, treinador do Slaven Belupo, apareceu extremamente confiante perante os jornalistas e garantiu que a sua equipa iria vencer em Osijek “por pelo menos três golos”.",
                             "<span class=\"news-inline-highlight\">“Estou muito tranquilo, vai ser facílimo. Honestamente acho que o 3-0 é o mínimo.”</span>",
                             "A declaração gerou surpresa imediata na sala, sobretudo pelo tom agressivo e pela tranquilidade com que o treinador português fez a previsão.",
@@ -2252,7 +2252,8 @@ const leagues = [
                             cardPosition: "55% 40%",
                             cardSize: "cover",
                             articlePosition: "55% 38%",
-                            articleSize: "cover"
+                            articleSize: "cover",
+                            readability: "strong"
                         },
                         quote: "Estou muito tranquilo, vai ser facílimo. Honestamente acho que o 3-0 é o mínimo.",
                         quoteBy: "Francisco Pinto"
@@ -4266,7 +4267,8 @@ function getLeagueNewsVisual(article) {
         ].filter(Boolean).join(" "),
         articleClass: [
             type === "logo" ? "is-logo-bg" : "",
-            type !== "logo" && articleSize === "cover" ? "is-photo-cover" : ""
+            type !== "logo" && articleSize === "cover" ? "is-photo-cover" : "",
+            visual.readability === "strong" ? "is-high-contrast-news" : ""
         ].filter(Boolean).join(" "),
         style: [
             `--news-bg: url('${image}')`,
