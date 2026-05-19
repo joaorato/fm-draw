@@ -2217,6 +2217,48 @@ const leagues = [
                 news: [
                     {
                         eyebrow: "EMG Croácia",
+                        title: "Clima aquece entre Gamy e Francisco Pinto",
+                        articleTitle: "Gamy e Francisco Pinto trocam farpas antes do Osijek-Belupo",
+                        highlight: "Clima aquece",
+                        previewCopy: [
+                            "<strong>Osijek, 12 de Setembro</strong> — A conferência de imprensa antes do duelo entre <span class=\"news-inline-highlight\">NK Osijek</span> e <span class=\"news-inline-highlight\">NK Slaven Belupo</span> ficou marcada por um inesperado bate-boca entre <span class=\"news-inline-highlight\">Gamy Chambelito</span> e <span class=\"news-inline-highlight\">Francisco Pinto</span>.",
+                            "O treinador do Belupo prometeu uma vitória “mínima” por 3-0 em pleno estádio do Osijek. A resposta chegou minutos depois... e incluiu uma referência pouco simpática aos 4-0 sofridos frente a Hugo Macedo."
+                        ],
+                        previewQuote: "",
+                        copy: [
+                            "<strong>Osijek, 27 de Julho</strong> — O ambiente aqueceu seriamente antes mesmo da bola rolar para o encontro entre <span class=\"news-inline-highlight\">NK Osijek</span> e <span class=\"news-inline-highlight\">NK Slaven Belupo</span>, depois de um intenso bate-boca entre os treinadores das duas equipas nas respetivas conferências de imprensa.",
+                            "Tudo começou quando Francisco Pinto, treinador do Slaven Belupo, apareceu extremamente confiante perante os jornalistas e garantiu que a sua equipa iria vencer em Osijek “por pelo menos três golos”.",
+                            "<span class=\"news-inline-highlight\">“Estou muito tranquilo, vai ser facílimo. Honestamente acho que o 3-0 é o mínimo.”</span>",
+                            "A declaração gerou surpresa imediata na sala, sobretudo pelo tom agressivo e pela tranquilidade com que o treinador português fez a previsão.",
+                            "Questionado sobre o ambiente difícil esperado em Osijek, Francisco Pinto respondeu: <span class=\"news-inline-highlight\">“Pressão? Eles é que vão sentir pressão quando começarem a correr atrás da bola.”</span>",
+                            "Pouco depois, já na sua própria conferência, Gamy Chambelito respondeu de forma claramente irónica: <span class=\"news-inline-highlight\">“Confesso que fiquei impressionado com a confiança dele. Especialmente depois de levar quatro do Hugo.”</span>",
+                            "A sala explodiu em gargalhadas.",
+                            "Mas o treinador do Osijek não ficou por aí. Com um sorriso irónico, começou por dizer: <span class=\"news-inline-highlight\">“Gosto da confiança dele. É importante sonhar.”</span>",
+                            "Os jornalistas perceberam imediatamente o tom da resposta.",
+                            "Pouco depois, Gamy acrescentou: <span class=\"news-inline-highlight\">“Normalmente quando alguém promete 3-0 fora de casa há duas hipóteses: ou sabe alguma coisa que nós não sabemos... ou esqueceu-se que ainda tem que olhar para cima para nos ver.”</span>",
+                            "Segundo relatos vindos da sala de imprensa, Francisco Pinto soube dos comentários ainda antes de abandonar o estádio e respondeu pouco depois: <span class=\"news-inline-highlight\">“O Gamy fala muito para quem tem dos maiores orçamentos da liga e está em 7º.”</span>",
+                            "Minutos mais tarde acrescentou: <span class=\"news-inline-highlight\">“Acho que os 20 jogadores que contratou ainda não são suficientes.”</span>",
+                            "Gamy não demorou a reagir: <span class=\"news-inline-highlight\">“O Francisco está muito preocupado com as minhas contratações. Honestamente eu estaria mais preocupado em defender cantos.”</span>",
+                            "O clima entre os dois técnicos deteriorou-se rapidamente, com vários jornalistas a descreverem o ambiente como <span class=\"news-inline-highlight\">“estranhamente agressivo para uma sexta-feira à tarde.”</span>",
+                            "Nos bastidores, fontes próximas do Osijek revelam que os jogadores assistiram às declarações ainda no balneário e que a equipa entrou imediatamente “em modo guerra”.",
+                            "Já do lado do Belupo, Francisco Pinto terá terminado a palestra táctica dizendo: <span class=\"news-inline-highlight\">“Se eles querem circo, vamos dar espetáculo.”</span>",
+                            "Entretanto, adeptos das duas equipas inundaram as redes sociais com memes, montagens e comparações entre os dois treinadores, enquanto a expectativa para o encontro cresce a níveis absurdos.",
+                            "Há inclusive quem diga que este jogo já não vale apenas três pontos.",
+                            "Vale ego."
+                        ],
+                        image: "assets/treinadores/chico/chico_profile4.png",
+                        visual: {
+                            type: "photo",
+                            cardPosition: "55% 40%",
+                            cardSize: "cover",
+                            articlePosition: "55% 38%",
+                            articleSize: "cover"
+                        },
+                        quote: "Estou muito tranquilo, vai ser facílimo. Honestamente acho que o 3-0 é o mínimo.",
+                        quoteBy: "Francisco Pinto"
+                    },
+                    {
+                        eyebrow: "EMG Croácia",
                         title: "Istra empata aos 90+6 e instala o caos",
                         articleTitle: "Istra empata aos 90+6 e a polémica volta a perseguir Rato",
                         highlight: "Istra",
@@ -4434,21 +4476,25 @@ function openLeagueNewsArticle(leagueId, index) {
             </div>
         `
         : "";
-    let articleControls = total > 1
+    let articleDots = total > 1
+        ? `
+            <div class="league-news-article-dots" aria-label="Indicador de notícias">
+                ${Array.from({ length: total }, (_, dotIndex) => `
+                    <button
+                        class="league-news-dot ${dotIndex === activeIndex ? "active" : ""}"
+                        type="button"
+                        onclick="openLeagueNewsArticle('${leagueId}', ${dotIndex})"
+                        aria-label="Ver notícia ${dotIndex + 1}"
+                        aria-pressed="${dotIndex === activeIndex ? "true" : "false"}"
+                    ></button>
+                `).join("")}
+            </div>
+        `
+        : "";
+    let articleArrows = total > 1
         ? `
             <div class="league-news-article-carousel">
                 <button class="league-news-article-arrow" type="button" onclick="openLeagueNewsArticle('${leagueId}', ${(activeIndex - 1 + total) % total})" aria-label="Notícia anterior">‹</button>
-                <div class="league-news-article-dots" aria-label="Indicador de notícias">
-                    ${Array.from({ length: total }, (_, dotIndex) => `
-                        <button
-                            class="league-news-dot ${dotIndex === activeIndex ? "active" : ""}"
-                            type="button"
-                            onclick="openLeagueNewsArticle('${leagueId}', ${dotIndex})"
-                            aria-label="Ver notícia ${dotIndex + 1}"
-                            aria-pressed="${dotIndex === activeIndex ? "true" : "false"}"
-                        ></button>
-                    `).join("")}
-                </div>
                 <button class="league-news-article-arrow" type="button" onclick="openLeagueNewsArticle('${leagueId}', ${(activeIndex + 1) % total})" aria-label="Notícia seguinte">›</button>
             </div>
         `
@@ -4483,8 +4529,9 @@ function openLeagueNewsArticle(leagueId, index) {
                 </div>
                 ${sideMarkup}
             </section>
+            ${articleDots}
         </article>
-        ${articleControls}
+        ${articleArrows}
     `;
 
     document.body.appendChild(modal);

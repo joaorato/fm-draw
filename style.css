@@ -2621,7 +2621,7 @@ body::after {
     grid-template-columns: minmax(0, 38ch) minmax(360px, 1fr);
     gap: clamp(34px, 5vw, 74px);
     align-content: start;
-    padding-bottom: 42px;
+    padding-bottom: 54px;
 }
 
 .league-news-article-body::before {
@@ -2908,18 +2908,22 @@ body::after {
 
 .league-news-article-carousel {
     position: fixed;
-    inset: 0;
+    top: 50%;
+    left: 50%;
     z-index: 1002;
+    width: min(1160px, calc(100vw - 48px));
+    height: min(840px, calc(100vh - 48px));
     display: block;
+    transform: translate(-50%, -50%);
     pointer-events: none;
 }
 
 .league-news-article-carousel .league-news-article-arrow:first-child {
-    left: clamp(18px, calc((100vw - min(1160px, calc(100vw - 48px))) / 2 + 18px), 92px);
+    left: clamp(18px, 2.6vw, 32px);
 }
 
 .league-news-article-carousel .league-news-article-arrow:last-child {
-    right: clamp(18px, calc((100vw - min(1160px, calc(100vw - 48px))) / 2 + 18px), 92px);
+    right: clamp(18px, 2.6vw, 32px);
 }
 
 .league-news-article-arrow {
@@ -2957,7 +2961,7 @@ body::after {
 
 .league-news-article-dots {
     position: absolute;
-    bottom: max(34px, calc((100vh - min(840px, calc(100vh - 48px))) / 2 + 24px));
+    bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -2965,6 +2969,16 @@ body::after {
     justify-content: center;
     gap: 10px;
     pointer-events: auto;
+    z-index: 5;
+}
+
+.league-news-article-dialog.is-long-read .league-news-article-dots {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: max-content;
+    margin: 0 auto 34px;
+    transform: none;
 }
 
 .league-news-arrow:hover {
@@ -5906,7 +5920,7 @@ button:disabled {
         height: auto;
         min-height: min(760px, calc(100vh - 24px));
         overflow: visible;
-        padding-bottom: 32px;
+        padding-bottom: 40px;
     }
     .league-news-article-body::after {
         height: 142px;
@@ -5961,6 +5975,10 @@ button:disabled {
     .league-news-article-quote {
         display: none;
     }
+    .league-news-article-carousel {
+        width: calc(100vw - 24px);
+        height: min(760px, calc(100vh - 24px));
+    }
     .league-news-article-carousel .league-news-article-arrow:first-child {
         left: 12px;
     }
@@ -5973,7 +5991,10 @@ button:disabled {
         font-size: 30px;
     }
     .league-news-article-dots {
-        bottom: max(24px, calc((100vh - min(760px, calc(100vh - 24px))) / 2 + 18px));
+        bottom: 22px;
+    }
+    .league-news-article-dialog.is-long-read .league-news-article-dots {
+        margin-bottom: 26px;
     }
     .match-report-modal { padding: 12px; }
     .match-report-dialog { border-radius: 20px; }
