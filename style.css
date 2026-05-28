@@ -3131,6 +3131,29 @@ body::after {
     transform: translateY(-50%);
 }
 
+.league-transfer-window.is-closed {
+    border-color: rgba(255, 104, 123, 0.34);
+    background:
+        radial-gradient(circle at 14% 50%, rgba(255, 85, 109, 0.24), transparent 46%),
+        linear-gradient(180deg, rgba(102, 23, 50, 0.9), rgba(42, 9, 31, 0.9));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.07),
+        0 0 20px rgba(220, 44, 82, 0.12);
+}
+
+.league-transfer-window.is-closed::before {
+    background: #ff5e73;
+    box-shadow: 0 0 12px rgba(255, 94, 115, 0.6);
+}
+
+.league-transfer-window.is-closed span {
+    color: rgba(255, 225, 231, 0.94);
+}
+
+.league-transfer-window.is-closed b {
+    color: rgba(255, 244, 247, 0.78);
+}
+
 .league-transfer-window span {
     color: rgba(226, 255, 248, 0.92);
     font-size: 8px;
@@ -3636,6 +3659,7 @@ body::after {
 
 .league-fixture-score {
     min-width: 44px;
+    justify-self: center;
     padding: 6px 5px;
     border-radius: 12px;
     border: 1px solid rgba(118, 211, 255, 0.16);
@@ -3662,6 +3686,31 @@ button.league-fixture-score {
     background:
         radial-gradient(circle at top, rgba(80, 232, 255, 0.24), transparent 62%),
         linear-gradient(180deg, rgba(19, 52, 114, 0.88), rgba(10, 25, 72, 0.9));
+}
+
+.league-fixture-score.is-postponed {
+    width: 62px;
+    min-width: 0;
+    border-color: rgba(255, 180, 94, 0.34);
+    background:
+        radial-gradient(circle at top, rgba(255, 180, 94, 0.18), transparent 62%),
+        linear-gradient(180deg, rgba(90, 55, 22, 0.68), rgba(37, 25, 26, 0.86));
+    color: rgba(255, 232, 196, 0.95);
+    font-size: 8px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.07),
+        0 0 18px rgba(255, 169, 72, 0.08);
+}
+
+.league-fixture-note {
+    margin-top: 7px;
+    color: rgba(255, 218, 168, 0.78);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.45px;
+    text-align: center;
 }
 
 .league-fixture-score.is-clickable {
@@ -6075,4 +6124,3 @@ button:disabled {
     object-fit: cover;
     object-position: center;
 }
-    flex: 0 0 auto;
