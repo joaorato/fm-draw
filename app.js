@@ -724,8 +724,8 @@ function getCroatiaSeedEntry(teamName) {
 const croatiaCurrentTable = [
     { pos: 1, inf: "--", equipa: "HNK Rijeka", j: 10, v: 6, e: 3, d: 1, gm: 18, gs: 9, dg: 9, pts: 21, form: ["E", "E", "V", "V", "V"] },
     { pos: 2, inf: "↑", equipa: "NK Osijek", j: 10, v: 5, e: 2, d: 3, gm: 20, gs: 14, dg: 6, pts: 17, form: ["V", "V", "D", "V", "V"] },
-    { pos: 3, inf: "↑", equipa: "HNK Gorica", j: 10, v: 4, e: 4, d: 2, gm: 14, gs: 9, dg: 5, pts: 16, form: ["V", "E", "V", "V", "V"] },
-    { pos: 4, inf: "↓", equipa: "NK Varaždin", j: 10, v: 5, e: 1, d: 4, gm: 23, gs: 19, dg: 4, pts: 16, form: ["D", "V", "V", "E", "D"] },
+    { pos: 3, inf: "↑", equipa: "NK Varaždin", j: 10, v: 5, e: 1, d: 4, gm: 23, gs: 19, dg: 4, pts: 16, form: ["D", "V", "V", "E", "D"] },
+    { pos: 4, inf: "↓", equipa: "HNK Gorica", j: 10, v: 4, e: 4, d: 2, gm: 14, gs: 9, dg: 5, pts: 16, form: ["V", "E", "V", "V", "V"] },
     { pos: 5, inf: "↓", equipa: "HNK Vukovar", j: 10, v: 5, e: 1, d: 4, gm: 20, gs: 19, dg: 1, pts: 16, form: ["V", "V", "D", "E", "D"] },
     { pos: 6, inf: "↑", equipa: "Dinamo Zagreb", j: 9, v: 3, e: 3, d: 3, gm: 10, gs: 10, dg: 0, pts: 12, form: ["E", "D", "D", "D", "V"] },
     { pos: 7, inf: "↓", equipa: "NK Istra 1961", j: 10, v: 2, e: 5, d: 3, gm: 9, gs: 11, dg: -2, pts: 11, form: ["V", "V", "D", "E", "D"] },
