@@ -3554,7 +3554,14 @@ const transferClubLogos = {
 };
 
 const croatiaCupTeamLogos = {
-    "Karlovac 1919": "assets/logos/teams/transferencias/karlovac_1919.png"
+    "Bjelovar": "assets/logos/teams/croacia/cup/bjelovar.png",
+    "Mladost Ždralovi": "assets/logos/teams/croacia/cup/mladost_zdralovi.png",
+    "Uljanik": "assets/logos/teams/croacia/cup/uljanik.png",
+    "Karlovac 1919": "assets/logos/teams/croacia/cup/karlovac_1919.png",
+    "Polet (SMnM)": "assets/logos/teams/croacia/cup/polet_smnm.png",
+    "Marsonia": "assets/logos/teams/croacia/cup/marsonia.png",
+    "Radnik Križevci": "assets/logos/teams/croacia/cup/radnik_krizevci.png",
+    "Tomislav (DA)": "assets/logos/teams/croacia/cup/tomislav_da.png"
 };
 
 const leagues = [
