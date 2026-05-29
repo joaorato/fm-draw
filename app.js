@@ -3411,6 +3411,54 @@ croatiaFixtures.forEach((fixture) => {
     }
 });
 
+function getCroatiaFixtureDateLabel(fixture) {
+    let day = String(fixture?.date || "").match(/\d+/)?.[0] || "";
+    let month = fixture?.month || "";
+    return day && month ? `${day} de ${month}` : fixture?.date || "";
+}
+
+function getCroatiaFixtureTeamLogo(teamName) {
+    return getCroatiaSeedEntry(teamName)?.logo || "";
+}
+
+function getTeamFixtureFormDetail(fixture, teamName) {
+    let hasResult = Number.isFinite(fixture.homeGoals) && Number.isFinite(fixture.awayGoals);
+    if (!hasResult || (fixture.home !== teamName && fixture.away !== teamName)) return null;
+
+    let isHome = fixture.home === teamName;
+    let goalsFor = isHome ? fixture.homeGoals : fixture.awayGoals;
+    let goalsAgainst = isHome ? fixture.awayGoals : fixture.homeGoals;
+    let result = goalsFor > goalsAgainst ? "V" : goalsFor < goalsAgainst ? "D" : "E";
+
+    return {
+        result,
+        date: getCroatiaFixtureDateLabel(fixture),
+        competition: fixture.competition,
+        home: fixture.home,
+        away: fixture.away,
+        homeLogo: getCroatiaFixtureTeamLogo(fixture.home),
+        awayLogo: getCroatiaFixtureTeamLogo(fixture.away),
+        score: getFixtureScoreLabel(fixture)
+    };
+}
+
+function getTeamFormDetailsFromFixtures(fixtures, teamName, limit = 5) {
+    return fixtures
+        .map((fixture) => getTeamFixtureFormDetail(fixture, teamName))
+        .filter(Boolean)
+        .slice(-limit);
+}
+
+function getTeamResultGroupsFromFixtures(fixtures, teamName) {
+    return fixtures
+        .map((fixture) => getTeamFixtureFormDetail(fixture, teamName))
+        .filter(Boolean)
+        .reduce((groups, detail) => {
+            groups[detail.result].push(detail);
+            return groups;
+        }, { V: [], E: [], D: [] });
+}
+
 const croatiaTransfers = [
     { date: "21/09/2025", player: "G. Landel", from: "", to: "HNK Vukovar", value: "Livre" },
     { date: "08/09/2025", player: "A. Sanyang", from: "Hajduk Split", to: "Dynamo Moscow", value: "Empréstimo - 275m €" },
@@ -3814,6 +3862,8 @@ const leagues = [
             prevista: entry.prevista,
             emgPontos: entry.jogador ? 0 : null,
             form: entry.form,
+            formDetails: getTeamFormDetailsFromFixtures(croatiaFixtures, entry.equipa),
+            resultGroups: getTeamResultGroupsFromFixtures(croatiaFixtures, entry.equipa),
             zone: ""
         }))
     },
@@ -5194,6 +5244,85 @@ function setupStandingsColumnHover(scope = document) {
     standings.dataset.hoverBound = "true";
 }
 
+let activeStandingsTooltip = null;
+let activeStandingsTooltipAnchor = null;
+
+function removeStandingsTooltip() {
+    if (activeStandingsTooltip) {
+        activeStandingsTooltip.remove();
+        activeStandingsTooltip = null;
+    }
+    activeStandingsTooltipAnchor = null;
+}
+
+function positionStandingsTooltip() {
+    if (!activeStandingsTooltip || !activeStandingsTooltipAnchor) return;
+
+    let anchorRect = activeStandingsTooltipAnchor.getBoundingClientRect();
+    let tooltipRect = activeStandingsTooltip.getBoundingClientRect();
+    let gap = activeStandingsTooltip.classList.contains("standings-record-tooltip") ? 14 : 12;
+    let preferBelow = activeStandingsTooltip.classList.contains("standings-record-tooltip");
+    let left = anchorRect.left + anchorRect.width / 2 - tooltipRect.width / 2;
+    let top = preferBelow ? anchorRect.bottom + gap : anchorRect.top - tooltipRect.height - gap;
+
+    if (top < 12) top = anchorRect.bottom + gap;
+    if (top + tooltipRect.height > window.innerHeight - 12) {
+        top = Math.max(12, anchorRect.top - tooltipRect.height - gap);
+    }
+
+    left = Math.max(12, Math.min(left, window.innerWidth - tooltipRect.width - 12));
+    activeStandingsTooltip.style.left = `${left}px`;
+    activeStandingsTooltip.style.top = `${top}px`;
+}
+
+function showStandingsTooltip(anchor) {
+    let template = anchor?.querySelector(":scope > .standings-tooltip-template");
+    if (!template?.content?.firstElementChild) return;
+
+    removeStandingsTooltip();
+    activeStandingsTooltipAnchor = anchor;
+    activeStandingsTooltip = template.content.firstElementChild.cloneNode(true);
+    activeStandingsTooltip.classList.add("is-floating");
+    document.body.appendChild(activeStandingsTooltip);
+    positionStandingsTooltip();
+    requestAnimationFrame(() => activeStandingsTooltip?.classList.add("is-visible"));
+}
+
+function setupStandingsFloatingTooltips(scope = document) {
+    let standings = scope.querySelector(".standings-standings");
+    if (!standings || standings.dataset.tooltipBound === "true") return;
+
+    let getAnchor = (target) => target.closest(".standings-form-dot[tabindex], .standings-record-cell.has-tooltip");
+
+    standings.addEventListener("pointerover", (event) => {
+        let anchor = getAnchor(event.target);
+        if (!anchor || !standings.contains(anchor) || anchor === activeStandingsTooltipAnchor) return;
+        showStandingsTooltip(anchor);
+    });
+
+    standings.addEventListener("pointerout", (event) => {
+        let anchor = getAnchor(event.target);
+        if (!anchor || !standings.contains(anchor)) return;
+        if (event.relatedTarget && anchor.contains(event.relatedTarget)) return;
+        removeStandingsTooltip();
+    });
+
+    standings.addEventListener("focusin", (event) => {
+        let anchor = getAnchor(event.target);
+        if (anchor && standings.contains(anchor)) showStandingsTooltip(anchor);
+    });
+
+    standings.addEventListener("focusout", (event) => {
+        let anchor = getAnchor(event.target);
+        if (!anchor || !standings.contains(anchor)) return;
+        removeStandingsTooltip();
+    });
+
+    window.addEventListener("scroll", positionStandingsTooltip, true);
+    window.addEventListener("resize", positionStandingsTooltip);
+    standings.dataset.tooltipBound = "true";
+}
+
 function formatPoints(points) {
     return points > 0 ? `+${points}` : `${points}`;
 }
@@ -5652,17 +5781,115 @@ function closeMatchReport() {
     }
 }
 
-function renderFormDots(form = []) {
+function renderFormTeamForTooltip(name, logo) {
+    let logoMarkup = logo ? `<img src="${escapeAttribute(logo)}" alt="${escapeAttribute(name)}">` : "";
+    return `
+        <span class="standings-form-tooltip-team" title="${escapeAttribute(name)}">
+            ${logoMarkup}
+            <span>${escapeAttribute(name)}</span>
+        </span>
+    `;
+}
+
+function renderFormTooltip(detail) {
+    if (!detail) return "";
+
+    return `
+        <template class="standings-tooltip-template">
+            <span class="standings-form-tooltip" role="tooltip">
+            <span class="standings-form-tooltip-date">${escapeAttribute(detail.date)}</span>
+            <span class="standings-form-tooltip-match">
+                ${renderFormTeamForTooltip(detail.home, detail.homeLogo)}
+                <strong>${escapeAttribute(detail.score)}</strong>
+                ${renderFormTeamForTooltip(detail.away, detail.awayLogo)}
+            </span>
+            </span>
+        </template>
+    `;
+}
+
+function getResultGroupMeta(type) {
+    let key = String(type || "").toUpperCase();
+    if (key === "V") return { className: "win", label: "Vitórias", singular: "vitória" };
+    if (key === "E") return { className: "draw", label: "Empates", singular: "empate" };
+    return { className: "loss", label: "Derrotas", singular: "derrota" };
+}
+
+function renderResultGroupItem(detail, teamName, meta) {
+    let isHome = detail.home === teamName;
+    let opponent = isHome ? detail.away : detail.home;
+    let opponentLogo = isHome ? detail.awayLogo : detail.homeLogo;
+    let logoMarkup = opponentLogo ? `<img src="${escapeAttribute(opponentLogo)}" alt="${escapeAttribute(opponent)}">` : "";
+
+    return `
+        <span class="standings-record-tooltip-item">
+            <span class="standings-record-score ${meta.className}">
+                <i></i>
+                ${escapeAttribute(detail.score)}
+            </span>
+            <span class="standings-record-opponent" title="${escapeAttribute(opponent)}">
+                ${logoMarkup}
+                <span>${escapeAttribute(opponent)}</span>
+            </span>
+        </span>
+    `;
+}
+
+function renderResultGroupTooltip(entry, type) {
+    let meta = getResultGroupMeta(type);
+    let items = entry.resultGroups?.[type] || [];
+    if (!items.length) return "";
+
+    return `
+        <template class="standings-tooltip-template">
+            <span class="standings-record-tooltip" role="tooltip">
+            <span class="standings-record-tooltip-head">
+                <span class="standings-record-team">
+                    <img src="${escapeAttribute(entry.logo)}" alt="${escapeAttribute(entry.equipa)}">
+                    <span>
+                        <strong>${escapeAttribute(entry.equipa)}</strong>
+                        <small>${items.length} ${items.length === 1 ? meta.singular : meta.label.toLowerCase()}</small>
+                    </span>
+                </span>
+            </span>
+            <span class="standings-record-tooltip-list">
+                ${items.map((detail) => renderResultGroupItem(detail, entry.equipa, meta)).join("")}
+            </span>
+            </span>
+        </template>
+    `;
+}
+
+function renderResultRecordCell(entry, type, value, col) {
+    let items = entry.resultGroups?.[type] || [];
+    let meta = getResultGroupMeta(type);
+    let ariaLabel = items.length ? ` aria-label="${escapeAttribute(`${entry.equipa}: ${items.length} ${items.length === 1 ? meta.singular : meta.label.toLowerCase()}`)}"` : "";
+    let tabIndex = items.length ? ` tabindex="0"` : "";
+
+    return `
+        <div class="standings-cell-center standings-record-cell ${items.length ? "has-tooltip" : ""}" data-col="${col}"${tabIndex}${ariaLabel}>
+            ${value}
+            ${renderResultGroupTooltip(entry, type)}
+        </div>
+    `;
+}
+
+function renderFormDots(form = [], details = []) {
     let normalized = [...form].slice(-5);
+    let normalizedDetails = [...details].slice(-5);
     while (normalized.length < 5) normalized.unshift("-");
+    while (normalizedDetails.length < 5) normalizedDetails.unshift(null);
 
     return `
         <div class="standings-form">
-            ${normalized.map((result) => {
-                let key = String(result).toUpperCase();
+            ${normalized.map((result, index) => {
+                let detail = normalizedDetails[index];
+                let key = String(detail?.result || result).toUpperCase();
                 let label = key === "W" ? "V" : key === "L" ? "D" : key;
                 let className = key === "W" || key === "V" ? "win" : key === "E" ? "draw" : key === "L" || key === "D" ? "loss" : "empty";
-                return `<span class="standings-form-dot ${className}">${label === "-" ? "" : label}</span>`;
+                let ariaLabel = detail ? ` aria-label="${escapeAttribute(`${label} - ${detail.home} ${detail.score} ${detail.away}, ${detail.date}`)}"` : "";
+                let tabIndex = detail ? ` tabindex="0"` : "";
+                return `<span class="standings-form-dot ${className}"${tabIndex}${ariaLabel}>${label === "-" ? "" : label}${renderFormTooltip(detail)}</span>`;
             }).join("")}
         </div>
     `;
@@ -5807,7 +6034,7 @@ function renderLeagueLiveCards(league) {
             : "";
 
         return `
-            <section class="league-side-card league-live-panel-card">
+            <section class="league-side-card league-live-panel-card" data-league-live-panel="${league.id}">
                 <div class="league-side-head centered">
                     <strong>Notícias</strong>
                 </div>
@@ -5838,7 +6065,7 @@ function renderLeagueLiveCards(league) {
     `).join("");
 
     return `
-        <section class="league-side-card league-live-panel-card">
+        <section class="league-side-card league-live-panel-card" data-league-live-panel="${league.id}">
             <div class="league-side-head">
                 <span>Dashboard vivo</span>
                 <strong>Época Atual</strong>
@@ -5851,7 +6078,7 @@ function renderLeagueLiveCards(league) {
 function setLeagueLivePage(leagueId, pageId) {
     pausedLeagueLivePages.delete(leagueId);
     activeLeagueLivePage[leagueId] = pageId;
-    renderLeague(leagueId);
+    refreshLeagueLowerPanel(leagueId, { restartAuto: true });
 }
 
 function closeLeagueLiveMenus() {
@@ -5890,7 +6117,7 @@ function selectLeagueNews(leagueId, index) {
     if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
     activeLeagueLivePage[leagueId] = "noticias";
     activeLeagueNewsIndex[leagueId] = Math.max(0, Math.min(index, newsPage.news.length - 1));
-    renderLeague(leagueId);
+    refreshLeagueLowerPanel(leagueId);
 }
 
 function stepLeagueNews(leagueId, direction = 1) {
@@ -6076,7 +6303,7 @@ function scheduleLeagueLiveAutoAdvance(league) {
         let currentIndex = activeLeagueNewsIndex[league.id] || 0;
         activeLeagueLivePage[league.id] = "noticias";
         activeLeagueNewsIndex[league.id] = (currentIndex + 1 + newsPage.news.length) % newsPage.news.length;
-        renderLeague(league.id);
+        refreshLeagueLowerPanel(league.id, { restartAuto: true });
     }, LEAGUE_LIVE_AUTO_MS);
 }
 
@@ -6251,6 +6478,19 @@ function renderLeagueLowerPanel(league) {
     `;
 }
 
+function refreshLeagueLowerPanel(leagueId, options = {}) {
+    let league = leagues.find((entry) => entry.id === leagueId);
+    let panel = document.getElementById("leaguePanel");
+    let livePanel = panel?.querySelector(`[data-league-live-panel="${leagueId}"]`);
+    if (!league || !panel || !livePanel) {
+        renderLeague(leagueId);
+        return;
+    }
+
+    livePanel.outerHTML = renderLeagueLiveCards(league);
+    if (options.restartAuto) scheduleLeagueLiveAutoAdvance(league);
+}
+
 function renderLeagueSideStats(league) {
     if (!league.sideStats?.length) return "";
 
@@ -6350,7 +6590,7 @@ function renderLeague(leagueId) {
             ? `<div class="standings-points-cell" data-col="14"><div class="standings-points neutral">--</div></div>`
             : `<div class="standings-points-cell" data-col="14"><div class="standings-points ${getPointsClass(entry.emgPontos)}">${formatPoints(entry.emgPontos)}</div></div>`;
         let formMarkup = isLive
-            ? `<div class="standings-form-cell" data-col="15">${renderFormDots(entry.form)}</div>`
+            ? `<div class="standings-form-cell" data-col="15">${renderFormDots(entry.form, entry.formDetails)}</div>`
             : "";
         let infState = entry.inf === "↑" ? "up" : entry.inf === "↓" ? "down" : "";
 
@@ -6367,9 +6607,9 @@ function renderLeague(leagueId) {
                 </div>
                 ${playerMarkup}
                 <div class="standings-cell-center" data-col="5">${entry.j}</div>
-                <div class="standings-cell-center" data-col="6">${entry.v}</div>
-                <div class="standings-cell-center" data-col="7">${entry.e}</div>
-                <div class="standings-cell-center" data-col="8">${entry.d}</div>
+                ${isLive ? renderResultRecordCell(entry, "V", entry.v, 6) : `<div class="standings-cell-center" data-col="6">${entry.v}</div>`}
+                ${isLive ? renderResultRecordCell(entry, "E", entry.e, 7) : `<div class="standings-cell-center" data-col="7">${entry.e}</div>`}
+                ${isLive ? renderResultRecordCell(entry, "D", entry.d, 8) : `<div class="standings-cell-center" data-col="8">${entry.d}</div>`}
                 <div class="standings-cell-center" data-col="9">${entry.gm}</div>
                 <div class="standings-cell-center" data-col="10">${entry.gs}</div>
                 <div class="standings-cell-center" data-col="11">${entry.dg}</div>
@@ -6481,6 +6721,8 @@ function renderLeague(leagueId) {
     `;
 
     setupLeagueSideStats(panel);
+    setupStandingsColumnHover(panel);
+    setupStandingsFloatingTooltips(panel);
     let transferScroll = panel.querySelector(".league-transfers-scroll");
     if (transferScroll) transferScroll.scrollTop = transferScrollTop;
     let calendarScroll = panel.querySelector(".league-calendar-scroll");
