@@ -3423,7 +3423,7 @@ function getCroatiaFixtureTeamLogo(teamName) {
 
 function getTeamFixtureFormDetail(fixture, teamName) {
     let hasResult = Number.isFinite(fixture.homeGoals) && Number.isFinite(fixture.awayGoals);
-    if (!hasResult || (fixture.home !== teamName && fixture.away !== teamName)) return null;
+    if (fixture.competition !== "HNL" || !hasResult || (fixture.home !== teamName && fixture.away !== teamName)) return null;
 
     let isHome = fixture.home === teamName;
     let goalsFor = isHome ? fixture.homeGoals : fixture.awayGoals;
