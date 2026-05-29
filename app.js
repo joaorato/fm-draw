@@ -3592,6 +3592,57 @@ const leagues = [
                 label: "Notícias",
                 news: [
                     {
+                        eyebrow: "CRÓNICA | Delfim Vergalhos Canteiro",
+                        title: "A noite em que o projeto de Gamy tocou no fundo",
+                        articleTitle: "A Arte de Gastar Milhões Para Ser Eliminado",
+                        highlight: "Gamy",
+                        previewCopy: [
+                            "<strong>Karlovac, 24 de Setembro</strong> — O <span class=\"news-inline-highlight\">Karlovac</span> eliminou o <span class=\"news-inline-highlight\">Osijek</span> na Taça da Croácia e provocou uma das maiores humilhações da temporada.",
+                            "Na sua crónica, <span class=\"news-inline-highlight\">Delfim Vergalhos Canteiro</span> questiona como um projeto milionário de Gamy Chambelito foi incapaz de superiorizar-se a uma equipa da segunda divisão com apenas 10 mil euros de orçamento para transferências."
+                        ],
+                        previewQuote: "",
+                        readMoreLabel: "Ler crónica completa",
+                        copy: [
+                            "<strong>Crónica de Delfim Vergalhos Canteiro</strong>",
+                            "Há eliminações que deixam cicatrizes. Depois há eliminações que deixam perguntas. E a derrota do Osijek frente ao Karlovac deixa uma pergunta muito simples: afinal, qual das duas equipas era a da segunda divisão?",
+                            "Não foi um acidente. Não foi uma surpresa. Foi uma humilhação futebolística em praça pública.",
+                            "Quem olhar apenas para o resultado verá uma equipa da segunda divisão a eliminar um candidato aos lugares cimeiros do futebol croata. Já seria suficientemente grave. Mas quem viu os 120 minutos percebeu algo muito pior: o Karlovac foi melhor.",
+                            "Não durante dez minutos. Não durante uma parte. Durante praticamente toda a eliminatória. Foi a equipa mais organizada, mais agressiva, mais corajosa e, acima de tudo, mais esclarecida.",
+                            "O Karlovac sabia o que queria fazer. O Osijek parecia estar à procura disso.",
+                            "A ironia é deliciosa. Durante meses ouvimos Gamy Chambelito falar de identidade, processos, princípios, construção e evolução. No entanto, quando chegou a hora de enfrentar uma modesta equipa da segunda divisão, quem apresentou identidade foi o Karlovac. Quem mostrou princípios foi o Karlovac. Quem apresentou uma ideia de jogo reconhecível foi o Karlovac.",
+                            "O Osijek apresentou ansiedade. E pouco mais.",
+                            "A certa altura tornou-se difícil perceber qual das equipas tinha jogadores profissionais de primeira divisão e qual delas tinha chegado ali contra todas as probabilidades. O Karlovac pressionava melhor, saía melhor para o ataque, criava mais perigo, ganhava mais duelos e tomava melhores decisões.",
+                            "Em vários momentos, parecia que os jogadores do Karlovac conheciam melhor as fragilidades do Osijek do que o próprio treinador do Osijek. E isso é devastador.",
+                            "Porque não estamos a falar de equipas com recursos semelhantes. O Karlovac tem uma folha salarial mensal próxima dos 60 mil euros. Sessenta mil. O jogador mais bem pago do plantel recebe cerca de 4 mil euros por mês.",
+                            "Do outro lado estava um Osijek que gasta aproximadamente 463 mil euros mensais em salários. Quase oito vezes mais. O jogador mais bem pago de Chambelito recebe sozinho 32 mil euros mensais. Ou seja, um único atleta do Osijek custa mais de metade de toda a estrutura salarial do Karlovac.",
+                            "Normalmente, quando existe uma diferença desta dimensão, espera-se que a qualidade individual faça a diferença. Mas aqui aconteceu algo extraordinário. Quanto mais o jogo avançava, menos se notava essa diferença.",
+                            "O Karlovac correu mais. Pensou mais rápido. Executou melhor. Pareceu mais treinado. E essa última frase é provavelmente a mais humilhante de todas.",
+                            "Porque quando uma equipa da segunda divisão parece mais bem trabalhada do que uma equipa que gasta quase meio milhão de euros por mês em salários, alguém tem de assumir responsabilidades.",
+                            "Durante largos períodos, o Osijek parecia uma equipa sem rumo. A circulação era lenta. Os movimentos eram previsíveis. As alterações não mudavam nada. Os problemas repetiam-se sem correção aparente.",
+                            "E do outro lado estava um Karlovac cada vez mais confortável, cada vez mais confiante e cada vez mais convencido de que o impossível estava perfeitamente ao seu alcance. Não porque estivesse a fazer um jogo heroico. Mas porque o adversário lhe permitia acreditar.",
+                            "Foi isso que mais me impressionou. O Karlovac não teve de escalar o Evereste. Limitou-se a jogar futebol. Foi o Osijek que transformou uma colina numa montanha.",
+                            "No final da noite, os adeptos do Osijek aguardaram a chegada da equipa ao estádio. Houve insultos, protestos e pedras atiradas ao autocarro num retrato claro do estado de revolta instalado entre os adeptos. Naturalmente, esse comportamento não merece qualquer aplauso. Mas a indignação percebe-se.",
+                            "Porque os adeptos não estavam apenas a reagir a uma eliminação. Estavam a reagir a meses de promessas, discursos, explicações sofisticadas e planos maiores.",
+                            "E depois chega uma equipa cujo melhor salário não impressiona sequer um suplente do Osijek e dá uma aula de organização, coragem e competitividade ao projeto de Gamy Chambelito.",
+                            "Daqui a alguns dias ouvir-se-á falar de crescimento, aprendizagem, evolução e lições retiradas. O futebol moderno adora essas expressões. Mas há uma palavra muito mais adequada para descrever o que aconteceu.",
+                            "<span class=\"news-inline-highlight\">Fracasso.</span>",
+                            "Um fracasso histórico. Porque perder com o Karlovac já seria doloroso. Ser dominado pelo Karlovac durante 120 minutos é algo que acompanhará Gamy Chambelito durante muito mais tempo do que ele gostaria.",
+                            "E com toda a justiça.",
+                            "<strong>— Delfim Vergalhos Canteiro<br>Ex-treinador do Ravenna e cronista desportivo</strong>"
+                        ],
+                        image: "assets/treinadores/gamy/gamy_news.png",
+                        visual: {
+                            type: "photo",
+                            cardPosition: "48% 42%",
+                            cardSize: "cover",
+                            articlePosition: "52% 44%",
+                            articleSize: "cover",
+                            readability: "strong"
+                        },
+                        quote: "Fracasso.",
+                        quoteBy: "Delfim Vergalhos Canteiro"
+                    },
+                    {
                         eyebrow: "EMG Croácia",
                         title: "Clima aquece entre Gamy e Francisco Pinto",
                         articleTitle: "Gamy e Francisco Pinto trocam farpas antes do Osijek-Belupo",
@@ -5768,7 +5819,7 @@ function renderLeagueLiveCards(league) {
                         </div>
                         <div class="league-live-page-title">${title}</div>
                         ${copyMarkup}
-                        <span class="league-news-read-more">Ler artigo completo</span>
+                        <span class="league-news-read-more">${displayPage.readMoreLabel || "Ler artigo completo"}</span>
                     </div>
                     ${quoteMarkup}
                     ${newsControls}
