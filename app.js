@@ -722,16 +722,16 @@ function getCroatiaSeedEntry(teamName) {
 }
 
 const croatiaCurrentTable = [
-    { pos: 1, inf: "--", equipa: "HNK Rijeka", j: 10, v: 6, e: 3, d: 1, gm: 18, gs: 9, dg: 9, pts: 21, form: ["E", "E", "V", "V", "V"] },
-    { pos: 2, inf: "↑", equipa: "NK Osijek", j: 10, v: 5, e: 2, d: 3, gm: 20, gs: 14, dg: 6, pts: 17, form: ["V", "V", "D", "V", "V"] },
-    { pos: 3, inf: "↑", equipa: "NK Varaždin", j: 10, v: 5, e: 1, d: 4, gm: 23, gs: 19, dg: 4, pts: 16, form: ["D", "V", "V", "E", "D"] },
-    { pos: 4, inf: "↓", equipa: "HNK Gorica", j: 10, v: 4, e: 4, d: 2, gm: 14, gs: 9, dg: 5, pts: 16, form: ["V", "E", "V", "V", "V"] },
-    { pos: 5, inf: "↓", equipa: "HNK Vukovar", j: 10, v: 5, e: 1, d: 4, gm: 20, gs: 19, dg: 1, pts: 16, form: ["V", "V", "D", "E", "D"] },
-    { pos: 6, inf: "↑", equipa: "Dinamo Zagreb", j: 9, v: 3, e: 3, d: 3, gm: 10, gs: 10, dg: 0, pts: 12, form: ["E", "D", "D", "D", "V"] },
-    { pos: 7, inf: "↓", equipa: "NK Istra 1961", j: 10, v: 2, e: 5, d: 3, gm: 9, gs: 11, dg: -2, pts: 11, form: ["V", "V", "D", "E", "D"] },
-    { pos: 8, inf: "--", equipa: "Hajduk Split", j: 10, v: 1, e: 5, d: 4, gm: 13, gs: 18, dg: -5, pts: 8, form: ["E", "D", "E", "D", "D"] },
-    { pos: 9, inf: "↑", equipa: "NK Lokomotiva", j: 9, v: 1, e: 5, d: 3, gm: 16, gs: 22, dg: -6, pts: 8, form: ["E", "D", "D", "E", "V"] },
-    { pos: 10, inf: "↓", equipa: "NK Slaven Belupo", j: 10, v: 1, e: 3, d: 6, gm: 10, gs: 22, dg: -12, pts: 6, form: ["D", "D", "E", "D", "D"] }
+    { pos: 1, inf: "--", equipa: "HNK Rijeka", j: 12, v: 7, e: 3, d: 2, gm: 21, gs: 12, dg: 9, pts: 24, form: ["V", "V", "V", "D", "V"] },
+    { pos: 2, inf: "↑", equipa: "HNK Vukovar", j: 12, v: 7, e: 1, d: 4, gm: 25, gs: 20, dg: 5, pts: 22, form: ["D", "E", "D", "V", "V"] },
+    { pos: 3, inf: "↓", equipa: "NK Osijek", j: 12, v: 6, e: 2, d: 4, gm: 24, gs: 16, dg: 8, pts: 20, form: ["D", "V", "V", "V", "D"] },
+    { pos: 4, inf: "↓", equipa: "NK Varaždin", j: 12, v: 6, e: 1, d: 5, gm: 24, gs: 21, dg: 3, pts: 19, form: ["V", "E", "D", "V", "D"] },
+    { pos: 5, inf: "↑", equipa: "Dinamo Zagreb", j: 11, v: 5, e: 3, d: 3, gm: 15, gs: 12, dg: 3, pts: 18, form: ["D", "D", "V", "V", "V"] },
+    { pos: 6, inf: "↓", equipa: "HNK Gorica", j: 12, v: 4, e: 5, d: 3, gm: 15, gs: 13, dg: 2, pts: 17, form: ["V", "V", "V", "D", "E"] },
+    { pos: 7, inf: "--", equipa: "NK Lokomotiva", j: 11, v: 3, e: 5, d: 3, gm: 22, gs: 23, dg: -1, pts: 14, form: ["D", "E", "V", "V", "V"] },
+    { pos: 8, inf: "--", equipa: "NK Istra 1961", j: 12, v: 2, e: 5, d: 5, gm: 10, gs: 17, dg: -7, pts: 11, form: ["D", "E", "D", "D", "D"] },
+    { pos: 9, inf: "--", equipa: "Hajduk Split", j: 12, v: 1, e: 6, d: 5, gm: 14, gs: 20, dg: -6, pts: 9, form: ["E", "D", "D", "D", "E"] },
+    { pos: 10, inf: "--", equipa: "NK Slaven Belupo", j: 12, v: 1, e: 3, d: 8, gm: 11, gs: 27, dg: -16, pts: 6, form: ["E", "D", "D", "D", "D"] }
 ].map((row) => ({ ...row, ...getCroatiaSeedEntry(row.equipa) }));
 
 const croatiaSeasonScores = croatiaCurrentTable
@@ -805,16 +805,23 @@ const croatiaFixtures = [
     createLeagueMatch("Outubro", "HNL", "18 Out", "Hajduk Split", "1-2", "NK Lokomotiva"),
     createLeagueMatch("Outubro", "HNL", "18 Out", "HNK Rijeka", "2-0", "NK Istra 1961"),
     createLeagueMatch("Outubro", "HNL", "18 Out", "HNK Vukovar", "2-5", "NK Osijek"),
-    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Istra 1961", "-", "Dinamo Zagreb"),
-    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Lokomotiva", "-", "HNK Rijeka"),
-    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Osijek", "-", "HNK Gorica"),
-    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Slaven Belupo", "-", "HNK Vukovar"),
-    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Varaždin", "-", "Hajduk Split"),
-    createLeagueMatch("Novembro", "HNL", "1 Nov", "Hajduk Split", "-", "HNK Gorica"),
-    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Lokomotiva", "-", "NK Istra 1961"),
-    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Osijek", "-", "Dinamo Zagreb"),
-    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Slaven Belupo", "-", "HNK Rijeka"),
-    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Varaždin", "-", "HNK Vukovar"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Istra 1961", "1-3", "Dinamo Zagreb"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Lokomotiva", "3-1", "HNK Rijeka"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Osijek", "3-0", "HNK Gorica"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Slaven Belupo", "1-3", "HNK Vukovar"),
+    createLeagueMatch("Outubro", "HNL", "25 Out", "NK Varaždin", "1-0", "Hajduk Split"),
+    createLeagueMatch("Outubro", "Taça da Croácia", "29 Out", "Orijent", "3-6", "NK Varaždin", { roundKey: "cup-r2", roundLabel: "Taça da Croácia · 2.ª Eliminatória", displayScore: "3-6 pr", winner: "away", note: "Após prolongamento" }),
+    createLeagueMatch("Outubro", "Taça da Croácia", "29 Out", "NK Slaven Belupo", "1-0", "HNK Gorica", { roundKey: "cup-r2", roundLabel: "Taça da Croácia · 2.ª Eliminatória" }),
+    createLeagueMatch("Outubro", "Taça da Croácia", "29 Out", "Hajduk Split", "3-0", "Međimurje", { roundKey: "cup-r2", roundLabel: "Taça da Croácia · 2.ª Eliminatória" }),
+    createLeagueMatch("Outubro", "Taça da Croácia", "29 Out", "HNK Vukovar", "6-3", "Šibenik", { roundKey: "cup-r2", roundLabel: "Taça da Croácia · 2.ª Eliminatória" }),
+    createLeagueMatch("Outubro", "Taça da Croácia", "29 Out", "Dubrava", "1-1", "Dinamo Zagreb", { roundKey: "cup-r2", roundLabel: "Taça da Croácia · 2.ª Eliminatória", displayScore: "p 1-1", winner: "home", note: "Dinamo Zagreb eliminado nos penáltis" }),
+    createLeagueMatch("Outubro", "Taça da Croácia", "29 Out", "HNK Rijeka", "3-0", "NK Istra 1961", { roundKey: "cup-r2", roundLabel: "Taça da Croácia · 2.ª Eliminatória" }),
+    createLeagueMatch("Outubro", "Taça da Croácia", "29 Out", "NK Lokomotiva", "1-2", "Zrinski Osječko 1664", { roundKey: "cup-r2", roundLabel: "Taça da Croácia · 2.ª Eliminatória" }),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "Hajduk Split", "1-1", "HNK Gorica"),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Lokomotiva", "3-0", "NK Istra 1961"),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Osijek", "1-2", "Dinamo Zagreb"),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Slaven Belupo", "0-2", "HNK Rijeka"),
+    createLeagueMatch("Novembro", "HNL", "1 Nov", "NK Varaždin", "0-2", "HNK Vukovar"),
     createLeagueMatch("Novembro", "HNL", "8 Nov", "Dinamo Zagreb", "-", "NK Varaždin"),
     createLeagueMatch("Novembro", "HNL", "8 Nov", "HNK Gorica", "-", "NK Lokomotiva"),
     createLeagueMatch("Novembro", "HNL", "8 Nov", "NK Istra 1961", "-", "NK Slaven Belupo"),
@@ -3159,6 +3166,238 @@ const croatiaRoundTenReports = [
     }
 ];
 
+const croatiaRoundElevenReports = [
+    {
+        fixtureKey: "2025-10-25-nk-istra-1961-dinamo-zagreb",
+        date: "Sábado 25 de Outubro de 2025",
+        stadium: "Aldo Drosina",
+        weather: "Calmo",
+        playerOfMatch: "Scott McKenna",
+        rating: "7,66",
+        coaches: { home: "João Pedro Rato", away: "M. Kovačević" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Prevljak", "6,4", "AAE"), reportPlayer("14", "Tóth", "7,3", "AR", true)],
+                [reportPlayer("11", "Goričan", "6,5", "AI"), reportPlayer("17", "Frederiksen", "6,7", "CJA")],
+                [reportPlayer("26", "Heister", "6,5", "AI"), reportPlayer("10", "Štulac", "6,7", "CJA"), reportPlayer("5", "Radošević", "6,4", "MD")],
+                [reportPlayer("4", "Johnston", "6,3", "CC"), reportPlayer("3", "Nasraoui", "6,7", "DC"), reportPlayer("97", "Kadusić", "6,7", "AI")],
+                [reportPlayer("1", "Kolić", "6,4", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("9", "Dion Beljo", "6,7", "ACL")],
+                [reportPlayer("11", "Hoxha", "7,4", "MO", true)],
+                [reportPlayer("30", "Topić", "6,6", "MA"), reportPlayer("27", "Mišić", "6,7", "MA")],
+                [reportPlayer("8", "Zajc", "7,5", "MD"), reportPlayer("4", "Bennacer", "7,1", "MDT")],
+                [reportPlayer("22", "Pérez Vinlöf", "6,7", "DL"), reportPlayer("26", "McKenna", "7,7", "CA", true), reportPlayer("15", "Galešić", "7,2", "DC"), reportPlayer("25", "Valinčić", "6,6", "DL")],
+                [reportPlayer("40", "Livaković", "7,2", "GRC")]
+            ])
+        },
+        events: {
+            home: ["4' B. Tóth A. Kadusić"],
+            away: ["14' S. McKenna M. Zajc", "29' A. Hoxha M. Zajc", "77' B. Goda I. Bennacer"]
+        },
+        stats: [
+            { label: "Posse", home: "50%", away: "50%" },
+            { label: "Remates", home: "15", away: "11" },
+            { label: "Remates à Baliza", home: "10", away: "8" },
+            { label: "xG", home: "1,25", away: "0,69" },
+            { label: "PADPAD", home: "33,07", away: "28,36" },
+            { label: "Oportunidades Flagrantes", home: "1", away: "0" },
+            { label: "Cantos", home: "11", away: "6" },
+            { label: "Passes Completados", home: "91%", away: "91%" },
+            { label: "Cruzamentos Completados", home: "12%", away: "25%" },
+            { label: "Faltas", home: "7", away: "7" },
+            { label: "Cartões amarelos", home: "0", away: "0" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "132", away: "127" },
+            { label: "Classificação Média", home: "6,6", away: "7,0" }
+        ]
+    },
+    {
+        fixtureKey: "2025-10-25-nk-lokomotiva-hnk-rijeka",
+        date: "Sábado 25 de Outubro de 2025",
+        stadium: "Maksimir",
+        weather: "Brisa",
+        playerOfMatch: "Rui Pedro",
+        rating: "9,37",
+        coaches: { home: "P. Natal", away: "Zép Jóbes" },
+        formations: {
+            home: reportFormation("3-4-1-2", [
+                [reportPlayer("7", "Trajkovski", "7,2", "AAE"), reportPlayer("10", "Rui Pedro", "9,4", "F9", true)],
+                [reportPlayer("40", "McCarthy", "6,8", "MC"), reportPlayer("28", "Belcar", "6,6", "MC"), reportPlayer("26", "Rog", "6,8", "MC")],
+                [reportPlayer("17", "Pajač", "6,5", "AP"), reportPlayer("23", "Vešović", "7,4", "AP")],
+                [reportPlayer("4", "Sigali", "6,4", "DC"), reportPlayer("16", "Dajčer", "7,1", "CC"), reportPlayer("20", "Kolinger", "6,5", "DC")],
+                [reportPlayer("12", "Posavec", "7,2", "GR")]
+            ]),
+            away: reportFormation("3-4-2-1", [
+                [reportPlayer("77", "Jurić", "6,5", "AE")],
+                [reportPlayer("10", "Fruk", "6,3", "Ex"), reportPlayer("7", "Keita Balde", "6,9", "Ex", true)],
+                [reportPlayer("8", "Petrović", "6,5", "MC")],
+                [reportPlayer("15", "Martínez T.", "6,9", "MD"), reportPlayer("4", "Andrade", "6,6", "MD")],
+                [reportPlayer("34", "Devetak", "6,8", "DL"), reportPlayer("6", "Radeljić", "6,7", "DC"), reportPlayer("26", "Dantas", "6,3", "DC"), reportPlayer("23", "Lasickas", "7,1", "DL")],
+                [reportPlayer("1", "Letica", "6,2", "GRL")]
+            ])
+        },
+        events: {
+            home: ["5' Rui Pedro", "7' Rui Pedro", "32' Rui Pedro M. Vešović"],
+            away: ["33' K. Baldé J. Lasickas"]
+        },
+        stats: [
+            { label: "Posse", home: "50%", away: "50%" },
+            { label: "Remates", home: "19", away: "16" },
+            { label: "Remates à Baliza", home: "8", away: "7" },
+            { label: "xG", home: "2,09", away: "2,03" },
+            { label: "PADPAD", home: "26,91", away: "16,95" },
+            { label: "Oportunidades Flagrantes", home: "1", away: "1" },
+            { label: "Cantos", home: "12", away: "8" },
+            { label: "Passes Completados", home: "89%", away: "87%" },
+            { label: "Cruzamentos Completados", home: "27%", away: "42%" },
+            { label: "Faltas", home: "12", away: "19" },
+            { label: "Cartões amarelos", home: "1", away: "3" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "114", away: "119" },
+            { label: "Classificação Média", home: "7,1", away: "6,6" }
+        ]
+    },
+    {
+        fixtureKey: "2025-10-25-nk-osijek-hnk-gorica",
+        date: "Sábado 25 de Outubro de 2025",
+        stadium: "Opus Arena",
+        weather: "Calmo",
+        playerOfMatch: "Luka Vrbančić",
+        rating: "8,02",
+        coaches: { home: "Gamy Chambelito", away: "Miguel Cardoso" },
+        formations: {
+            home: reportFormation("4-1-2-3", [
+                [reportPlayer("9", "Touré", "7,4", "F9"), reportPlayer("17", "Jakupović", "7,4", "AAE", true), reportPlayer("34", "Matković", "7,6", "AAE", true)],
+                [reportPlayer("10", "Shopov", "6,3", "MO"), reportPlayer("23", "Vrbančić", "8,0", "MO", true)],
+                [reportPlayer("16", "Petrusenko", "6,7", "Pi")],
+                [reportPlayer("38", "Čolina", "7,7", "AI"), reportPlayer("26", "Jelenić", "7,3", "CP"), reportPlayer("33", "Hasić", "7,1", "CP"), reportPlayer("29", "Karačić", "7,3", "AI")],
+                [reportPlayer("31", "Malenica", "7,5", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("20", "Vrzić", "6,2", "Ex"), reportPlayer("10", "Pršir", "6,2", "ME"), reportPlayer("9", "Bogojević", "6,0", "Ex")],
+                [reportPlayer("8", "Pozo", "6,4", "CJA"), reportPlayer("24", "Pavičić", "6,1", "ME")],
+                [reportPlayer("36", "Kavelj", "6,3", "CJR")],
+                [reportPlayer("19", "Čabraja", "6,1", "AI"), reportPlayer("4", "J. Filipović", "6,5", "DC"), reportPlayer("45", "Leš", "6,5", "CP"), reportPlayer("22", "Trontelj", "6,6", "AI")],
+                [reportPlayer("1", "Matijaš", "6,9", "GRC")]
+            ])
+        },
+        events: {
+            home: ["5' A. Matković L. Vrbančić", "31' A. Jakupović pen", "90' M. Gradel L. Vrbančić"],
+            away: ["28' B. Bogojević expulso"]
+        },
+        stats: [
+            { label: "Posse", home: "63%", away: "37%" },
+            { label: "Remates", home: "23", away: "5" },
+            { label: "Remates à Baliza", home: "12", away: "2" },
+            { label: "xG", home: "2,99", away: "0,16" },
+            { label: "PADPAD", home: "10,07", away: "26,75" },
+            { label: "Oportunidades Flagrantes", home: "2", away: "0" },
+            { label: "Cantos", home: "14", away: "4" },
+            { label: "Passes Completados", home: "89%", away: "78%" },
+            { label: "Cruzamentos Completados", home: "22%", away: "9%" },
+            { label: "Faltas", home: "5", away: "11" },
+            { label: "Cartões amarelos", home: "0", away: "0" },
+            { label: "Cartões vermelhos", home: "0", away: "1" },
+            { label: "Distância Percorrida", home: "130", away: "120" },
+            { label: "Classificação Média", home: "7,3", away: "6,4" }
+        ]
+    },
+    {
+        fixtureKey: "2025-10-25-nk-slaven-belupo-hnk-vukovar",
+        date: "Sábado 25 de Outubro de 2025",
+        stadium: "Gradski stadion Ivan Kušek Apaš",
+        weather: "Brisa",
+        playerOfMatch: "Šimun Butić",
+        rating: "8,51",
+        coaches: { home: "Francisco Pinto", away: "Hugo Macedo" },
+        formations: {
+            home: reportFormation("3-4-1-2", [
+                [reportPlayer("21", "Crepulja", "6,6", "AR"), reportPlayer("90", "Nestorovski", "6,2", "AAE")],
+                [reportPlayer("15", "Čubelić", "6,7", "CJA")],
+                [reportPlayer("3", "Jakir", "6,6", "AI"), reportPlayer("8", "Mrowca", "6,6", "MAA"), reportPlayer("10", "Caimacov", "6,8", "MD"), reportPlayer("18", "Krušelj", "6,9", "AI")],
+                [reportPlayer("5", "Ćosić", "6,3", "CC"), reportPlayer("6", "Božić", "6,7", "DC", true), reportPlayer("4", "Kovicić", "6,4", "CC")],
+                [reportPlayer("1", "Hadžikić", "6,6", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Kulušić", "6,6", "AAE")],
+                [reportPlayer("21", "Puljić", "7,4", "AI", true), reportPlayer("7", "Kerim Çalhan.", "6,6", "AI")],
+                [reportPlayer("10", "Gonzalez", "7,0", "ME"), reportPlayer("15", "Gurlica", "6,9", "CJA")],
+                [reportPlayer("23", "Matić", "6,4", "MD")],
+                [reportPlayer("91", "Tićinović", "7,3", "AI", true), reportPlayer("4", "Mitrović", "6,9", "DC"), reportPlayer("12", "Živković", "6,7", "DC"), reportPlayer("5", "Elez", "6,6", "AI")],
+                [reportPlayer("42", "Đaković", "7,5", "GR")]
+            ])
+        },
+        events: {
+            home: ["18' I. Božić I. Čubelić"],
+            away: ["21' M. Tićinović", "69' J. Puljić Š. Butić", "79' J. Moreno Š. Butić"]
+        },
+        stats: [
+            { label: "Posse", home: "53%", away: "47%" },
+            { label: "Remates", home: "10", away: "14" },
+            { label: "Remates à Baliza", home: "5", away: "9" },
+            { label: "xG", home: "1,19", away: "1,31" },
+            { label: "PADPAD", home: "18,05", away: "19,74" },
+            { label: "Oportunidades Flagrantes", home: "1", away: "0" },
+            { label: "Cantos", home: "5", away: "10" },
+            { label: "Passes Completados", home: "88%", away: "87%" },
+            { label: "Cruzamentos Completados", home: "17%", away: "13%" },
+            { label: "Faltas", home: "19", away: "6" },
+            { label: "Cartões amarelos", home: "1", away: "0" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "127", away: "128" },
+            { label: "Classificação Média", home: "6,6", away: "7,0" }
+        ]
+    },
+    {
+        fixtureKey: "2025-10-25-nk-varazdin-hajduk-split",
+        date: "Sábado 25 de Outubro de 2025",
+        stadium: "Anđelko Herjavec",
+        weather: "Calmo",
+        playerOfMatch: "Gregor Sikošek",
+        rating: "7,91",
+        coaches: { home: "João Nabais", away: "Gonzalo García" },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("17", "Mamut", "6,2", "AR")],
+                [reportPlayer("22", "Mamić", "6,5", "AI"), reportPlayer("27", "Latković", "6,7", "MO"), reportPlayer("18", "Gaprindashvili", "6,5", "Ex")],
+                [reportPlayer("8", "Duvnjak", "6,6", "CJR"), reportPlayer("6", "Puclin", "7,2", "CJA")],
+                [reportPlayer("3", "Sikošek", "7,9", "AI", true), reportPlayer("44", "Barać", "7,1", "DC"), reportPlayer("16", "Tepšić", "6,8", "CC"), reportPlayer("23", "Maglica", "7,6", "DL")],
+                [reportPlayer("1", "Zelenika", "7,4", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("10", "Livaja", "6,5", "AR")],
+                [reportPlayer("9", "A. Rebić", "6,4", "EAI"), reportPlayer("11", "Šego", "6,7", "EAI")],
+                [reportPlayer("7", "Kalik", "6,8", "MC"), reportPlayer("21", "Pukštas", "6,4", "MC")],
+                [reportPlayer("23", "Krovinović", "6,4", "MD")],
+                [reportPlayer("3", "Auer", "6,9", "AI"), reportPlayer("14", "Raçi", "6,8", "CC"), reportPlayer("15", "Marešić", "6,4", "CC"), reportPlayer("55", "Hrastović", "6,5", "AI")],
+                [reportPlayer("3", "Silić", "6,8", "GR")]
+            ])
+        },
+        events: {
+            home: ["14' G. Sikošek D. Puclin"],
+            away: []
+        },
+        stats: [
+            { label: "Posse", home: "41%", away: "59%" },
+            { label: "Remates", home: "12", away: "9" },
+            { label: "Remates à Baliza", home: "6", away: "4" },
+            { label: "xG", home: "1,57", away: "0,51" },
+            { label: "PADPAD", home: "28,11", away: "17,74" },
+            { label: "Oportunidades Flagrantes", home: "1", away: "0" },
+            { label: "Cantos", home: "6", away: "4" },
+            { label: "Passes Completados", home: "89%", away: "91%" },
+            { label: "Cruzamentos Completados", home: "28%", away: "16%" },
+            { label: "Faltas", home: "12", away: "11" },
+            { label: "Cartões amarelos", home: "2", away: "1" },
+            { label: "Cartões vermelhos", home: "0", away: "0" },
+            { label: "Distância Percorrida", home: "121", away: "116" },
+            { label: "Classificação Média", home: "7,0", away: "6,6" }
+        ]
+    }
+];
+
 const croatiaCupFirstRoundReports = [
     {
         fixtureKey: "2025-09-24-bjelovar-hnk-rijeka",
@@ -3398,7 +3637,7 @@ const croatiaCupFirstRoundReports = [
     }
 ];
 
-const croatiaMatchReports = [...croatiaRoundOneReports, ...croatiaRoundTwoReports, ...croatiaRoundThreeReports, ...croatiaRoundFourReports, ...croatiaRoundFiveReports, ...croatiaRoundSixReports, ...croatiaRoundSevenReports, ...croatiaRoundEightReports, ...croatiaRoundNineReports, ...croatiaRoundTenReports, ...croatiaCupFirstRoundReports];
+const croatiaMatchReports = [...croatiaRoundOneReports, ...croatiaRoundTwoReports, ...croatiaRoundThreeReports, ...croatiaRoundFourReports, ...croatiaRoundFiveReports, ...croatiaRoundSixReports, ...croatiaRoundSevenReports, ...croatiaRoundEightReports, ...croatiaRoundNineReports, ...croatiaRoundTenReports, ...croatiaRoundElevenReports, ...croatiaCupFirstRoundReports];
 const croatiaMatchReportsByFixtureKey = new Map(croatiaMatchReports.map((report) => [report.fixtureKey, report]));
 
 assignLeagueFixtureRounds(croatiaFixtures, { teamNames: croatiaSeedTable.map((entry) => entry.equipa) });
@@ -3603,13 +3842,15 @@ const transferClubLogos = {
 
 const croatiaCupTeamLogos = {
     "Bjelovar": "assets/logos/teams/croacia/cup/bjelovar.png",
+    "Orijent": "assets/logos/teams/transferencias/orijent.png",
     "Mladost Ždralovi": "assets/logos/teams/croacia/cup/mladost_zdralovi.png",
     "Uljanik": "assets/logos/teams/croacia/cup/uljanik.png",
     "Karlovac 1919": "assets/logos/teams/croacia/cup/karlovac_1919.png",
     "Polet (SMnM)": "assets/logos/teams/croacia/cup/polet_smnm.png",
     "Marsonia": "assets/logos/teams/croacia/cup/marsonia.png",
     "Radnik Križevci": "assets/logos/teams/croacia/cup/radnik_krizevci.png",
-    "Tomislav (DA)": "assets/logos/teams/croacia/cup/tomislav_da.png"
+    "Tomislav (DA)": "assets/logos/teams/croacia/cup/tomislav_da.png",
+    "Zrinski Osječko 1664": "assets/logos/teams/transferencias/zrinjski_osjecko_1664.png"
 };
 
 const leagues = [
@@ -3631,7 +3872,7 @@ const leagues = [
         tacas: [],
         liveCards: [
             { label: "Estado", value: "Liga em curso", meta: "Pronta para updates por sessão" },
-            { label: "Última sessão", value: "Jornada 10", meta: "Resultados de 18 Out inseridos" },
+            { label: "Última sessão", value: "Jornada 12", meta: "Liga e Taça de 29 Out-1 Nov inseridas" },
             { label: "Calendário", value: "36 jornadas", meta: "Fixture list carregada para a época completa" }
         ],
         livePages: [
@@ -3639,6 +3880,49 @@ const leagues = [
                 id: "noticias",
                 label: "Notícias",
                 news: [
+                    {
+                        eyebrow: "Federação Croata",
+                        title: "Denúncia anónima obriga Federação a repetir Jornada 12 após suspeitas de irregularidades",
+                        cardTitle: "Federação manda repetir Jornada 12",
+                        articleTitle: "Denúncia anónima obriga Federação a repetir Jornada 12 após suspeitas de irregularidades",
+                        highlight: "Jornada 12",
+                        previewCopy: [
+                            "A <span class=\"news-inline-highlight\">Federação Croata</span> confirmou a repetição integral da 12.ª jornada após a receção de uma denúncia anónima que motivou uma investigação de emergência.",
+                            "Apesar do intenso escrutínio, não foram encontradas provas de manipulação de resultados. Ainda assim, alguns dos episódios analisados deverão continuar a alimentar conversas durante muito tempo."
+                        ],
+                        previewQuote: "",
+                        readMoreLabel: "Ler notícia completa",
+                        copy: [
+                            "A Federação Croata de Futebol anunciou a anulação da 12.ª jornada do campeonato e a consequente repetição de todos os encontros disputados nessa ronda, após a receção de uma denúncia anónima que levantava suspeitas sobre possíveis irregularidades em diversos jogos.",
+                            "Segundo apurou o nosso jornal, a denúncia chegou às mãos da federação poucas horas após o encerramento da jornada e continha referências detalhadas a vários acontecimentos considerados <span class=\"news-inline-highlight\">\"invulgares\"</span> por parte do autor da comunicação.",
+                            "Perante a gravidade das alegações, foi imediatamente aberta uma investigação interna que envolveu a análise de relatórios de arbitragem, imagens dos encontros, declarações de intervenientes e diversos elementos estatísticos recolhidos ao longo das últimas semanas.",
+                            "No final do processo, a conclusão foi clara: não foram encontradas provas que permitam sustentar qualquer acusação de manipulação de resultados, corrupção desportiva ou favorecimento deliberado de qualquer clube.",
+                            "Ainda assim, a federação decidiu avançar para a repetição integral da jornada, justificando a medida com a necessidade de proteger a transparência da competição e eliminar qualquer sombra de dúvida sobre os resultados obtidos.",
+                            "Apesar da ausência de provas, a investigação acabou por concentrar atenções em alguns episódios que já vinham gerando debate ao longo da temporada.",
+                            "Entre eles surgem vários encontros marcados por golos nos instantes finais, períodos de compensação particularmente generosos, decisões de arbitragem analisadas durante dias por comentadores e uma curiosa sucessão de lances que acabaram invariavelmente por beneficiar a mesma equipa.",
+                            "Naturalmente, a federação faz questão de sublinhar que coincidências não constituem evidências. E, juridicamente, o caso termina precisamente aí.",
+                            "Contudo, nos cafés, nas bancadas e nos programas de comentário desportivo, o assunto promete continuar vivo.",
+                            "Até porque vários dirigentes contactados pelo nosso jornal admitem, em privado, que alguns dos acontecimentos analisados ao longo da investigação eram já alvo de conversas recorrentes desde o início da época.",
+                            "Um dirigente de um clube da metade superior da tabela chegou mesmo a afirmar que <span class=\"news-inline-highlight\">\"há equipas que parecem ter uma relação muito saudável com os minutos de compensação\"</span>, recusando, no entanto, identificar qualquer adversário em concreto.",
+                            "Outro responsável desportivo preferiu o humor: <span class=\"news-inline-highlight\">\"Há treinadores que passam semanas a trabalhar bolas paradas. Outros parecem trabalhar diretamente os descontos.\"</span>",
+                            "Nenhuma destas observações consta naturalmente dos relatórios oficiais. Os documentos analisados pela federação são taxativos ao concluir que não existe matéria para qualquer sanção disciplinar.",
+                            "Ainda assim, a repetição da jornada deixa um cenário raro no futebol croata.",
+                            "Os jogos serão disputados novamente nas próximas semanas, os resultados deixam de contar para a classificação e uma ronda inteira do campeonato fica, para já, apagada dos registos.",
+                            "A investigação está encerrada. O debate, esse, está longe de terminar.",
+                            "Porque no futebol há processos que terminam quando faltam provas. E há suspeitas que continuam a viver porque nunca faltam coincidências."
+                        ],
+                        image: "assets/treinadores/rato/rato_profile7.png",
+                        visual: {
+                            type: "photo",
+                            cardPosition: "50% 38%",
+                            cardSize: "cover",
+                            articlePosition: "50% 42%",
+                            articleSize: "cover",
+                            readability: "strong"
+                        },
+                        quote: "A Federação não encontrou culpados. Mas também não conseguiu impedir que o país inteiro voltasse a fazer as mesmas perguntas.",
+                        quoteBy: "Comentador da HRT Sport"
+                    },
                     {
                         eyebrow: "CRÓNICA | Delfim Vergalhos Canteiro",
                         title: "A noite em que o projeto de Gamy tocou no fundo",
@@ -5997,9 +6281,10 @@ function renderLeagueLiveCards(league) {
         let visual = getLeagueNewsVisual(displayPage);
         let liveNewsClass = visual.cardClass;
         liveNewsClass = liveNewsClass ? ` ${liveNewsClass}` : "";
+        let previewTitle = displayPage.cardTitle || displayPage.title;
         let title = displayPage.highlight
-            ? displayPage.title.replace(displayPage.highlight, `<span>${displayPage.highlight}</span>`)
-            : displayPage.title;
+            ? previewTitle.replace(displayPage.highlight, `<span>${displayPage.highlight}</span>`)
+            : previewTitle;
         let previewCopy = displayPage.previewCopy ?? displayPage.copy;
         let copyBlocks = Array.isArray(previewCopy) ? previewCopy : [previewCopy].filter(Boolean);
         let copyMarkup = copyBlocks.map((paragraph) => `<p class="league-live-page-copy">${paragraph}</p>`).join("");

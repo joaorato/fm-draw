@@ -2308,13 +2308,13 @@ body::after {
 }
 
 .league-live-page.is-news .league-live-page-title {
-    max-width: 11ch;
+    max-width: 14.5ch;
     margin-top: 18px;
     font-family: "Oxanium", sans-serif;
-    font-size: clamp(26px, 2.4vw, 38px);
+    font-size: clamp(22px, 2vw, 31px);
     font-weight: 900;
-    line-height: 1;
-    letter-spacing: 0.9px;
+    line-height: 1.04;
+    letter-spacing: 0.7px;
     text-transform: uppercase;
     text-shadow:
         0 3px 18px rgba(0, 0, 0, 0.72),
@@ -2719,13 +2719,13 @@ body::after {
 }
 
 .league-news-article-title {
-    max-width: 13.4ch;
+    max-width: 15.8ch;
     margin: 26px 0 0;
     color: #ffffff;
     font-family: "Oxanium", sans-serif;
-    font-size: clamp(38px, 4vw, 58px);
+    font-size: clamp(32px, 3.35vw, 48px);
     font-weight: 900;
-    line-height: 1.02;
+    line-height: 1.04;
     letter-spacing: 1px;
     text-transform: uppercase;
     text-shadow:
@@ -2747,9 +2747,15 @@ body::after {
 }
 
 .league-news-article-dialog.is-long-read .league-news-article-title {
-    max-width: 13ch;
-    font-size: clamp(34px, 3.25vw, 48px);
-    line-height: 1.03;
+    max-width: 16.5ch;
+    font-size: clamp(30px, 2.8vw, 42px);
+    line-height: 1.06;
+}
+
+.league-live-page.is-news.is-long-read .league-live-page-title {
+    max-width: 16ch;
+    font-size: clamp(20px, 1.8vw, 28px);
+    line-height: 1.06;
 }
 
 .league-news-article-dialog.is-logo-bg .league-news-article-divider {
@@ -6282,18 +6288,18 @@ button:disabled {
         width: min(100%, 32ch);
     }
     .league-news-article-title {
-        max-width: 11.5ch;
+        max-width: 14.5ch;
         margin-top: 20px;
-        font-size: clamp(30px, 10vw, 42px);
-        line-height: 1;
+        font-size: clamp(26px, 8vw, 36px);
+        line-height: 1.04;
     }
     .league-news-article-dialog.is-logo-bg .league-news-article-title {
         max-width: 13.5ch;
         font-size: clamp(28px, 8vw, 36px);
     }
     .league-news-article-dialog.is-long-read .league-news-article-title {
-        max-width: 12.5ch;
-        font-size: clamp(28px, 8vw, 36px);
+        max-width: 15ch;
+        font-size: clamp(24px, 7vw, 32px);
     }
     .league-news-article-divider {
         width: 46px;
