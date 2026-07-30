@@ -3311,9 +3311,11 @@ body::after {
 .league-transfer-club-cell--logo-only {
     justify-content: center;
     justify-self: center;
-    width: 31px;
+    width: 28px;
     height: 28px;
-    padding: 3px;
+    padding: 1px;
+    background: transparent;
+    border-color: transparent;
 }
 
 .league-transfer-club-cell:last-child {
@@ -3325,11 +3327,11 @@ body::after {
 }
 
 .league-transfer-team-logo {
-    width: 21px;
-    height: 21px;
+    width: 23px;
+    height: 23px;
     flex: 0 0 auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 7px rgba(112, 208, 255, 0.16));
+    filter: drop-shadow(0 0 6px rgba(112, 208, 255, 0.18));
 }
 
 .league-transfer-club-name {
