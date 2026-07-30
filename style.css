@@ -3554,6 +3554,17 @@ body::after {
         0 8px 22px rgba(0,0,0,0.18);
 }
 
+.league-calendar-select option {
+    color: #f7fbff;
+    background-color: #071b52;
+}
+
+.league-calendar-select option:checked,
+.league-calendar-select option:hover {
+    color: #ffffff;
+    background-color: #123e91;
+}
+
 .league-calendar-filter::after {
     content: "⌄";
     position: absolute;
