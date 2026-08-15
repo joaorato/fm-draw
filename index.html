@@ -215,6 +215,25 @@
 </div>
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<!-- A ordem destes scripts é significativa: são scripts clássicos que partilham
+     o mesmo scope global, e cada ficheiro assume que os de cima já correram.
+     Os dados estão em js/data/, a lógica fica em app.js (sempre o último). -->
+<script src="js/data/coaches.js"></script>
+<script src="js/data/teams.js"></script>
+<script src="js/data/fixtures-core.js"></script>
+<script src="js/data/report-core.js"></script>
+<script src="js/data/scotland.js"></script>
+<script src="js/data/croatia-table.js"></script>
+<script src="js/data/croatia-fixtures.js"></script>
+<script src="js/data/croatia-reports-01-05.js"></script>
+<script src="js/data/croatia-reports-06-11.js"></script>
+<script src="js/data/croatia-reports-taca.js"></script>
+<script src="js/data/croatia-reports-recentes.js"></script>
+<script src="js/data/croatia-wiring.js"></script>
+<script src="js/data/croatia-transfers.js"></script>
+<script src="js/data/croatia-news.js"></script>
+<script src="js/data/leagues.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
