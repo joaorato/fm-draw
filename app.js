@@ -64,16 +64,16 @@ let resultados = [];
 
 const DRAW_COMPLETED = true;
 
-const FINAL_RESULTS = [
-    { jogador: "Gonçalo",  equipa: "HNK Rijeka",      img: "assets/logos/teams/croacia/rijeka.png",        rank: 3 },
-    { jogador: "Gamy",     equipa: "NK Osijek",        img: "assets/logos/teams/croacia/osijek.png",        rank: 4 },
-    { jogador: "Painatal", equipa: "NK Lokomotiva",    img: "assets/logos/teams/croacia/nk_lokomotiva.png", rank: 5 },
-    { jogador: "Rato",     equipa: "NK Istra 1961",    img: "assets/logos/teams/croacia/istra.png",         rank: 6 },
-    { jogador: "Nabais",   equipa: "NK Varaždin",      img: "assets/logos/teams/croacia/varazdin.png",      rank: 7 },
-    { jogador: "Chico",    equipa: "NK Slaven Belupo", img: "assets/logos/teams/croacia/slaven.png",        rank: 8 },
-    { jogador: "Cardoso",  equipa: "HNK Gorica",       img: "assets/logos/teams/croacia/gorica.png",        rank: 9 },
-    { jogador: "Hugo",     equipa: "HNK Vukovar",      img: "assets/logos/teams/croacia/hnkvukovar.png",    rank: 10 }
-];
+// Resultado do sorteio já realizado. Vem da seed table da liga em curso — quando
+// houver novo sorteio, basta trocar croatiaSeedTable pela seed table da liga nova.
+const FINAL_RESULTS = croatiaSeedTable
+    .filter((entry) => entry.jogador)
+    .map((entry) => ({
+        jogador: entry.jogador,
+        equipa: entry.equipa,
+        img: entry.logo,
+        rank: entry.prevista
+    }));
 
 const coachByShortName = Object.fromEntries(coachProfiles.map((coach) => [coach.nome, coach]));
 const coachByNarrativeTeam = {
@@ -92,7 +92,7 @@ let activeLeagueNewsIndex = {};
 let activeLeagueCalendarRound = {};
 let leagueLiveAutoTimer = null;
 let pausedLeagueLivePages = new Set();
-let activeLeagueId = "croacia";
+let activeLeagueId = "croatia";
 
 const TOTAL_ROUNDS = jogadores.length;
 const ITEM_WIDTH_TEAM = 126;
@@ -3337,7 +3337,32 @@ function imageToDataURL(img) {
     return c.toDataURL("image/png");
 }
 
+const HTML2CANVAS_SRC = "https://html2canvas.hertzen.com/dist/html2canvas.min.js";
+let html2canvasLoader = null;
+
+// Carregado só quando alguém carrega em "Partilhar", para não pesar em todas as visitas.
+function loadHtml2Canvas() {
+    if (window.html2canvas) {
+        return Promise.resolve(window.html2canvas);
+    }
+    if (!html2canvasLoader) {
+        html2canvasLoader = new Promise((resolve, reject) => {
+            let script = document.createElement("script");
+            script.src = HTML2CANVAS_SRC;
+            script.onload = () => resolve(window.html2canvas);
+            script.onerror = () => {
+                html2canvasLoader = null;
+                reject(new Error("Não foi possível carregar o html2canvas"));
+            };
+            document.head.appendChild(script);
+        });
+    }
+    return html2canvasLoader;
+}
+
 async function capturePanel(panel) {
+    let render = await loadHtml2Canvas();
+
     let images = panel.querySelectorAll("img");
     let originals = [];
     images.forEach((img) => {
@@ -3345,7 +3370,7 @@ async function capturePanel(panel) {
         try { img.src = imageToDataURL(img); } catch (_) {}
     });
 
-    let canvas = await html2canvas(panel, { backgroundColor: "#02071b", scale: 2 });
+    let canvas = await render(panel, { backgroundColor: "#02071b", scale: 2 });
 
     images.forEach((img, i) => { img.src = originals[i]; });
     return canvas;

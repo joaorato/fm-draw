@@ -214,7 +214,8 @@
     <img class="photo-lightbox-img" id="photoLightboxImg" src="" alt="">
 </div>
 
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<!-- O html2canvas só é preciso no botão de partilha do sorteio, por isso é
+     carregado a pedido em loadHtml2Canvas() (app.js) em vez de aqui. -->
 
 <!-- A ordem destes scripts é significativa: são scripts clássicos que partilham
      o mesmo scope global, e cada ficheiro assume que os de cima já correram.
