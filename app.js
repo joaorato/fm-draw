@@ -8301,8 +8301,24 @@ function renderLeagueCalendarRoundSelect(league, groups) {
 }
 
 function selectLeagueCalendarRound(leagueId, roundKey) {
-    activeLeagueCalendarRound[leagueId] = roundKey || "all";
+    let previousRound = activeLeagueCalendarRound[leagueId] || "all";
+    let nextRound = roundKey || "all";
+    activeLeagueCalendarRound[leagueId] = nextRound;
     renderLeague(leagueId);
+    // Ao voltar a "Todas", manter a vista na jornada que estava selecionada
+    if (nextRound === "all" && previousRound !== "all") {
+        scrollLeagueCalendarToGroup(previousRound);
+    }
+}
+
+function scrollLeagueCalendarToGroup(groupKey) {
+    let container = document.getElementById("leaguePanel")?.querySelector(".league-calendar-scroll");
+    if (!container) return;
+    let target = [...container.querySelectorAll("[data-calendar-group]")]
+        .find((block) => block.dataset.calendarGroup === String(groupKey));
+    if (!target) return;
+    let padding = Number.parseFloat(getComputedStyle(container).paddingTop) || 0;
+    container.scrollTop += target.getBoundingClientRect().top - container.getBoundingClientRect().top - padding;
 }
 
 function renderLeagueCalendar(league) {
@@ -8347,7 +8363,7 @@ function renderLeagueCalendar(league) {
         }).join("");
 
         return `
-            <div class="league-fixture-month">
+            <div class="league-fixture-month" data-calendar-group="${group.key}">
                 <div class="league-fixture-month-title">${group.label}</div>
                 <div class="league-fixture-list">${rows}</div>
             </div>
