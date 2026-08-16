@@ -22,16 +22,26 @@ Do not introduce Node, npm, bundlers, modules or generated build output unless t
 ## Current Structure
 
 - `index.html` - page structure, tab sections, modal/lightbox shells and the ordered script list.
-- `app.js` - all UI logic: rendering, DOM events, tabs, draw ceremony, coach modals, league dashboard, news, transfers, calendar and match reports.
+- `app.js` - bootstrap only. Calls the render functions once the rest has loaded, and must stay last.
 - `style.css` - all visual styling.
-- `js/data/` - refactored data layer. One classic script per domain.
+- `js/data/` - data layer. One classic script per domain.
+- `js/ui/` - UI layer. One classic script per area: rendering, DOM events, tabs, draw ceremony, coach modals, league dashboard, news, transfers, calendar and match reports.
 - `assets/` - logos, coach images, flags, social icons, audio and result screenshots.
 
 ## Critical Script Rule
 
 The scripts are **classic scripts sharing one global scope**, not ES modules. Load order in `index.html` is part of the architecture.
 
-Each file assumes everything listed above it has already run. `app.js` must stay last.
+Two rules, and they are not the same rule:
+
+- **Load-time code** - anything that runs while the script is parsed, like a top-level `const`
+  derived from data - can only see files already loaded. Those are ordered strictly: all of
+  `js/data/` first, then `js/ui/`, then `app.js` last.
+- **Call-time code** - function bodies, event handlers, `onclick=` strings - resolves through the
+  shared global scope after every script has run, so it does not care about order. This is why the
+  `js/ui/` files can call each other freely in both directions.
+
+`app.js` must stay last: it is the only file that renders at load.
 
 Current order:
 
@@ -53,9 +63,22 @@ Current order:
 16. `js/data/croatia-transfers.js`
 17. `js/data/croatia-news.js`
 18. `js/data/leagues.js`
-19. `app.js`
+19. `js/ui/shared.js`
+20. `js/ui/chrome.js`
+21. `js/ui/coaches.js`
+22. `js/ui/standings-ui.js`
+23. `js/ui/league-selector.js`
+24. `js/ui/match-report.js`
+25. `js/ui/league-live.js`
+26. `js/ui/league-transfers.js`
+27. `js/ui/league-calendar.js`
+28. `js/ui/league-panel.js`
+29. `js/ui/draw.js`
+30. `js/ui/share.js`
+31. `app.js`
 
-If you add a new data file, add its `<script>` tag before the file that consumes it.
+If you add a new data file, add its `<script>` tag before the file that consumes it. A new `js/ui/`
+file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` and before `app.js`.
 
 ## Data Files
 
@@ -75,7 +98,26 @@ If you add a new data file, add its `<script>` tag before the file that consumes
 | `js/data/croatia-standings.js` | Computes `croatiaCurrentTable` and `croatiaSeasonScores` from the fixtures |
 | `js/data/croatia-transfers.js` | Croatia transfers and extra club logos |
 | `js/data/croatia-news.js` | Croatia live/news carousel and articles |
-| `js/data/leagues.js` | Final `leagues` array consumed by `app.js` |
+| `js/data/leagues.js` | Final `leagues` array consumed by the whole UI layer |
+
+## UI Files
+
+Each owns its own state. The `let`s listed are declared at the top of that file and read nowhere else.
+
+| File | Purpose | Owns |
+|---|---|---|
+| `js/ui/shared.js` | Helpers used across areas | `escapeAttribute`, `formatPoints`, `getPointsClass`, `bindCoachLinks` |
+| `js/ui/chrome.js` | Music (mute, autoplay recovery) and tab/hash routing | `musicStarted`, `isMuted` |
+| `js/ui/coaches.js` | Coach cards, modal, palmarés, trophy cabinet, gallery, rail drag | `selectedCoachId`, `coachByShortName`, `coachByNarrativeTeam` |
+| `js/ui/standings-ui.js` | EMG points glue, `generalStandings`, Classificação Geral, formula popover, floating tooltips | `generalScoreMode`, `hasLiveLeague` |
+| `js/ui/league-selector.js` | League menu and team name/logo helpers | `activeLeagueId` |
+| `js/ui/match-report.js` | Report modal: events, formations, pitch, stats | - |
+| `js/ui/league-live.js` | Form dots, result tooltips, live cards, news carousel | `activeLeagueLivePage`, `activeLeagueNewsIndex`, `leagueLiveAutoTimer`, `pausedLeagueLivePages` |
+| `js/ui/league-transfers.js` | Transfers table | - |
+| `js/ui/league-calendar.js` | Fixture grouping, round select, calendar | `activeLeagueCalendarRound` |
+| `js/ui/league-panel.js` | Lower panel, side stats, `renderLeague` | - |
+| `js/ui/draw.js` | Roulette maths and the draw ceremony | `shuffledTeams`, `shuffledPlayers`, `remainingTeams`, `remainingPlayers`, `currentRound`, `resultados`, `DRAW_COMPLETED`, `FINAL_RESULTS` |
+| `js/ui/share.js` | Discord share, on-demand `html2canvas`, fullscreen | `html2canvasLoader` |
 
 ## Main Data Contracts
 
@@ -87,7 +129,7 @@ If you add a new data file, add its `<script>` tag before the file that consumes
 - `coachProfileExtras` - narrative/identity sections for coach modals.
 - `leagues` - one object per league. Drives the league selector, league dashboard and global standings.
 - `croatiaCurrentTable` and `croatiaSeasonScores` - **derived**, not authored. Computed in `js/data/croatia-standings.js` from the fixtures. The Croatia `emgPontos` column in `leagues.js` is read from `croatiaSeasonScores`, never typed. Everything else in this list is hand-written.
-- `generalStandings` - derived in `app.js` from every league, split into `concluidas` (leagues with `status === "completed"`) and `projecao` (the rest), plus `total` and the `inf` arrow. See Scoring.
+- `generalStandings` - derived in `js/ui/standings-ui.js` from every league, split into `concluidas` (leagues with `status === "completed"`) and `projecao` (the rest), plus `total` and the `inf` arrow. See Scoring.
 - `DRAW_COMPLETED` and `FINAL_RESULTS` - control whether the draw tab shows stored results or runs the roulette.
 
 ## League Object Contract
@@ -162,7 +204,7 @@ Base formula:
 `(posição prevista - posição final) × 3`
 
 The maths lives in `js/data/scoring-core.js` and knows nothing about a specific league.
-`calcBonuses()` in `app.js` is just `calcCupBonuses(league.tacas)` + `calcPositionBonuses(league.tabela)`:
+`calcBonuses()` in `js/ui/standings-ui.js` is just `calcCupBonuses(league.tacas)` + `calcPositionBonuses(league.tabela)`:
 
 - Champion: `+10`
 - Best human manager: `+5`
@@ -180,7 +222,7 @@ A league with `status === "live"` is scored the same way, against **today's** po
 result is labelled a projection. That is why `croatiaSeasonScores` has real points instead of
 zeros, and why `calcBonuses()` no longer short-circuits on live leagues.
 
-Classificação Geral has two modes (`generalScoreMode` in `app.js`), switched by the
+Classificação Geral has two modes (`generalScoreMode` in `js/ui/standings-ui.js`), switched by the
 `#scoreModeTabs` buttons:
 
 - `"projecao"` (default while a live league exists) - `#` · `Inf` · Jogador · Concluídas · Projeção · Total, sorted by `total`.
@@ -206,7 +248,7 @@ tooltip machinery is the standings one — `bindFloatingTooltips(root, anchorSel
 - `generalView`
 - `pastView`
 
-Tabs are controlled by `setActiveTab()` in `app.js`, with hash routes:
+Tabs are controlled by `setActiveTab()` in `js/ui/chrome.js`, with hash routes:
 
 - `#home`
 - `#sorteio`
@@ -214,8 +256,9 @@ Tabs are controlled by `setActiveTab()` in `app.js`, with hash routes:
 - `#classificacao`
 - `#ligas`
 
-At the end of `app.js`, bootstrap runs:
+`app.js` is the whole bootstrap and nothing else:
 
+- `syncGeneralScoreModes()`
 - `renderGeneralTable()`
 - `renderLeagueSelector()`
 - `renderCoachCards()`
@@ -259,7 +302,7 @@ Avoid broad restyles. Keep CSS changes close to the feature being changed.
 Useful checks:
 
 - Run a syntax check on changed JS files with Node if available: `node --check <file>`.
-- Serve the folder (`python3 -m http.server`) and drive the page with the Playwright MCP tools to check the console and click through the affected tab. Note that the browser aggressively caches `js/data/*.js`; serve on a fresh port after editing, or you will be testing the old file.
+- Serve the folder (`python3 -m http.server`) and drive the page with the Playwright MCP tools to check the console and click through the affected tab. Note that the browser aggressively caches `js/data/*.js` and `js/ui/*.js`; serve on a fresh port after editing, or you will be testing the old file.
 - Open `index.html` locally to verify the affected tab.
 - For data changes, check that the relevant table/card/report appears and no dependent script is loaded before its data.
 

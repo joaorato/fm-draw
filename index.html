@@ -227,11 +227,12 @@
 </div>
 
 <!-- O html2canvas só é preciso no botão de partilha do sorteio, por isso é
-     carregado a pedido em loadHtml2Canvas() (app.js) em vez de aqui. -->
+     carregado a pedido em loadHtml2Canvas() (js/ui/share.js) em vez de aqui. -->
 
 <!-- A ordem destes scripts é significativa: são scripts clássicos que partilham
      o mesmo scope global, e cada ficheiro assume que os de cima já correram.
-     Os dados estão em js/data/, a lógica fica em app.js (sempre o último). -->
+     Os dados estão em js/data/, a lógica em js/ui/, e o app.js só arranca a
+     página — por isso é sempre o último. -->
 <script src="js/data/coaches.js"></script>
 <script src="js/data/teams.js"></script>
 <script src="js/data/fixtures-core.js"></script>
@@ -250,6 +251,18 @@
 <script src="js/data/croatia-transfers.js"></script>
 <script src="js/data/croatia-news.js"></script>
 <script src="js/data/leagues.js"></script>
+<script src="js/ui/shared.js"></script>
+<script src="js/ui/chrome.js"></script>
+<script src="js/ui/coaches.js"></script>
+<script src="js/ui/standings-ui.js"></script>
+<script src="js/ui/league-selector.js"></script>
+<script src="js/ui/match-report.js"></script>
+<script src="js/ui/league-live.js"></script>
+<script src="js/ui/league-transfers.js"></script>
+<script src="js/ui/league-calendar.js"></script>
+<script src="js/ui/league-panel.js"></script>
+<script src="js/ui/draw.js"></script>
+<script src="js/ui/share.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
