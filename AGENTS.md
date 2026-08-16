@@ -51,31 +51,34 @@ Current order:
 4. `js/data/standings-core.js`
 5. `js/data/scoring-core.js`
 6. `js/data/report-core.js`
-7. `js/data/scotland.js`
-8. `js/data/croatia-table.js`
-9. `js/data/croatia-fixtures.js`
-10. `js/data/croatia-reports-01-05.js`
-11. `js/data/croatia-reports-06-11.js`
-12. `js/data/croatia-reports-taca.js`
-13. `js/data/croatia-reports-recentes.js`
-14. `js/data/croatia-wiring.js`
-15. `js/data/croatia-standings.js`
-16. `js/data/croatia-transfers.js`
-17. `js/data/croatia-news.js`
-18. `js/data/leagues.js`
-19. `js/ui/shared.js`
-20. `js/ui/chrome.js`
-21. `js/ui/coaches.js`
-22. `js/ui/standings-ui.js`
-23. `js/ui/league-selector.js`
-24. `js/ui/match-report.js`
-25. `js/ui/league-live.js`
-26. `js/ui/league-transfers.js`
-27. `js/ui/league-calendar.js`
-28. `js/ui/league-panel.js`
-29. `js/ui/draw.js`
-30. `js/ui/share.js`
-31. `app.js`
+7. `js/data/stats-core.js`
+8. `js/data/scotland.js`
+9. `js/data/croatia-table.js`
+10. `js/data/croatia-fixtures.js`
+11. `js/data/croatia-reports-01-05.js`
+12. `js/data/croatia-reports-06-11.js`
+13. `js/data/croatia-reports-taca.js`
+14. `js/data/croatia-reports-recentes.js`
+15. `js/data/croatia-wiring.js`
+16. `js/data/croatia-standings.js`
+17. `js/data/croatia-transfers.js`
+18. `js/data/croatia-news.js`
+19. `js/data/leagues.js`
+20. `js/ui/shared.js`
+21. `js/ui/chrome.js`
+22. `js/ui/coaches.js`
+23. `js/ui/standings-ui.js`
+24. `js/ui/league-selector.js`
+25. `js/ui/match-report.js`
+26. `js/ui/league-live.js`
+27. `js/ui/league-transfers.js`
+28. `js/ui/league-stats.js`
+29. `js/ui/league-calendar.js`
+30. `js/ui/league-race.js`
+31. `js/ui/league-panel.js`
+32. `js/ui/draw.js`
+33. `js/ui/share.js`
+34. `app.js`
 
 If you add a new data file, add its `<script>` tag before the file that consumes it. A new `js/ui/`
 file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` and before `app.js`.
@@ -90,6 +93,7 @@ file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` an
 | `js/data/standings-core.js` | League-agnostic standings maths: `getFixtureOutcome`, `buildStandingsFromFixtures`, `standingsCriteria`, `sortStandings`, `applyStandingsSnapshot` |
 | `js/data/scoring-core.js` | League-agnostic EMG points: `calcSeasonPoints`, `calcTableScores`, `calcCupBonuses`, `calcPositionBonuses` |
 | `js/data/report-core.js` | Match report helpers: `reportPlayer`, `reportFormation`, `reportStats`, `compactReport` |
+| `js/data/stats-core.js` | League-agnostic player stats from the reports: `buildSquadIndex`, `readGoalEvent`, `splitScorerAndAssist`, `buildGoalRecords`, `buildPlayerRankings`, `validateGoalRecords` |
 | `js/data/scotland.js` | All Scotland season data, hand-typed (see Croatia Standings) |
 | `js/data/croatia-table.js` | Croatia league config: `croatiaSeedTable`, `croatiaZonas`, `croatiaRegras`, `croatiaClassificacaoFM`, `croatiaFixtureMonths` |
 | `js/data/croatia-fixtures.js` | Croatia fixtures/results |
@@ -113,7 +117,8 @@ Each owns its own state. The `let`s listed are declared at the top of that file 
 | `js/ui/league-selector.js` | League menu and team name/logo helpers | `activeLeagueId` |
 | `js/ui/match-report.js` | Report modal: events, formations, pitch, stats | - |
 | `js/ui/league-live.js` | Form dots, result tooltips, live cards, news carousel | `activeLeagueLivePage`, `activeLeagueNewsIndex`, `leagueLiveAutoTimer`, `pausedLeagueLivePages` |
-| `js/ui/league-transfers.js` | Transfers table | - |
+| `js/ui/league-transfers.js` | Transfers table body | - |
+| `js/ui/league-stats.js` | Lower tabbed card: tab strip, marcadores and assistências | `activeLeagueLowerTab`, `leagueGoalsCache`, `leagueTransfersScrollTop` |
 | `js/ui/league-calendar.js` | Fixture grouping, round select, calendar | `activeLeagueCalendarRound` |
 | `js/ui/league-panel.js` | Lower panel, side stats, `renderLeague` | - |
 | `js/ui/draw.js` | Roulette maths and the draw ceremony | `shuffledTeams`, `shuffledPlayers`, `remainingTeams`, `remainingPlayers`, `currentRound`, `resultados`, `DRAW_COMPLETED`, `FINAL_RESULTS` |
@@ -149,7 +154,7 @@ A league object in `js/data/leagues.js` usually contains:
 - `fixtures`
 - `fixtureMonths`
 - `tabela`
-- Optional: `fixtureGroupBy`, `liveCards`, `livePages`, `transfers`, `merits`, `sideStats`, `tacas`, `extraTeamLogos`
+- Optional: `fixtureGroupBy`, `liveCards`, `livePages`, `transfers`, `merits`, `sideStats`, `tacas`, `extraTeamLogos`, `evolucao`, `golos`
 
 Adding a new league should normally mean adding its data file(s), loading them before `leagues.js`, then pushing a new object into `leagues`.
 
@@ -160,6 +165,8 @@ For a new Croatia session:
 - Results/fixtures: edit `js/data/croatia-fixtures.js`.
 - Standings: nothing to edit. The table is computed from the fixtures (see Croatia Standings).
 - Match reports: append to `croatiaRecentReports` in `js/data/croatia-reports-recentes.js`.
+- Marcadores/assistências: nothing to edit. They come from the reports' goal events. Run
+  `node scripts/validate_goals.js` after adding reports (see Golos e Assistências).
 - News article/carousel item: edit `js/data/croatia-news.js`.
 - Transfers: edit `js/data/croatia-transfers.js`.
 
@@ -181,6 +188,55 @@ What stays hand-authored in `js/data/croatia-table.js`:
 `getTeamFixtureFormDetail` in `croatia-wiring.js` calls `getFixtureOutcome` so the standings and the form dots share one definition of a result. Keep it that way.
 
 **Scotland is not derived and must stay hand-typed**: its fixture list holds 97 league matches of the 228 a full Premiership season needs, so its `j: 38` table cannot be computed.
+
+## Golos e Assistências
+
+The lower panel's middle card is a tabbed card: Transferências and Golos e Assistências, with the
+tab strip acting as the card's title. `js/ui/league-stats.js` owns the card, the tab state and the
+two ranking lists; `renderLeagueTransfers()` now returns only the transfers **body**, because the
+`<section>` wrapper belongs to the tab container.
+
+A league opts in the same way it opts into the race chart:
+
+```js
+golos: { isLeagueMatch }
+```
+
+No `golos`, no tab. **Scotland must not declare one**: it has no match reports at all, and its
+fixture list only covers the 8 EMG clubs.
+
+Nothing here is hand-written. `js/data/stats-core.js` derives everything from the goal events, and
+three things about that data must not be forgotten:
+
+- **Red cards live in the same array as the goals**, marked only by a trailing `expulso`. There are
+  7 of them. Counting events without that filter is what makes the totals disagree with the results.
+- **Own goals are listed on the side that benefits**, but the player belongs to the other squad.
+  They count for the team and are left out of the scorer list. The data spells them two ways, `a.g.`
+  and `(AG)`, and both are handled.
+- **A goal event has no separator between scorer and assister** — `"90+3' M. Rog L. Belcar"`. The
+  split is decided against that team's squad, indexed from every lineup in the reports plus every
+  transfer. Each candidate reading scores 2 per half known to the squad and 1 per half accepted only
+  on its shape, and the strongest wins. A tie is reported, never guessed.
+
+Each list shows the top 10. Players level on goals or assists are ordered **alphabetically**, which
+is deliberate: it is a stable order, not a claim that one of them is better. Because that cut often
+lands inside a tie, the last row carries a `+N` badge listing, on hover, everyone left out on the
+same number — today `+2` on goals and `+4` on assists. It uses `bindFloatingTooltips()`, the
+standings' own tooltip, so there is only one such mechanism in the codebase.
+
+Two smaller decisions that are easy to undo by accident:
+
+- **A player's identity is the team plus the normalised name**, and the team is not decoration:
+  without it `A. Jurić` of Rijeka and `S. Jurić` of Varaždin collapse into one row and add up each
+  other's goals. With it, the spelling variants of one player still merge, because those share a
+  team — `Hoxha`/`A. Hoxha`, `Petrovič`/`Petrović`, `Kadušić`/`Kadusić`.
+- **The squad index matches on the surname when the full name misses**, which is what links the
+  lineups' `"Dantas"` to the events' `"Tiago Dantas"`.
+
+`validateGoalRecords()` compares goals read against the actual score for every fixture and warns on
+the console. Run `node scripts/validate_goals.js` after adding reports: it should report 0 unresolved,
+0 ambiguous and 0 disagreements. Note what it proves — the right *number* of goals, not that a name
+was split in the right place.
 
 ## Match Reports
 
@@ -302,6 +358,8 @@ Avoid broad restyles. Keep CSS changes close to the feature being changed.
 Useful checks:
 
 - Run a syntax check on changed JS files with Node if available: `node --check <file>`.
+- After touching match reports or `stats-core.js`, run `node scripts/validate_goals.js`. It should
+  report 0 unresolved, 0 ambiguous and 0 fixtures disagreeing with the score.
 - If system `node` is unavailable, Codex may have a bundled Node runtime.
 - Open `index.html` locally to verify the affected tab.
 - For data changes, check that the relevant table/card/report appears and no dependent script is loaded before its data.

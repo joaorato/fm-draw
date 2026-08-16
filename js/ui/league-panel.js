@@ -1,7 +1,7 @@
 function renderLeagueLowerPanel(league) {
     let content = [
         renderLeagueLiveCards(league),
-        renderLeagueTransfers(league),
+        renderLeagueLowerTabs(league),
         renderLeagueAwards(league),
         renderLeagueTeamOfYear(league),
         renderLeagueCalendar(league)
@@ -263,6 +263,7 @@ function renderLeague(leagueId) {
     setupLeagueSideStats(panel);
     setupStandingsColumnHover(panel);
     setupStandingsFloatingTooltips(panel);
+    setupLeagueScorerTooltips(panel);
     let transferScroll = panel.querySelector(".league-transfers-scroll");
     if (transferScroll) transferScroll.scrollTop = transferScrollTop;
     let calendarScroll = panel.querySelector(".league-calendar-scroll");

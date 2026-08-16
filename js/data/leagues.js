@@ -23,6 +23,12 @@ const leagues = [
             zonas: croatiaZonas,
             snapshot: croatiaClassificacaoFM
         },
+        // Declarar isto é o que dá o painel de golos e assistências a uma liga.
+        // Vale a mesma ressalva da evolução: a Escócia não declara porque não
+        // tem relatórios nenhuns e a lista de jogos só cobre as 8 equipas dos humanos.
+        golos: {
+            isLeagueMatch: isCroatiaLeagueMatch
+        },
         extraTeamLogos: croatiaCupTeamLogos,
         tacas: [],
         liveCards: [

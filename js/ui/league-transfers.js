@@ -62,22 +62,21 @@ function renderLeagueTransfers(league) {
             `;
         }).join("");
 
+    // Devolve só o corpo: o cartão e o título são da barra de separadores,
+    // em renderLeagueLowerTabs().
     return `
-        <section class="league-side-card league-transfers-card">
-            <div class="league-side-head centered league-transfers-head">
-                <strong>Transferências</strong>
-                <div class="league-transfer-window is-closed" title="Janela de transferências fechada">
-                    <span>Mercado</span>
-                    <b>Fechado</b>
-                </div>
+        <div class="league-side-head centered league-transfers-head">
+            <div class="league-transfer-window is-closed" title="Janela de transferências fechada">
+                <span>Mercado</span>
+                <b>Fechado</b>
             </div>
-            <div class="league-transfer-table-head">
-                <span>Data</span>
-                <span>Jogador</span>
-                <span>Movimento</span>
-                <span>Valor</span>
-            </div>
-            <div class="league-transfers-scroll">${rows}</div>
-        </section>
+        </div>
+        <div class="league-transfer-table-head">
+            <span>Data</span>
+            <span>Jogador</span>
+            <span>Movimento</span>
+            <span>Valor</span>
+        </div>
+        <div class="league-transfers-scroll">${rows}</div>
     `;
 }

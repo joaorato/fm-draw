@@ -3424,6 +3424,224 @@ body::after {
     text-align: center;
 }
 
+/* Barra de separadores do cartão inferior. Faz de título: por baixo dela vem
+   ou as transferências ou os marcadores e assistências. */
+.league-tab-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 12px 10px;
+    border-bottom: 1px solid rgba(var(--c-glow-b), 0.1);
+}
+
+.league-tab {
+    padding: 7px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: rgba(223, 240, 255, 0.68);
+    font-family: "Oxanium", sans-serif;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.league-tab:hover {
+    color: #f4fbff;
+    background: rgba(74, 134, 255, 0.12);
+}
+
+.league-tab.active {
+    color: #f6fbff;
+    background: linear-gradient(180deg, rgba(97, 186, 255, 0.22), rgba(42, 95, 219, 0.16));
+    box-shadow:
+        inset 0 1px 0 rgba(var(--c-white), 0.1),
+        0 0 24px rgba(70, 142, 255, 0.18);
+}
+
+/* A barra já separa o topo do cartão: o cabeçalho das transferências que vem
+   logo a seguir não repete a linha nem o espaçamento de um título. */
+.league-tab-strip + .league-side-head.centered {
+    padding: 6px 12px;
+    justify-content: flex-end;
+    border-bottom: 0;
+}
+
+/* O selo do mercado estava posicionado em absoluto contra o título que a barra
+   de separadores veio substituir. Sem esse título o cabeçalho ficava sem altura
+   e o selo transbordava para cima da tabela, por isso volta ao fluxo normal.
+   Fica `relative`, não `static`: o ponto vermelho é um ::before em absoluto e
+   precisa do selo como referência, senão vai-se posicionar contra o cabeçalho. */
+.league-tab-strip + .league-side-head .league-transfer-window {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+}
+
+.league-scorers-grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 14px 12px 12px;
+}
+
+.league-scorer-list {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.league-scorer-head {
+    padding: 0 6px 9px;
+    color: rgba(var(--c-white), 0.92);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 1px solid rgba(var(--c-glow), 0.08);
+}
+
+.league-scorer-rows {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    align-content: start;
+    gap: 4px;
+    overflow-y: auto;
+    padding-top: 6px;
+}
+
+.league-scorer-row {
+    display: grid;
+    grid-template-columns: 20px 24px minmax(0, 1fr) 30px;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 6px 9px;
+    border-radius: 11px;
+    border: 1px solid transparent;
+    color: rgba(241, 248, 255, 0.92);
+    background: rgba(var(--c-panel-blue), 0.52);
+}
+
+.league-scorer-row:nth-child(even) {
+    background: rgba(20, 45, 104, 0.58);
+}
+
+.league-scorer-row:hover {
+    border-color: rgba(var(--c-glow), 0.22);
+}
+
+.league-scorer-pos {
+    color: rgba(205, 228, 255, 0.58);
+    font-size: 11px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.league-scorer-logo {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    justify-self: center;
+}
+
+/* Flex para o nome poder truncar sem levar o "+N" atrás. */
+.league-scorer-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+
+.league-scorer-name-text {
+    min-width: 0;
+    font-size: 12.4px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.league-scorer-more {
+    flex: none;
+    padding: 2px 7px;
+    border-radius: 999px;
+    border: 1px solid rgba(var(--c-glow), 0.24);
+    background: rgba(var(--c-glow), 0.1);
+    color: rgba(223, 240, 255, 0.86);
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.4;
+    cursor: help;
+}
+
+.league-scorer-more:hover,
+.league-scorer-more:focus-visible {
+    color: #f6fbff;
+    border-color: rgba(var(--c-glow), 0.44);
+    background: rgba(var(--c-glow), 0.18);
+    outline: none;
+}
+
+.league-scorer-total {
+    color: rgb(var(--c-white));
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.league-scorer-tie-tooltip {
+    gap: 7px;
+}
+
+.league-scorer-tie-head {
+    color: rgba(205, 228, 255, 0.7);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.league-scorer-tie-item {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 9px;
+    font-size: 12.4px;
+}
+
+.league-scorer-tie-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.league-scorer-tie-name {
+    min-width: 0;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.league-scorer-empty {
+    padding: 18px 12px;
+    color: rgba(205, 228, 255, 0.58);
+    font-size: 11.5px;
+    text-align: center;
+}
+
 .league-toty-panel {
     position: relative;
     margin: 0;
