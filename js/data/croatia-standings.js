@@ -20,12 +20,6 @@ const croatiaCurrentTable = applyStandingsSnapshot(
     form: getTeamFormDetailsFromFixtures(croatiaFixtures, row.equipa).map((detail) => detail.result)
 }));
 
-const croatiaSeasonScores = croatiaCurrentTable
-    .filter((entry) => entry.jogador)
-    .map((entry) => ({
-        jogador: entry.jogador,
-        equipa: entry.equipa,
-        prevista: entry.prevista,
-        final: entry.prevista,
-        pontos: 0
-    }));
+// Projeção: a fórmula da época aplicada à posição de hoje. Enquanto a liga
+// estiver em curso estes pontos mudam a cada jornada — não são o resultado final.
+const croatiaSeasonScores = calcTableScores(croatiaCurrentTable);

@@ -1,59 +1,49 @@
+// Numa liga em curso isto é uma projeção: a mesma conta, feita sobre a
+// classificação de hoje em vez da final.
 function calcBonuses(league) {
-    if (league.status === "live") {
-        return league.bonuses || [];
-    }
-
-    let bonuses = [];
-    let tabela = league.tabela;
-
-    // Cup and European bonuses (hardcoded per league)
-    league.tacas.forEach((taca) => {
-        if (taca.jogador) {
-            bonuses.push({ jogador: taca.jogador, tipo: taca.tipo, pontos: taca.pontos });
-        }
-    });
-
-    // Champion: human team in 1st place
-    let campeao = tabela.find((e) => e.pos === 1);
-    if (campeao && campeao.jogador) {
-        bonuses.push({ jogador: campeao.jogador, tipo: "Campeão da liga", pontos: 10 });
-    }
-
-    // Best human (only if not champion)
-    let humanEntries = tabela.filter((e) => e.jogador);
-    let melhorHumano = humanEntries[0];
-    if (melhorHumano && melhorHumano.pos !== 1) {
-        bonuses.push({ jogador: melhorHumano.jogador, tipo: "Melhor humano na liga", pontos: 5 });
-    }
-
-    // Last place: human team in last position
-    let ultimo = tabela[tabela.length - 1];
-    if (ultimo && ultimo.jogador) {
-        bonuses.push({ jogador: ultimo.jogador, tipo: "Último classificado na liga", pontos: -5 });
-    }
-
-    // Worst human (only if not last place)
-    let piorHumano = humanEntries[humanEntries.length - 1];
-    if (piorHumano && piorHumano.pos !== tabela.length) {
-        bonuses.push({ jogador: piorHumano.jogador, tipo: "Pior humano na liga", pontos: -2 });
-    }
-
-    return bonuses;
+    return [...calcCupBonuses(league.tacas), ...calcPositionBonuses(league.tabela)];
 }
 
-const generalScores = leagues
-    .filter((league) => league.status === "completed")
-    .flatMap((league) => [...league.scores, ...calcBonuses(league)])
-    .reduce((acc, entry) => {
-        let existing = acc.find((e) => e.jogador === entry.jogador);
-        if (existing) {
-            existing.pontos += entry.pontos;
-        } else {
-            acc.push({ jogador: entry.jogador, pontos: entry.pontos });
-        }
-        return acc;
-    }, [])
-    .sort((a, b) => b.pontos - a.pontos || a.jogador.localeCompare(b.jogador));
+function sumLeaguePoints(filtro) {
+    return leagues
+        .filter(filtro)
+        .flatMap((league) => [...league.scores, ...calcBonuses(league)])
+        .reduce((acc, entry) => {
+            acc[entry.jogador] = (acc[entry.jogador] || 0) + entry.pontos;
+            return acc;
+        }, {});
+}
+
+function rankPlayers(entries, campo, campoPos) {
+    return [...entries]
+        .sort((a, b) => b[campo] - a[campo] || a.jogador.localeCompare(b.jogador))
+        .map((entry, index) => ({ ...entry, [campoPos]: index + 1 }));
+}
+
+// Duas leituras da mesma tabela: só o que está fechado, e o mesmo mais a época
+// em curso projectada. A seta de cada jogador é a diferença entre as duas.
+const generalStandings = (() => {
+    let concluidas = sumLeaguePoints((league) => league.status === "completed");
+    let projecao = sumLeaguePoints((league) => league.status !== "completed");
+
+    let entries = [...new Set([...Object.keys(concluidas), ...Object.keys(projecao)])].map((jogador) => ({
+        jogador,
+        concluidas: concluidas[jogador] || 0,
+        projecao: projecao[jogador] || 0,
+        total: (concluidas[jogador] || 0) + (projecao[jogador] || 0)
+    }));
+
+    let porConcluidas = new Map(rankPlayers(entries, "concluidas", "posConcluidas").map((entry) => [entry.jogador, entry.posConcluidas]));
+
+    return rankPlayers(entries, "total", "posTotal").map((entry) => ({
+        ...entry,
+        posConcluidas: porConcluidas.get(entry.jogador),
+        inf: porConcluidas.get(entry.jogador) - entry.posTotal
+    }));
+})();
+
+const hasLiveLeague = leagues.some((league) => league.status !== "completed");
+let generalScoreMode = hasLiveLeague ? "projecao" : "concluidas";
 
 let shuffledTeams = [];
 let shuffledPlayers = [];
@@ -1423,32 +1413,103 @@ function getPointsClass(points) {
     return "neutral";
 }
 
+function formatGeneralInf(inf) {
+    if (inf > 0) return { simbolo: `▲${inf}`, estado: "up" };
+    if (inf < 0) return { simbolo: `▼${-inf}`, estado: "down" };
+    return { simbolo: "--", estado: "" };
+}
+
 function renderGeneralTable() {
     let scoreTable = document.getElementById("scoreTable");
+    let comProjecao = generalScoreMode === "projecao" && hasLiveLeague;
 
-    scoreTable.innerHTML = `
-        <div class="score-row header">
-            <div>#</div>
-            <div data-col="4">Jogador</div>
-            <div>Pontos</div>
-        </div>
-    `;
+    scoreTable.className = `score-table general ${comProjecao ? "with-projection" : ""}`;
+    scoreTable.innerHTML = comProjecao
+        ? `
+            <div class="score-row header">
+                <div>#</div>
+                <div>Inf</div>
+                <div data-col="4">Jogador</div>
+                <div>Concluídas</div>
+                <div>Projeção</div>
+                <div>Total</div>
+            </div>
+        `
+        : `
+            <div class="score-row header">
+                <div>#</div>
+                <div data-col="4">Jogador</div>
+                <div>Pontos</div>
+            </div>
+        `;
 
-    generalScores.forEach((entry, index) => {
+    let ordenados = comProjecao
+        ? generalStandings
+        : [...generalStandings].sort((a, b) => a.posConcluidas - b.posConcluidas);
+
+    ordenados.forEach((entry) => {
         let row = document.createElement("div");
         row.className = "score-row";
-        row.innerHTML = `
-            <div class="score-rank">${index + 1}</div>
+        let jogadorCell = `
             <div class="score-cell">
                 <span class="score-mobile-label">Jogador</span>
                 <span class="score-player">${getCoachLinkMarkup(entry.jogador, "score-player-link")}</span>
             </div>
-            <div class="score-points ${getPointsClass(entry.pontos)}">${formatPoints(entry.pontos)}</div>
         `;
+
+        if (comProjecao) {
+            let inf = formatGeneralInf(entry.inf);
+            row.innerHTML = `
+                <div class="score-rank">${entry.posTotal}</div>
+                <div class="score-inf ${inf.estado}" title="Efeito da época em curso na classificação geral">
+                    <span class="score-mobile-label">Inf</span>
+                    <span class="score-inf-value">${inf.simbolo}</span>
+                </div>
+                ${jogadorCell}
+                <div class="score-points muted ${getPointsClass(entry.concluidas)}">
+                    <span class="score-mobile-label">Concluídas</span>
+                    <span>${formatPoints(entry.concluidas)}</span>
+                </div>
+                <div class="score-points projecao ${getPointsClass(entry.projecao)}">
+                    <span class="score-mobile-label">Projeção</span>
+                    <span>${formatPoints(entry.projecao)}</span>
+                </div>
+                <div class="score-points ${getPointsClass(entry.total)}">
+                    <span class="score-mobile-label">Total</span>
+                    <span>${formatPoints(entry.total)}</span>
+                </div>
+            `;
+        } else {
+            row.innerHTML = `
+                <div class="score-rank">${entry.posConcluidas}</div>
+                ${jogadorCell}
+                <div class="score-points ${getPointsClass(entry.concluidas)}">${formatPoints(entry.concluidas)}</div>
+            `;
+        }
+
         scoreTable.appendChild(row);
     });
 
     bindCoachLinks(scoreTable);
+}
+
+function syncGeneralScoreModes() {
+    let tabs = document.getElementById("scoreModeTabs");
+    if (!tabs) return;
+
+    // Sem liga em curso não há nada a projectar: fica só a tabela oficial.
+    tabs.hidden = !hasLiveLeague;
+    tabs.querySelectorAll(".score-mode-tab").forEach((tab) => {
+        let active = tab.dataset.scoreMode === generalScoreMode;
+        tab.classList.toggle("active", active);
+        tab.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+}
+
+function setGeneralScoreMode(mode) {
+    generalScoreMode = mode;
+    syncGeneralScoreModes();
+    renderGeneralTable();
 }
 
 function renderLeagueSelector() {
@@ -2942,7 +3003,8 @@ function renderLeague(leagueId) {
                             <div class="formula-heading">Liga em curso</div>
                             <div class="formula-line">A classificação da Croácia é atualizada por sessão.</div>
                             <div class="formula-line">A coluna <strong>Form</strong> mostra os últimos 5 jogos: V, E ou D.</div>
-                            <div class="formula-line">Os bónus finais só entram quando a época terminar.</div>
+                            <div class="formula-line">A coluna <strong>EMG</strong> é uma projeção: a fórmula aplicada à posição de hoje.</div>
+                            <div class="formula-line">Na Classificação Geral a projeção leva também os bónus de posição.</div>
                         </div>
                         <div class="formula-section">
                             <div class="formula-heading">Bónus</div>
@@ -3394,6 +3456,7 @@ document.addEventListener("fullscreenchange", () => {
     btn.classList.toggle("is-fullscreen", !!document.fullscreenElement);
 });
 
+syncGeneralScoreModes();
 renderGeneralTable();
 renderLeagueSelector();
 renderCoachCards();

@@ -165,6 +165,10 @@
                     </div>
                     <p class="panel-copy">Aqui fica o acumulado de pontos de cada jogador ao longo de todas as ligas.</p>
                 </div>
+                <div class="score-mode-tabs" id="scoreModeTabs" role="group" aria-label="Modo da classificação" hidden>
+                    <button class="score-mode-tab" type="button" data-score-mode="projecao" onclick="setGeneralScoreMode('projecao')" aria-pressed="false">Com época em curso</button>
+                    <button class="score-mode-tab" type="button" data-score-mode="concluidas" onclick="setGeneralScoreMode('concluidas')" aria-pressed="false">Só concluídas</button>
+                </div>
             </div>
             <div class="formula-popover" id="formulaPopover" hidden>
                 <div class="formula-section">
@@ -186,6 +190,14 @@
                     <div class="formula-list">
                         <div>Último classificado: <strong>-5</strong></div>
                         <div>Pior humano (não acumula se for último): <strong>-2</strong></div>
+                    </div>
+                </div>
+                <div class="formula-section">
+                    <div class="formula-heading">Projeção</div>
+                    <div class="formula-list">
+                        <div>A época em curso entra pela <strong>posição de hoje</strong>, com a mesma fórmula e os mesmos bónus de posição.</div>
+                        <div>Muda a cada jornada: só conta a sério quando a liga fechar.</div>
+                        <div>As setas <strong>▲▼</strong> mostram quanto a época em curso mexe na classificação geral.</div>
                     </div>
                 </div>
             </div>
@@ -224,6 +236,7 @@
 <script src="js/data/teams.js"></script>
 <script src="js/data/fixtures-core.js"></script>
 <script src="js/data/standings-core.js"></script>
+<script src="js/data/scoring-core.js"></script>
 <script src="js/data/report-core.js"></script>
 <script src="js/data/scotland.js"></script>
 <script src="js/data/croatia-table.js"></script>

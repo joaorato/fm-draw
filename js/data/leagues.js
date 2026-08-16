@@ -22,27 +22,30 @@ const leagues = [
         ],
         livePages: croatiaLivePages,
         transfers: croatiaTransfers,
-        tabela: croatiaCurrentTable.map((entry) => ({
-            pos: entry.pos,
-            inf: entry.inf,
-            equipa: entry.equipa,
-            logo: entry.logo,
-            jogador: entry.jogador,
-            j: entry.j,
-            v: entry.v,
-            e: entry.e,
-            d: entry.d,
-            gm: entry.gm,
-            gs: entry.gs,
-            dg: entry.dg,
-            pts: entry.pts,
-            prevista: entry.prevista,
-            emgPontos: entry.jogador ? 0 : null,
-            form: entry.form,
-            formDetails: getTeamFormDetailsFromFixtures(croatiaFixtures, entry.equipa),
-            resultGroups: getTeamResultGroupsFromFixtures(croatiaFixtures, entry.equipa),
-            zone: entry.zone || ""
-        }))
+        tabela: croatiaCurrentTable.map((entry) => {
+            let emgEntry = croatiaSeasonScores.find((score) => score.equipa === entry.equipa);
+            return {
+                pos: entry.pos,
+                inf: entry.inf,
+                equipa: entry.equipa,
+                logo: entry.logo,
+                jogador: entry.jogador,
+                j: entry.j,
+                v: entry.v,
+                e: entry.e,
+                d: entry.d,
+                gm: entry.gm,
+                gs: entry.gs,
+                dg: entry.dg,
+                pts: entry.pts,
+                prevista: entry.prevista,
+                emgPontos: emgEntry ? emgEntry.pontos : null,
+                form: entry.form,
+                formDetails: getTeamFormDetailsFromFixtures(croatiaFixtures, entry.equipa),
+                resultGroups: getTeamResultGroupsFromFixtures(croatiaFixtures, entry.equipa),
+                zone: entry.zone || ""
+            };
+        })
     },
     {
         id: "scotland",

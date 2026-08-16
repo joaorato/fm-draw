@@ -39,20 +39,21 @@ Current order:
 2. `js/data/teams.js`
 3. `js/data/fixtures-core.js`
 4. `js/data/standings-core.js`
-5. `js/data/report-core.js`
-6. `js/data/scotland.js`
-7. `js/data/croatia-table.js`
-8. `js/data/croatia-fixtures.js`
-9. `js/data/croatia-reports-01-05.js`
-10. `js/data/croatia-reports-06-11.js`
-11. `js/data/croatia-reports-taca.js`
-12. `js/data/croatia-reports-recentes.js`
-13. `js/data/croatia-wiring.js`
-14. `js/data/croatia-standings.js`
-15. `js/data/croatia-transfers.js`
-16. `js/data/croatia-news.js`
-17. `js/data/leagues.js`
-18. `app.js`
+5. `js/data/scoring-core.js`
+6. `js/data/report-core.js`
+7. `js/data/scotland.js`
+8. `js/data/croatia-table.js`
+9. `js/data/croatia-fixtures.js`
+10. `js/data/croatia-reports-01-05.js`
+11. `js/data/croatia-reports-06-11.js`
+12. `js/data/croatia-reports-taca.js`
+13. `js/data/croatia-reports-recentes.js`
+14. `js/data/croatia-wiring.js`
+15. `js/data/croatia-standings.js`
+16. `js/data/croatia-transfers.js`
+17. `js/data/croatia-news.js`
+18. `js/data/leagues.js`
+19. `app.js`
 
 If you add a new data file, add its `<script>` tag before the file that consumes it.
 
@@ -64,6 +65,7 @@ If you add a new data file, add its `<script>` tag before the file that consumes
 | `js/data/teams.js` | `equipas`, the current draw pot |
 | `js/data/fixtures-core.js` | Fixture helpers: `fixtureMonthNumbers`, `createFixtureKey`, `createLeagueMatch`, `assignLeagueFixtureRounds` |
 | `js/data/standings-core.js` | League-agnostic standings maths: `getFixtureOutcome`, `buildStandingsFromFixtures`, `standingsCriteria`, `sortStandings`, `applyStandingsSnapshot` |
+| `js/data/scoring-core.js` | League-agnostic EMG points: `calcSeasonPoints`, `calcTableScores`, `calcCupBonuses`, `calcPositionBonuses` |
 | `js/data/report-core.js` | Match report helpers: `reportPlayer`, `reportFormation`, `reportStats`, `compactReport` |
 | `js/data/scotland.js` | All Scotland season data, hand-typed (see Croatia Standings) |
 | `js/data/croatia-table.js` | Croatia league config: `croatiaSeedTable`, `croatiaZonas`, `croatiaRegras`, `croatiaClassificacaoFM`, `croatiaFixtureMonths` |
@@ -84,8 +86,8 @@ If you add a new data file, add its `<script>` tag before the file that consumes
 - `coachStats` - career stats and trophies, keyed by coach id.
 - `coachProfileExtras` - narrative/identity sections for coach modals.
 - `leagues` - one object per league. Drives the league selector, league dashboard and global standings.
-- `croatiaCurrentTable` and `croatiaSeasonScores` - **derived**, not authored. Computed in `js/data/croatia-standings.js` from the fixtures. Everything else in this list is hand-written.
-- `generalScores` - derived in `app.js` from completed leagues only.
+- `croatiaCurrentTable` and `croatiaSeasonScores` - **derived**, not authored. Computed in `js/data/croatia-standings.js` from the fixtures. The Croatia `emgPontos` column in `leagues.js` is read from `croatiaSeasonScores`, never typed. Everything else in this list is hand-written.
+- `generalStandings` - derived in `app.js` from every league, split into `concluidas` (leagues with `status === "completed"`) and `projecao` (the rest), plus `total` and the `inf` arrow. See Scoring.
 - `DRAW_COMPLETED` and `FINAL_RESULTS` - control whether the draw tab shows stored results or runs the roulette.
 
 ## League Object Contract
@@ -159,7 +161,8 @@ Base formula:
 
 `(posição prevista - posição final) × 3`
 
-Bonuses/penalties are computed by `calcBonuses()` in `app.js`:
+The maths lives in `js/data/scoring-core.js` and knows nothing about a specific league.
+`calcBonuses()` in `app.js` is just `calcCupBonuses(league.tacas)` + `calcPositionBonuses(league.tabela)`:
 
 - Champion: `+10`
 - Best human manager: `+5`
@@ -169,7 +172,23 @@ Bonuses/penalties are computed by `calcBonuses()` in `app.js`:
 - Last place: `-5`
 - Worst human manager: `-2`
 
-Bonuses only affect leagues with `status === "completed"`.
+Champion does not stack with best human, and last place does not stack with worst human.
+
+### Projeção
+
+A league with `status === "live"` is scored the same way, against **today's** position, and the
+result is labelled a projection. That is why `croatiaSeasonScores` has real points instead of
+zeros, and why `calcBonuses()` no longer short-circuits on live leagues.
+
+Classificação Geral has two modes (`generalScoreMode` in `app.js`), switched by the
+`#scoreModeTabs` buttons:
+
+- `"projecao"` (default while a live league exists) - `#` · `Inf` · Jogador · Concluídas · Projeção · Total, sorted by `total`.
+- `"concluidas"` - the original three-column table, sorted by `concluidas`.
+
+The `Inf` arrow is each player's rank by `concluidas` minus their rank by `total`: how far the
+ongoing season moves them. It is derived from the two orderings, so there is nothing to maintain
+per session.
 
 ## App Flow
 

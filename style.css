@@ -5730,13 +5730,18 @@ button:disabled {
     grid-template-columns: 74px 1fr 150px;
 }
 
-.score-table.general .score-row > :nth-child(3) {
+.score-table.general:not(.with-projection) .score-row > :nth-child(3) {
     justify-self: center;
     text-align: center;
 }
 
 .score-table.general .score-points {
     justify-self: center;
+}
+
+/* Modo com a época em curso: # · Inf · Jogador · Concluídas · Projeção · Total */
+.score-table.general.with-projection .score-row {
+    grid-template-columns: 74px 44px 1fr 128px 128px 140px;
 }
 
 .score-row {
@@ -5968,6 +5973,83 @@ button:disabled {
     color: var(--red);
     background: rgba(239,68,68,0.11);
     border-color: rgba(255,153,165,0.2);
+}
+
+/* Pontos já fechados: presentes, mas sem competir com o total. */
+.score-table.general .score-points.muted {
+    min-width: 92px;
+    padding: 8px 12px;
+    font-size: 15px;
+    opacity: 0.72;
+}
+
+/* Provisório, por isso a tracejado — muda a cada jornada. */
+.score-table.general .score-points.projecao {
+    min-width: 92px;
+    padding: 8px 12px;
+    font-size: 15px;
+    border-style: dashed;
+}
+
+.score-inf {
+    justify-self: center;
+    color: rgba(233, 242, 255, 0.42);
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.score-inf.up {
+    color: #63ff9a;
+    text-shadow: 0 0 12px rgba(99, 255, 154, 0.35);
+}
+
+.score-inf.down {
+    color: #ff5d7a;
+    text-shadow: 0 0 12px rgba(255, 93, 122, 0.32);
+}
+
+.score-mode-tabs {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px;
+    border-radius: 999px;
+    border: 1px solid rgba(var(--c-glow), 0.14);
+    background: rgba(var(--c-white), 0.04);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.05);
+}
+
+.score-mode-tabs[hidden] {
+    display: none;
+}
+
+.score-mode-tab {
+    padding: 9px 16px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: rgba(223, 240, 255, 0.72);
+    font-family: "Oxanium", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.score-mode-tab:hover {
+    color: #f4fbff;
+    background: rgba(74, 134, 255, 0.12);
+}
+
+.score-mode-tab.active {
+    color: #f6fbff;
+    background: linear-gradient(180deg, rgba(97, 186, 255, 0.22), rgba(42, 95, 219, 0.16));
+    box-shadow:
+        inset 0 1px 0 rgba(var(--c-white), 0.1),
+        0 0 24px rgba(70, 142, 255, 0.18);
 }
 
 .league-grid {
@@ -6359,6 +6441,26 @@ button:disabled {
     .score-row.header { display: none; }
     .score-mobile-label { display: inline-block; }
     .score-points { justify-self: start; }
+    /* Sem espaço para seis colunas: nome em cima, pontos um por linha. */
+    .score-table.general.with-projection .score-row { grid-template-columns: 58px 1fr 46px; gap: 10px 12px; }
+    .score-table.general.with-projection .score-inf {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: end;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+    }
+    .score-table.general.with-projection .score-points {
+        grid-column: 1 / -1;
+        justify-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-width: 0;
+    }
     .home-logo { width: min(92vw, 620px); }
     .social-dock { gap: 12px; margin-top: 26px; }
     .social-btn { width: 74px; height: 74px; padding: 9px; border-radius: 20px; }
