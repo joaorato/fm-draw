@@ -4,14 +4,36 @@ function calcBonuses(league) {
     return [...calcCupBonuses(league.tacas), ...calcPositionBonuses(league.tabela)];
 }
 
-function sumLeaguePoints(filtro) {
-    return leagues
-        .filter(filtro)
-        .flatMap((league) => [...league.scores, ...calcBonuses(league)])
-        .reduce((acc, entry) => {
-            acc[entry.jogador] = (acc[entry.jogador] || 0) + entry.pontos;
-            return acc;
-        }, {});
+// De onde vêm os pontos de cada jogador, liga a liga: a linha da posição e uma
+// linha por bónus. Os totais das colunas são a soma disto, para que o que a
+// tooltip mostra e o que a tabela conta não possam divergir.
+function buildLeagueBreakdown(filtro) {
+    let breakdown = {};
+
+    let addLinha = (jogador, league, label, pontos) => {
+        if (!jogador) return;
+        if (!breakdown[jogador]) breakdown[jogador] = [];
+        let grupo = breakdown[jogador].find((entry) => entry.liga === league.nome);
+        if (!grupo) {
+            // Na tooltip do total aparecem as duas ligas: a marca diz qual delas ainda pode mudar.
+            grupo = { liga: league.nome, projecao: league.status !== "completed", linhas: [] };
+            breakdown[jogador].push(grupo);
+        }
+        grupo.linhas.push({ label, pontos });
+    };
+
+    leagues.filter(filtro).forEach((league) => {
+        league.scores.forEach((score) => {
+            addLinha(score.jogador, league, `${score.equipa} · ${score.prevista}.º → ${score.final}.º`, score.pontos);
+        });
+        calcBonuses(league).forEach((bonus) => addLinha(bonus.jogador, league, bonus.tipo, bonus.pontos));
+    });
+
+    return breakdown;
+}
+
+function sumBreakdown(grupos) {
+    return (grupos || []).reduce((total, grupo) => total + grupo.linhas.reduce((soma, linha) => soma + linha.pontos, 0), 0);
 }
 
 function rankPlayers(entries, campo, campoPos) {
@@ -23,14 +45,16 @@ function rankPlayers(entries, campo, campoPos) {
 // Duas leituras da mesma tabela: só o que está fechado, e o mesmo mais a época
 // em curso projectada. A seta de cada jogador é a diferença entre as duas.
 const generalStandings = (() => {
-    let concluidas = sumLeaguePoints((league) => league.status === "completed");
-    let projecao = sumLeaguePoints((league) => league.status !== "completed");
+    let concluidas = buildLeagueBreakdown((league) => league.status === "completed");
+    let projecao = buildLeagueBreakdown((league) => league.status !== "completed");
 
     let entries = [...new Set([...Object.keys(concluidas), ...Object.keys(projecao)])].map((jogador) => ({
         jogador,
-        concluidas: concluidas[jogador] || 0,
-        projecao: projecao[jogador] || 0,
-        total: (concluidas[jogador] || 0) + (projecao[jogador] || 0)
+        concluidas: sumBreakdown(concluidas[jogador]),
+        projecao: sumBreakdown(projecao[jogador]),
+        total: sumBreakdown(concluidas[jogador]) + sumBreakdown(projecao[jogador]),
+        detalheConcluidas: concluidas[jogador] || [],
+        detalheProjecao: projecao[jogador] || []
     }));
 
     let porConcluidas = new Map(rankPlayers(entries, "concluidas", "posConcluidas").map((entry) => [entry.jogador, entry.posConcluidas]));
@@ -1368,39 +1392,44 @@ function showStandingsTooltip(anchor) {
     requestAnimationFrame(() => activeStandingsTooltip?.classList.add("is-visible"));
 }
 
-function setupStandingsFloatingTooltips(scope = document) {
-    let standings = scope.querySelector(".standings-standings");
-    if (!standings || standings.dataset.tooltipBound === "true") return;
+// Delegação no contentor, por isso é ligada uma vez e sobrevive a cada re-render
+// do conteúdo lá dentro.
+function bindFloatingTooltips(root, anchorSelector) {
+    if (!root || root.dataset.tooltipBound === "true") return;
 
-    let getAnchor = (target) => target.closest(".standings-form-dot[tabindex], .standings-record-cell.has-tooltip");
+    let getAnchor = (target) => target.closest(anchorSelector);
 
-    standings.addEventListener("pointerover", (event) => {
+    root.addEventListener("pointerover", (event) => {
         let anchor = getAnchor(event.target);
-        if (!anchor || !standings.contains(anchor) || anchor === activeStandingsTooltipAnchor) return;
+        if (!anchor || !root.contains(anchor) || anchor === activeStandingsTooltipAnchor) return;
         showStandingsTooltip(anchor);
     });
 
-    standings.addEventListener("pointerout", (event) => {
+    root.addEventListener("pointerout", (event) => {
         let anchor = getAnchor(event.target);
-        if (!anchor || !standings.contains(anchor)) return;
+        if (!anchor || !root.contains(anchor)) return;
         if (event.relatedTarget && anchor.contains(event.relatedTarget)) return;
         removeStandingsTooltip();
     });
 
-    standings.addEventListener("focusin", (event) => {
+    root.addEventListener("focusin", (event) => {
         let anchor = getAnchor(event.target);
-        if (anchor && standings.contains(anchor)) showStandingsTooltip(anchor);
+        if (anchor && root.contains(anchor)) showStandingsTooltip(anchor);
     });
 
-    standings.addEventListener("focusout", (event) => {
+    root.addEventListener("focusout", (event) => {
         let anchor = getAnchor(event.target);
-        if (!anchor || !standings.contains(anchor)) return;
+        if (!anchor || !root.contains(anchor)) return;
         removeStandingsTooltip();
     });
 
     window.addEventListener("scroll", positionStandingsTooltip, true);
     window.addEventListener("resize", positionStandingsTooltip);
-    standings.dataset.tooltipBound = "true";
+    root.dataset.tooltipBound = "true";
+}
+
+function setupStandingsFloatingTooltips(scope = document) {
+    bindFloatingTooltips(scope.querySelector(".standings-standings"), ".standings-form-dot[tabindex], .standings-record-cell.has-tooltip");
 }
 
 function formatPoints(points) {
@@ -1417,6 +1446,50 @@ function formatGeneralInf(inf) {
     if (inf > 0) return { simbolo: `▲${inf}`, estado: "up" };
     if (inf < 0) return { simbolo: `▼${-inf}`, estado: "down" };
     return { simbolo: "--", estado: "" };
+}
+
+function renderScoreBreakdownTooltip(grupos, rotulo, total) {
+    if (!grupos.length) return "";
+
+    let secoes = grupos.map((grupo) => `
+        <span class="score-breakdown-liga">
+            ${escapeAttribute(grupo.liga)}
+            ${grupo.projecao ? `<em>projeção</em>` : ""}
+        </span>
+        <span class="score-breakdown-list">
+            ${grupo.linhas.map((linha) => `
+                <span class="score-breakdown-item">
+                    <span class="score-breakdown-label">${escapeAttribute(linha.label)}</span>
+                    <span class="score-breakdown-points ${getPointsClass(linha.pontos)}">${formatPoints(linha.pontos)}</span>
+                </span>
+            `).join("")}
+        </span>
+    `).join("");
+
+    return `
+        <template class="standings-tooltip-template">
+            <span class="score-breakdown-tooltip" role="tooltip">
+                ${secoes}
+                <span class="score-breakdown-item total">
+                    <span class="score-breakdown-label">${escapeAttribute(rotulo)}</span>
+                    <span class="score-breakdown-points ${getPointsClass(total)}">${formatPoints(total)}</span>
+                </span>
+            </span>
+        </template>
+    `;
+}
+
+function renderGeneralPointsCell(grupos, rotulo, total, extraClasses = "") {
+    let tooltip = renderScoreBreakdownTooltip(grupos, rotulo, total);
+    let interactive = tooltip ? ` tabindex="0" aria-label="${escapeAttribute(`${rotulo}: ${formatPoints(total)}. Ver de onde vêm os pontos.`)}"` : "";
+
+    return `
+        <div class="score-points ${extraClasses} ${getPointsClass(total)} ${tooltip ? "has-tooltip" : ""}"${interactive}>
+            <span class="score-mobile-label">${escapeAttribute(rotulo)}</span>
+            <span>${formatPoints(total)}</span>
+            ${tooltip}
+        </div>
+    `;
 }
 
 function renderGeneralTable() {
@@ -1466,24 +1539,15 @@ function renderGeneralTable() {
                     <span class="score-inf-value">${inf.simbolo}</span>
                 </div>
                 ${jogadorCell}
-                <div class="score-points muted ${getPointsClass(entry.concluidas)}">
-                    <span class="score-mobile-label">Concluídas</span>
-                    <span>${formatPoints(entry.concluidas)}</span>
-                </div>
-                <div class="score-points projecao ${getPointsClass(entry.projecao)}">
-                    <span class="score-mobile-label">Projeção</span>
-                    <span>${formatPoints(entry.projecao)}</span>
-                </div>
-                <div class="score-points ${getPointsClass(entry.total)}">
-                    <span class="score-mobile-label">Total</span>
-                    <span>${formatPoints(entry.total)}</span>
-                </div>
+                ${renderGeneralPointsCell(entry.detalheConcluidas, "Concluídas", entry.concluidas, "muted")}
+                ${renderGeneralPointsCell(entry.detalheProjecao, "Projeção", entry.projecao, "projecao")}
+                ${renderGeneralPointsCell([...entry.detalheConcluidas, ...entry.detalheProjecao], "Total", entry.total)}
             `;
         } else {
             row.innerHTML = `
                 <div class="score-rank">${entry.posConcluidas}</div>
                 ${jogadorCell}
-                <div class="score-points ${getPointsClass(entry.concluidas)}">${formatPoints(entry.concluidas)}</div>
+                ${renderGeneralPointsCell(entry.detalheConcluidas, "Pontos", entry.concluidas)}
             `;
         }
 
@@ -1491,6 +1555,7 @@ function renderGeneralTable() {
     });
 
     bindCoachLinks(scoreTable);
+    bindFloatingTooltips(scoreTable, ".score-points.has-tooltip");
 }
 
 function syncGeneralScoreModes() {

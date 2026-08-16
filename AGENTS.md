@@ -190,6 +190,12 @@ The `Inf` arrow is each player's rank by `concluidas` minus their rank by `total
 ongoing season moves them. It is derived from the two orderings, so there is nothing to maintain
 per session.
 
+Every points cell carries a hover/focus tooltip breaking the number down, league by league: the
+position line plus one line per bonus. `buildLeagueBreakdown()` produces those lines and the
+column totals are `sumBreakdown()` of them, so the tooltip and the column cannot disagree. The
+tooltip machinery is the standings one — `bindFloatingTooltips(root, anchorSelector)` with a
+`<template class="standings-tooltip-template">` inside the anchor.
+
 ## App Flow
 
 `index.html` defines the main views:
