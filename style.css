@@ -1,16 +1,72 @@
-﻿:root {
+﻿/* Paleta.
+   Os tokens --c-* guardam os canais (R, G, B) e não a cor inteira, porque a mesma
+   cor aparece por todo o ficheiro com opacidades diferentes. Usam-se assim:
+
+       border-color: rgba(var(--c-glow), 0.16);
+       background:   rgba(var(--c-glow), 0.08);
+       color:        rgb(var(--c-glow));      — sem transparência
+
+   Cobrem as 35 cores que se repetem 5 ou mais vezes, ou seja 678 das 1198
+   declarações de cor do ficheiro. As cores usadas uma só vez ficam literais —
+   já estão num sítio só. */
+:root {
+    /* neutros — 295 declarações, as duas cores mais usadas do ficheiro */
+    --c-white: 255, 255, 255;
+    --c-black: 0, 0, 0;
+
+    /* fundos: rampa do mais escuro ao menos escuro, usada em gradientes */
+    --c-night-1: 1, 7, 24;
+    --c-night-2: 2, 8, 26;
+    --c-night-3: 2, 8, 28;
+    --c-night-4: 2, 9, 30;
+    --c-night-5: 1, 9, 31;
+    --c-night-6: 2, 10, 34;
+    --c-night-7: 4, 16, 48;
+    --c-night-8: 4, 18, 54;
+    --c-panel-blue: 18, 39, 95;
+
+    /* cianos. --c-glow é o de trabalho, está em quase todo o lado.
+       As variantes b–e são indistinguíveis dele (delta máximo de 10 por canal)
+       e são candidatas a desaparecer num segundo passo. */
+    --c-glow: 112, 208, 255;
+    --c-glow-b: 118, 211, 255;
+    --c-glow-c: 122, 210, 255;
+    --c-glow-d: 109, 212, 255;
+    --c-glow-e: 93, 212, 255;
+    --c-beam: 99, 219, 255;       /* brilho mais saturado: nav, cards de treinador */
+    --c-pitch: 168, 233, 255;     /* só o relvado do relatório de jogo */
+    --c-wash: 126, 216, 255;
+    --c-sky: 84, 182, 255;        /* azul mais fundo, sombras */
+    --c-pale: 173, 243, 255;
+    --c-bright: 90, 218, 255;
+    --c-vivid: 36, 205, 255;
+    --c-ink: 37, 191, 255;
+
+    /* semânticas */
+    --c-gold: 255, 216, 107;
+    --c-gold-bright: 255, 216, 79;
+    --c-green: 137, 240, 180;
+    --c-green-soft: 104, 234, 170;
+    --c-green-flag: 34, 197, 94;
+    --c-red: 255, 153, 165;
+
+    /* brancos azulados do texto — também quase iguais entre si */
+    --c-ice-1: 244, 253, 255;
+    --c-ice-2: 245, 251, 255;
+    --c-ice-3: 247, 251, 255;
+    --c-ice-4: 234, 246, 255;
+    --c-ice-5: 229, 239, 255;
+    --c-ice-6: 228, 238, 255;
+
+    /* nomes antigos, agora derivados dos tokens acima */
     --bg-deep: #02071b;
-    --bg-mid: #0a1e74;
-    --bg-soft: #1840d5;
-    --bg-glow: #63dbff;
-    --panel: rgba(7, 20, 84, 0.34);
     --line: rgba(112, 206, 255, 0.16);
     --text: #f4f8ff;
     --muted: rgba(225, 237, 255, 0.72);
-    --gold: #ffd86b;
-    --green: #89f0b4;
-    --red: #ff99a5;
-    --shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+    --gold: rgb(var(--c-gold));
+    --green: rgb(var(--c-green));
+    --red: rgb(var(--c-red));
+    --shadow: 0 18px 40px rgba(var(--c-black), 0.24);
 }
 
 html {
@@ -59,17 +115,17 @@ body::after {
     inset: 0;
     pointer-events: none;
     background:
-        radial-gradient(circle at 8% 14%, rgba(255,255,255,0.5) 0 1px, transparent 2px),
+        radial-gradient(circle at 8% 14%, rgba(var(--c-white), 0.5) 0 1px, transparent 2px),
         radial-gradient(circle at 14% 72%, rgba(180,226,255,0.36) 0 1px, transparent 2px),
-        radial-gradient(circle at 22% 34%, rgba(255,255,255,0.44) 0 1.5px, transparent 2.5px),
+        radial-gradient(circle at 22% 34%, rgba(var(--c-white), 0.44) 0 1.5px, transparent 2.5px),
         radial-gradient(circle at 30% 58%, rgba(171,223,255,0.34) 0 1px, transparent 2px),
-        radial-gradient(circle at 36% 18%, rgba(255,255,255,0.52) 0 1px, transparent 2px),
+        radial-gradient(circle at 36% 18%, rgba(var(--c-white), 0.52) 0 1px, transparent 2px),
         radial-gradient(circle at 48% 26%, rgba(180,226,255,0.32) 0 1px, transparent 2px),
-        radial-gradient(circle at 56% 12%, rgba(255,255,255,0.4) 0 1.5px, transparent 2.5px),
+        radial-gradient(circle at 56% 12%, rgba(var(--c-white), 0.4) 0 1.5px, transparent 2.5px),
         radial-gradient(circle at 64% 74%, rgba(178,224,255,0.3) 0 1px, transparent 2px),
-        radial-gradient(circle at 72% 30%, rgba(255,255,255,0.46) 0 1px, transparent 2px),
+        radial-gradient(circle at 72% 30%, rgba(var(--c-white), 0.46) 0 1px, transparent 2px),
         radial-gradient(circle at 78% 56%, rgba(160,220,255,0.3) 0 1px, transparent 2px),
-        radial-gradient(circle at 86% 20%, rgba(255,255,255,0.48) 0 1.5px, transparent 2.5px),
+        radial-gradient(circle at 86% 20%, rgba(var(--c-white), 0.48) 0 1.5px, transparent 2.5px),
         radial-gradient(circle at 92% 66%, rgba(176,224,255,0.3) 0 1px, transparent 2px),
         radial-gradient(ellipse at 50% 86%, rgba(82, 170, 255, 0.14), transparent 24%),
         linear-gradient(90deg, transparent 0%, rgba(84, 178, 255, 0.03) 50%, transparent 100%);
@@ -105,9 +161,9 @@ body::after {
     height: 36px;
     padding: 7px;
     border-radius: 999px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(228, 238, 255, 0.72);
+    border: 1px solid rgba(var(--c-glow), 0.16);
+    background: rgba(var(--c-white), 0.05);
+    color: rgba(var(--c-ice-6), 0.72);
     cursor: pointer;
     z-index: 3;
     transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
@@ -143,7 +199,7 @@ body::after {
     display: flex;
     align-items: stretch;
     gap: 8px;
-    filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.28));
+    filter: drop-shadow(0 14px 26px rgba(var(--c-black), 0.28));
     margin-top: 2px;
 }
 
@@ -187,7 +243,7 @@ body::after {
     background:
         linear-gradient(180deg, rgba(39, 92, 190, 0.24), rgba(7, 19, 61, 0.68)),
         radial-gradient(circle at top, rgba(127, 218, 255, 0.12), transparent 56%),
-        linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.012));
+        linear-gradient(180deg, rgba(var(--c-white), 0.055), rgba(var(--c-white), 0.012));
     background-size: 100% 100%, 150% 150%, 100% 100%;
     background-position: 0 0, 50% 0, 0 0;
     color: rgba(231, 244, 255, 0.86);
@@ -201,7 +257,7 @@ body::after {
     transition: transform 0.22s ease, color 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.1),
+        inset 0 1px 0 rgba(var(--c-white), 0.1),
         inset 0 -18px 38px rgba(2, 9, 34, 0.34),
         inset 0 0 0 1px rgba(112, 206, 255, 0.08),
         0 0 18px rgba(24, 64, 213, 0.08);
@@ -215,8 +271,8 @@ body::after {
     border: 1px solid rgba(133, 221, 255, 0.18);
     border-radius: 4px;
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.008)),
-        linear-gradient(90deg, rgba(99, 219, 255, 0.045), transparent 28%, transparent 72%, rgba(99, 219, 255, 0.045));
+        linear-gradient(180deg, rgba(var(--c-white), 0.04), rgba(var(--c-white), 0.008)),
+        linear-gradient(90deg, rgba(var(--c-beam), 0.045), transparent 28%, transparent 72%, rgba(var(--c-beam), 0.045));
     pointer-events: none;
     opacity: 1;
 }
@@ -259,7 +315,7 @@ body::after {
     left: 0;
     width: 24px;
     height: 1px;
-    background: linear-gradient(90deg, #f4fdff 0 10%, rgba(173, 243, 255, 0.96) 10% 28%, rgba(90, 218, 255, 0.74) 28% 66%, transparent 100%);
+    background: linear-gradient(90deg, rgb(var(--c-ice-1)) 0 10%, rgba(var(--c-pale), 0.96) 10% 28%, rgba(var(--c-bright), 0.74) 28% 66%, transparent 100%);
 }
 
 .nav-corner-tl::after {
@@ -267,7 +323,7 @@ body::after {
     left: 0;
     width: 1px;
     height: 24px;
-    background: linear-gradient(180deg, #f4fdff 0 10%, rgba(173, 243, 255, 0.96) 10% 28%, rgba(90, 218, 255, 0.74) 28% 66%, transparent 100%);
+    background: linear-gradient(180deg, rgb(var(--c-ice-1)) 0 10%, rgba(var(--c-pale), 0.96) 10% 28%, rgba(var(--c-bright), 0.74) 28% 66%, transparent 100%);
 }
 
 .nav-corner-tr {
@@ -281,7 +337,7 @@ body::after {
     right: 0;
     width: 24px;
     height: 1px;
-    background: linear-gradient(270deg, #f4fdff 0 10%, rgba(173, 243, 255, 0.96) 10% 28%, rgba(90, 218, 255, 0.74) 28% 66%, transparent 100%);
+    background: linear-gradient(270deg, rgb(var(--c-ice-1)) 0 10%, rgba(var(--c-pale), 0.96) 10% 28%, rgba(var(--c-bright), 0.74) 28% 66%, transparent 100%);
 }
 
 .nav-corner-tr::after {
@@ -289,7 +345,7 @@ body::after {
     right: 0;
     width: 1px;
     height: 24px;
-    background: linear-gradient(180deg, #f4fdff 0 10%, rgba(173, 243, 255, 0.96) 10% 28%, rgba(90, 218, 255, 0.74) 28% 66%, transparent 100%);
+    background: linear-gradient(180deg, rgb(var(--c-ice-1)) 0 10%, rgba(var(--c-pale), 0.96) 10% 28%, rgba(var(--c-bright), 0.74) 28% 66%, transparent 100%);
 }
 
 .nav-corner-bl {
@@ -303,7 +359,7 @@ body::after {
     left: 0;
     width: 24px;
     height: 1px;
-    background: linear-gradient(90deg, #f4fdff 0 10%, rgba(173, 243, 255, 0.96) 10% 28%, rgba(90, 218, 255, 0.74) 28% 66%, transparent 100%);
+    background: linear-gradient(90deg, rgb(var(--c-ice-1)) 0 10%, rgba(var(--c-pale), 0.96) 10% 28%, rgba(var(--c-bright), 0.74) 28% 66%, transparent 100%);
 }
 
 .nav-corner-bl::after {
@@ -311,7 +367,7 @@ body::after {
     left: 0;
     width: 1px;
     height: 24px;
-    background: linear-gradient(0deg, #f4fdff 0 10%, rgba(173, 243, 255, 0.96) 10% 28%, rgba(90, 218, 255, 0.74) 28% 66%, transparent 100%);
+    background: linear-gradient(0deg, rgb(var(--c-ice-1)) 0 10%, rgba(var(--c-pale), 0.96) 10% 28%, rgba(var(--c-bright), 0.74) 28% 66%, transparent 100%);
 }
 
 .nav-corner-br {
@@ -325,7 +381,7 @@ body::after {
     right: 0;
     width: 24px;
     height: 1px;
-    background: linear-gradient(270deg, #f4fdff 0 10%, rgba(173, 243, 255, 0.96) 10% 28%, rgba(90, 218, 255, 0.74) 28% 66%, transparent 100%);
+    background: linear-gradient(270deg, rgb(var(--c-ice-1)) 0 10%, rgba(var(--c-pale), 0.96) 10% 28%, rgba(var(--c-bright), 0.74) 28% 66%, transparent 100%);
 }
 
 .nav-corner-br::after {
@@ -333,7 +389,7 @@ body::after {
     right: 0;
     width: 1px;
     height: 24px;
-    background: linear-gradient(0deg, #f4fdff 0 10%, rgba(173, 243, 255, 0.96) 10% 28%, rgba(90, 218, 255, 0.74) 28% 66%, transparent 100%);
+    background: linear-gradient(0deg, rgb(var(--c-ice-1)) 0 10%, rgba(var(--c-pale), 0.96) 10% 28%, rgba(var(--c-bright), 0.74) 28% 66%, transparent 100%);
 }
 
 .nav-btn:hover,
@@ -343,15 +399,15 @@ body::after {
     background:
         linear-gradient(180deg, rgba(58, 124, 226, 0.38), rgba(7, 22, 70, 0.82)),
         radial-gradient(circle at top, rgba(150, 232, 255, 0.22), transparent 58%),
-        linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.018));
+        linear-gradient(180deg, rgba(var(--c-white), 0.1), rgba(var(--c-white), 0.018));
     background-size: 100% 100%, 150% 150%, 100% 100%;
     background-position: 0 0, 50% 0, 0 0;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.16),
+        inset 0 1px 0 rgba(var(--c-white), 0.16),
         inset 0 0 0 1px rgba(133, 221, 255, 0.12),
-        inset 0 0 42px rgba(99, 219, 255, 0.16),
+        inset 0 0 42px rgba(var(--c-beam), 0.16),
         inset 0 -18px 38px rgba(2, 9, 34, 0.22),
-        0 0 16px rgba(99, 219, 255, 0.16),
+        0 0 16px rgba(var(--c-beam), 0.16),
         0 0 34px rgba(24, 64, 213, 0.16);
     transform: translateY(-1px);
 }
@@ -378,11 +434,11 @@ body::after {
 .nav-btn.active {
     border-color: rgba(172, 235, 255, 0.78);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 1px 0 rgba(var(--c-white), 0.18),
         inset 0 0 0 1px rgba(156, 228, 255, 0.18),
-        inset 0 0 52px rgba(99, 219, 255, 0.18),
+        inset 0 0 52px rgba(var(--c-beam), 0.18),
         inset 0 -18px 40px rgba(2, 9, 34, 0.2),
-        0 0 18px rgba(99, 219, 255, 0.2),
+        0 0 18px rgba(var(--c-beam), 0.2),
         0 0 42px rgba(24, 64, 213, 0.2);
 }
 
@@ -445,13 +501,13 @@ body::after {
     font-family: "Michroma", sans-serif;
     font-size: clamp(44px, 6vw, 78px);
     letter-spacing: 3px;
-    color: #f5fbff;
+    color: rgb(var(--c-ice-2));
     background:
-        linear-gradient(145deg, rgba(99, 219, 255, 0.22), rgba(26, 68, 208, 0.12)),
-        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+        linear-gradient(145deg, rgba(var(--c-beam), 0.22), rgba(26, 68, 208, 0.12)),
+        linear-gradient(180deg, rgba(var(--c-white), 0.08), rgba(var(--c-white), 0.02));
     border: 1px solid rgba(130, 222, 255, 0.24);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
         0 0 26px rgba(91, 200, 255, 0.16);
 }
 
@@ -508,13 +564,13 @@ body::after {
     text-align: center;
     color: inherit;
     border-radius: 18px;
-    border: 1px solid rgba(112, 208, 255, 0.12);
+    border: 1px solid rgba(var(--c-glow), 0.12);
     background:
         linear-gradient(180deg, rgba(11, 27, 98, 0.14), rgba(4, 12, 44, 0.2)),
-        radial-gradient(circle at 50% 12%, rgba(99, 219, 255, 0.05), transparent 54%);
+        radial-gradient(circle at 50% 12%, rgba(var(--c-beam), 0.05), transparent 54%);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.04),
-        0 12px 22px rgba(0, 0, 0, 0.14);
+        inset 0 1px 0 rgba(var(--c-white), 0.04),
+        0 12px 22px rgba(var(--c-black), 0.14);
     overflow: hidden;
     cursor: pointer;
     user-select: none;
@@ -526,9 +582,9 @@ body::after {
     outline: none;
     border-color: rgba(145, 225, 255, 0.32);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
-        0 18px 34px rgba(0, 0, 0, 0.22),
-        0 0 24px rgba(84, 182, 255, 0.14);
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
+        0 18px 34px rgba(var(--c-black), 0.22),
+        0 0 24px rgba(var(--c-sky), 0.14);
 }
 
 .coach-card:hover,
@@ -537,11 +593,11 @@ body::after {
     border-color: rgba(145, 225, 255, 0.24);
     background:
         linear-gradient(180deg, rgba(18, 44, 144, 0.18), rgba(5, 14, 50, 0.24)),
-        radial-gradient(circle at 50% 10%, rgba(99, 219, 255, 0.12), transparent 56%);
+        radial-gradient(circle at 50% 10%, rgba(var(--c-beam), 0.12), transparent 56%);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
-        0 18px 34px rgba(0, 0, 0, 0.22),
-        0 0 22px rgba(84, 182, 255, 0.08);
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
+        0 18px 34px rgba(var(--c-black), 0.22),
+        0 0 22px rgba(var(--c-sky), 0.08);
 }
 
 .coaches-rail:hover .coach-card:not(:hover):not(.active) {
@@ -553,7 +609,7 @@ body::after {
     inset: auto 36px -42px;
     height: 96px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(99, 219, 255, 0.16), rgba(99, 219, 255, 0));
+    background: radial-gradient(circle, rgba(var(--c-beam), 0.16), rgba(var(--c-beam), 0));
     filter: blur(16px);
     opacity: 0.36;
     pointer-events: none;
@@ -563,16 +619,16 @@ body::after {
     position: relative;
     min-height: 430px;
     border-radius: 14px;
-    border: 1px solid rgba(112, 208, 255, 0.14);
+    border: 1px solid rgba(var(--c-glow), 0.14);
     background:
         linear-gradient(180deg, rgba(16, 36, 126, 0.28), rgba(5, 14, 48, 0.42)),
-        radial-gradient(circle at top, rgba(93, 212, 255, 0.12), transparent 50%);
+        radial-gradient(circle at top, rgba(var(--c-glow-e), 0.12), transparent 50%);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
         inset 0 -84px 120px rgba(1, 6, 26, 0.42);
 }
 
@@ -602,12 +658,12 @@ body::after {
     font-family: "Michroma", sans-serif;
     font-size: 18px;
     line-height: 1.18;
-    color: #f7fbff;
+    color: rgb(var(--c-ice-3));
     text-transform: none;
     letter-spacing: 0.4px;
     text-shadow:
-        0 0 12px rgba(99, 219, 255, 0.08),
-        0 0 22px rgba(255,255,255,0.03);
+        0 0 12px rgba(var(--c-beam), 0.08),
+        0 0 22px rgba(var(--c-white), 0.03);
 }
 
 .coach-modal {
@@ -634,15 +690,15 @@ body::after {
     grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
     gap: 18px;
     border-radius: 24px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
+    border: 1px solid rgba(var(--c-glow), 0.16);
     background:
         linear-gradient(135deg, rgba(9, 24, 92, 0.88), rgba(4, 12, 46, 0.94)),
         radial-gradient(circle at 18% 18%, rgba(108, 217, 255, 0.1), transparent 34%),
         radial-gradient(circle at 78% 24%, rgba(72, 128, 255, 0.12), transparent 40%);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
         inset 0 0 44px rgba(82, 165, 255, 0.08),
-        0 24px 46px rgba(0, 0, 0, 0.34);
+        0 24px 46px rgba(var(--c-black), 0.34);
 }
 
 .coach-modal-close {
@@ -656,9 +712,9 @@ body::after {
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
-    background: rgba(255,255,255,0.04);
-    color: #eaf6ff;
+    border: 1px solid rgba(var(--c-glow), 0.16);
+    background: rgba(var(--c-white), 0.04);
+    color: rgb(var(--c-ice-4));
     font-size: 24px;
     line-height: 1;
     cursor: pointer;
@@ -674,7 +730,7 @@ body::after {
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
+    border: 1px solid rgba(var(--c-glow), 0.16);
     background: rgba(4, 12, 42, 0.5);
     color: #eef7ff;
     font-size: 28px;
@@ -682,7 +738,7 @@ body::after {
     cursor: pointer;
     transform: translateY(-50%);
     backdrop-filter: blur(8px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 28px rgba(var(--c-black), 0.2);
     transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -704,16 +760,16 @@ body::after {
     height: 100%;
     min-height: clamp(420px, 58vh, 560px);
     border-radius: 18px;
-    border: 1px solid rgba(112, 208, 255, 0.14);
+    border: 1px solid rgba(var(--c-glow), 0.14);
     background:
         linear-gradient(180deg, rgba(16, 36, 126, 0.36), rgba(5, 14, 48, 0.54)),
-        radial-gradient(circle at top, rgba(93, 212, 255, 0.12), transparent 50%);
+        radial-gradient(circle at top, rgba(var(--c-glow-e), 0.12), transparent 50%);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
         inset 0 -84px 120px rgba(1, 6, 26, 0.42);
     align-self: stretch;
 }
@@ -735,7 +791,7 @@ body::after {
     justify-content: center;
     padding: 0;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.14);
+    border: 1px solid rgba(var(--c-white), 0.14);
     background: rgba(3, 10, 30, 0.2);
     color: #f3f8ff;
     font-size: 24px;
@@ -743,7 +799,7 @@ body::after {
     cursor: pointer;
     transform: translateY(-50%);
     backdrop-filter: blur(8px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 18px rgba(var(--c-black), 0.1);
     transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -785,11 +841,11 @@ body::after {
     gap: 8px;
     padding: 6px;
     border-radius: 999px;
-    border: 1px solid rgba(112, 208, 255, 0.14);
-    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(var(--c-glow), 0.14);
+    background: rgba(var(--c-white), 0.04);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05),
-        0 10px 24px rgba(0, 0, 0, 0.14);
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
+        0 10px 24px rgba(var(--c-black), 0.14);
 }
 
 .coach-modal-tab {
@@ -822,7 +878,7 @@ body::after {
     background:
         linear-gradient(180deg, rgba(97, 186, 255, 0.22), rgba(42, 95, 219, 0.16));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.1),
+        inset 0 1px 0 rgba(var(--c-white), 0.1),
         0 0 24px rgba(70, 142, 255, 0.18);
 }
 
@@ -849,11 +905,11 @@ body::after {
     font-family: "Michroma", sans-serif;
     font-size: clamp(22px, 3.2vw, 34px);
     line-height: 1.06;
-    color: #f5fbff;
+    color: rgb(var(--c-ice-2));
     text-transform: uppercase;
     text-shadow:
-        0 0 16px rgba(99, 219, 255, 0.16),
-        0 0 34px rgba(255,255,255,0.04);
+        0 0 16px rgba(var(--c-beam), 0.16),
+        0 0 34px rgba(var(--c-white), 0.04);
 }
 
 .coach-modal-name-small {
@@ -903,8 +959,8 @@ body::after {
     line-height: 1.65;
     letter-spacing: 0.15px;
     text-shadow:
-        0 0 10px rgba(99, 219, 255, 0.08),
-        0 0 18px rgba(255,255,255,0.03);
+        0 0 10px rgba(var(--c-beam), 0.08),
+        0 0 18px rgba(var(--c-white), 0.03);
 }
 
 .coach-modal-stats-wide {
@@ -917,13 +973,13 @@ body::after {
     width: 100%;
     display: block;
     border-radius: 18px;
-    border: 1px solid rgba(112, 208, 255, 0.14);
+    border: 1px solid rgba(var(--c-glow), 0.14);
     background:
         linear-gradient(180deg, rgba(8, 20, 74, 0.58), rgba(4, 11, 40, 0.72)),
         radial-gradient(circle at top, rgba(104, 214, 255, 0.08), transparent 54%);
     overflow: hidden;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
         inset 0 -50px 90px rgba(1, 6, 26, 0.34);
     align-self: start;
 }
@@ -940,17 +996,17 @@ body::after {
     min-height: 58px;
     padding: 10px 12px 9px;
     border-radius: 16px;
-    border: 1px solid rgba(112, 208, 255, 0.12);
+    border: 1px solid rgba(var(--c-glow), 0.12);
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015)),
+        linear-gradient(180deg, rgba(var(--c-white), 0.05), rgba(var(--c-white), 0.015)),
         radial-gradient(circle at top, rgba(98, 210, 255, 0.08), transparent 65%);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05),
-        0 8px 18px rgba(0, 0, 0, 0.12);
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
+        0 8px 18px rgba(var(--c-black), 0.12);
 }
 
 .coach-stat-label {
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(var(--c-white), 0.88);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 1.3px;
@@ -965,8 +1021,8 @@ body::after {
     font-size: 18px;
     line-height: 1.1;
     text-shadow:
-        0 0 16px rgba(99, 219, 255, 0.12),
-        0 0 26px rgba(255,255,255,0.03);
+        0 0 16px rgba(var(--c-beam), 0.12),
+        0 0 26px rgba(var(--c-white), 0.03);
 }
 
 .coach-stats-section {
@@ -1008,9 +1064,9 @@ body::after {
     gap: 6px;
     padding: 9px 13px;
     border-radius: 12px;
-    border: 1px solid rgba(112, 208, 255, 0.08);
+    border: 1px solid rgba(var(--c-glow), 0.08);
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+        linear-gradient(180deg, rgba(var(--c-white), 0.025), rgba(var(--c-white), 0.01));
     cursor: pointer;
     transition: border-color 0.25s, box-shadow 0.25s, transform 0.15s;
     overflow: hidden;
@@ -1018,7 +1074,7 @@ body::after {
     flex-shrink: 0;
 }
 .coach-palmares-flag-item:hover:not(.coach-palmares-flag-item--disabled) {
-    border-color: rgba(112, 208, 255, 0.2);
+    border-color: rgba(var(--c-glow), 0.2);
     transform: translateY(-2px);
 }
 .coach-palmares-flag-item.active {
@@ -1036,7 +1092,7 @@ body::after {
     height: 46px;
     object-fit: cover;
     border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 8px rgba(var(--c-black), 0.3);
 }
 
 .coach-palmares-flag-label {
@@ -1053,7 +1109,7 @@ body::after {
     left: 50%;
     transform: translate(-50%, -50%) rotate(-20deg);
     background: rgba(220, 50, 50, 0.85);
-    color: #fff;
+    color: rgb(var(--c-white));
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.2px;
@@ -1122,7 +1178,7 @@ body::after {
     max-width: min(360px, 80vw);
     max-height: 60vh;
     object-fit: contain;
-    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 8px 32px rgba(var(--c-black), 0.5));
 }
 .trophy-lightbox-label {
     font-size: 14px;
@@ -1148,24 +1204,24 @@ body::after {
     min-height: 120px;
     padding: 14px 10px 12px;
     border-radius: 16px;
-    border: 1px solid rgba(112, 208, 255, 0.08);
+    border: 1px solid rgba(var(--c-glow), 0.08);
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+        linear-gradient(180deg, rgba(var(--c-white), 0.025), rgba(var(--c-white), 0.01)),
         radial-gradient(circle at top, rgba(92, 205, 255, 0.05), transparent 65%);
     color: rgba(165, 183, 213, 0.5);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.03),
+        inset 0 1px 0 rgba(var(--c-white), 0.03),
         0 10px 20px rgba(1, 5, 21, 0.16);
 }
 
 .coach-trophy-slot.unlocked {
     border-color: rgba(238, 196, 84, 0.28);
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015)),
+        linear-gradient(180deg, rgba(var(--c-white), 0.04), rgba(var(--c-white), 0.015)),
         radial-gradient(circle at top, rgba(244, 209, 103, 0.12), transparent 62%);
     color: rgba(255, 226, 145, 0.96);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
         0 14px 28px rgba(2, 7, 26, 0.2),
         0 0 26px rgba(232, 188, 74, 0.08);
 }
@@ -1213,7 +1269,7 @@ body::after {
     min-width: 34px;
     padding: 6px 10px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.04);
+    border: 1px solid rgba(var(--c-white), 0.04);
     background: rgba(3, 8, 29, 0.28);
     color: inherit;
     font-family: "Oxanium", sans-serif;
@@ -1247,14 +1303,14 @@ body::after {
     gap: 9px;
     padding: 13px 14px 12px;
     border-radius: 15px;
-    border: 1px solid rgba(112, 208, 255, 0.12);
+    border: 1px solid rgba(var(--c-glow), 0.12);
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015)),
+        linear-gradient(180deg, rgba(var(--c-white), 0.045), rgba(var(--c-white), 0.015)),
         radial-gradient(circle at top left, rgba(94, 206, 255, 0.08), transparent 64%),
         linear-gradient(135deg, rgba(14, 40, 132, 0.16), transparent 58%);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.055),
-        inset 0 0 0 1px rgba(255,255,255,0.015),
+        inset 0 1px 0 rgba(var(--c-white), 0.055),
+        inset 0 0 0 1px rgba(var(--c-white), 0.015),
         0 14px 28px rgba(2, 8, 30, 0.16);
     overflow: hidden;
 }
@@ -1266,14 +1322,14 @@ body::after {
     right: 17px;
     top: 0;
     height: 1px;
-    background: linear-gradient(90deg, rgba(126, 216, 255, 0), rgba(126, 216, 255, 0.48), rgba(126, 216, 255, 0));
+    background: linear-gradient(90deg, rgba(var(--c-wash), 0), rgba(var(--c-wash), 0.48), rgba(var(--c-wash), 0));
 }
 
 .coach-insight-card.empty {
     border-style: dashed;
-    border-color: rgba(112, 208, 255, 0.08);
+    border-color: rgba(var(--c-glow), 0.08);
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.008));
+        linear-gradient(180deg, rgba(var(--c-white), 0.018), rgba(var(--c-white), 0.008));
     color: rgba(183, 201, 226, 0.55);
 }
 
@@ -1290,8 +1346,8 @@ body::after {
     padding: 6px 9px 5px;
     border-radius: 999px;
     border: 1px solid rgba(118, 213, 255, 0.14);
-    background: rgba(255,255,255,0.035);
-    color: rgba(255, 255, 255, 0.88);
+    background: rgba(var(--c-white), 0.035);
+    color: rgba(var(--c-white), 0.88);
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 1.55px;
@@ -1300,13 +1356,13 @@ body::after {
 }
 
 .coach-insight-value {
-    color: #f5fbff;
+    color: rgb(var(--c-ice-2));
     font-family: "Michroma", sans-serif;
     font-size: 15px;
     line-height: 1.42;
     text-shadow:
-        0 0 14px rgba(99, 219, 255, 0.12),
-        0 0 22px rgba(255,255,255,0.03);
+        0 0 14px rgba(var(--c-beam), 0.12),
+        0 0 22px rgba(var(--c-white), 0.03);
 }
 
 .coach-insight-line + .coach-insight-line {
@@ -1339,7 +1395,7 @@ body::after {
 }
 
 .coach-stats-section--narrativa .coach-insight-card::before {
-    background: linear-gradient(90deg, rgba(126, 216, 255, 0), rgba(126, 216, 255, 0.52), rgba(126, 216, 255, 0));
+    background: linear-gradient(90deg, rgba(var(--c-wash), 0), rgba(var(--c-wash), 0.52), rgba(var(--c-wash), 0));
 }
 
 .coach-narrative-target {
@@ -1387,12 +1443,12 @@ body::after {
     flex-shrink: 0;
     min-width: 82px;
     padding-left: 10px;
-    border-left: 1px solid rgba(126, 216, 255, 0.16);
+    border-left: 1px solid rgba(var(--c-wash), 0.16);
     white-space: nowrap;
 }
 
 .coach-narrative-score-label {
-    color: rgba(255, 255, 255, 0.86);
+    color: rgba(var(--c-white), 0.86);
     font-family: "Oxanium", sans-serif;
     font-size: 9px;
     font-weight: 700;
@@ -1408,8 +1464,8 @@ body::after {
     line-height: 1.08;
     letter-spacing: 0.5px;
     text-shadow:
-        0 0 10px rgba(109, 212, 255, 0.12),
-        0 0 20px rgba(109, 212, 255, 0.04);
+        0 0 10px rgba(var(--c-glow-d), 0.12),
+        0 0 20px rgba(var(--c-glow-d), 0.04);
 }
 
 .coach-narrative-separator {
@@ -1421,13 +1477,13 @@ body::after {
 }
 
 .coach-stats-section--legado .coach-insight-card::before {
-    background: linear-gradient(90deg, rgba(255, 216, 79, 0), rgba(255, 216, 79, 0.52), rgba(255, 216, 79, 0));
+    background: linear-gradient(90deg, rgba(var(--c-gold-bright), 0), rgba(var(--c-gold-bright), 0.52), rgba(var(--c-gold-bright), 0));
 }
 
 .coach-stats-section--legado .coach-insight-label span {
-    border-color: rgba(255, 216, 79, 0.16);
-    background: rgba(255, 216, 79, 0.05);
-    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(var(--c-gold-bright), 0.16);
+    background: rgba(var(--c-gold-bright), 0.05);
+    color: rgba(var(--c-white), 0.9);
 }
 
 .coach-stats-section--legado .coach-insight-card {
@@ -1446,13 +1502,13 @@ body::after {
 }
 
 .coach-stats-section--legado .coach-insight-player {
-    color: #f7fbff;
+    color: rgb(var(--c-ice-3));
     font-family: "Michroma", sans-serif;
     font-size: 14px;
     line-height: 1.32;
     text-shadow:
-        0 0 10px rgba(255, 216, 79, 0.08),
-        0 0 18px rgba(255,255,255,0.03);
+        0 0 10px rgba(var(--c-gold-bright), 0.08),
+        0 0 18px rgba(var(--c-white), 0.03);
 }
 
 .coach-stats-section--legado .coach-insight-line + .coach-insight-line {
@@ -1471,10 +1527,10 @@ body::after {
     min-height: 24px;
     padding: 4px 8px 3px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 216, 79, 0.14);
+    border: 1px solid rgba(var(--c-gold-bright), 0.14);
     background:
-        linear-gradient(180deg, rgba(255, 216, 79, 0.08), rgba(255, 216, 79, 0.025)),
-        rgba(255,255,255,0.025);
+        linear-gradient(180deg, rgba(var(--c-gold-bright), 0.08), rgba(var(--c-gold-bright), 0.025)),
+        rgba(var(--c-white), 0.025);
     color: rgba(255, 239, 191, 0.92);
     font-family: "Oxanium", sans-serif;
     font-size: 12px;
@@ -1482,20 +1538,20 @@ body::after {
     letter-spacing: 0.24px;
     line-height: 1.2;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05),
-        0 4px 12px rgba(0, 0, 0, 0.1);
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
+        0 4px 12px rgba(var(--c-black), 0.1);
 }
 
 .coach-legacy-stat-chip--rating {
-    border-color: rgba(104, 234, 170, 0.22);
+    border-color: rgba(var(--c-green-soft), 0.22);
     background:
-        linear-gradient(180deg, rgba(104, 234, 170, 0.14), rgba(104, 234, 170, 0.05)),
-        rgba(255,255,255,0.03);
+        linear-gradient(180deg, rgba(var(--c-green-soft), 0.14), rgba(var(--c-green-soft), 0.05)),
+        rgba(var(--c-white), 0.03);
     color: #dfffee;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
-        0 6px 14px rgba(0, 0, 0, 0.1),
-        0 0 20px rgba(104, 234, 170, 0.08);
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
+        0 6px 14px rgba(var(--c-black), 0.1),
+        0 0 20px rgba(var(--c-green-soft), 0.08);
 }
 
 .coach-legacy-stat-prefix {
@@ -1528,8 +1584,8 @@ body::after {
 .coach-legacy-stat-chip--rating .coach-legacy-stat-value {
     color: #7dffb9;
     text-shadow:
-        0 0 10px rgba(104, 234, 170, 0.16),
-        0 0 18px rgba(104, 234, 170, 0.08);
+        0 0 10px rgba(var(--c-green-soft), 0.16),
+        0 0 18px rgba(var(--c-green-soft), 0.08);
 }
 
 .coach-insight-meta--legacy-note {
@@ -1600,7 +1656,7 @@ body::after {
     letter-spacing: 4px;
     text-transform: uppercase;
     color: #f8fbff;
-    text-shadow: 0 0 18px rgba(146, 223, 255, 0.32), 0 10px 18px rgba(0, 0, 0, 0.36);
+    text-shadow: 0 0 18px rgba(146, 223, 255, 0.32), 0 10px 18px rgba(var(--c-black), 0.36);
 }
 
 .hero-ring {
@@ -1620,7 +1676,7 @@ body::after {
 .hero-subtitle {
     margin: 12px 0 0;
     max-width: 520px;
-    color: rgba(229, 239, 255, 0.68);
+    color: rgba(var(--c-ice-5), 0.68);
     font-size: 16px;
     line-height: 1.6;
 }
@@ -1695,15 +1751,15 @@ body::after {
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    border: 1px solid rgba(112, 208, 255, 0.18);
-    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(var(--c-glow), 0.18);
+    background: rgba(var(--c-white), 0.04);
     box-shadow: none;
     text-transform: none;
 }
 
 .info-tip:focus-visible {
-    border-color: rgba(112, 208, 255, 0.34);
-    box-shadow: 0 0 14px rgba(84, 182, 255, 0.14);
+    border-color: rgba(var(--c-glow), 0.34);
+    box-shadow: 0 0 14px rgba(var(--c-sky), 0.14);
     outline: none;
 }
 
@@ -1719,19 +1775,19 @@ body::after {
     width: min(520px, 100%);
     padding: 16px 18px;
     border-radius: 18px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
+    border: 1px solid rgba(var(--c-glow), 0.16);
     background:
         linear-gradient(180deg, rgba(10, 25, 92, 0.88), rgba(6, 16, 56, 0.94)),
-        radial-gradient(circle at top, rgba(93, 212, 255, 0.08), transparent 62%);
+        radial-gradient(circle at top, rgba(var(--c-glow-e), 0.08), transparent 62%);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05),
-        0 18px 30px rgba(0, 0, 0, 0.2);
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
+        0 18px 30px rgba(var(--c-black), 0.2);
 }
 
 .formula-section + .formula-section {
     margin-top: 14px;
     padding-top: 14px;
-    border-top: 1px solid rgba(112, 208, 255, 0.08);
+    border-top: 1px solid rgba(var(--c-glow), 0.08);
 }
 
 .formula-heading {
@@ -1763,7 +1819,7 @@ body::after {
 .panel-copy {
     margin: 8px 0 0;
     max-width: 720px;
-    color: rgba(229, 239, 255, 0.68);
+    color: rgba(var(--c-ice-5), 0.68);
     font-size: 16px;
     line-height: 1.5;
 }
@@ -1783,12 +1839,12 @@ body::after {
     gap: 10px;
     border-radius: 14px;
     background: linear-gradient(180deg, rgba(57, 194, 194, 0.16), rgba(57, 194, 194, 0.08));
-    border: 1px solid rgba(112, 208, 255, 0.16);
-    color: #eaf6ff;
+    border: 1px solid rgba(var(--c-glow), 0.16);
+    color: rgb(var(--c-ice-4));
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.2px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.04);
 }
 
 .league-chip-logo {
@@ -1799,7 +1855,7 @@ body::after {
 }
 
 .league-chip.muted {
-    background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
+    background: linear-gradient(180deg, rgba(var(--c-white), 0.045), rgba(var(--c-white), 0.02));
 }
 
 .league-status-chip {
@@ -1808,13 +1864,13 @@ body::after {
 }
 
 .league-status-chip.live {
-    color: #89f0b4;
-    border-color: rgba(137, 240, 180, 0.24);
-    background: linear-gradient(180deg, rgba(34,197,94,0.14), rgba(34,197,94,0.06));
+    color: rgb(var(--c-green));
+    border-color: rgba(var(--c-green), 0.24);
+    background: linear-gradient(180deg, rgba(var(--c-green-flag), 0.14), rgba(var(--c-green-flag), 0.06));
 }
 
 .league-status-chip.completed {
-    color: rgba(229, 239, 255, 0.78);
+    color: rgba(var(--c-ice-5), 0.78);
 }
 
 .league-live-tip {
@@ -1826,7 +1882,7 @@ body::after {
 .league-info-tip {
     width: 48px;
     height: 48px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
+    background: linear-gradient(180deg, rgba(var(--c-white), 0.045), rgba(var(--c-white), 0.02));
 }
 
 .league-live-popover {
@@ -1837,13 +1893,13 @@ body::after {
     width: min(430px, calc(100vw - 48px));
     padding: 14px 16px;
     border-radius: 16px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
+    border: 1px solid rgba(var(--c-glow), 0.16);
     background:
         linear-gradient(180deg, rgba(10, 25, 92, 0.95), rgba(6, 16, 56, 0.98)),
-        radial-gradient(circle at top, rgba(93, 212, 255, 0.08), transparent 62%);
+        radial-gradient(circle at top, rgba(var(--c-glow-e), 0.08), transparent 62%);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05),
-        0 18px 30px rgba(0, 0, 0, 0.24);
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
+        0 18px 30px rgba(var(--c-black), 0.24);
     opacity: 0;
     transform: translateY(-4px);
     pointer-events: none;
@@ -1858,7 +1914,7 @@ body::after {
 }
 
 .league-live-popover .formula-section + .formula-section {
-    border-top-color: rgba(112, 208, 255, 0.14);
+    border-top-color: rgba(var(--c-glow), 0.14);
 }
 
 .league-chip-icon {
@@ -1911,10 +1967,10 @@ body::after {
     display: flex;
     flex-direction: column;
     border-radius: 20px;
-    border: 1px solid rgba(122, 210, 255, 0.08);
-    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
+    background: linear-gradient(180deg, rgba(var(--c-white), 0.05), rgba(var(--c-white), 0.02));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.04);
+        inset 0 1px 0 rgba(var(--c-white), 0.04);
 }
 
 .league-side-card::before {
@@ -1928,7 +1984,7 @@ body::after {
     justify-content: space-between;
     gap: 12px;
     padding: 16px 16px 12px;
-    border-bottom: 1px solid rgba(118, 211, 255, 0.1);
+    border-bottom: 1px solid rgba(var(--c-glow-b), 0.1);
 }
 
 .league-side-head.centered {
@@ -1978,14 +2034,14 @@ body::after {
     flex-direction: column;
     justify-content: center;
     border-radius: 13px;
-    border: 1px solid rgba(122, 210, 255, 0.08);
-    background: rgba(18, 39, 95, 0.52);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.025);
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
+    background: rgba(var(--c-panel-blue), 0.52);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.025);
     isolation: isolate;
 }
 
 .league-award-label {
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(var(--c-white), 0.88);
     font-size: 8.5px;
     font-weight: 800;
     letter-spacing: 1.1px;
@@ -1994,7 +2050,7 @@ body::after {
 
 .league-award-name {
     margin-top: 4px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.2px;
@@ -2002,7 +2058,7 @@ body::after {
 
 .league-award-meta {
     margin-top: 2px;
-    color: rgba(229, 239, 255, 0.66);
+    color: rgba(var(--c-ice-5), 0.66);
     font-size: 10.5px;
     line-height: 1.25;
 }
@@ -2035,13 +2091,13 @@ body::after {
     justify-content: center;
     padding: 8px 12px;
     border-radius: 14px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
+    border: 1px solid rgba(var(--c-glow), 0.16);
     background:
         linear-gradient(180deg, rgba(18, 50, 118, 0.82), rgba(8, 22, 72, 0.82));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05),
-        inset 0 0 18px rgba(112, 208, 255, 0.035),
-        0 0 14px rgba(36, 205, 255, 0.035);
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
+        inset 0 0 18px rgba(var(--c-glow), 0.035),
+        0 0 14px rgba(var(--c-vivid), 0.035);
     z-index: 10;
 }
 
@@ -2062,9 +2118,9 @@ body::after {
 }
 
 .league-live-section-arrow:hover {
-    color: #ffffff;
+    color: rgb(var(--c-white));
     transform: translateY(-1px);
-    text-shadow: 0 0 12px rgba(112, 208, 255, 0.72);
+    text-shadow: 0 0 12px rgba(var(--c-glow), 0.72);
 }
 
 .league-live-select-wrap::after {
@@ -2072,7 +2128,7 @@ body::after {
     position: absolute;
     right: 12px;
     top: 50%;
-    color: rgba(112, 208, 255, 0.92);
+    color: rgba(var(--c-glow), 0.92);
     font-size: 18px;
     font-weight: 900;
     line-height: 1;
@@ -2086,7 +2142,7 @@ body::after {
     padding: 4px 24px;
     border: 0;
     outline: 0;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     background: transparent;
     font-family: "Oxanium", sans-serif;
     font-size: 12px;
@@ -2106,13 +2162,13 @@ body::after {
     gap: 5px;
     padding: 7px;
     border-radius: 14px;
-    border: 1px solid rgba(112, 208, 255, 0.24);
+    border: 1px solid rgba(var(--c-glow), 0.24);
     background:
         linear-gradient(180deg, rgba(7, 23, 76, 0.98), rgba(3, 12, 45, 0.98));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
-        0 18px 34px rgba(0, 0, 0, 0.34),
-        0 0 24px rgba(36, 205, 255, 0.08);
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
+        0 18px 34px rgba(var(--c-black), 0.34),
+        0 0 24px rgba(var(--c-vivid), 0.08);
     opacity: 0;
     transform: translateY(-4px);
     pointer-events: none;
@@ -2144,10 +2200,10 @@ body::after {
 
 .league-live-option:hover,
 .league-live-option.active {
-    color: #ffffff;
-    border-color: rgba(112, 208, 255, 0.18);
+    color: rgb(var(--c-white));
+    border-color: rgba(var(--c-glow), 0.18);
     background:
-        radial-gradient(circle at 12% 50%, rgba(112, 208, 255, 0.18), transparent 48%),
+        radial-gradient(circle at 12% 50%, rgba(var(--c-glow), 0.18), transparent 48%),
         rgba(30, 73, 148, 0.52);
 }
 
@@ -2166,11 +2222,11 @@ body::after {
     gap: 18px;
     padding: 22px;
     border-radius: 17px;
-    border: 1px solid rgba(122, 210, 255, 0.1);
+    border: 1px solid rgba(var(--c-glow-c), 0.1);
     color: inherit;
     background: rgba(11, 29, 85, 0.82) !important;
     background-image: none !important;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.045);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.045);
     isolation: auto;
     animation: league-live-page-in 0.26s ease both;
     text-align: left;
@@ -2180,10 +2236,10 @@ body::after {
 }
 
 .league-live-page:hover {
-    border-color: rgba(112, 208, 255, 0.2);
+    border-color: rgba(var(--c-glow), 0.2);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.055),
-        0 0 24px rgba(36, 205, 255, 0.055);
+        inset 0 1px 0 rgba(var(--c-white), 0.055),
+        0 0 24px rgba(var(--c-vivid), 0.055);
 }
 
 .league-live-page::before {
@@ -2221,7 +2277,7 @@ body::after {
 
 .league-live-page.is-news:hover {
     border-color: transparent;
-    box-shadow: inset 0 0 0 1px rgba(112, 208, 255, 0.18);
+    box-shadow: inset 0 0 0 1px rgba(var(--c-glow), 0.18);
     transform: none;
 }
 
@@ -2232,8 +2288,8 @@ body::after {
     z-index: 0;
     display: block !important;
     background:
-        linear-gradient(90deg, rgba(2, 10, 34, 0.99) 0%, rgba(2, 12, 38, 0.94) 39%, rgba(3, 15, 46, 0.48) 66%, rgba(2, 10, 34, 0.18) 100%),
-        linear-gradient(180deg, rgba(2, 10, 34, 0.06) 0%, rgba(3, 12, 40, 0.1) 52%, rgba(2, 9, 30, 0.94) 100%),
+        linear-gradient(90deg, rgba(var(--c-night-6), 0.99) 0%, rgba(2, 12, 38, 0.94) 39%, rgba(3, 15, 46, 0.48) 66%, rgba(var(--c-night-6), 0.18) 100%),
+        linear-gradient(180deg, rgba(var(--c-night-6), 0.06) 0%, rgba(3, 12, 40, 0.1) 52%, rgba(var(--c-night-4), 0.94) 100%),
         radial-gradient(circle at 18% 19%, rgba(50, 200, 255, 0.18), transparent 30%);
     pointer-events: none;
 }
@@ -2250,13 +2306,13 @@ body::after {
     background:
         linear-gradient(
             180deg,
-            rgba(2, 9, 30, 0) 0%,
-            rgba(2, 9, 30, 0) 26%,
-            rgba(2, 9, 30, 0.28) 56%,
-            rgba(2, 9, 30, 0.84) 100%
+            rgba(var(--c-night-4), 0) 0%,
+            rgba(var(--c-night-4), 0) 26%,
+            rgba(var(--c-night-4), 0.28) 56%,
+            rgba(var(--c-night-4), 0.84) 100%
         );
     backdrop-filter: blur(4px);
-    mask-image: linear-gradient(180deg, transparent 0%, transparent 36%, #000 68%, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, transparent 36%, rgb(var(--c-black)) 68%, rgb(var(--c-black)) 100%);
     pointer-events: none;
 }
 
@@ -2272,17 +2328,17 @@ body::after {
 
 .league-live-page.is-news .league-live-page-kicker {
     gap: 10px;
-    color: #25bfff;
+    color: rgb(var(--c-ink));
     font-size: 11px;
     letter-spacing: 1.5px;
-    text-shadow: 0 0 16px rgba(37, 191, 255, 0.28);
+    text-shadow: 0 0 16px rgba(var(--c-ink), 0.28);
 }
 
 .league-live-page-kicker {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(var(--c-white), 0.88);
     font-size: 9px;
     font-weight: 900;
     letter-spacing: 1.3px;
@@ -2293,18 +2349,18 @@ body::after {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #70d0ff;
-    box-shadow: 0 0 14px rgba(112, 208, 255, 0.8);
+    background: rgb(var(--c-glow));
+    box-shadow: 0 0 14px rgba(var(--c-glow), 0.8);
 }
 
 .league-live-page-title {
     margin-top: 10px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-family: "Michroma", sans-serif;
     font-size: clamp(18px, 2.1vw, 27px);
     font-weight: 400;
     letter-spacing: 0.4px;
-    text-shadow: 0 0 18px rgba(112, 208, 255, 0.12);
+    text-shadow: 0 0 18px rgba(var(--c-glow), 0.12);
 }
 
 .league-live-page.is-news .league-live-page-title {
@@ -2317,15 +2373,15 @@ body::after {
     letter-spacing: 0.7px;
     text-transform: uppercase;
     text-shadow:
-        0 3px 18px rgba(0, 0, 0, 0.72),
-        0 0 18px rgba(112, 208, 255, 0.12);
+        0 3px 18px rgba(var(--c-black), 0.72),
+        0 0 18px rgba(var(--c-glow), 0.12);
 }
 
 .league-live-page.is-news .league-live-page-title span {
-    color: #25bfff;
+    color: rgb(var(--c-ink));
     text-shadow:
-        0 2px 18px rgba(0, 0, 0, 0.5),
-        0 0 20px rgba(37, 191, 255, 0.32);
+        0 2px 18px rgba(var(--c-black), 0.5),
+        0 0 20px rgba(var(--c-ink), 0.32);
 }
 
 .league-live-page.is-news .league-live-page-title::after {
@@ -2335,14 +2391,14 @@ body::after {
     height: 3px;
     margin-top: 16px;
     border-radius: 999px;
-    background: #70d0ff;
-    box-shadow: 0 0 16px rgba(112, 208, 255, 0.6);
+    background: rgb(var(--c-glow));
+    box-shadow: 0 0 16px rgba(var(--c-glow), 0.6);
 }
 
 .league-live-page-copy {
     max-width: 44ch;
     margin: 14px 0 0;
-    color: rgba(229, 239, 255, 0.78);
+    color: rgba(var(--c-ice-5), 0.78);
     font-size: 12.2px;
     line-height: 1.6;
 }
@@ -2353,7 +2409,7 @@ body::after {
     font-size: clamp(11px, 0.72vw, 13px);
     font-weight: 600;
     line-height: 1.5;
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+    text-shadow: 0 1px 10px rgba(var(--c-black), 0.45);
 }
 
 .league-live-page.is-news .league-live-page-copy + .league-live-page-copy {
@@ -2372,7 +2428,7 @@ body::after {
 }
 
 .league-live-page.is-news .news-inline-highlight {
-    color: #25bfff;
+    color: rgb(var(--c-ink));
     font-weight: 900;
 }
 
@@ -2383,12 +2439,12 @@ body::after {
     align-items: center;
     gap: 8px;
     margin-top: 16px;
-    color: #70d0ff;
+    color: rgb(var(--c-glow));
     font-size: 9px;
     font-weight: 900;
     letter-spacing: 1px;
     text-transform: uppercase;
-    text-shadow: 0 0 14px rgba(112, 208, 255, 0.28);
+    text-shadow: 0 0 14px rgba(var(--c-glow), 0.28);
 }
 
 .league-news-read-more::after {
@@ -2410,8 +2466,8 @@ body::after {
     border-radius: 12px;
     color: rgba(224, 243, 255, 0.86);
     background: rgba(17, 48, 116, 0.72);
-    border: 1px solid rgba(112, 208, 255, 0.15);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    border: 1px solid rgba(var(--c-glow), 0.15);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.04);
     font-size: 8.1px;
     font-weight: 900;
     letter-spacing: 0.75px;
@@ -2428,13 +2484,13 @@ body::after {
     width: min(44%, 260px);
     padding: 22px 24px 20px;
     border-radius: 18px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     background:
         linear-gradient(180deg, rgba(13, 83, 184, 0.9), rgba(4, 28, 91, 0.94));
-    border: 1px solid rgba(112, 208, 255, 0.28);
+    border: 1px solid rgba(var(--c-glow), 0.28);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.1),
-        0 22px 46px rgba(0, 0, 0, 0.36),
+        inset 0 1px 0 rgba(var(--c-white), 0.1),
+        0 22px 46px rgba(var(--c-black), 0.36),
         0 0 30px rgba(38, 154, 255, 0.16);
 }
 
@@ -2444,7 +2500,7 @@ body::after {
 
 .league-news-quote span {
     display: block;
-    color: #70d0ff;
+    color: rgb(var(--c-glow));
     font-size: 42px;
     font-weight: 900;
     line-height: 0.65;
@@ -2452,14 +2508,14 @@ body::after {
 
 .league-news-quote p {
     margin: 14px 0 16px;
-    color: rgba(255,255,255,0.92);
+    color: rgba(var(--c-white), 0.92);
     font-size: clamp(11px, 0.82vw, 15px);
     font-weight: 800;
     line-height: 1.5;
 }
 
 .league-news-quote strong {
-    color: #70d0ff;
+    color: rgb(var(--c-glow));
     font-size: 10px;
     font-weight: 900;
     letter-spacing: 1px;
@@ -2490,11 +2546,11 @@ body::after {
     display: grid;
     place-items: center;
     padding: 0;
-    border: 1px solid rgba(112, 208, 255, 0.14);
+    border: 1px solid rgba(var(--c-glow), 0.14);
     border-radius: 50%;
     color: rgba(216, 240, 255, 0.86);
     background: rgba(15, 45, 105, 0.5);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.05);
     font-size: 18px;
     font-weight: 900;
     line-height: 1;
@@ -2505,11 +2561,11 @@ body::after {
 .league-live-page.is-news .league-news-arrow {
     width: 40px;
     height: 40px;
-    border-color: rgba(112, 208, 255, 0.24);
+    border-color: rgba(var(--c-glow), 0.24);
     background: rgba(6, 25, 72, 0.7);
     backdrop-filter: blur(12px);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.07),
+        inset 0 1px 0 rgba(var(--c-white), 0.07),
         0 0 24px rgba(24, 118, 255, 0.18);
 }
 
@@ -2535,13 +2591,13 @@ body::after {
     width: min(1160px, calc(100vw - 48px));
     height: min(840px, calc(100vh - 48px));
     overflow: hidden;
-    border: 1px solid rgba(112, 208, 255, 0.18);
+    border: 1px solid rgba(var(--c-glow), 0.18);
     border-radius: 28px;
     background:
         linear-gradient(180deg, rgba(7, 22, 68, 0.98), rgba(4, 13, 43, 0.98));
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
-        0 34px 90px rgba(0, 0, 0, 0.58),
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
+        0 34px 90px rgba(var(--c-black), 0.58),
         0 0 38px rgba(37, 139, 255, 0.14);
     isolation: isolate;
 }
@@ -2558,32 +2614,32 @@ body::after {
     inset: 0;
     z-index: 0;
     background:
-        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.9) 31%, rgba(4, 16, 48, 0.5) 54%, rgba(2, 8, 26, 0.1) 100%),
-        linear-gradient(180deg, rgba(2, 8, 28, 0.08) 0%, rgba(2, 8, 28, 0.08) 56%, rgba(4, 18, 54, 0.28) 100%),
-        radial-gradient(circle at 88% 18%, rgba(255,255,255,0.08), transparent 22%),
+        linear-gradient(90deg, rgba(var(--c-night-1), 0.99) 0%, rgba(var(--c-night-5), 0.9) 31%, rgba(var(--c-night-7), 0.5) 54%, rgba(var(--c-night-2), 0.1) 100%),
+        linear-gradient(180deg, rgba(var(--c-night-3), 0.08) 0%, rgba(var(--c-night-3), 0.08) 56%, rgba(var(--c-night-8), 0.28) 100%),
+        radial-gradient(circle at 88% 18%, rgba(var(--c-white), 0.08), transparent 22%),
         var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
     pointer-events: none;
 }
 
 .league-news-article-dialog.is-logo-bg::before {
     background:
-        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.92) 32%, rgba(4, 16, 48, 0.72) 64%, rgba(2, 8, 26, 0.34) 100%),
-        linear-gradient(180deg, rgba(2, 8, 28, 0.1) 0%, rgba(2, 8, 28, 0.12) 46%, rgba(4, 18, 54, 0.28) 100%),
+        linear-gradient(90deg, rgba(var(--c-night-1), 0.99) 0%, rgba(var(--c-night-5), 0.92) 32%, rgba(var(--c-night-7), 0.72) 64%, rgba(var(--c-night-2), 0.34) 100%),
+        linear-gradient(180deg, rgba(var(--c-night-3), 0.1) 0%, rgba(var(--c-night-3), 0.12) 46%, rgba(var(--c-night-8), 0.28) 100%),
         var(--news-bg) var(--news-article-position, 50% 58px) / var(--news-article-size, min(31%, 300px) auto) no-repeat;
 }
 
 .league-news-article-dialog.is-photo-cover::before {
     background:
-        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.92) 34%, rgba(4, 16, 48, 0.56) 61%, rgba(2, 8, 26, 0.16) 100%),
-        linear-gradient(180deg, rgba(2, 8, 28, 0.08) 0%, rgba(2, 8, 28, 0.12) 54%, rgba(4, 18, 54, 0.32) 100%),
+        linear-gradient(90deg, rgba(var(--c-night-1), 0.99) 0%, rgba(var(--c-night-5), 0.92) 34%, rgba(var(--c-night-7), 0.56) 61%, rgba(var(--c-night-2), 0.16) 100%),
+        linear-gradient(180deg, rgba(var(--c-night-3), 0.08) 0%, rgba(var(--c-night-3), 0.12) 54%, rgba(var(--c-night-8), 0.32) 100%),
         var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
 }
 
 .league-news-article-dialog.is-high-contrast-news::before {
     background:
-        linear-gradient(90deg, rgba(1, 7, 24, 0.985) 0%, rgba(1, 8, 28, 0.94) 42%, rgba(2, 10, 34, 0.76) 67%, rgba(2, 8, 26, 0.44) 100%),
-        linear-gradient(180deg, rgba(2, 8, 28, 0.36) 0%, rgba(2, 8, 28, 0.4) 46%, rgba(4, 18, 54, 0.58) 100%),
-        linear-gradient(0deg, rgba(1, 7, 24, 0.12), rgba(1, 7, 24, 0.12)),
+        linear-gradient(90deg, rgba(var(--c-night-1), 0.985) 0%, rgba(1, 8, 28, 0.94) 42%, rgba(var(--c-night-6), 0.76) 67%, rgba(var(--c-night-2), 0.44) 100%),
+        linear-gradient(180deg, rgba(var(--c-night-3), 0.36) 0%, rgba(var(--c-night-3), 0.4) 46%, rgba(var(--c-night-8), 0.58) 100%),
+        linear-gradient(0deg, rgba(var(--c-night-1), 0.12), rgba(var(--c-night-1), 0.12)),
         radial-gradient(circle at 22% 20%, rgba(70, 190, 255, 0.08), transparent 28%),
         var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
 }
@@ -2598,12 +2654,12 @@ body::after {
     display: grid;
     place-items: center;
     padding: 0;
-    border: 1px solid rgba(112, 208, 255, 0.24);
+    border: 1px solid rgba(var(--c-glow), 0.24);
     border-radius: 50%;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     background: rgba(16, 58, 139, 0.72);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
         0 0 22px rgba(60, 164, 255, 0.14);
     font-size: 28px;
     font-weight: 900;
@@ -2639,7 +2695,7 @@ body::after {
     inset: 0;
     z-index: 0;
     background:
-        linear-gradient(180deg, rgba(2, 8, 28, 0) 0%, rgba(2, 8, 28, 0.04) 60%, rgba(4, 18, 54, 0.2) 100%);
+        linear-gradient(180deg, rgba(var(--c-night-3), 0) 0%, rgba(var(--c-night-3), 0.04) 60%, rgba(var(--c-night-8), 0.2) 100%);
     pointer-events: none;
 }
 
@@ -2654,13 +2710,13 @@ body::after {
     background:
         linear-gradient(
             180deg,
-            rgba(2, 9, 30, 0) 0%,
+            rgba(var(--c-night-4), 0) 0%,
             rgba(7, 34, 88, 0.035) 48%,
             rgba(7, 34, 88, 0.08) 78%,
             rgba(7, 34, 88, 0.12) 100%
         );
     backdrop-filter: blur(2px);
-    mask-image: linear-gradient(180deg, transparent 0%, transparent 30%, #000 72%, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, transparent 30%, rgb(var(--c-black)) 72%, rgb(var(--c-black)) 100%);
     pointer-events: none;
 }
 
@@ -2670,13 +2726,13 @@ body::after {
     background:
         linear-gradient(
             180deg,
-            rgba(2, 9, 30, 0) 0%,
+            rgba(var(--c-night-4), 0) 0%,
             rgba(6, 25, 72, 0.08) 42%,
             rgba(6, 25, 72, 0.2) 72%,
             rgba(5, 18, 54, 0.36) 100%
         );
     backdrop-filter: blur(2px);
-    mask-image: linear-gradient(180deg, transparent 0%, transparent 26%, #000 72%, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, transparent 26%, rgb(var(--c-black)) 72%, rgb(var(--c-black)) 100%);
 }
 
 .league-news-article-dialog.is-long-read::before {
@@ -2687,26 +2743,26 @@ body::after {
     bottom: auto;
     height: min(1080px, calc(100vh + 260px));
     background:
-        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.9) 31%, rgba(4, 16, 48, 0.5) 54%, rgba(2, 8, 26, 0.1) 100%),
-        linear-gradient(180deg, rgba(2, 8, 28, 0.08) 0%, rgba(2, 8, 28, 0.14) 52%, rgba(3, 15, 48, 0.58) 82%, rgba(4, 18, 54, 0.92) 100%),
-        radial-gradient(circle at 88% 18%, rgba(255,255,255,0.08), transparent 22%),
+        linear-gradient(90deg, rgba(var(--c-night-1), 0.99) 0%, rgba(var(--c-night-5), 0.9) 31%, rgba(var(--c-night-7), 0.5) 54%, rgba(var(--c-night-2), 0.1) 100%),
+        linear-gradient(180deg, rgba(var(--c-night-3), 0.08) 0%, rgba(var(--c-night-3), 0.14) 52%, rgba(3, 15, 48, 0.58) 82%, rgba(var(--c-night-8), 0.92) 100%),
+        radial-gradient(circle at 88% 18%, rgba(var(--c-white), 0.08), transparent 22%),
         var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
     border-radius: inherit;
-    mask-image: linear-gradient(180deg, #000 0%, #000 56%, rgba(0, 0, 0, 0.72) 76%, transparent 100%);
+    mask-image: linear-gradient(180deg, rgb(var(--c-black)) 0%, rgb(var(--c-black)) 56%, rgba(var(--c-black), 0.72) 76%, transparent 100%);
 }
 
 .league-news-article-dialog.is-long-read.is-photo-cover .league-news-article-body::before {
     background:
-        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 9, 31, 0.92) 34%, rgba(4, 16, 48, 0.56) 61%, rgba(2, 8, 26, 0.16) 100%),
-        linear-gradient(180deg, rgba(2, 8, 28, 0.08) 0%, rgba(2, 8, 28, 0.16) 50%, rgba(3, 15, 48, 0.62) 82%, rgba(4, 18, 54, 0.94) 100%),
+        linear-gradient(90deg, rgba(var(--c-night-1), 0.99) 0%, rgba(var(--c-night-5), 0.92) 34%, rgba(var(--c-night-7), 0.56) 61%, rgba(var(--c-night-2), 0.16) 100%),
+        linear-gradient(180deg, rgba(var(--c-night-3), 0.08) 0%, rgba(var(--c-night-3), 0.16) 50%, rgba(3, 15, 48, 0.62) 82%, rgba(var(--c-night-8), 0.94) 100%),
         var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
 }
 
 .league-news-article-dialog.is-long-read.is-high-contrast-news .league-news-article-body::before {
     background:
-        linear-gradient(90deg, rgba(1, 7, 24, 0.99) 0%, rgba(1, 8, 28, 0.94) 44%, rgba(2, 10, 34, 0.78) 70%, rgba(2, 8, 26, 0.48) 100%),
-        linear-gradient(180deg, rgba(2, 8, 28, 0.38) 0%, rgba(2, 8, 28, 0.46) 46%, rgba(4, 18, 54, 0.74) 78%, rgba(4, 18, 54, 0.98) 100%),
-        linear-gradient(0deg, rgba(1, 7, 24, 0.14), rgba(1, 7, 24, 0.14)),
+        linear-gradient(90deg, rgba(var(--c-night-1), 0.99) 0%, rgba(1, 8, 28, 0.94) 44%, rgba(var(--c-night-6), 0.78) 70%, rgba(var(--c-night-2), 0.48) 100%),
+        linear-gradient(180deg, rgba(var(--c-night-3), 0.38) 0%, rgba(var(--c-night-3), 0.46) 46%, rgba(var(--c-night-8), 0.74) 78%, rgba(var(--c-night-8), 0.98) 100%),
+        linear-gradient(0deg, rgba(var(--c-night-1), 0.14), rgba(var(--c-night-1), 0.14)),
         radial-gradient(circle at 22% 20%, rgba(70, 190, 255, 0.06), transparent 28%),
         var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
 }
@@ -2721,7 +2777,7 @@ body::after {
 .league-news-article-title {
     max-width: 15.8ch;
     margin: 26px 0 0;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-family: "Oxanium", sans-serif;
     font-size: clamp(32px, 3.35vw, 48px);
     font-weight: 900;
@@ -2729,15 +2785,15 @@ body::after {
     letter-spacing: 1px;
     text-transform: uppercase;
     text-shadow:
-        0 3px 22px rgba(0, 0, 0, 0.72),
-        0 0 24px rgba(112, 208, 255, 0.12);
+        0 3px 22px rgba(var(--c-black), 0.72),
+        0 0 24px rgba(var(--c-glow), 0.12);
 }
 
 .league-news-article-title span {
-    color: #25bfff;
+    color: rgb(var(--c-ink));
     text-shadow:
-        0 2px 20px rgba(0, 0, 0, 0.58),
-        0 0 22px rgba(37, 191, 255, 0.34);
+        0 2px 20px rgba(var(--c-black), 0.58),
+        0 0 22px rgba(var(--c-ink), 0.34);
 }
 
 .league-news-article-dialog.is-logo-bg .league-news-article-title {
@@ -2767,8 +2823,8 @@ body::after {
     height: 4px;
     margin: 22px 0;
     border-radius: 999px;
-    background: #70d0ff;
-    box-shadow: 0 0 18px rgba(112, 208, 255, 0.55);
+    background: rgb(var(--c-glow));
+    box-shadow: 0 0 18px rgba(var(--c-glow), 0.55);
 }
 
 .league-news-article-text p {
@@ -2777,14 +2833,14 @@ body::after {
     font-size: clamp(14px, 1.05vw, 17px);
     font-weight: 500;
     line-height: 1.55;
-    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.54);
+    text-shadow: 0 1px 14px rgba(var(--c-black), 0.54);
 }
 
 .league-news-article-text strong,
 .league-news-article-text .news-inline-highlight,
 .league-news-article-side-text strong,
 .league-news-article-side-text .news-inline-highlight {
-    color: #70d0ff;
+    color: rgb(var(--c-glow));
     font-weight: 900;
 }
 
@@ -2800,8 +2856,8 @@ body::after {
 .league-news-article-side-text {
     max-width: 39ch;
     padding-left: 20px;
-    border-left: 2px solid rgba(112, 208, 255, 0.42);
-    filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.28));
+    border-left: 2px solid rgba(var(--c-glow), 0.42);
+    filter: drop-shadow(0 16px 34px rgba(var(--c-black), 0.28));
 }
 
 .league-news-article-side-text p {
@@ -2810,7 +2866,7 @@ body::after {
     font-size: clamp(13px, 0.98vw, 16px);
     font-weight: 500;
     line-height: 1.58;
-    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.56);
+    text-shadow: 0 1px 14px rgba(var(--c-black), 0.56);
 }
 
 .league-news-article-side-text p:last-child {
@@ -2854,13 +2910,13 @@ body::after {
     z-index: 3;
     width: 100%;
     padding: 22px 26px;
-    border: 1px solid rgba(112, 208, 255, 0.25);
+    border: 1px solid rgba(var(--c-glow), 0.25);
     border-radius: 22px;
     background:
         linear-gradient(180deg, rgba(14, 87, 195, 0.84), rgba(4, 24, 78, 0.9));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.12),
-        0 24px 52px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(var(--c-white), 0.12),
+        0 24px 52px rgba(var(--c-black), 0.4),
         0 0 36px rgba(44, 154, 255, 0.16);
 }
 
@@ -2872,8 +2928,8 @@ body::after {
     background:
         linear-gradient(180deg, rgba(13, 78, 180, 0.74), rgba(4, 24, 78, 0.82));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.1),
-        0 18px 38px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(var(--c-white), 0.1),
+        0 18px 38px rgba(var(--c-black), 0.34),
         0 0 26px rgba(44, 154, 255, 0.12);
 }
 
@@ -2886,7 +2942,7 @@ body::after {
 
 .league-news-article-quote span {
     display: block;
-    color: #70d0ff;
+    color: rgb(var(--c-glow));
     font-size: 42px;
     font-weight: 900;
     line-height: 0.65;
@@ -2902,7 +2958,7 @@ body::after {
 
 .league-news-article-quote p {
     margin: 14px 0 14px;
-    color: rgba(255,255,255,0.94);
+    color: rgba(var(--c-white), 0.94);
     font-size: clamp(14px, 1.12vw, 18px);
     font-weight: 800;
     line-height: 1.45;
@@ -2921,7 +2977,7 @@ body::after {
 }
 
 .league-news-article-quote strong {
-    color: #70d0ff;
+    color: rgb(var(--c-glow));
     font-size: 13px;
     font-weight: 900;
     letter-spacing: 1px;
@@ -2961,12 +3017,12 @@ body::after {
     display: grid;
     place-items: center;
     padding: 0;
-    border: 1px solid rgba(112, 208, 255, 0.2);
+    border: 1px solid rgba(var(--c-glow), 0.2);
     border-radius: 50%;
     color: rgba(235, 247, 255, 0.94);
     background: rgba(7, 31, 84, 0.64);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
         0 0 24px rgba(24, 118, 255, 0.18);
     backdrop-filter: blur(12px);
     font-size: 36px;
@@ -2979,10 +3035,10 @@ body::after {
 }
 
 .league-news-article-arrow:hover {
-    border-color: rgba(112, 208, 255, 0.42);
+    border-color: rgba(var(--c-glow), 0.42);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.1),
-        0 0 30px rgba(112, 208, 255, 0.22);
+        inset 0 1px 0 rgba(var(--c-white), 0.1),
+        0 0 30px rgba(var(--c-glow), 0.22);
     transform: translateY(calc(-50% - 1px));
 }
 
@@ -3009,11 +3065,11 @@ body::after {
 }
 
 .league-news-arrow:hover {
-    color: #ffffff;
-    border-color: rgba(112, 208, 255, 0.34);
+    color: rgb(var(--c-white));
+    border-color: rgba(var(--c-glow), 0.34);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        0 0 16px rgba(112, 208, 255, 0.12);
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
+        0 0 16px rgba(var(--c-glow), 0.12);
     transform: translateY(-1px);
 }
 
@@ -3027,11 +3083,11 @@ body::after {
 .league-live-page.is-news .league-news-dots {
     justify-self: center;
     padding: 8px 12px;
-    border: 1px solid rgba(112, 208, 255, 0.14);
+    border: 1px solid rgba(var(--c-glow), 0.14);
     border-radius: 999px;
     background: rgba(4, 18, 58, 0.48);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
         0 0 26px rgba(24, 118, 255, 0.14);
     backdrop-filter: blur(12px);
 }
@@ -3050,8 +3106,8 @@ body::after {
 
 .league-news-dot.active {
     width: 24px;
-    background: #70d0ff;
-    box-shadow: 0 0 14px rgba(112, 208, 255, 0.42);
+    background: rgb(var(--c-glow));
+    box-shadow: 0 0 14px rgba(var(--c-glow), 0.42);
 }
 
 @keyframes league-live-page-in {
@@ -3068,13 +3124,13 @@ body::after {
 .league-live-card {
     padding: 16px 14px;
     border-radius: 15px;
-    border: 1px solid rgba(122, 210, 255, 0.08);
-    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.016));
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
+    background: linear-gradient(180deg, rgba(var(--c-white), 0.04), rgba(var(--c-white), 0.016));
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.035);
 }
 
 .league-live-label {
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(var(--c-white), 0.88);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 1.1px;
@@ -3083,7 +3139,7 @@ body::after {
 
 .league-live-value {
     margin-top: 7px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-family: "Michroma", sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -3092,7 +3148,7 @@ body::after {
 
 .league-live-meta {
     margin-top: 5px;
-    color: rgba(229, 239, 255, 0.66);
+    color: rgba(var(--c-ice-5), 0.66);
     font-size: 11px;
     line-height: 1.35;
 }
@@ -3111,13 +3167,13 @@ body::after {
     padding: 7px 10px 7px 14px;
     border: 1px solid rgba(105, 255, 218, 0.26);
     border-radius: 999px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     background:
         radial-gradient(circle at 14% 50%, rgba(72, 255, 209, 0.22), transparent 46%),
         linear-gradient(180deg, rgba(9, 73, 101, 0.84), rgba(4, 30, 78, 0.86));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        0 0 22px rgba(36, 205, 255, 0.08);
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
+        0 0 22px rgba(var(--c-vivid), 0.08);
 }
 
 .league-transfers-head .league-transfer-window {
@@ -3146,7 +3202,7 @@ body::after {
         radial-gradient(circle at 14% 50%, rgba(255, 85, 109, 0.24), transparent 46%),
         linear-gradient(180deg, rgba(102, 23, 50, 0.9), rgba(42, 9, 31, 0.9));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.07),
+        inset 0 1px 0 rgba(var(--c-white), 0.07),
         0 0 20px rgba(220, 44, 82, 0.12);
 }
 
@@ -3173,7 +3229,7 @@ body::after {
 }
 
 .league-transfer-window b {
-    color: rgba(255, 255, 255, 0.74);
+    color: rgba(var(--c-white), 0.74);
     font-size: 8px;
     font-weight: 800;
     letter-spacing: 0.5px;
@@ -3191,7 +3247,7 @@ body::after {
     padding: 0 10px 10px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(112, 208, 255, 0.35) rgba(255,255,255,0.04);
+    scrollbar-color: rgba(var(--c-glow), 0.35) rgba(var(--c-white), 0.04);
 }
 
 .league-transfer-table-head,
@@ -3205,13 +3261,13 @@ body::after {
 
 .league-transfer-table-head {
     padding: 8px 10px 7px;
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(var(--c-white), 0.92);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase;
-    border-top: 1px solid rgba(112, 208, 255, 0.08);
-    border-bottom: 1px solid rgba(112, 208, 255, 0.08);
+    border-top: 1px solid rgba(var(--c-glow), 0.08);
+    border-bottom: 1px solid rgba(var(--c-glow), 0.08);
 }
 
 .league-transfer-table-head span {
@@ -3228,7 +3284,7 @@ body::after {
     border-radius: 11px;
     border: 1px solid transparent;
     color: rgba(241, 248, 255, 0.92);
-    background: rgba(18, 39, 95, 0.52);
+    background: rgba(var(--c-panel-blue), 0.52);
 }
 
 .league-transfer-row:nth-child(even) {
@@ -3236,10 +3292,10 @@ body::after {
 }
 
 .league-transfer-row:hover {
-    border-color: rgba(112, 208, 255, 0.2);
+    border-color: rgba(var(--c-glow), 0.2);
     box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.03),
-        0 0 22px rgba(36, 205, 255, 0.06);
+        inset 0 0 0 1px rgba(var(--c-white), 0.03),
+        0 0 22px rgba(var(--c-vivid), 0.06);
 }
 
 .league-transfer-row.incoming {
@@ -3265,7 +3321,7 @@ body::after {
 }
 
 .league-transfer-player-name {
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 11.8px;
     font-weight: 800;
     letter-spacing: 0.1px;
@@ -3284,8 +3340,8 @@ body::after {
     font-weight: 900;
     letter-spacing: 1.1px;
     text-transform: uppercase;
-    background: rgba(112, 208, 255, 0.08);
-    border: 1px solid rgba(112, 208, 255, 0.1);
+    background: rgba(var(--c-glow), 0.08);
+    border: 1px solid rgba(var(--c-glow), 0.1);
 }
 
 .league-transfer-route {
@@ -3305,7 +3361,7 @@ body::after {
     padding: 3px 5px;
     border-radius: 8px;
     background: rgba(3, 15, 53, 0.22);
-    border: 1px solid rgba(112, 208, 255, 0.045);
+    border: 1px solid rgba(var(--c-glow), 0.045);
 }
 
 .league-transfer-club-cell--logo-only {
@@ -3331,7 +3387,7 @@ body::after {
     height: 23px;
     flex: 0 0 auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 6px rgba(112, 208, 255, 0.18));
+    filter: drop-shadow(0 0 6px rgba(var(--c-glow), 0.18));
 }
 
 .league-transfer-club-name {
@@ -3359,7 +3415,7 @@ body::after {
 .league-transfer-value {
     justify-self: center;
     max-width: 100%;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 9.4px;
     font-weight: 800;
     white-space: nowrap;
@@ -3386,11 +3442,11 @@ body::after {
     width: 100%;
     overflow: hidden;
     border-radius: 14px;
-    border: 1px solid rgba(122, 210, 255, 0.11);
+    border: 1px solid rgba(var(--c-glow-c), 0.11);
     background: rgba(5, 52, 61, 0.78);
     box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.035),
-        inset 0 0 34px rgba(0,0,0,0.18);
+        inset 0 0 0 1px rgba(var(--c-white), 0.035),
+        inset 0 0 34px rgba(var(--c-black), 0.18);
 }
 
 .league-toty-lines,
@@ -3481,19 +3537,19 @@ body::after {
     font-weight: 800;
     background: linear-gradient(180deg, rgba(39, 125, 255, 0.58), rgba(7, 35, 103, 0.86));
     border: 1px solid rgba(143, 220, 255, 0.22);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.16);
 }
 
 .league-toty-name {
     max-width: 100%;
     overflow: hidden;
-    color: #f5fbff;
+    color: rgb(var(--c-ice-2));
     font-size: 9.6px;
     font-weight: 700;
     line-height: 1.1;
     white-space: nowrap;
     text-overflow: ellipsis;
-    text-shadow: 0 1px 5px rgba(0,0,0,0.55);
+    text-shadow: 0 1px 5px rgba(var(--c-black), 0.55);
 }
 
 .league-toty-meta {
@@ -3541,27 +3597,27 @@ body::after {
     max-width: 178px;
     padding: 8px 30px 8px 12px;
     border-radius: 12px;
-    border: 1px solid rgba(118, 211, 255, 0.18);
+    border: 1px solid rgba(var(--c-glow-b), 0.18);
     background:
         linear-gradient(180deg, rgba(18, 48, 116, 0.86), rgba(8, 25, 75, 0.9)),
         radial-gradient(circle at top left, rgba(107, 219, 255, 0.18), transparent 58%);
-    color: #f7fbff;
+    color: rgb(var(--c-ice-3));
     font: 800 11px/1.1 "Manrope", sans-serif;
     outline: none;
     cursor: pointer;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        0 8px 22px rgba(0,0,0,0.18);
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
+        0 8px 22px rgba(var(--c-black), 0.18);
 }
 
 .league-calendar-select option {
-    color: #f7fbff;
+    color: rgb(var(--c-ice-3));
     background-color: #071b52;
 }
 
 .league-calendar-select option:checked,
 .league-calendar-select option:hover {
-    color: #ffffff;
+    color: rgb(var(--c-white));
     background-color: #123e91;
 }
 
@@ -3579,11 +3635,11 @@ body::after {
 
 .league-calendar-select:hover,
 .league-calendar-select:focus {
-    border-color: rgba(118, 211, 255, 0.42);
+    border-color: rgba(var(--c-glow-b), 0.42);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.1),
+        inset 0 1px 0 rgba(var(--c-white), 0.1),
         0 0 0 3px rgba(83, 170, 255, 0.1),
-        0 12px 28px rgba(0,0,0,0.22);
+        0 12px 28px rgba(var(--c-black), 0.22);
 }
 
 .league-calendar-scroll {
@@ -3594,7 +3650,7 @@ body::after {
     flex: 1;
     padding: 14px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(118, 211, 255, 0.42) rgba(255,255,255,0.05);
+    scrollbar-color: rgba(var(--c-glow-b), 0.42) rgba(var(--c-white), 0.05);
 }
 
 .league-calendar-scroll::-webkit-scrollbar {
@@ -3602,19 +3658,19 @@ body::after {
 }
 
 .league-calendar-scroll::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.05);
+    background: rgba(var(--c-white), 0.05);
     border-radius: 999px;
 }
 
 .league-calendar-scroll::-webkit-scrollbar-thumb {
-    background: rgba(118, 211, 255, 0.42);
+    background: rgba(var(--c-glow-b), 0.42);
     border-radius: 999px;
 }
 
 .league-fixture-month + .league-fixture-month {
     margin-top: 14px;
     padding-top: 12px;
-    border-top: 1px solid rgba(118, 211, 255, 0.08);
+    border-top: 1px solid rgba(var(--c-glow-b), 0.08);
 }
 
 .league-fixture-month-title {
@@ -3643,8 +3699,8 @@ body::after {
 .league-fixture-row {
     padding: 8px 9px;
     border-radius: 12px;
-    border: 1px solid rgba(118, 211, 255, 0.09);
-    background: rgba(18, 39, 95, 0.52);
+    border: 1px solid rgba(var(--c-glow-b), 0.09);
+    background: rgba(var(--c-panel-blue), 0.52);
 }
 
 .league-fixture-meta {
@@ -3666,7 +3722,7 @@ body::after {
 .league-fixture-meta span:last-child {
     grid-column: 2;
     justify-self: center;
-    color: #ffffff;
+    color: rgb(var(--c-white));
 }
 
 .league-fixture-match {
@@ -3702,13 +3758,13 @@ body::after {
     height: 18px;
     flex: 0 0 auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 8px rgba(112, 208, 255, 0.16));
+    filter: drop-shadow(0 0 8px rgba(var(--c-glow), 0.16));
 }
 
 .league-match-club {
     max-width: 100%;
     overflow: hidden;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 10.5px;
     font-weight: 700;
     white-space: nowrap;
@@ -3716,7 +3772,7 @@ body::after {
 }
 
 .league-match-team.winner .league-match-club {
-    color: #ffffff;
+    color: rgb(var(--c-white));
     text-shadow: 0 0 12px rgba(116, 218, 255, 0.18);
 }
 
@@ -3747,16 +3803,16 @@ body::after {
     justify-self: center;
     padding: 6px 5px;
     border-radius: 12px;
-    border: 1px solid rgba(118, 211, 255, 0.16);
+    border: 1px solid rgba(var(--c-glow-b), 0.16);
     background:
         radial-gradient(circle at top, rgba(116, 218, 255, 0.18), transparent 58%),
-        rgba(255,255,255,0.05);
-    color: #ffffff;
+        rgba(var(--c-white), 0.05);
+    color: rgb(var(--c-white));
     font-family: "Michroma", sans-serif;
     font-size: 10px;
     text-align: center;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
         0 0 16px rgba(72, 178, 255, 0.08);
 }
 
@@ -3785,7 +3841,7 @@ button.league-fixture-score {
     letter-spacing: 0.6px;
     text-transform: uppercase;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.07),
+        inset 0 1px 0 rgba(var(--c-white), 0.07),
         0 0 18px rgba(255, 169, 72, 0.08);
 }
 
@@ -3806,7 +3862,7 @@ button.league-fixture-score {
     transform: translateY(-1px);
     border-color: rgba(100, 255, 238, 0.7);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.12),
+        inset 0 1px 0 rgba(var(--c-white), 0.12),
         0 0 20px rgba(62, 225, 255, 0.18);
 }
 
@@ -3839,8 +3895,8 @@ button.league-fixture-score {
         linear-gradient(180deg, rgba(15, 34, 86, 0.98), rgba(4, 13, 45, 0.98)),
         radial-gradient(circle at top, rgba(82, 185, 255, 0.18), transparent 42%);
     box-shadow:
-        0 28px 80px rgba(0, 0, 0, 0.48),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+        0 28px 80px rgba(var(--c-black), 0.48),
+        inset 0 1px 0 rgba(var(--c-white), 0.08);
 }
 
 .match-report-close {
@@ -3856,7 +3912,7 @@ button.league-fixture-score {
     border: 1px solid rgba(130, 218, 255, 0.26);
     border-radius: 50%;
     background: rgba(20, 47, 116, 0.86);
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 26px;
     line-height: 0;
     font-weight: 900;
@@ -3867,7 +3923,7 @@ button.league-fixture-score {
 .match-report-hero {
     padding: 34px 70px 28px;
     text-align: center;
-    border-bottom: 1px solid rgba(118, 211, 255, 0.12);
+    border-bottom: 1px solid rgba(var(--c-glow-b), 0.12);
     background:
         radial-gradient(circle at 50% 0%, rgba(255, 142, 160, 0.16), transparent 48%),
         linear-gradient(180deg, rgba(98, 67, 93, 0.56), rgba(6, 12, 39, 0.18));
@@ -3908,7 +3964,7 @@ button.league-fixture-score {
 
 .match-report-team strong {
     display: block;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: clamp(20px, 2.4vw, 32px);
     font-weight: 900;
     letter-spacing: 0.3px;
@@ -3933,12 +3989,12 @@ button.league-fixture-score {
     min-width: 112px;
     padding: 10px 18px;
     border-radius: 18px;
-    border: 1px solid rgba(118, 211, 255, 0.25);
-    color: #ffffff;
+    border: 1px solid rgba(var(--c-glow-b), 0.25);
+    color: rgb(var(--c-white));
     font-family: "Michroma", sans-serif;
     font-size: clamp(24px, 3vw, 38px);
     background: rgba(6, 18, 55, 0.66);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.08);
 }
 
 .match-report-meta {
@@ -3955,7 +4011,7 @@ button.league-fixture-score {
 .match-report-meta span {
     padding: 7px 11px;
     border-radius: 999px;
-    border: 1px solid rgba(118, 211, 255, 0.13);
+    border: 1px solid rgba(var(--c-glow-b), 0.13);
     background: rgba(9, 25, 70, 0.54);
 }
 
@@ -3982,13 +4038,13 @@ button.league-fixture-score {
     min-width: 0;
     align-self: start;
     padding: 11px;
-    border: 1px solid rgba(118, 211, 255, 0.16);
+    border: 1px solid rgba(var(--c-glow-b), 0.16);
     border-radius: 14px;
     background:
         radial-gradient(circle at 50% 0%, rgba(68, 165, 255, 0.12), transparent 56%),
         linear-gradient(180deg, rgba(15, 34, 80, 0.76), rgba(8, 18, 52, 0.88));
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
         inset 0 0 24px rgba(36, 113, 207, 0.08);
 }
 
@@ -4005,7 +4061,7 @@ button.league-fixture-score {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #f7fbff;
+    color: rgb(var(--c-ice-3));
     font-family: "Rajdhani", sans-serif;
     font-size: 15px;
     font-weight: 800;
@@ -4025,7 +4081,7 @@ button.league-fixture-score {
 .match-report-tactic-head strong {
     flex: 0 0 auto;
     padding: 5px 9px;
-    border: 1px solid rgba(118, 211, 255, 0.16);
+    border: 1px solid rgba(var(--c-glow-b), 0.16);
     border-radius: 999px;
     color: rgba(127, 217, 255, 0.9);
     font-size: 10px;
@@ -4048,18 +4104,18 @@ button.league-fixture-score {
     border: 1px solid rgba(98, 211, 224, 0.18);
     border-radius: 12px;
     background:
-        linear-gradient(rgba(168, 233, 255, 0.13), rgba(168, 233, 255, 0.13)) center 66px / 46% 1px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.13), rgba(168, 233, 255, 0.13)) left 27% top 0 / 1px 66px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.13), rgba(168, 233, 255, 0.13)) right 27% top 0 / 1px 66px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.12), rgba(168, 233, 255, 0.12)) center 34px / 22% 1px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.12), rgba(168, 233, 255, 0.12)) left 39% top 0 / 1px 34px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.12), rgba(168, 233, 255, 0.12)) right 39% top 0 / 1px 34px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.13), rgba(168, 233, 255, 0.13)) center calc(100% - 66px) / 46% 1px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.13), rgba(168, 233, 255, 0.13)) left 27% bottom 0 / 1px 66px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.13), rgba(168, 233, 255, 0.13)) right 27% bottom 0 / 1px 66px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.12), rgba(168, 233, 255, 0.12)) center calc(100% - 34px) / 22% 1px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.12), rgba(168, 233, 255, 0.12)) left 39% bottom 0 / 1px 34px no-repeat,
-        linear-gradient(rgba(168, 233, 255, 0.12), rgba(168, 233, 255, 0.12)) right 39% bottom 0 / 1px 34px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.13), rgba(var(--c-pitch), 0.13)) center 66px / 46% 1px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.13), rgba(var(--c-pitch), 0.13)) left 27% top 0 / 1px 66px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.13), rgba(var(--c-pitch), 0.13)) right 27% top 0 / 1px 66px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.12), rgba(var(--c-pitch), 0.12)) center 34px / 22% 1px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.12), rgba(var(--c-pitch), 0.12)) left 39% top 0 / 1px 34px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.12), rgba(var(--c-pitch), 0.12)) right 39% top 0 / 1px 34px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.13), rgba(var(--c-pitch), 0.13)) center calc(100% - 66px) / 46% 1px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.13), rgba(var(--c-pitch), 0.13)) left 27% bottom 0 / 1px 66px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.13), rgba(var(--c-pitch), 0.13)) right 27% bottom 0 / 1px 66px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.12), rgba(var(--c-pitch), 0.12)) center calc(100% - 34px) / 22% 1px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.12), rgba(var(--c-pitch), 0.12)) left 39% bottom 0 / 1px 34px no-repeat,
+        linear-gradient(rgba(var(--c-pitch), 0.12), rgba(var(--c-pitch), 0.12)) right 39% bottom 0 / 1px 34px no-repeat,
         radial-gradient(circle at 50% 50%, rgba(95, 169, 209, 0.1), transparent 27%),
         linear-gradient(180deg, rgba(8, 33, 64, 0.88), rgba(5, 24, 50, 0.94));
 }
@@ -4074,7 +4130,7 @@ button.league-fixture-score {
 .match-report-pitch::before {
     inset: 50% 0 auto;
     height: 1px;
-    background: rgba(168, 233, 255, 0.18);
+    background: rgba(var(--c-pitch), 0.18);
 }
 
 .match-report-pitch::after {
@@ -4082,7 +4138,7 @@ button.league-fixture-score {
     top: 50%;
     width: 70px;
     height: 70px;
-    border: 1px solid rgba(168, 233, 255, 0.15);
+    border: 1px solid rgba(var(--c-pitch), 0.15);
     border-radius: 999px;
     transform: translate(-50%, -50%);
 }
@@ -4121,7 +4177,7 @@ button.league-fixture-score {
     padding: 0;
     border: 0;
     border-radius: 0;
-    color: #f7fbff;
+    color: rgb(var(--c-ice-3));
     font-size: 11px;
     font-weight: 900;
     letter-spacing: 0.15px;
@@ -4136,7 +4192,7 @@ button.league-fixture-score {
     display: grid;
     place-items: center;
     border-radius: 9px 9px 5px 5px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 14px;
     font-weight: 950;
     line-height: 1;
@@ -4146,7 +4202,7 @@ button.league-fixture-score {
     border: 1px solid rgba(129, 220, 255, 0.34);
     box-shadow:
         0 0 13px rgba(60, 165, 255, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        inset 0 1px 0 rgba(var(--c-white), 0.22);
 }
 
 .match-report-player-badge {
@@ -4156,17 +4212,17 @@ button.league-fixture-score {
     max-width: 78px;
     margin-top: -7px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(var(--c-white), 0.12);
     border-radius: 999px;
     background: rgba(6, 16, 43, 0.86);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 8px rgba(var(--c-black), 0.2);
 }
 
 .match-report-player-badge b,
 .match-report-player-badge em {
     min-width: 0;
     padding: 4px 7px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 10px;
     line-height: 1;
     font-style: normal;
@@ -4190,7 +4246,7 @@ button.league-fixture-score {
     line-height: 1.08;
     font-weight: 900;
     text-overflow: ellipsis;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.42);
+    text-shadow: 0 1px 4px rgba(var(--c-black), 0.42);
     white-space: nowrap;
 }
 
@@ -4201,7 +4257,7 @@ button.league-fixture-score {
     z-index: 2;
     font-size: 12px;
     line-height: 1;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));
+    filter: drop-shadow(0 0 5px rgba(var(--c-white), 0.35));
 }
 
 .match-report-player-node.is-placeholder {
@@ -4217,7 +4273,7 @@ button.league-fixture-score {
         linear-gradient(180deg, rgba(22, 55, 108, 0.94), rgba(10, 28, 70, 0.94));
     box-shadow:
         0 0 12px rgba(64, 161, 255, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        inset 0 1px 0 rgba(var(--c-white), 0.12);
 }
 
 .match-report-player-pos-only {
@@ -4236,17 +4292,17 @@ button.league-fixture-score {
 }
 
 .match-report-card {
-    border: 1px solid rgba(118, 211, 255, 0.14);
+    border: 1px solid rgba(var(--c-glow-b), 0.14);
     border-radius: 22px;
     background:
         linear-gradient(180deg, rgba(21, 47, 107, 0.72), rgba(9, 22, 64, 0.76));
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.05);
 }
 
 .match-report-card h3 {
     margin: 0;
     padding: 16px 18px 12px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 13px;
     font-weight: 900;
     letter-spacing: 1.3px;
@@ -4295,12 +4351,12 @@ button.league-fixture-score {
     height: 18px;
     flex: 0 0 auto;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
+    background: rgba(var(--c-white), 0.1);
+    color: rgb(var(--c-white));
     font-style: normal;
     font-size: 12px;
     font-weight: 900;
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.22));
+    filter: drop-shadow(0 0 6px rgba(var(--c-white), 0.22));
 }
 
 .match-report-goal-red i {
@@ -4329,7 +4385,7 @@ button.league-fixture-score {
 }
 
 .match-report-goal-main b {
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 14px;
     font-weight: 900;
     letter-spacing: 0.1px;
@@ -4358,7 +4414,7 @@ button.league-fixture-score {
 }
 
 .match-report-stat + .match-report-stat {
-    border-top: 1px solid rgba(118, 211, 255, 0.06);
+    border-top: 1px solid rgba(var(--c-glow-b), 0.06);
 }
 
 .match-report-stat-label {
@@ -4375,7 +4431,7 @@ button.league-fixture-score {
     grid-template-columns: 42px minmax(124px, 1fr) 42px;
     align-items: center;
     gap: 9px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 13px;
     font-weight: 850;
 }
@@ -4413,7 +4469,7 @@ button.league-fixture-score {
 .match-report-bars .home {
     margin-left: auto;
     background: linear-gradient(90deg, rgba(87, 150, 255, 0.28), rgba(245, 250, 255, 0.92));
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 10px rgba(var(--c-white), 0.08);
 }
 
 .match-report-bars .away {
@@ -4446,9 +4502,9 @@ button.league-fixture-score {
     gap: 5px;
     padding: 10px 9px 10px 11px;
     border-radius: 14px;
-    background: rgba(18, 39, 95, 0.52);
-    border: 1px solid rgba(122, 210, 255, 0.08);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    background: rgba(var(--c-panel-blue), 0.52);
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.04);
     isolation: isolate;
 }
 
@@ -4472,7 +4528,7 @@ button.league-fixture-score {
         linear-gradient(90deg, rgba(95, 190, 255, 0.14), rgba(76, 143, 255, 0.08)),
         rgba(82, 166, 255, 0.06);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
         0 0 18px rgba(74, 174, 255, 0.08);
     opacity: 0;
     transition: opacity 0.18s ease, box-shadow 0.18s ease;
@@ -4564,8 +4620,8 @@ button.league-fixture-score {
 
 .standings-record-cell.has-tooltip:hover,
 .standings-record-cell.has-tooltip:focus-visible {
-    color: #ffffff;
-    text-shadow: 0 0 14px rgba(122, 210, 255, 0.2);
+    color: rgb(var(--c-white));
+    text-shadow: 0 0 14px rgba(var(--c-glow-c), 0.2);
 }
 
 .standings-record-tooltip {
@@ -4582,8 +4638,8 @@ button.league-fixture-score {
         radial-gradient(circle at 12% 0%, rgba(83, 185, 255, 0.11), transparent 28%),
         linear-gradient(180deg, rgba(38, 43, 62, 0.98), rgba(29, 34, 51, 0.98));
     box-shadow:
-        0 22px 54px rgba(0, 0, 0, 0.42),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+        0 22px 54px rgba(var(--c-black), 0.42),
+        inset 0 1px 0 rgba(var(--c-white), 0.08);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-4px);
@@ -4614,7 +4670,7 @@ button.league-fixture-score {
     height: 42px;
     object-fit: contain;
     flex: 0 0 auto;
-    filter: drop-shadow(0 7px 14px rgba(0, 0, 0, 0.26));
+    filter: drop-shadow(0 7px 14px rgba(var(--c-black), 0.26));
 }
 
 .standings-record-team span {
@@ -4637,7 +4693,7 @@ button.league-fixture-score {
 }
 
 .standings-record-team small {
-    color: rgba(255, 255, 255, 0.86);
+    color: rgba(var(--c-white), 0.86);
     font-size: 16px;
     font-weight: 500;
     line-height: 1.05;
@@ -4665,8 +4721,8 @@ button.league-fixture-score {
     padding: 5px 9px;
     border-radius: 7px;
     color: #eaf1ff;
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(var(--c-white), 0.035);
+    border: 1px solid rgba(var(--c-white), 0.07);
     font-size: 13px;
     font-weight: 800;
     line-height: 1;
@@ -4678,7 +4734,7 @@ button.league-fixture-score {
     height: 14px;
     border-radius: 999px;
     flex: 0 0 auto;
-    box-shadow: 0 0 10px rgba(255,255,255,0.08);
+    box-shadow: 0 0 10px rgba(var(--c-white), 0.08);
 }
 
 .standings-record-score.win i {
@@ -4701,7 +4757,7 @@ button.league-fixture-score {
     gap: 8px;
     min-width: 0;
     padding: 5px 10px;
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(var(--c-white), 0.07);
     border-radius: 6px;
     background: rgba(9, 13, 28, 0.18);
     color: #f7f9ff;
@@ -4803,8 +4859,8 @@ button.league-fixture-score {
     padding: 7px 9px 6px;
     border-radius: 999px;
     background: linear-gradient(180deg, rgba(101, 214, 255, 0.14), rgba(101, 214, 255, 0.05));
-    border: 1px solid rgba(122, 210, 255, 0.16);
-    color: #f5fbff;
+    border: 1px solid rgba(var(--c-glow-c), 0.16);
+    color: rgb(var(--c-ice-2));
     font-size: 10.5px;
     font-weight: 400;
     letter-spacing: 0.55px;
@@ -4814,8 +4870,8 @@ button.league-fixture-score {
     -webkit-font-smoothing: antialiased;
     text-rendering: geometricPrecision;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        inset 0 0 18px rgba(99, 219, 255, 0.05),
+        inset 0 1px 0 rgba(var(--c-white), 0.08),
+        inset 0 0 18px rgba(var(--c-beam), 0.05),
         0 0 14px rgba(87, 196, 255, 0.08);
 }
 
@@ -4838,14 +4894,14 @@ button.league-fixture-score {
 }
 
 .coach-link:hover {
-    color: #ffffff;
+    color: rgb(var(--c-white));
 }
 
 .score-player-link:hover,
 .bonus-player-link:hover {
     text-shadow:
         0 0 16px rgba(108, 220, 255, 0.18),
-        0 0 28px rgba(255,255,255,0.08);
+        0 0 28px rgba(var(--c-white), 0.08);
 }
 
 .standings-player-link:hover {
@@ -4853,9 +4909,9 @@ button.league-fixture-score {
 }
 
 .standings-player.empty {
-    color: rgba(228, 238, 255, 0.66);
-    background: rgba(255,255,255,0.03);
-    border-color: rgba(255,255,255,0.05);
+    color: rgba(var(--c-ice-6), 0.66);
+    background: rgba(var(--c-white), 0.03);
+    border-color: rgba(var(--c-white), 0.05);
     box-shadow: none;
 }
 
@@ -4863,8 +4919,8 @@ button.league-fixture-score {
     min-width: 48px;
     padding: 6px 5px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(var(--c-white), 0.08);
+    background: rgba(var(--c-white), 0.05);
     text-align: center;
     font-size: 11.5px;
     font-weight: 700;
@@ -4873,8 +4929,8 @@ button.league-fixture-score {
 
 .standings-points.positive {
     color: var(--green);
-    background: rgba(34,197,94,0.12);
-    border-color: rgba(137,240,180,0.24);
+    background: rgba(var(--c-green-flag), 0.12);
+    border-color: rgba(var(--c-green), 0.24);
 }
 
 .standings-points.negative {
@@ -4909,13 +4965,13 @@ button.league-fixture-score {
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 8.5px;
     font-weight: 900;
     line-height: 1;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.16),
-        0 0 10px rgba(0,0,0,0.12);
+        inset 0 1px 0 rgba(var(--c-white), 0.16),
+        0 0 10px rgba(var(--c-black), 0.12);
 }
 
 .standings-form-dot[tabindex] {
@@ -4933,9 +4989,9 @@ button.league-fixture-score {
     border-radius: 13px;
     color: #071126;
     background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(232, 238, 246, 0.96));
+        linear-gradient(180deg, rgba(var(--c-white), 0.98), rgba(232, 238, 246, 0.96));
     box-shadow:
-        0 18px 42px rgba(0, 0, 0, 0.34),
+        0 18px 42px rgba(var(--c-black), 0.34),
         0 0 24px rgba(86, 187, 255, 0.18);
     opacity: 0;
     visibility: hidden;
@@ -4987,11 +5043,11 @@ button.league-fixture-score {
     min-width: 46px;
     padding: 5px 8px;
     border-radius: 999px;
-    color: #f7fbff;
+    color: rgb(var(--c-ice-3));
     background:
         linear-gradient(180deg, rgba(11, 37, 84, 0.96), rgba(5, 19, 48, 0.98));
     border: 1px solid rgba(35, 93, 168, 0.34);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.14);
     font-size: 12px;
     font-weight: 900;
     line-height: 1;
@@ -5026,7 +5082,7 @@ button.league-fixture-score {
 }
 
 .standings-form-dot.win {
-    background: rgba(34, 197, 94, 0.9);
+    background: rgba(var(--c-green-flag), 0.9);
 }
 
 .standings-form-dot.draw {
@@ -5039,8 +5095,8 @@ button.league-fixture-score {
 }
 
 .standings-form-dot.empty {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(var(--c-white), 0.08);
+    border: 1px solid rgba(var(--c-white), 0.07);
     box-shadow: none;
 }
 
@@ -5054,7 +5110,7 @@ button.league-fixture-score {
     font-size: 15px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: #eaf6ff;
+    color: rgb(var(--c-ice-4));
 }
 
 .bonuses-list {
@@ -5069,9 +5125,9 @@ button.league-fixture-score {
     align-items: center;
     padding: 6px 8px;
     border-radius: 11px;
-    background: rgba(18, 39, 95, 0.52);
-    border: 1px solid rgba(122, 210, 255, 0.08);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    background: rgba(var(--c-panel-blue), 0.52);
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.04);
 }
 
 .bonus-row.header {
@@ -5093,8 +5149,8 @@ button.league-fixture-score {
     line-height: 1.18;
     text-rendering: geometricPrecision;
     text-shadow:
-        0 0 6px rgba(99, 219, 255, 0.08),
-        0 0 12px rgba(255,255,255,0.03);
+        0 0 6px rgba(var(--c-beam), 0.08),
+        0 0 12px rgba(var(--c-white), 0.03);
 }
 
 .bonus-player .coach-link {
@@ -5114,8 +5170,8 @@ button.league-fixture-score {
     min-width: 42px;
     padding: 5px 7px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(var(--c-white), 0.08);
+    background: rgba(var(--c-white), 0.05);
     font-size: 12px;
     font-weight: 700;
     text-align: center;
@@ -5123,8 +5179,8 @@ button.league-fixture-score {
 
 .bonus-pontos.positive {
     color: var(--green);
-    background: rgba(34,197,94,0.12);
-    border-color: rgba(137,240,180,0.24);
+    background: rgba(var(--c-green-flag), 0.12);
+    border-color: rgba(var(--c-green), 0.24);
 }
 
 .bonus-pontos.negative {
@@ -5137,7 +5193,7 @@ button {
     padding: 14px 24px;
     border: 1px solid rgba(132, 208, 255, 0.28);
     border-radius: 14px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+    background: linear-gradient(180deg, rgba(var(--c-white), 0.08), rgba(var(--c-white), 0.05));
     color: white;
     cursor: pointer;
     font-family: inherit;
@@ -5172,9 +5228,9 @@ button:disabled {
     height: 40px;
     padding: 8px;
     border-radius: 999px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(228, 238, 255, 0.72);
+    border: 1px solid rgba(var(--c-glow), 0.16);
+    background: rgba(var(--c-white), 0.05);
+    color: rgba(var(--c-ice-6), 0.72);
     cursor: pointer;
     z-index: 3;
     transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
@@ -5237,13 +5293,13 @@ button:disabled {
 }
 
 .action-btn.gold {
-    border-color: rgba(255,216,107,0.38);
-    box-shadow: 0 0 18px rgba(255,216,107,0.18);
+    border-color: rgba(var(--c-gold), 0.38);
+    box-shadow: 0 0 18px rgba(var(--c-gold), 0.18);
 }
 
 .action-btn.gold:hover {
-    background: rgba(255,216,107,0.12);
-    border-color: rgba(255,216,107,0.62);
+    background: rgba(var(--c-gold), 0.12);
+    border-color: rgba(var(--c-gold), 0.62);
 }
 
 .current {
@@ -5309,7 +5365,7 @@ button:disabled {
     padding: 6px 10px;
     border-radius: 8px;
     border: 1px solid rgba(112, 206, 255, 0.08);
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(var(--c-white), 0.03);
     color: var(--muted);
     font-size: 14px;
     white-space: nowrap;
@@ -5344,7 +5400,7 @@ button:disabled {
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
     border-top: 16px solid var(--gold);
-    filter: drop-shadow(0 0 10px rgba(255, 216, 107, 0.76));
+    filter: drop-shadow(0 0 10px rgba(var(--c-gold), 0.76));
     z-index: 5;
 }
 
@@ -5358,7 +5414,7 @@ button:disabled {
     background:
         linear-gradient(180deg, rgba(8, 24, 86, 0.56), rgba(5, 13, 44, 0.84)),
         radial-gradient(circle at center, rgba(91, 221, 255, 0.08), transparent 70%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.06);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
 }
@@ -5374,7 +5430,7 @@ button:disabled {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-right: 1px solid rgba(255,255,255,0.05);
+    border-right: 1px solid rgba(var(--c-white), 0.05);
 }
 
 .roulette-item img {
@@ -5393,8 +5449,8 @@ button:disabled {
 }
 
 .roulette-item.winner {
-    background: linear-gradient(180deg, rgba(255,216,107,0.13), rgba(255,216,107,0.06));
-    box-shadow: inset 1px 0 0 rgba(255,216,107,0.32), inset -1px 0 0 rgba(255,216,107,0.32);
+    background: linear-gradient(180deg, rgba(var(--c-gold), 0.13), rgba(var(--c-gold), 0.06));
+    box-shadow: inset 1px 0 0 rgba(var(--c-gold), 0.32), inset -1px 0 0 rgba(var(--c-gold), 0.32);
 }
 
 .team-info {
@@ -5415,7 +5471,7 @@ button:disabled {
 
 .team-name-big {
     margin-top: 12px;
-    color: #ffd84f;
+    color: rgb(var(--c-gold-bright));
     font-family: "Cinzel", serif;
     font-size: 31px;
     font-weight: 700;
@@ -5425,12 +5481,12 @@ button:disabled {
     text-shadow:
         0 0 4px rgba(255, 225, 96, 0.55),
         0 0 10px rgba(255, 210, 68, 0.28),
-        0 2px 8px rgba(0, 0, 0, 0.18);
+        0 2px 8px rgba(var(--c-black), 0.18);
 }
 
 .team-rank {
     margin-top: 6px;
-    color: rgba(228, 238, 255, 0.76);
+    color: rgba(var(--c-ice-6), 0.76);
     font-size: 17px;
 }
 
@@ -5449,13 +5505,13 @@ button:disabled {
     text-align: center;
     border-radius: 28px;
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025)),
-        radial-gradient(circle at top, rgba(93, 212, 255, 0.08), transparent 62%);
-    border: 1px solid rgba(122, 210, 255, 0.12);
+        linear-gradient(180deg, rgba(var(--c-white), 0.05), rgba(var(--c-white), 0.025)),
+        radial-gradient(circle at top, rgba(var(--c-glow-e), 0.08), transparent 62%);
+    border: 1px solid rgba(var(--c-glow-c), 0.12);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05),
-        0 18px 38px rgba(0, 0, 0, 0.2),
-        0 0 28px rgba(84, 182, 255, 0.08);
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
+        0 18px 38px rgba(var(--c-black), 0.2),
+        0 0 28px rgba(var(--c-sky), 0.08);
     animation: revealCardIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -5468,10 +5524,10 @@ button:disabled {
     justify-content: center;
     border-radius: 999px;
     background:
-        radial-gradient(circle at center, rgba(84, 182, 255, 0.22), rgba(84, 182, 255, 0.04) 62%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+        radial-gradient(circle at center, rgba(var(--c-sky), 0.22), rgba(var(--c-sky), 0.04) 62%),
+        linear-gradient(180deg, rgba(var(--c-white), 0.03), rgba(var(--c-white), 0.01));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05),
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
         0 0 28px rgba(72, 167, 255, 0.12);
 }
 
@@ -5486,7 +5542,7 @@ button:disabled {
 
 .final-player-label {
     margin-top: 18px;
-    color: rgba(228, 238, 255, 0.52);
+    color: rgba(var(--c-ice-6), 0.52);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 2.1px;
@@ -5495,7 +5551,7 @@ button:disabled {
 
 .final-team-name {
     margin-top: 12px;
-    color: #ffd84f;
+    color: rgb(var(--c-gold-bright));
     font-family: "Cinzel", serif;
     font-size: 31px;
     font-weight: 700;
@@ -5505,19 +5561,19 @@ button:disabled {
     text-shadow:
         0 0 4px rgba(255, 225, 96, 0.55),
         0 0 10px rgba(255, 210, 68, 0.28),
-        0 2px 8px rgba(0, 0, 0, 0.18);
+        0 2px 8px rgba(var(--c-black), 0.18);
 }
 
 .final-player-name {
     margin-top: 8px;
-    color: #f7fbff;
+    color: rgb(var(--c-ice-3));
     font-family: "Cinzel", serif;
     font-size: 34px;
     font-weight: 800;
     line-height: 1.04;
     text-shadow:
-        0 0 8px rgba(109, 212, 255, 0.14),
-        0 0 18px rgba(109, 212, 255, 0.06);
+        0 0 8px rgba(var(--c-glow-d), 0.14),
+        0 0 18px rgba(var(--c-glow-d), 0.06);
 }
 
 .table {
@@ -5538,12 +5594,12 @@ button:disabled {
     padding: 14px 20px;
     border-radius: 20px;
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018)),
+        linear-gradient(180deg, rgba(var(--c-white), 0.045), rgba(var(--c-white), 0.018)),
         radial-gradient(circle at left center, rgba(91, 195, 255, 0.05), transparent 42%);
-    border: 1px solid rgba(122, 210, 255, 0.1);
+    border: 1px solid rgba(var(--c-glow-c), 0.1);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.045),
-        0 12px 28px rgba(0, 0, 0, 0.12);
+        inset 0 1px 0 rgba(var(--c-white), 0.045),
+        0 12px 28px rgba(var(--c-black), 0.12);
 }
 
 .row::after {
@@ -5565,8 +5621,8 @@ button:disabled {
     font-weight: 700;
     letter-spacing: 0.4px;
     text-align: center;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.012));
-    border: 1px solid rgba(122, 210, 255, 0.08);
+    background: linear-gradient(180deg, rgba(var(--c-white), 0.03), rgba(var(--c-white), 0.012));
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
 }
 
 .table-team {
@@ -5596,8 +5652,8 @@ button:disabled {
     line-height: 1.1;
     text-transform: uppercase;
     text-shadow:
-        0 0 12px rgba(109, 212, 255, 0.1),
-        0 0 24px rgba(109, 212, 255, 0.04);
+        0 0 12px rgba(var(--c-glow-d), 0.1),
+        0 0 24px rgba(var(--c-glow-d), 0.04);
 }
 
 .table-connector {
@@ -5617,7 +5673,7 @@ button:disabled {
     top: 50%;
     height: 1px;
     transform: translateY(-50%);
-    background: linear-gradient(90deg, rgba(126, 216, 255, 0.08), rgba(126, 216, 255, 0.42) 50%, rgba(126, 216, 255, 0.08));
+    background: linear-gradient(90deg, rgba(var(--c-wash), 0.08), rgba(var(--c-wash), 0.42) 50%, rgba(var(--c-wash), 0.08));
 }
 
 .table-connector::after {
@@ -5630,11 +5686,11 @@ button:disabled {
     border-radius: 999px;
     transform: translate(-50%, -50%);
     background:
-        radial-gradient(circle at center, rgba(255,255,255,0.98) 0 24%, rgba(154, 228, 255, 1) 25% 56%, rgba(126, 216, 255, 0.34) 57% 100%);
+        radial-gradient(circle at center, rgba(var(--c-white), 0.98) 0 24%, rgba(154, 228, 255, 1) 25% 56%, rgba(var(--c-wash), 0.34) 57% 100%);
     box-shadow:
-        0 0 14px rgba(109, 212, 255, 0.32),
-        0 0 30px rgba(109, 212, 255, 0.14),
-        0 0 48px rgba(109, 212, 255, 0.08);
+        0 0 14px rgba(var(--c-glow-d), 0.32),
+        0 0 30px rgba(var(--c-glow-d), 0.14),
+        0 0 48px rgba(var(--c-glow-d), 0.08);
 }
 
 .table-logo {
@@ -5642,7 +5698,7 @@ button:disabled {
     height: 32px;
     object-fit: contain;
     flex-shrink: 0;
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.08));
+    filter: drop-shadow(0 0 10px rgba(var(--c-white), 0.08));
 }
 
 .table-team-name {
@@ -5661,8 +5717,8 @@ button:disabled {
 .results-player-link:hover {
     color: #d9f6ff;
     text-shadow:
-        0 0 16px rgba(109, 212, 255, 0.18),
-        0 0 28px rgba(255,255,255,0.08);
+        0 0 16px rgba(var(--c-glow-d), 0.18),
+        0 0 28px rgba(var(--c-white), 0.08);
 }
 
 .score-table {
@@ -5690,9 +5746,9 @@ button:disabled {
     align-items: center;
     padding: 16px 18px;
     border-radius: 18px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-    border: 1px solid rgba(122, 210, 255, 0.08);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    background: linear-gradient(180deg, rgba(var(--c-white), 0.04), rgba(var(--c-white), 0.02));
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.04);
     transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
@@ -5707,8 +5763,8 @@ button:disabled {
 .score-row:not(.header):hover,
 .row:hover {
     transform: translateY(-1px);
-    border-color: rgba(122, 210, 255, 0.16);
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+    border-color: rgba(var(--c-glow-c), 0.16);
+    background: linear-gradient(180deg, rgba(var(--c-white), 0.06), rgba(var(--c-white), 0.025));
 }
 
 .score-rank {
@@ -5718,8 +5774,8 @@ button:disabled {
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.09);
+    background: rgba(var(--c-white), 0.06);
+    border: 1px solid rgba(var(--c-white), 0.09);
     color: #d8e8ff;
     font-weight: 700;
 }
@@ -5732,7 +5788,7 @@ button:disabled {
 
 .score-mobile-label {
     display: none;
-    color: rgba(228, 238, 255, 0.54);
+    color: rgba(var(--c-ice-6), 0.54);
     font-size: 11px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -5746,8 +5802,8 @@ button:disabled {
     letter-spacing: 0.8px;
     line-height: 1.08;
     text-shadow:
-        0 0 12px rgba(99, 219, 255, 0.14),
-        0 0 22px rgba(255,255,255,0.05);
+        0 0 12px rgba(var(--c-beam), 0.14),
+        0 0 22px rgba(var(--c-white), 0.05);
 }
 
 .score-team {
@@ -5785,7 +5841,7 @@ button:disabled {
 .home-logo:hover {
     transform: translateY(-4px) scale(1.02);
     filter:
-        drop-shadow(0 0 20px rgba(99, 219, 255, 0.28))
+        drop-shadow(0 0 20px rgba(var(--c-beam), 0.28))
         drop-shadow(0 0 56px rgba(54, 131, 255, 0.22));
 }
 
@@ -5807,15 +5863,15 @@ button:disabled {
     align-items: center;
     justify-content: center;
     border-radius: 24px;
-    border: 1px solid rgba(112, 208, 255, 0.14);
+    border: 1px solid rgba(var(--c-glow), 0.14);
     background:
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
-        radial-gradient(circle at top, rgba(93, 212, 255, 0.08), transparent 62%);
+        linear-gradient(180deg, rgba(var(--c-white), 0.05), rgba(var(--c-white), 0.02)),
+        radial-gradient(circle at top, rgba(var(--c-glow-e), 0.08), transparent 62%);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05),
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
         inset 0 0 0 1px rgba(130, 226, 255, 0.08),
-        0 16px 28px rgba(0, 0, 0, 0.18),
-        0 0 18px rgba(84, 182, 255, 0.06);
+        0 16px 28px rgba(var(--c-black), 0.18),
+        0 0 18px rgba(var(--c-sky), 0.06);
     backdrop-filter: blur(10px);
     transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
@@ -5834,11 +5890,11 @@ button:disabled {
 
 .social-btn:hover {
     transform: translateY(-3px) scale(1.03);
-    border-color: rgba(112, 208, 255, 0.28);
+    border-color: rgba(var(--c-glow), 0.28);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.07),
-        0 18px 32px rgba(0, 0, 0, 0.22),
-        0 0 22px rgba(84, 182, 255, 0.12);
+        inset 0 1px 0 rgba(var(--c-white), 0.07),
+        0 18px 32px rgba(var(--c-black), 0.22),
+        0 0 22px rgba(var(--c-sky), 0.12);
 }
 
 .social-btn img {
@@ -5847,46 +5903,46 @@ button:disabled {
     object-fit: contain;
     filter:
         drop-shadow(0 0 10px rgba(114, 215, 255, 0.18))
-        drop-shadow(0 0 20px rgba(84, 182, 255, 0.08));
+        drop-shadow(0 0 20px rgba(var(--c-sky), 0.08));
 }
 
 .social-discord:hover {
     border-color: rgba(126, 146, 255, 0.34);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.07),
-        0 18px 32px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(var(--c-white), 0.07),
+        0 18px 32px rgba(var(--c-black), 0.22),
         0 0 24px rgba(88, 101, 242, 0.22);
 }
 
 .social-instagram:hover {
     border-color: rgba(255, 98, 182, 0.34);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.07),
-        0 18px 32px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(var(--c-white), 0.07),
+        0 18px 32px rgba(var(--c-black), 0.22),
         0 0 24px rgba(225, 48, 108, 0.2);
 }
 
 .social-twitch:hover {
     border-color: rgba(177, 124, 255, 0.34);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.07),
-        0 18px 32px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(var(--c-white), 0.07),
+        0 18px 32px rgba(var(--c-black), 0.22),
         0 0 24px rgba(145, 70, 255, 0.22);
 }
 
 .social-x:hover {
     border-color: rgba(160, 210, 255, 0.26);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.07),
-        0 18px 32px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(var(--c-white), 0.07),
+        0 18px 32px rgba(var(--c-black), 0.22),
         0 0 22px rgba(164, 214, 255, 0.14);
 }
 
 .social-youtube:hover {
     border-color: rgba(255, 106, 106, 0.34);
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.07),
-        0 18px 32px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(var(--c-white), 0.07),
+        0 18px 32px rgba(var(--c-black), 0.22),
         0 0 24px rgba(255, 0, 0, 0.18);
 }
 
@@ -5895,8 +5951,8 @@ button:disabled {
     min-width: 108px;
     padding: 10px 14px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(var(--c-white), 0.08);
+    background: rgba(var(--c-white), 0.05);
     font-size: 18px;
     font-weight: 700;
     text-align: center;
@@ -5904,8 +5960,8 @@ button:disabled {
 
 .score-points.positive {
     color: var(--green);
-    background: rgba(34,197,94,0.12);
-    border-color: rgba(137,240,180,0.24);
+    background: rgba(var(--c-green-flag), 0.12);
+    border-color: rgba(var(--c-green), 0.24);
 }
 
 .score-points.negative {
@@ -5928,7 +5984,7 @@ button:disabled {
     background:
         linear-gradient(180deg, rgba(14, 34, 122, 0.28), rgba(5, 13, 58, 0.54)),
         radial-gradient(circle at top, rgba(115, 222, 255, 0.07), transparent 70%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.04);
 }
 
 .league-selector {
@@ -5948,7 +6004,7 @@ button:disabled {
     position: absolute;
     right: 16px;
     top: 25px;
-    color: rgba(112, 208, 255, 0.92);
+    color: rgba(var(--c-glow), 0.92);
     font-size: 18px;
     font-weight: 900;
     line-height: 1;
@@ -5961,8 +6017,8 @@ button:disabled {
     min-height: 50px;
     padding: 13px 44px 13px 18px;
     border-radius: 14px;
-    border: 1px solid rgba(112, 208, 255, 0.16);
-    color: #eaf6ff;
+    border: 1px solid rgba(var(--c-glow), 0.16);
+    color: rgb(var(--c-ice-4));
     background: linear-gradient(180deg, rgba(18, 50, 118, 0.82), rgba(8, 22, 72, 0.82));
     font-family: "Oxanium", sans-serif;
     font-size: 15px;
@@ -5971,9 +6027,9 @@ button:disabled {
     text-align: left;
     cursor: pointer;
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
-        inset 0 0 18px rgba(112, 208, 255, 0.035),
-        0 0 14px rgba(36, 205, 255, 0.035);
+        inset 0 1px 0 rgba(var(--c-white), 0.05),
+        inset 0 0 18px rgba(var(--c-glow), 0.035),
+        0 0 14px rgba(var(--c-vivid), 0.035);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -5981,8 +6037,8 @@ button:disabled {
 .league-main-select:focus {
     border-color: rgba(106, 196, 255, 0.4);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.055),
-        inset 0 0 22px rgba(112, 208, 255, 0.045),
+        inset 0 1px 0 rgba(var(--c-white), 0.055),
+        inset 0 0 22px rgba(var(--c-glow), 0.045),
         0 0 18px rgba(86, 184, 255, 0.12);
     outline: none;
 }
@@ -5996,12 +6052,12 @@ button:disabled {
     gap: 5px;
     padding: 7px;
     border-radius: 14px;
-    border: 1px solid rgba(112, 208, 255, 0.24);
+    border: 1px solid rgba(var(--c-glow), 0.24);
     background: linear-gradient(180deg, rgba(7, 23, 76, 0.98), rgba(3, 12, 45, 0.98));
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
-        0 18px 34px rgba(0, 0, 0, 0.34),
-        0 0 24px rgba(36, 205, 255, 0.08);
+        inset 0 1px 0 rgba(var(--c-white), 0.06),
+        0 18px 34px rgba(var(--c-black), 0.34),
+        0 0 24px rgba(var(--c-vivid), 0.08);
     opacity: 0;
     transform: translateY(-4px);
     pointer-events: none;
@@ -6031,10 +6087,10 @@ button:disabled {
 
 .league-main-option:hover,
 .league-main-option.active {
-    color: #ffffff;
-    border-color: rgba(112, 208, 255, 0.18);
+    color: rgb(var(--c-white));
+    border-color: rgba(var(--c-glow), 0.18);
     background:
-        radial-gradient(circle at 12% 50%, rgba(112, 208, 255, 0.18), transparent 48%),
+        radial-gradient(circle at 12% 50%, rgba(var(--c-glow), 0.18), transparent 48%),
         rgba(30, 73, 148, 0.52);
 }
 
@@ -6124,7 +6180,7 @@ button:disabled {
 
 .side-stats-title {
     margin: 0;
-    color: #eaf6ff;
+    color: rgb(var(--c-ice-4));
     font-size: 13px;
     font-weight: 800;
     letter-spacing: 1px;
@@ -6169,7 +6225,7 @@ button:disabled {
     place-items: center;
     border: 0;
     border-radius: 0;
-    color: rgba(255, 255, 255, 0.76);
+    color: rgba(var(--c-white), 0.76);
     background: transparent;
     font-size: 15px;
     font-weight: 900;
@@ -6179,7 +6235,7 @@ button:disabled {
 }
 
 .side-stat-arrow:hover {
-    color: #ffffff;
+    color: rgb(var(--c-white));
     transform: translateY(-1px);
 }
 
@@ -6189,9 +6245,9 @@ button:disabled {
     flex: 1;
     min-height: 0;
     border-radius: 15px;
-    border: 1px solid rgba(122, 210, 255, 0.08);
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
     background: rgba(10, 25, 76, 0.46);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.035);
     isolation: isolate;
 }
 
@@ -6210,7 +6266,7 @@ button:disabled {
 
 .side-stat-head {
     padding: 7px 8px;
-    color: rgba(255, 255, 255, 0.78);
+    color: rgba(var(--c-white), 0.78);
     font-size: 7.8px;
     font-weight: 900;
     letter-spacing: 0.7px;
@@ -6244,8 +6300,8 @@ button:disabled {
     padding: 6px 8px;
     color: rgba(238, 247, 255, 0.88);
     font-size: 9.3px;
-    border-top: 1px solid rgba(112, 208, 255, 0.055);
-    background: rgba(18, 39, 95, 0.48);
+    border-top: 1px solid rgba(var(--c-glow), 0.055);
+    background: rgba(var(--c-panel-blue), 0.48);
 }
 
 .side-stat-row:nth-child(even) {
@@ -6263,7 +6319,7 @@ button:disabled {
 }
 
 .side-stat-row strong {
-    color: #ffffff;
+    color: rgb(var(--c-white));
     font-size: 10.2px;
 }
 
@@ -6360,20 +6416,20 @@ button:disabled {
     }
     .league-news-article-dialog::before {
         background:
-            linear-gradient(90deg, rgba(1, 7, 24, 0.98) 0%, rgba(2, 9, 31, 0.9) 54%, rgba(3, 12, 38, 0.48) 100%),
-            linear-gradient(180deg, rgba(2, 8, 28, 0.18) 0%, rgba(2, 8, 28, 0.2) 56%, rgba(4, 18, 54, 0.38) 100%),
+            linear-gradient(90deg, rgba(var(--c-night-1), 0.98) 0%, rgba(2, 9, 31, 0.9) 54%, rgba(3, 12, 38, 0.48) 100%),
+            linear-gradient(180deg, rgba(var(--c-night-3), 0.18) 0%, rgba(var(--c-night-3), 0.2) 56%, rgba(var(--c-night-8), 0.38) 100%),
             var(--news-bg) var(--news-article-position, 58% center) / var(--news-article-size, cover) no-repeat;
     }
     .league-news-article-dialog.is-logo-bg::before {
         background:
-            linear-gradient(90deg, rgba(1, 7, 24, 0.98) 0%, rgba(2, 9, 31, 0.92) 64%, rgba(3, 12, 38, 0.56) 100%),
-            linear-gradient(180deg, rgba(2, 8, 28, 0.18) 0%, rgba(2, 8, 28, 0.2) 56%, rgba(4, 18, 54, 0.38) 100%),
+            linear-gradient(90deg, rgba(var(--c-night-1), 0.98) 0%, rgba(2, 9, 31, 0.92) 64%, rgba(3, 12, 38, 0.56) 100%),
+            linear-gradient(180deg, rgba(var(--c-night-3), 0.18) 0%, rgba(var(--c-night-3), 0.2) 56%, rgba(var(--c-night-8), 0.38) 100%),
             var(--news-bg) var(--news-article-position, 50% 42px) / var(--news-article-size, min(46%, 210px) auto) no-repeat;
     }
     .league-news-article-dialog.is-photo-cover::before {
         background:
-            linear-gradient(90deg, rgba(1, 7, 24, 0.98) 0%, rgba(2, 9, 31, 0.9) 56%, rgba(3, 12, 38, 0.54) 100%),
-            linear-gradient(180deg, rgba(2, 8, 28, 0.18) 0%, rgba(2, 8, 28, 0.22) 56%, rgba(4, 18, 54, 0.42) 100%),
+            linear-gradient(90deg, rgba(var(--c-night-1), 0.98) 0%, rgba(2, 9, 31, 0.9) 56%, rgba(3, 12, 38, 0.54) 100%),
+            linear-gradient(180deg, rgba(var(--c-night-3), 0.18) 0%, rgba(var(--c-night-3), 0.22) 56%, rgba(var(--c-night-8), 0.42) 100%),
             var(--news-bg) var(--news-article-position, 60% center) / var(--news-article-size, cover) no-repeat;
     }
     .league-news-article-close {
@@ -6504,7 +6560,7 @@ button:disabled {
 .photo-lightbox-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.88);
+    background: rgba(var(--c-black), 0.88);
     cursor: pointer;
 }
 
@@ -6514,7 +6570,7 @@ button:disabled {
     max-height: 92vh;
     object-fit: contain;
     border-radius: 8px;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 40px rgba(var(--c-black), 0.6);
     cursor: pointer;
 }
 
