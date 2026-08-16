@@ -164,3 +164,52 @@ function applyStandingsSnapshot(rows, snapshot, leagueName = "Liga") {
 
     return ordenadas.map((row, index) => ({ ...row, pos: index + 1 }));
 }
+
+// A classificação como estava ao fim de cada jornada: a mesma conta de sempre,
+// repetida com os jogos até cada corte. Continua sem saber nada de liga nenhuma —
+// quem chama é que diz quais são os jogos da liga e quais as regras de desempate.
+function buildStandingsHistory(fixtures, teamNames, options = {}) {
+    let isLeagueMatch = options.isLeagueMatch || (() => true);
+    let regras = options.regras || {};
+    let leagueName = options.leagueName || "Liga";
+
+    // Onde acaba cada jornada: o índice do seu último jogo já com resultado.
+    // A lista está por ordem cronológica, por isso a ordem de inserção do Map já
+    // é a ordem em que as jornadas foram jogadas — os jogos em atraso e os
+    // antecipados incluídos, porque estão escritos onde foram mesmo jogados.
+    let cortes = new Map();
+    fixtures.forEach((fixture, index) => {
+        if (!isLeagueMatch(fixture)) return;
+        if (!getFixtureOutcome(fixture, fixture.home)) return;
+        cortes.set(fixture.round, index);
+    });
+
+    // Um prefixo tem sempre todos os jogos disputados, por isso isSeasonComplete()
+    // diria que sim a qualquer jornada e trocava para o desempate final logo à
+    // terceira. A época só está terminada olhando para a lista inteira, e mesmo
+    // aí isso só vale no último frame.
+    let terminada = isSeasonComplete(fixtures, isLeagueMatch);
+    let entradas = [...cortes.entries()];
+
+    return entradas.map(([round, index], frameIndex) => {
+        let ultimo = frameIndex === entradas.length - 1;
+        let jogados = fixtures.slice(0, index + 1);
+        let rows = sortStandings(
+            buildStandingsFromFixtures(jogados, teamNames, { isLeagueMatch }),
+            jogados,
+            regras,
+            { isLeagueMatch, leagueName, seasonComplete: ultimo && terminada }
+        );
+
+        return {
+            round,
+            label: fixtures[index].roundLabel || `Jornada ${round}`,
+            date: fixtures[index].date,
+            // A tabela do FM é a classificação final e mais nada: aplicada a meio
+            // da época arrastava a ordem do fim para a jornada 3.
+            rows: ultimo
+                ? applyStandingsSnapshot(rows, options.snapshot, leagueName)
+                : rows.map((row, posIndex) => ({ ...row, pos: posIndex + 1 }))
+        };
+    });
+}

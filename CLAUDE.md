@@ -72,10 +72,11 @@ Current order:
 25. `js/ui/league-live.js`
 26. `js/ui/league-transfers.js`
 27. `js/ui/league-calendar.js`
-28. `js/ui/league-panel.js`
-29. `js/ui/draw.js`
-30. `js/ui/share.js`
-31. `app.js`
+28. `js/ui/league-race.js`
+29. `js/ui/league-panel.js`
+30. `js/ui/draw.js`
+31. `js/ui/share.js`
+32. `app.js`
 
 If you add a new data file, add its `<script>` tag before the file that consumes it. A new `js/ui/`
 file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` and before `app.js`.
@@ -87,7 +88,7 @@ file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` an
 | `js/data/coaches.js` | `jogadores`, `coachProfiles`, `coachAssetFiles`, `coachStats`, `coachProfileExtras` |
 | `js/data/teams.js` | `equipas`, the current draw pot |
 | `js/data/fixtures-core.js` | Fixture helpers: `fixtureMonthNumbers`, `createFixtureKey`, `createLeagueMatch`, `assignLeagueFixtureRounds` |
-| `js/data/standings-core.js` | League-agnostic standings maths: `getFixtureOutcome`, `buildStandingsFromFixtures`, `standingsCriteria`, `sortStandings`, `applyStandingsSnapshot` |
+| `js/data/standings-core.js` | League-agnostic standings maths: `getFixtureOutcome`, `buildStandingsFromFixtures`, `standingsCriteria`, `sortStandings`, `applyStandingsSnapshot`, `buildStandingsHistory` |
 | `js/data/scoring-core.js` | League-agnostic EMG points: `calcSeasonPoints`, `calcTableScores`, `calcCupBonuses`, `calcPositionBonuses` |
 | `js/data/report-core.js` | Match report helpers: `reportPlayer`, `reportFormation`, `reportStats`, `compactReport` |
 | `js/data/scotland.js` | All Scotland season data, hand-typed (see Croatia Standings) |
@@ -115,6 +116,7 @@ Each owns its own state. The `let`s listed are declared at the top of that file 
 | `js/ui/league-live.js` | Form dots, result tooltips, live cards, news carousel | `activeLeagueLivePage`, `activeLeagueNewsIndex`, `leagueLiveAutoTimer`, `pausedLeagueLivePages` |
 | `js/ui/league-transfers.js` | Transfers table | - |
 | `js/ui/league-calendar.js` | Fixture grouping, round select, calendar | `activeLeagueCalendarRound` |
+| `js/ui/league-race.js` | Evolução da classificação: the animated position chart and its overlay | `raceLeagueId`, `raceFrameIndex`, `racePinned`, `racePlaying`, `raceAutoTimer`, `raceHistoryCache`, `raceSeriesByLeague` |
 | `js/ui/league-panel.js` | Lower panel, side stats, `renderLeague` | - |
 | `js/ui/draw.js` | Roulette maths and the draw ceremony | `shuffledTeams`, `shuffledPlayers`, `remainingTeams`, `remainingPlayers`, `currentRound`, `resultados`, `DRAW_COMPLETED`, `FINAL_RESULTS` |
 | `js/ui/share.js` | Discord share, on-demand `html2canvas`, fullscreen | `html2canvasLoader` |
@@ -149,7 +151,7 @@ A league object in `js/data/leagues.js` usually contains:
 - `fixtures`
 - `fixtureMonths`
 - `tabela`
-- Optional: `fixtureGroupBy`, `liveCards`, `livePages`, `transfers`, `merits`, `sideStats`, `tacas`, `extraTeamLogos`
+- Optional: `fixtureGroupBy`, `liveCards`, `livePages`, `transfers`, `merits`, `sideStats`, `tacas`, `extraTeamLogos`, `evolucao`
 
 Adding a new league should normally mean adding its data file(s), loading them before `leagues.js`, then pushing a new object into `leagues`.
 
@@ -173,7 +175,7 @@ Only league matches count (`competition` starting with `"HNL"`) and only fixture
 
 What stays hand-authored in `js/data/croatia-table.js`:
 
-- `croatiaSeedTable` - team, logo, `jogador`, `prevista` and `inf` (the ↑ ↓ arrows are an editorial note, not a computed value).
+- `croatiaSeedTable` - team, logo, `cor` (the club's colour, for the evolution chart), `jogador`, `prevista` and `inf` (the ↑ ↓ arrows are an editorial note, not a computed value).
 - `croatiaZonas` - zone by **position**, so the championship/Europe/relegation stripes follow whoever is in those places.
 - `croatiaRegras` - tie-break rules as data, listing criteria by name from `standingsCriteria`: `desempate` while the season runs, `desempateFinal` once every league fixture has a result. Currently `["dg", "gm", "equipa"]` and `["h2hPts", "h2hDg", "dg", "gm", "equipa"]`, matching the SuperSport HNL rules. A league in another country declares its own chain; `standings-core.js` does not change.
 - `croatiaClassificacaoFM` - optional cross-check, currently empty. Paste the FM table as `["Equipa", pontos]` in FM's own order and it takes over the positions and warns in the console on every points mismatch, missing team or order divergence. Useful when a tie looks wrong, since FM's internal tie-break has historically disagreed with goal difference. Empty it again afterwards.
@@ -181,6 +183,58 @@ What stays hand-authored in `js/data/croatia-table.js`:
 `getTeamFixtureFormDetail` in `croatia-wiring.js` calls `getFixtureOutcome` so the standings and the form dots share one definition of a result. Keep it that way.
 
 **Scotland is not derived and must stay hand-typed**: its fixture list holds 97 league matches of the 228 a full Premiership season needs, so its `j: 38` table cannot be computed.
+
+## Evolução da Classificação
+
+The animated position chart in `js/ui/league-race.js`, opened by a button in the league toolbar.
+It needs nothing hand-written: `buildStandingsHistory` in `standings-core.js` re-runs the normal
+standings pipeline over the fixtures up to each round, so the chart cannot drift from the table.
+
+A league opts in by declaring `evolucao` in `leagues.js`:
+
+```js
+evolucao: { equipas, isLeagueMatch, regras, zonas, snapshot }
+```
+
+No `evolucao`, no button. **Scotland must not declare one**: only the 8 EMG-managed clubs appear in
+its fixtures, so every intermediate position would be wrong. Only declare it where the fixture list
+covers the whole league.
+
+Two things in `buildStandingsHistory` exist for a reason and must not be simplified away:
+
+- Every frame but the last is sorted with `seasonComplete: false`. A prefix of the fixtures has no
+  unplayed games left in it, so `isSeasonComplete` would say the season is over and switch to
+  `desempateFinal` — the head-to-head chain — as early as jornada 3.
+- `applyStandingsSnapshot` runs only on the last frame. `croatiaClassificacaoFM` is the *final*
+  table; applied to a prefix it would drag the end-of-season order back onto jornada 3.
+
+**Colour belongs to the club, not the coach.** Each team's `cor` is authored in `croatiaSeedTable`
+and passed through the `tabela` mapping in `leagues.js`; `getRaceTeamColor` just reads it. A new
+league brings its own clubs' colours. Nothing derives colour from the coach — the point is that
+people already know the Istra is yellow.
+
+The cost, accepted deliberately: club colours were never chosen to contrast with each other. Croatia
+has four blues and three reds, and three clubs (Lokomotiva black, Dinamo dark blue, Gorica dark red)
+whose colours are all but invisible on the `#02071b` background — black measures 1.12:1.
+
+Two things carry that and must not be removed:
+
+- **The halo.** Every line is drawn twice: a light translucent stroke underneath (`.league-race-halo`)
+  and the club colour on top. That is what makes black read as black instead of vanishing. All halos
+  live in one `<g>` below all lines — pair them up per team and one club's halo dims another's line.
+  The badge rings and the legend swatches carry the same idea as a light outline.
+- **Nothing is identified by colour alone.** Every line ends in the club badge, the legend carries
+  badge and coach, hovering dims the other nine, clicking pins.
+
+Clicking a team must not pause playback — pinning chooses *what* you watch, not *when*. Only play,
+the step arrows and the scrubber touch `pauseLeagueRace()`.
+
+If a future league ever wants colours picked for separation rather than club identity, four is the
+maximum that clears `scripts/validate_palette.js --pairs all` against `#02071b` (blue `#3987e5`,
+yellow `#c98500`, magenta `#d55181`, green `#008300`); no set of five clears it.
+
+Axis labels come every 5 **jornadas**, not every 5 frames, so that a jogo em atraso does not land on
+a tick and make the axis read J11, J8, J20.
 
 ## Match Reports
 

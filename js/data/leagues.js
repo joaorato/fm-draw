@@ -13,6 +13,16 @@ const leagues = [
         fixtures: croatiaFixtures,
         fixtureMonths: croatiaFixtureMonths,
         fixtureGroupBy: "round",
+        // Declarar isto é o que dá o gráfico de evolução a uma liga. Só faz
+        // sentido onde a lista de jogos cobre a liga toda: a Escócia não declara
+        // porque só lá estão os jogos entre as 8 equipas dos humanos.
+        evolucao: {
+            equipas: croatiaEquipas,
+            isLeagueMatch: isCroatiaLeagueMatch,
+            regras: croatiaRegras,
+            zonas: croatiaZonas,
+            snapshot: croatiaClassificacaoFM
+        },
         extraTeamLogos: croatiaCupTeamLogos,
         tacas: [],
         liveCards: [
@@ -29,6 +39,7 @@ const leagues = [
                 inf: entry.inf,
                 equipa: entry.equipa,
                 logo: entry.logo,
+                cor: entry.cor,
                 jogador: entry.jogador,
                 j: entry.j,
                 v: entry.v,

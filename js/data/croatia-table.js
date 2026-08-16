@@ -1,17 +1,23 @@
 // Dados editoriais da Liga Croata. A classificação em si não se escreve aqui:
 // é calculada a partir de croatiaFixtures em croatia-standings.js.
 // O campo "inf" (as setas ↑ ↓) é uma nota nossa, não sai de conta nenhuma.
+// "cor" é a cor do clube, usada no gráfico de evolução. É do clube e não do
+// treinador de propósito: toda a gente sabe que o Istra é amarelo, ninguém sabe
+// de cor que o Rato é laranja. A liga seguinte traz as cores das equipas dela.
+// As escuras (o preto da Lokomotiva, o azul do Dinamo) quase não se distinguem
+// do fundo do site — quem trata disso é o halo desenhado por baixo das linhas
+// em js/ui/league-race.js, e não uma cor mais clara aqui.
 const croatiaSeedTable = [
-    { equipa: "Dinamo Zagreb", logo: "assets/logos/teams/croacia/dinamo_zagreb_logo.png", jogador: null, prevista: 1, inf: "--" },
-    { equipa: "Hajduk Split", logo: "assets/logos/teams/croacia/hajduksplit.png", jogador: null, prevista: 2, inf: "↑" },
-    { equipa: "HNK Rijeka", logo: "assets/logos/teams/croacia/rijeka.png", jogador: "Gonçalo", prevista: 3, inf: "--" },
-    { equipa: "NK Osijek", logo: "assets/logos/teams/croacia/osijek.png", jogador: "Gamy", prevista: 4, inf: "--" },
-    { equipa: "NK Lokomotiva", logo: "assets/logos/teams/croacia/nk_lokomotiva.png", jogador: "Painatal", prevista: 5, inf: "↓" },
-    { equipa: "NK Istra 1961", logo: "assets/logos/teams/croacia/istra.png", jogador: "Rato", prevista: 6, inf: "--" },
-    { equipa: "NK Varaždin", logo: "assets/logos/teams/croacia/varazdin.png", jogador: "Nabais", prevista: 7, inf: "--" },
-    { equipa: "NK Slaven Belupo", logo: "assets/logos/teams/croacia/slaven.png", jogador: "Chico", prevista: 8, inf: "--" },
-    { equipa: "HNK Gorica", logo: "assets/logos/teams/croacia/gorica.png", jogador: "Cardoso", prevista: 9, inf: "--" },
-    { equipa: "HNK Vukovar", logo: "assets/logos/teams/croacia/hnkvukovar.png", jogador: "Hugo", prevista: 10, inf: "--" }
+    { equipa: "Dinamo Zagreb", logo: "assets/logos/teams/croacia/dinamo_zagreb_logo.png", jogador: null, prevista: 1, inf: "--", cor: "#16337f" },
+    { equipa: "Hajduk Split", logo: "assets/logos/teams/croacia/hajduksplit.png", jogador: null, prevista: 2, inf: "↑", cor: "#e02b1d" },
+    { equipa: "HNK Rijeka", logo: "assets/logos/teams/croacia/rijeka.png", jogador: "Gonçalo", prevista: 3, inf: "--", cor: "#ffffff" },
+    { equipa: "NK Osijek", logo: "assets/logos/teams/croacia/osijek.png", jogador: "Gamy", prevista: 4, inf: "--", cor: "#7ec8ea" },
+    { equipa: "NK Lokomotiva", logo: "assets/logos/teams/croacia/nk_lokomotiva.png", jogador: "Painatal", prevista: 5, inf: "↓", cor: "#171a22" },
+    { equipa: "NK Istra 1961", logo: "assets/logos/teams/croacia/istra.png", jogador: "Rato", prevista: 6, inf: "--", cor: "#f7cf1a" },
+    { equipa: "NK Varaždin", logo: "assets/logos/teams/croacia/varazdin.png", jogador: "Nabais", prevista: 7, inf: "--", cor: "#d6ecfb" },
+    { equipa: "NK Slaven Belupo", logo: "assets/logos/teams/croacia/slaven.png", jogador: "Chico", prevista: 8, inf: "--", cor: "#2b6fd6" },
+    { equipa: "HNK Gorica", logo: "assets/logos/teams/croacia/gorica.png", jogador: "Cardoso", prevista: 9, inf: "--", cor: "#8e1c2a" },
+    { equipa: "HNK Vukovar", logo: "assets/logos/teams/croacia/hnkvukovar.png", jogador: "Hugo", prevista: 10, inf: "--", cor: "#f4979b" }
 ];
 
 // Zonas por posição — assim acompanham quem lá está, em vez de ficarem

@@ -182,6 +182,7 @@ function renderLeague(leagueId) {
             ${league.statusLabel ? `<div class="league-chip league-status-chip ${league.status === "live" ? "live" : "completed"}">${league.statusLabel}</div>` : ""}
             <div class="league-chip muted">${league.epoca}</div>
             <div class="league-chip muted">Fórmula: ${league.formula}</div>
+            ${renderLeagueRaceTrigger(league)}
             ${isLive ? `
                 <div class="league-live-tip">
                     <button class="info-tip league-info-tip" type="button" aria-label="Explicação da liga em curso">
