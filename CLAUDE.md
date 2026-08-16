@@ -2,92 +2,240 @@
 
 Guidance for Claude Code (claude.ai/code) when working in this repository.
 
-## Overview
+## Project
 
-Static HTML/CSS/JS site for the **Liga EMG** — a Football Manager competition between 8 friends. It hosts the team draw ceremony, the coach roster, the aggregated standings and a full dashboard for each league. No build tools, bundler, server or dependencies to install.
+Static HTML/CSS/JS site for **Liga EMG**, a Football Manager competition between 8 friends. It contains the draw ceremony, coach profiles, global standings and league dashboards.
 
-## How to Run
+There is no build step, bundler, framework or package install. The site must keep working by opening `index.html` directly from disk, and is also deployed on GitHub Pages:
 
-Open `index.html` in a browser. Deployed via GitHub Pages at [joaorato.github.io/fm-draw](https://joaorato.github.io/fm-draw/).
+`https://joaorato.github.io/fm-draw/`
 
-## Files
+## Runtime
 
-- **index.html** — Structure, nav, modal/lightbox shells and the ordered `<script>` list (~235 lines)
-- **js/data/** — All data, one file per subject (see below)
-- **app.js** — All logic: rendering, DOM, draw ceremony, bootstrap (~3400 lines)
-- **style.css** — Styling, UCL-inspired dark blue theme (~6500 lines)
-- **assets/** — `logos/` (per-league team logos, `trophy_cabinet/`), `treinadores/<coach>/` (cards, profile photos, stats screenshots), `flags/`, `social/`, `audio/ucl.mp3`
+Open `index.html` in a browser. External runtime dependencies are only:
 
-Only external deps are Google Fonts and html2canvas (CDN, used to export the draw result as an image).
+- Google Fonts
+- `html2canvas` from CDN, used to export/share the draw result image
 
-### Load order matters
+Do not introduce Node, npm, bundlers, modules or generated build output unless the user explicitly asks for a larger architecture change.
 
-These are **classic scripts sharing one global scope** — not ES modules. Each file assumes
-everything above it in the `index.html` list has already run, and that order mirrors the
-original single-file top-to-bottom order. `app.js` is always last. Keeping them classic is
-deliberate: every `onclick=` in the markup keeps working, and `index.html` still opens
-straight from disk without a server.
+## Current Structure
 
-| file | contents |
+- `index.html` - page structure, tab sections, modal/lightbox shells and the ordered script list.
+- `app.js` - all UI logic: rendering, DOM events, tabs, draw ceremony, coach modals, league dashboard, news, transfers, calendar and match reports.
+- `style.css` - all visual styling.
+- `js/data/` - refactored data layer. One classic script per domain.
+- `assets/` - logos, coach images, flags, social icons, audio and result screenshots.
+
+## Critical Script Rule
+
+The scripts are **classic scripts sharing one global scope**, not ES modules. Load order in `index.html` is part of the architecture.
+
+Each file assumes everything listed above it has already run. `app.js` must stay last.
+
+Current order:
+
+1. `js/data/coaches.js`
+2. `js/data/teams.js`
+3. `js/data/fixtures-core.js`
+4. `js/data/standings-core.js`
+5. `js/data/report-core.js`
+6. `js/data/scotland.js`
+7. `js/data/croatia-table.js`
+8. `js/data/croatia-fixtures.js`
+9. `js/data/croatia-reports-01-05.js`
+10. `js/data/croatia-reports-06-11.js`
+11. `js/data/croatia-reports-taca.js`
+12. `js/data/croatia-reports-recentes.js`
+13. `js/data/croatia-wiring.js`
+14. `js/data/croatia-standings.js`
+15. `js/data/croatia-transfers.js`
+16. `js/data/croatia-news.js`
+17. `js/data/leagues.js`
+18. `app.js`
+
+If you add a new data file, add its `<script>` tag before the file that consumes it.
+
+## Data Files
+
+| File | Purpose |
 |---|---|
 | `js/data/coaches.js` | `jogadores`, `coachProfiles`, `coachAssetFiles`, `coachStats`, `coachProfileExtras` |
-| `js/data/teams.js` | `equipas` (current draw pot) |
-| `js/data/fixtures-core.js` | `fixtureMonthNumbers` + helpers: `createFixtureKey`, `createLeagueMatch`, `assignLeagueFixtureRounds` |
-| `js/data/report-core.js` | helpers: `reportPlayer`, `reportFormation`, `reportStats`, `compactReport` |
-| `js/data/scotland.js` | everything for the Escócia season |
-| `js/data/croatia-table.js` | `croatiaSeedTable`, `croatiaCurrentTable`, `croatiaSeasonScores` |
-| `js/data/croatia-fixtures.js` | `croatiaFixtures` (all results) |
-| `js/data/croatia-reports-*.js` | match reports, grouped by jornada block |
-| `js/data/croatia-wiring.js` | merges the report arrays, links them to fixtures, derives form |
-| `js/data/croatia-transfers.js` | `croatiaTransfers` + club logos |
-| `js/data/croatia-news.js` | `croatiaLivePages` (news carousel + articles) |
-| `js/data/leagues.js` | the `leagues` array that ties it all together |
+| `js/data/teams.js` | `equipas`, the current draw pot |
+| `js/data/fixtures-core.js` | Fixture helpers: `fixtureMonthNumbers`, `createFixtureKey`, `createLeagueMatch`, `assignLeagueFixtureRounds` |
+| `js/data/standings-core.js` | League-agnostic standings maths: `getFixtureOutcome`, `buildStandingsFromFixtures`, `standingsCriteria`, `sortStandings`, `applyStandingsSnapshot` |
+| `js/data/report-core.js` | Match report helpers: `reportPlayer`, `reportFormation`, `reportStats`, `compactReport` |
+| `js/data/scotland.js` | All Scotland season data, hand-typed (see Croatia Standings) |
+| `js/data/croatia-table.js` | Croatia league config: `croatiaSeedTable`, `croatiaZonas`, `croatiaRegras`, `croatiaClassificacaoFM`, `croatiaFixtureMonths` |
+| `js/data/croatia-fixtures.js` | Croatia fixtures/results |
+| `js/data/croatia-reports-*.js` | Croatia match reports, grouped by jornada/block |
+| `js/data/croatia-wiring.js` | Merges Croatia reports, links them to fixtures, derives form/result groups |
+| `js/data/croatia-standings.js` | Computes `croatiaCurrentTable` and `croatiaSeasonScores` from the fixtures |
+| `js/data/croatia-transfers.js` | Croatia transfers and extra club logos |
+| `js/data/croatia-news.js` | Croatia live/news carousel and articles |
+| `js/data/leagues.js` | Final `leagues` array consumed by `app.js` |
 
-### Adding a session
+## Main Data Contracts
 
-- **Results** → `croatia-fixtures.js`
-- **Match reports** → append to `croatiaRecentReports` in `croatia-reports-recentes.js`.
-  Once that file gets unwieldy, start `croatia-reports-<next>.js` with a new `const`, add it
-  to the spread in `croatia-wiring.js`, and add one `<script>` tag before `croatia-wiring.js`.
-- **Standings** → `croatia-table.js`
-- **News article** → `croatia-news.js`
-- **Transfers** → `croatia-transfers.js`
+- `jogadores` - the 8 players: Gonçalo, Rato, Chico, Nabais, Gamy, Painatal, Cardoso, Hugo.
+- `equipas` - current draw teams.
+- `coachProfiles` - coach metadata.
+- `coachAssetFiles` - coach card/profile/stat image filenames.
+- `coachStats` - career stats and trophies, keyed by coach id.
+- `coachProfileExtras` - narrative/identity sections for coach modals.
+- `leagues` - one object per league. Drives the league selector, league dashboard and global standings.
+- `croatiaCurrentTable` and `croatiaSeasonScores` - **derived**, not authored. Computed in `js/data/croatia-standings.js` from the fixtures. Everything else in this list is hand-written.
+- `generalScores` - derived in `app.js` from completed leagues only.
+- `DRAW_COMPLETED` and `FINAL_RESULTS` - control whether the draw tab shows stored results or runs the roulette.
 
-## Tabs
+## League Object Contract
 
-Tabs are sections in `index.html` toggled by `setActiveTab()`, with hash routing (`#sorteio`, `#treinadores`, `#classificacao`, `#ligas`).
+A league object in `js/data/leagues.js` usually contains:
 
-- **Home** — Logo, tagline, social links
-- **Sorteio** — Roulette draw ceremony with UCL music and mute toggle
-- **Treinadores** — Draggable card rail; each card opens a modal with presentation, stats, trophy cabinet and photo gallery
-- **Classificação Geral** — Player points accumulated across *completed* leagues
-- **Ligas** — Selector + full dashboard for the chosen league
+- `id`
+- `status`: `"live"` or `"completed"`
+- `statusLabel`
+- `nome`
+- `descricao`
+- `logo`
+- `logoAlt`
+- `epoca`
+- `formula`
+- `scores`
+- `fixtures`
+- `fixtureMonths`
+- `tabela`
+- Optional: `fixtureGroupBy`, `liveCards`, `livePages`, `transfers`, `merits`, `sideStats`, `tacas`, `extraTeamLogos`
 
-## Key data structures (all in `js/data/`)
+Adding a new league should normally mean adding its data file(s), loading them before `leagues.js`, then pushing a new object into `leagues`.
 
-- `jogadores` — the 8 players (Gonçalo, Rato, Chico, Nabais, Gamy, Painatal, Cardoso, Hugo)
-- `equipas` — teams in the current draw pot
-- `coachProfiles` + `coachAssetFiles` / `coachStats` / `coachProfileExtras` — coach bios, asset filenames, career stats, trophies and narrative cards (keyed by coach id)
-- `leagues` — one object per league; drives the selector, the dashboard and Classificação Geral automatically
-- `generalScores` — derived from `leagues` where `status === "completed"`
-- `FINAL_RESULTS` / `DRAW_COMPLETED` — when `DRAW_COMPLETED` is `true`, the Sorteio tab shows the stored result instead of running the animation (and the music stays off)
+## Common Update Paths
 
-### League object
+For a new Croatia session:
 
-`id`, `nome`, `status` (`"live"` | `"completed"`), `statusLabel`, `descricao`, `logo`, `epoca`, `formula`, `scores`, `tabela` (full standings rows), `fixtures` + `fixtureMonths` (calendar), and optionally `livePages` (news carousel), `transfers`, `merits`, `sideStats`, `tacas`, `extraTeamLogos`.
+- Results/fixtures: edit `js/data/croatia-fixtures.js`.
+- Standings: nothing to edit. The table is computed from the fixtures (see Croatia Standings).
+- Match reports: append to `croatiaRecentReports` in `js/data/croatia-reports-recentes.js`.
+- News article/carousel item: edit `js/data/croatia-news.js`.
+- Transfers: edit `js/data/croatia-transfers.js`.
 
-Adding a league = push a new object to `leagues`. Nothing else needs wiring.
+If `croatia-reports-recentes.js` becomes too large, create a new `js/data/croatia-reports-<block>.js` file with a new `const`, add its script tag before `croatia-wiring.js`, and add that array to the spread in `croatiaMatchReports`.
 
-### Scoring
+## Croatia Standings
 
-`(posição prevista - posição final) × 3`, plus bonuses/penalties computed in `calcBonuses()` (champion +10, best human +5, cup wins +5, cup finals +2, European title +3, last place -5, worst human -2). Bonuses only count once a league is `completed`.
+`croatiaCurrentTable` is **computed, never typed**. `js/data/croatia-standings.js` derives J, V, E, D, GM, GS, DG, Pts, position, the form dots and the zone colours from `croatiaFixtures`. Do not reintroduce a hand-written table.
 
-### Match reports
+Only league matches count (`competition` starting with `"HNL"`) and only fixtures with a finite score. That filter is why the postponed Dinamo–Lokomotiva placeholder, which sits in the fixture list alongside its replayed `8-atraso` entry, does not double-count.
 
-Croatian fixtures link to detailed reports (`croatiaRound*Reports` in `js/data/croatia-reports-*.js`, merged into `croatiaMatchReports` and indexed by `fixtureKey` in `js/data/croatia-wiring.js`). Use the `compactReport()` / `reportPlayer()` / `reportStats()` helpers when adding new ones, and build keys with `createFixtureKey()`. A report with a `fixtureKey` that matches no fixture is silently dropped — no error — so check the count after adding.
+What stays hand-authored in `js/data/croatia-table.js`:
+
+- `croatiaSeedTable` - team, logo, `jogador`, `prevista` and `inf` (the ↑ ↓ arrows are an editorial note, not a computed value).
+- `croatiaZonas` - zone by **position**, so the championship/Europe/relegation stripes follow whoever is in those places.
+- `croatiaRegras` - tie-break rules as data, listing criteria by name from `standingsCriteria`: `desempate` while the season runs, `desempateFinal` once every league fixture has a result. Currently `["dg", "gm", "equipa"]` and `["h2hPts", "h2hDg", "dg", "gm", "equipa"]`, matching the SuperSport HNL rules. A league in another country declares its own chain; `standings-core.js` does not change.
+- `croatiaClassificacaoFM` - optional cross-check, currently empty. Paste the FM table as `["Equipa", pontos]` in FM's own order and it takes over the positions and warns in the console on every points mismatch, missing team or order divergence. Useful when a tie looks wrong, since FM's internal tie-break has historically disagreed with goal difference. Empty it again afterwards.
+
+`getTeamFixtureFormDetail` in `croatia-wiring.js` calls `getFixtureOutcome` so the standings and the form dots share one definition of a result. Keep it that way.
+
+**Scotland is not derived and must stay hand-typed**: its fixture list holds 97 league matches of the 228 a full Premiership season needs, so its `j: 38` table cannot be computed.
+
+## Match Reports
+
+Croatia reports are matched to fixtures by `fixtureKey`.
+
+Use the helpers from `report-core.js`:
+
+- `compactReport()`
+- `reportPlayer()`
+- `reportFormation()`
+- `reportStats()`
+
+Build keys with `createFixtureKey()` from `fixtures-core.js`.
+
+Important: a report whose `fixtureKey` does not match any fixture is silently dropped. After adding reports, check that the target fixture has `fixture.report`.
+
+## Scoring
+
+Base formula:
+
+`(posição prevista - posição final) × 3`
+
+Bonuses/penalties are computed by `calcBonuses()` in `app.js`:
+
+- Champion: `+10`
+- Best human manager: `+5`
+- Cup win: `+5`
+- Cup final: `+2`
+- European title: `+3`
+- Last place: `-5`
+- Worst human manager: `-2`
+
+Bonuses only affect leagues with `status === "completed"`.
+
+## App Flow
+
+`index.html` defines the main views:
+
+- `homeView`
+- `drawView`
+- `coachesView`
+- `generalView`
+- `pastView`
+
+Tabs are controlled by `setActiveTab()` in `app.js`, with hash routes:
+
+- `#home`
+- `#sorteio`
+- `#treinadores`
+- `#classificacao`
+- `#ligas`
+
+At the end of `app.js`, bootstrap runs:
+
+- `renderGeneralTable()`
+- `renderLeagueSelector()`
+- `renderCoachCards()`
+- `setupFormulaPopover()`
+- `restoreMuteState()`
+- `bindMusicRecovery()`
+- `setActiveTab(getTabFromHash())`
+
+## Style Map
+
+`style.css` is large. Use selector search before editing.
+
+Main areas:
+
+- Coach cards/modals: `.coach-*`, `.coaches-*`
+- Trophy cabinet/palmares: `.coach-palmares-*`, `.coach-trophy-*`
+- Global standings: `.score-*`
+- League dashboard: `.league-*`
+- Transfers: `.league-transfer-*`
+- Calendar/fixtures: `.league-calendar-*`, `.league-fixture-*`, `.league-match-*`
+- Match report modal: `.match-report-*`
+- Draw ceremony: `.draw-*`, `#drawView`, roulette/table classes
+- Home/social: `.home-*`, social/logo selectors
+
+Avoid broad restyles. Keep CSS changes close to the feature being changed.
 
 ## Conventions
 
-- UI text, data keys and most identifiers are in **Portuguese**
-- Rendering is plain template-literal `innerHTML` — no framework
-- 4-space indentation, `let`/`const`, double quotes
+- UI text and data are mostly Portuguese. Keep new visible text in Portuguese unless the existing local context is English.
+- Use 4-space indentation.
+- Prefer `const` and `let`.
+- Use double quotes in JS.
+- Rendering is mostly template-literal `innerHTML`; follow existing patterns.
+- Do not convert files to modules.
+- Do not reorder scripts casually.
+- Do not introduce unrelated refactors while adding data or fixing UI.
+- Preserve user changes in a dirty worktree.
+
+## Verification
+
+Useful checks:
+
+- Run a syntax check on changed JS files with Node if available: `node --check <file>`.
+- Serve the folder (`python3 -m http.server`) and drive the page with the Playwright MCP tools to check the console and click through the affected tab. Note that the browser aggressively caches `js/data/*.js`; serve on a fresh port after editing, or you will be testing the old file.
+- Open `index.html` locally to verify the affected tab.
+- For data changes, check that the relevant table/card/report appears and no dependent script is loaded before its data.
+
+When changing match reports or fixtures, verify the `fixtureKey` link, not just syntax.

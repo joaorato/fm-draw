@@ -21,18 +21,20 @@ function getCroatiaFixtureTeamLogo(teamName) {
     return getCroatiaSeedEntry(teamName)?.logo || "";
 }
 
-function getTeamFixtureFormDetail(fixture, teamName) {
-    let hasResult = Number.isFinite(fixture.homeGoals) && Number.isFinite(fixture.awayGoals);
-    let isLeagueMatch = String(fixture.competition || "").startsWith("HNL");
-    if (!isLeagueMatch || !hasResult || (fixture.home !== teamName && fixture.away !== teamName)) return null;
+function isCroatiaLeagueMatch(fixture) {
+    return String(fixture.competition || "").startsWith("HNL");
+}
 
-    let isHome = fixture.home === teamName;
-    let goalsFor = isHome ? fixture.homeGoals : fixture.awayGoals;
-    let goalsAgainst = isHome ? fixture.awayGoals : fixture.homeGoals;
-    let result = goalsFor > goalsAgainst ? "V" : goalsFor < goalsAgainst ? "D" : "E";
+function getTeamFixtureFormDetail(fixture, teamName) {
+    if (!isCroatiaLeagueMatch(fixture)) return null;
+
+    // Mesma definição de "o que este jogo valeu para esta equipa" que a
+    // classificação usa, para que a tabela e os pontinhos de forma nunca divirjam.
+    let outcome = getFixtureOutcome(fixture, teamName);
+    if (!outcome) return null;
 
     return {
-        result,
+        result: outcome.result,
         date: getCroatiaFixtureDateLabel(fixture),
         competition: fixture.competition,
         home: fixture.home,

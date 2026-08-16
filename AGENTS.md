@@ -38,19 +38,21 @@ Current order:
 1. `js/data/coaches.js`
 2. `js/data/teams.js`
 3. `js/data/fixtures-core.js`
-4. `js/data/report-core.js`
-5. `js/data/scotland.js`
-6. `js/data/croatia-table.js`
-7. `js/data/croatia-fixtures.js`
-8. `js/data/croatia-reports-01-05.js`
-9. `js/data/croatia-reports-06-11.js`
-10. `js/data/croatia-reports-taca.js`
-11. `js/data/croatia-reports-recentes.js`
-12. `js/data/croatia-wiring.js`
-13. `js/data/croatia-transfers.js`
-14. `js/data/croatia-news.js`
-15. `js/data/leagues.js`
-16. `app.js`
+4. `js/data/standings-core.js`
+5. `js/data/report-core.js`
+6. `js/data/scotland.js`
+7. `js/data/croatia-table.js`
+8. `js/data/croatia-fixtures.js`
+9. `js/data/croatia-reports-01-05.js`
+10. `js/data/croatia-reports-06-11.js`
+11. `js/data/croatia-reports-taca.js`
+12. `js/data/croatia-reports-recentes.js`
+13. `js/data/croatia-wiring.js`
+14. `js/data/croatia-standings.js`
+15. `js/data/croatia-transfers.js`
+16. `js/data/croatia-news.js`
+17. `js/data/leagues.js`
+18. `app.js`
 
 If you add a new data file, add its `<script>` tag before the file that consumes it.
 
@@ -61,12 +63,14 @@ If you add a new data file, add its `<script>` tag before the file that consumes
 | `js/data/coaches.js` | `jogadores`, `coachProfiles`, `coachAssetFiles`, `coachStats`, `coachProfileExtras` |
 | `js/data/teams.js` | `equipas`, the current draw pot |
 | `js/data/fixtures-core.js` | Fixture helpers: `fixtureMonthNumbers`, `createFixtureKey`, `createLeagueMatch`, `assignLeagueFixtureRounds` |
+| `js/data/standings-core.js` | League-agnostic standings maths: `getFixtureOutcome`, `buildStandingsFromFixtures`, `standingsCriteria`, `sortStandings`, `applyStandingsSnapshot` |
 | `js/data/report-core.js` | Match report helpers: `reportPlayer`, `reportFormation`, `reportStats`, `compactReport` |
-| `js/data/scotland.js` | All Scotland season data |
-| `js/data/croatia-table.js` | Croatia seed table, current table, season score rows and fixture month map |
+| `js/data/scotland.js` | All Scotland season data, hand-typed (see Croatia Standings) |
+| `js/data/croatia-table.js` | Croatia league config: `croatiaSeedTable`, `croatiaZonas`, `croatiaRegras`, `croatiaClassificacaoFM`, `croatiaFixtureMonths` |
 | `js/data/croatia-fixtures.js` | Croatia fixtures/results |
 | `js/data/croatia-reports-*.js` | Croatia match reports, grouped by jornada/block |
 | `js/data/croatia-wiring.js` | Merges Croatia reports, links them to fixtures, derives form/result groups |
+| `js/data/croatia-standings.js` | Computes `croatiaCurrentTable` and `croatiaSeasonScores` from the fixtures |
 | `js/data/croatia-transfers.js` | Croatia transfers and extra club logos |
 | `js/data/croatia-news.js` | Croatia live/news carousel and articles |
 | `js/data/leagues.js` | Final `leagues` array consumed by `app.js` |
@@ -80,6 +84,7 @@ If you add a new data file, add its `<script>` tag before the file that consumes
 - `coachStats` - career stats and trophies, keyed by coach id.
 - `coachProfileExtras` - narrative/identity sections for coach modals.
 - `leagues` - one object per league. Drives the league selector, league dashboard and global standings.
+- `croatiaCurrentTable` and `croatiaSeasonScores` - **derived**, not authored. Computed in `js/data/croatia-standings.js` from the fixtures. Everything else in this list is hand-written.
 - `generalScores` - derived in `app.js` from completed leagues only.
 - `DRAW_COMPLETED` and `FINAL_RESULTS` - control whether the draw tab shows stored results or runs the roulette.
 
@@ -109,12 +114,29 @@ Adding a new league should normally mean adding its data file(s), loading them b
 For a new Croatia session:
 
 - Results/fixtures: edit `js/data/croatia-fixtures.js`.
-- Standings: edit `js/data/croatia-table.js`.
+- Standings: nothing to edit. The table is computed from the fixtures (see Croatia Standings).
 - Match reports: append to `croatiaRecentReports` in `js/data/croatia-reports-recentes.js`.
 - News article/carousel item: edit `js/data/croatia-news.js`.
 - Transfers: edit `js/data/croatia-transfers.js`.
 
 If `croatia-reports-recentes.js` becomes too large, create a new `js/data/croatia-reports-<block>.js` file with a new `const`, add its script tag before `croatia-wiring.js`, and add that array to the spread in `croatiaMatchReports`.
+
+## Croatia Standings
+
+`croatiaCurrentTable` is **computed, never typed**. `js/data/croatia-standings.js` derives J, V, E, D, GM, GS, DG, Pts, position, the form dots and the zone colours from `croatiaFixtures`. Do not reintroduce a hand-written table.
+
+Only league matches count (`competition` starting with `"HNL"`) and only fixtures with a finite score. That filter is why the postponed Dinamo–Lokomotiva placeholder, which sits in the fixture list alongside its replayed `8-atraso` entry, does not double-count.
+
+What stays hand-authored in `js/data/croatia-table.js`:
+
+- `croatiaSeedTable` - team, logo, `jogador`, `prevista` and `inf` (the ↑ ↓ arrows are an editorial note, not a computed value).
+- `croatiaZonas` - zone by **position**, so the championship/Europe/relegation stripes follow whoever is in those places.
+- `croatiaRegras` - tie-break rules as data, listing criteria by name from `standingsCriteria`: `desempate` while the season runs, `desempateFinal` once every league fixture has a result. Currently `["dg", "gm", "equipa"]` and `["h2hPts", "h2hDg", "dg", "gm", "equipa"]`, matching the SuperSport HNL rules. A league in another country declares its own chain; `standings-core.js` does not change.
+- `croatiaClassificacaoFM` - optional cross-check, currently empty. Paste the FM table as `["Equipa", pontos]` in FM's own order and it takes over the positions and warns in the console on every points mismatch, missing team or order divergence. Useful when a tie looks wrong, since FM's internal tie-break has historically disagreed with goal difference. Empty it again afterwards.
+
+`getTeamFixtureFormDetail` in `croatia-wiring.js` calls `getFixtureOutcome` so the standings and the form dots share one definition of a result. Keep it that way.
+
+**Scotland is not derived and must stay hand-typed**: its fixture list holds 97 league matches of the 228 a full Premiership season needs, so its `j: 38` table cannot be computed.
 
 ## Match Reports
 
