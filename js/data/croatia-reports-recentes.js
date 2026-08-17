@@ -646,9 +646,9 @@ const croatiaRecentReports = [
                 [reportPlayer("23", "Krovinović", "7,2", "MC", true), reportPlayer("21", "Pukstas", "6,5", "MC")],
                 [reportPlayer("6", "Hugo G.", "6,6", "MD")],
                 [reportPlayer("32", "Hrgović", "6,3", "AI"), reportPlayer("14", "Raçi", "6,6", "CC"), reportPlayer("31", "Šarlija", "6,4", "CP"), reportPlayer("8", "Sigur", "6,3", "AI")],
-                [reportPlayer("3", "Silić", "6,5", "GR")]
+                [reportPlayer("33", "Silić", "6,5", "GR")]
             ]),
-            away: reportFormation("4-2-3-1", [
+            away: reportFormation("4-3-2-1", [
                 [reportPlayer("77", "Jurić", "8,1", "AR", true)],
                 [reportPlayer("20", "Ndockyt", "8,4", "ME", true), reportPlayer("10", "Fruk", "7,5", "MO")],
                 [reportPlayer("14", "Gojak", "6,7", "MC")],
