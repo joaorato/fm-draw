@@ -291,48 +291,42 @@ const croatiaMatchReports = [
         rating: "7,82",
         coaches: { home: "P. Natal", away: "Gonzalo García" },
         formations: {
-            home: {
-                name: "4-2-3-1",
-                players: [
-                    [{ number: "10", name: "Rui Pedro", rating: "6,8", pos: "AC", goal: true }],
-                    [{ number: "80", name: "Redmond", rating: "6,2", pos: "AA" }, { number: "7", name: "Trajkovski", rating: "6,5", pos: "MO" }, { number: "37", name: "Córdoba", rating: "6,9", pos: "AA", goal: true }],
-                    [{ number: "8", name: "Antolić", rating: "6,8", pos: "MC" }, { number: "26", name: "Rog", rating: "6,9", pos: "MC" }],
-                    [{ number: "22", name: "Leovac", rating: "6,6", pos: "AI" }, { number: "4", name: "Sigali", rating: "6,6", pos: "CC" }, { number: "20", name: "Kolinger", rating: "6,7", pos: "DC" }, { number: "23", name: "Vešović", rating: "6,9", pos: "AI" }],
-                    [{ number: "12", name: "Posavec", rating: "7,5", pos: "GR" }]
-                ]
-            },
-            away: {
-                name: "4-3-3 DM",
-                players: [
-                    [{ number: "10", name: "Livaja", rating: "7,1", pos: "AR", goal: true }],
-                    [{ number: "9", name: "A. Rebić", rating: "6,9", pos: "EAI" }, { number: "11", name: "Šego", rating: "7,8", pos: "EAI" }],
-                    [{ number: "7", name: "Kalik", rating: "7,0", pos: "MC" }, { number: "23", name: "Krovinović", rating: "7,7", pos: "MO", goal: true }],
-                    [{ number: "6", name: "Hugo G.", rating: "6,5", pos: "MD" }],
-                    [{ number: "32", name: "Hrgović", rating: "6,5", pos: "AI" }, { number: "14", name: "Raçi", rating: "6,6", pos: "CC" }, { number: "15", name: "Marešić", rating: "6,6", pos: "CC" }, { number: "8", name: "Sigur", rating: "6,7", pos: "DL" }],
-                    [{ number: "1", name: "Ivušić", rating: "6,3", pos: "GRC" }]
-                ]
-            }
+            home: reportFormation("3-5-2", [
+                [reportPlayer("10", "Rui Pedro", "6,8", "AAE", true), reportPlayer("80", "Redmond", "6,2", "AvR")],
+                [reportPlayer("8", "Antolić", "6,8", "MC"), reportPlayer("26", "Rog", "6,9", "CJA"), reportPlayer("7", "Trajkovski", "6,5", "MC")],
+                [reportPlayer("22", "Leovac", "6,6", "AI"), reportPlayer("23", "Vešović", "6,9", "AI")],
+                [reportPlayer("4", "Sigali", "6,6", "DC"), reportPlayer("37", "Córdoba", "6,9", "CP", true), reportPlayer("20", "Kolinger", "6,7", "CP")],
+                [reportPlayer("12", "Posavec", "7,5", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("10", "Livaja", "7,1", "AR")],
+                [reportPlayer("9", "A. Rebić", "6,9", "EAI"), reportPlayer("11", "Šego", "7,8", "EAI", true)],
+                [reportPlayer("7", "Kalik", "7,0", "MC"), reportPlayer("23", "Krovinović", "7,4", "MO", true)],
+                [reportPlayer("6", "Hugo G.", "6,5", "MD")],
+                [reportPlayer("32", "Hrgović", "6,5", "AI"), reportPlayer("14", "Raçi", "6,6", "CC"), reportPlayer("15", "Marešić", "6,6", "CC"), reportPlayer("8", "Sigur", "6,7", "DL")],
+                [reportPlayer("1", "Ivušić", "6,3", "GRC")]
+            ])
         },
         events: {
-            home: ["38' Rui Pedro M. Vešović", "41' J. Córdoba D. Antolić"],
-            away: ["4' F. Krovinović A. Kalik", "58' M. Livaja M. Šego"]
+            home: [goalEvent("38", "Rui Pedro", { assist: "M. Vešović" }), goalEvent("41", "J. Córdoba", { assist: "D. Antolić" })],
+            away: [goalEvent("4", "F. Krovinović", { assist: "A. Kalik" }), goalEvent("58", "M. Šego", { assist: "M. Livaja" })]
         },
-        stats: [
-            { label: "Posse", home: "54%", away: "46%" },
-            { label: "Remates", home: "7", away: "17" },
-            { label: "Remates à Baliza", home: "5", away: "11" },
-            { label: "xG", home: "0,61", away: "1,10" },
-            { label: "PADPAD", home: "18,86", away: "27,33" },
-            { label: "Oportunidades Flagrantes", home: "0", away: "0" },
-            { label: "Cantos", home: "1", away: "9" },
-            { label: "Passes Completados", home: "89%", away: "91%" },
-            { label: "Cruzamentos Completados", home: "40%", away: "17%" },
-            { label: "Faltas", home: "13", away: "12" },
-            { label: "Cartões amarelos", home: "1", away: "1" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "114", away: "118" },
-            { label: "Classificação Média", home: "6,8", away: "6,8" }
-        ]
+        stats: reportStats([
+            ["Posse", "54%", "46%"],
+            ["Remates", "7", "17"],
+            ["Remates à Baliza", "5", "11"],
+            ["xG", "0,61", "1,10"],
+            ["PADPAD", "18,86", "27,33"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "1", "9"],
+            ["Passes Completados", "89%", "91%"],
+            ["Cruzamentos Completados", "40%", "17%"],
+            ["Faltas", "13", "12"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "114", "118"],
+            ["Classificação Média", "6,8", "6,8"]
+        ])
     },
     {
         fixtureKey: "2025-08-09-nk-osijek-hnk-vukovar",
