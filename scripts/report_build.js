@@ -306,10 +306,7 @@ function diff(t, fixture, dados) {
             if (p.sendOff) return `${p.minute}' ${p.name} (expulso)`;
             if (p.ownGoal) return `${p.minute}' ${p.name} (a.g.)`;
             let { reading } = dados.splitScorerAndAssist(p.name, squad);
-            // O site aplica orderLegacyEventNames() a estes eventos; o diff tem de
-            // mostrar o que o site mostra, não a ordem crua da string.
-            let lido = reading ? dados.orderLegacyEventNames(reading, side) : null;
-            return `${p.minute}' ${lido?.scorer ?? p.name}${lido?.assist ? ` (assist. ${lido.assist})` : ""}`;
+            return `${p.minute}' ${reading?.scorer ?? p.name}${reading?.assist ? ` (assist. ${reading.assist})` : ""}`;
         });
         let depois = (t.events[side] || []).map(eventoTexto);
         if (antes.join(" | ") !== depois.join(" | ")) {

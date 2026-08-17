@@ -324,20 +324,19 @@ goalEvent("71", "W. Sule", { assist: "J. Pršir" })   // novo
 ```
 
 The string has no separator between scorer and assister, so reading it means guessing where the name
-splits, and it says who scored only through word order. That order is not the same on both sides. FM
-mirrors the away column on screen and prints it assister, scorer, minute, and the strings were copied
-as they appeared, so **in a legacy string the away scorer is the last name, not the first**:
-`"49' J. Mišić A. Hoxha"` is Hoxha scoring. Confirmed against the save on two matches, and it is what
-explains the goal marks in the reports whose marks were read off the pitch rather than inferred.
+splits, and it says who scored only through word order. Both readers take the first name as the
+scorer, on both sides.
 
-`orderLegacyEventNames()` in `js/data/stats-core.js` applies that swap, and the away branches of
-`getEventEdgePerson()`/`matchEventEdgeName()` in `js/ui/match-report.js` are the same rule in the
-report modal. The two must keep agreeing - when they disagreed, the modal and the top-scorer list
-named different players for the same goal, and `report_lint.js` now fails if they ever do again.
+**That order is not reliable in the existing data, and no rule fixes it.** FM mirrors the away column
+on screen and prints it assister, scorer, minute, and the strings were copied sometimes as displayed
+and sometimes corrected - occasionally within the same match. In jornada 3 Vukovar-Varaždin, three of
+the four away goals were stored scorer-first and one was reversed. Across every match checked against
+the save, reading the first name as the scorer is right 3 times out of 10 and reading the last name
+7 times out of 10, so neither is a rule. The only fix is re-reading the match from its screenshot,
+and the per-fixture goal count never catches any of it.
 
-None of that applies to `goalEvent()`: two named fields, no order to interpret, no side to special
-case. Each match re-transcribed through `scripts/report_build.js` stops depending on the legacy rule,
-which is the point - the rule is a decoder for old data, not a convention to keep writing to.
+`goalEvent()` ends the problem: two named fields, no order to interpret. A match re-transcribed
+through `scripts/report_build.js` stops depending on word order entirely.
 
 `node scripts/report_lint.js <fixtureKey>` checks a report against what the rest of the season
 already says: event order against the goal marks on the pitch card, shirt numbers against the same

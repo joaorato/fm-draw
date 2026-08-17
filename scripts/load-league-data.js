@@ -15,7 +15,6 @@ const EXPORTADOS = [
     "buildSquadIndex",
     "readGoalEvent",
     "splitScorerAndAssist",
-    "orderLegacyEventNames",
     "buildGoalRecords",
     "buildPlayerRankings",
     "validateGoalRecords"

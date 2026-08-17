@@ -129,7 +129,7 @@ function eventoLegivel(event) {
 }
 
 function checkFixture(league, fixture, helpers, reference, renderer) {
-    let { buildSquadIndex, readGoalEvent, splitScorerAndAssist, orderLegacyEventNames } = helpers;
+    let { buildSquadIndex, readGoalEvent, splitScorerAndAssist } = helpers;
     let squads = buildSquadIndex(league);
     let report = fixture.report;
     let erros = [];
@@ -176,13 +176,10 @@ function checkFixture(league, fixture, helpers, reference, renderer) {
             }
 
             if (!reading.assist || !marcou.size) return;
-            // O site lê o lado visitante espelhado nos eventos antigos: confere-se
-            // contra o que o site mostra, não contra a ordem crua da string.
-            let ordered = orderLegacyEventNames(reading, side);
             lidosComAssistencia.push({
                 event,
-                scorer: ordered.scorer,
-                assist: ordered.assist,
+                scorer: reading.scorer,
+                assist: reading.assist,
                 structured: !!parsed.structured
             });
         });

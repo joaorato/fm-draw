@@ -80,33 +80,35 @@ function getEventNameVariants(name = "") {
     return [...new Set(variants)].filter(Boolean);
 }
 
-// Num evento em string do lado visitante o marcador é o nome do fim, não o do
-// princípio: essa coluna foi copiada tal como o FM a desenha, espelhada. É a
-// mesma regra que `orderLegacyEventNames()` aplica em js/data/stats-core.js, e
-// as duas têm de continuar a dizer o mesmo — o `scripts/report_lint.js` falha se
-// alguma vez discordarem. Um evento de `goalEvent()` não passa por aqui.
-function getEventEdgePerson(body = "", side = "home") {
+// Num evento em string o marcador é o primeiro nome, dos dois lados. É o que o
+// formato diz, é o que o js/data/stats-core.js lê, e os dois têm de continuar a
+// dizer o mesmo — o `scripts/report_lint.js` falha se alguma vez discordarem.
+//
+// Que fique claro o que isto não é: não é uma garantia de que o nome está certo.
+// A coluna da direita do FM aparece espelhada no ecrã e foi copiada ora de uma
+// maneira ora da outra, às vezes dentro do mesmo jogo — no Vukovar-Varaždin da
+// jornada 3 três dos quatro golos estavam bem e um estava trocado. Não há regra
+// que arrume isso; arruma-se voltando a passar o jogo pela captura, e aí o
+// relatório passa a usar `goalEvent()` e não chega sequer aqui.
+function getEventEdgePerson(body = "") {
     let parts = body.split(/\s+/).filter(Boolean);
     if (parts.length <= 2) return body.trim();
 
-    return side === "away" ? parts.slice(-2).join(" ") : parts.slice(0, 2).join(" ");
+    return parts.slice(0, 2).join(" ");
 }
 
-function matchEventEdgeName(body = "", playerNames = [], side = "home") {
+function matchEventEdgeName(body = "", playerNames = []) {
     let candidates = playerNames
         .flatMap((name) => getEventNameVariants(name))
         .sort((a, b) => b.length - a.length);
 
     return candidates.find((name) => {
         let escaped = escapeRegExp(name);
-        let pattern = side === "away"
-            ? new RegExp(`(?:^|\\s)${escaped}$`, "iu")
-            : new RegExp(`^${escaped}(?:\\s|$)`, "iu");
-        return pattern.test(body);
+        return new RegExp(`^${escaped}(?:\\s|$)`, "iu").test(body);
     }) || "";
 }
 
-function parseMatchReportEvent(event = "", playerNames = [], side = "home") {
+function parseMatchReportEvent(event = "", playerNames = []) {
     // Evento estruturado (`goalEvent()` / `sendOffEvent()`): já vem com marcador
     // e assistente separados, não há nada para interpretar.
     if (event && typeof event === "object") {
@@ -138,26 +140,19 @@ function parseMatchReportEvent(event = "", playerNames = [], side = "home") {
         return { minute, scorer: body.replace(/\s*pen\s*/i, "").trim(), assist: "Penálti", type: "penalty" };
     }
 
-    const knownScorer = matchEventEdgeName(body, playerNames, side);
+    const knownScorer = matchEventEdgeName(body, playerNames);
     if (knownScorer) {
-        let scorerMatch = side === "away"
-            ? body.match(new RegExp(`(?:^|\\s)(${escapeRegExp(knownScorer)})$`, "iu"))
-            : body.match(new RegExp(`^(${escapeRegExp(knownScorer)})(?:\\s|$)`, "iu"));
+        let scorerMatch = body.match(new RegExp(`^(${escapeRegExp(knownScorer)})(?:\\s|$)`, "iu"));
         let scorer = scorerMatch?.[1] || knownScorer;
-        let edgeScorer = getEventEdgePerson(body, side);
+        let edgeScorer = getEventEdgePerson(body);
         if (!knownScorer.includes(" ") && edgeScorer.toLowerCase().endsWith(knownScorer.toLowerCase())) {
             scorer = edgeScorer;
         }
-        let assist = side === "away"
-            ? body.slice(0, body.length - scorer.length).trim()
-            : body.slice(scorer.length).trim();
-        return { minute, scorer, assist, type: "goal" };
+        return { minute, scorer, assist: body.slice(scorer.length).trim(), type: "goal" };
     }
 
-    const scorer = getEventEdgePerson(body, side);
-    const assist = side === "away"
-        ? body.slice(0, body.length - scorer.length).trim()
-        : body.slice(scorer.length).trim();
+    const scorer = getEventEdgePerson(body);
+    const assist = body.slice(scorer.length).trim();
 
     return {
         minute,
@@ -190,7 +185,7 @@ function getScorerNames(report, side) {
     let playerNames = getFormationPlayerNames(formation);
     let scorerKeys = new Set();
     (report.events?.[side] || [])
-        .map((event) => parseMatchReportEvent(event, playerNames, side))
+        .map((event) => parseMatchReportEvent(event, playerNames))
         .filter((event) => event.type === "goal" || event.type === "penalty")
         .forEach((event) => {
             getPlayerGoalKeys(event.scorer).forEach((key) => scorerKeys.add(key));
@@ -198,14 +193,14 @@ function getScorerNames(report, side) {
     return scorerKeys;
 }
 
-function renderMatchReportEvents(events = [], formation = {}, side = "home") {
+function renderMatchReportEvents(events = [], formation = {}) {
     if (!events.length) {
         return `<span class="match-report-empty">Sem golos</span>`;
     }
 
     const playerNames = getFormationPlayerNames(formation);
     return events.map((event) => {
-        const parsed = parseMatchReportEvent(event, playerNames, side);
+        const parsed = parseMatchReportEvent(event, playerNames);
         const detail = parsed.assist
             ? (parsed.type === "goal" ? `Assist. ${parsed.assist}` : parsed.assist)
             : "";
@@ -416,8 +411,8 @@ function openMatchReport(reportId) {
                     <section class="match-report-card match-report-events">
                         <h3>Eventos do jogo</h3>
                         <div class="match-report-events-grid">
-                            <div class="match-report-events-team match-report-events-team-home">${renderMatchReportEvents(report.events.home, getReportFormation(report, "home"), "home")}</div>
-                            <div class="match-report-events-team match-report-events-team-away">${renderMatchReportEvents(report.events.away, getReportFormation(report, "away"), "away")}</div>
+                            <div class="match-report-events-team match-report-events-team-home">${renderMatchReportEvents(report.events.home, getReportFormation(report, "home"))}</div>
+                            <div class="match-report-events-team match-report-events-team-away">${renderMatchReportEvents(report.events.away, getReportFormation(report, "away"))}</div>
                         </div>
                     </section>
                     <section class="match-report-card match-report-data">

@@ -71,8 +71,16 @@ interpretar.
 
 Copiar a coluna da direita pela ordem em que aparece é o erro mais caro do
 projeto, e não foi um deslize isolado: há jogos inteiros da época gravados assim,
-com o golo no assistente e a assistência no marcador. Foi por isso que se passou
-a escrever a transcrição em JSON.
+com o golo no assistente e a assistência no marcador.
+
+E não vale a pena procurar-lhe um padrão — já se procurou. O erro aparece em
+alguns jogos e não noutros, e no Vukovar-Varaždin da jornada 3 três dos quatro
+golos da equipa visitante estavam bem e um estava trocado, no mesmo relatório.
+Nos jogos confirmados contra o save, ler o primeiro nome como marcador acerta 3
+em 10 e ler o último acerta 7 em 10: nenhuma das duas é uma regra. Por isso a
+coluna de fora dos relatórios antigos não se corrige a pensar, corrige-se a
+voltar a passar o jogo pela captura — e é para isso que serve a transcrição em
+JSON.
 
 `casa-*` e `fora-*`: o onze inicial. As linhas vão do ataque para o guarda-redes,
 que é a ordem em que ficam no `players`. Quem tem a bola ao lado da camisola
