@@ -154,47 +154,42 @@ const croatiaMatchReports = [
         rating: "8,72",
         coaches: { home: "Zép Jóbes", away: "P. Natal" },
         formations: {
-            home: {
-                name: "3-4-2-1",
-                players: [
-                    [{ number: "9", name: "Duje Čop", rating: "6,5", pos: "AvR" }],
-                    [{ number: "10", name: "Fruk", rating: "6,9", pos: "ME" }, { number: "26", name: "Dantas", rating: "8,7", pos: "MO", goal: true }],
-                    [{ number: "34", name: "Devetak", rating: "6,7", pos: "AI" }, { number: "21", name: "Lacoux", rating: "6,7", pos: "MD" }, { number: "11", name: "André", rating: "7,7", pos: "CJR", goal: true }, { number: "22", name: "Oreč", rating: "7,7", pos: "AI" }],
-                    [{ number: "51", name: "Husić", rating: "6,9", pos: "DC" }, { number: "6", name: "Radeljić", rating: "7,1", pos: "DC" }, { number: "45", name: "Majstorović", rating: "6,7", pos: "DC" }],
-                    [{ number: "13", name: "Zlomislić", rating: "6,6", pos: "GR" }]
-                ]
-            },
-            away: {
-                name: "4-2-3-1",
-                players: [
-                    [{ number: "10", name: "Rui Pedro", rating: "6,1", pos: "AC" }],
-                    [{ number: "15", name: "Stojaković", rating: "6,7", pos: "AA", goal: true }, { number: "7", name: "Trajkovski", rating: "6,2", pos: "MO" }, { number: "37", name: "Córdoba", rating: "6,6", pos: "AA" }],
-                    [{ number: "8", name: "Antolić", rating: "6,5", pos: "MC" }, { number: "28", name: "Belcar", rating: "6,4", pos: "MC" }],
-                    [{ number: "17", name: "Pajač", rating: "6,2", pos: "AI" }, { number: "4", name: "Sigali", rating: "6,7", pos: "CC" }, { number: "20", name: "Kolinger", rating: "6,4", pos: "DC" }, { number: "23", name: "Vešović", rating: "6,7", pos: "AI" }],
-                    [{ number: "12", name: "Posavec", rating: "6,5", pos: "GR" }]
-                ]
-            }
+            home: reportFormation("4-2-1-2-1", [
+                [reportPlayer("51", "Husić", "6,9", "AR")],
+                [reportPlayer("9", "Duje Čop", "6,5", "ME"), reportPlayer("10", "Fruk", "6,9", "MO")],
+                [reportPlayer("11", "André", "7,7", "MC", true)],
+                [reportPlayer("21", "Lacoux", "6,7", "MD"), reportPlayer("26", "Dantas", "8,7", "CJR", true)],
+                [reportPlayer("34", "Devetak", "6,7", "AI"), reportPlayer("6", "Radeljić", "7,1", "CC"), reportPlayer("45", "Majstorović", "6,7", "CC"), reportPlayer("22", "Oreč", "7,7", "AI")],
+                [reportPlayer("13", "Zlomislić", "6,6", "GR")]
+            ]),
+            away: reportFormation("3-5-2", [
+                [reportPlayer("10", "Rui Pedro", "6,1", "AAE"), reportPlayer("15", "Stojaković", "6,7", "AvR", true)],
+                [reportPlayer("8", "Antolić", "6,5", "MC"), reportPlayer("28", "Belcar", "6,4", "CJA"), reportPlayer("7", "Trajkovski", "6,2", "MC")],
+                [reportPlayer("17", "Pajač", "6,2", "AI"), reportPlayer("23", "Vešović", "6,7", "AI")],
+                [reportPlayer("4", "Sigali", "6,7", "DC"), reportPlayer("37", "Córdoba", "6,6", "CP"), reportPlayer("20", "Kolinger", "6,4", "CP")],
+                [reportPlayer("12", "Posavec", "6,5", "GR")]
+            ])
         },
         events: {
-            home: ["5' Tiago Dantas A. Oreč", "12' Tiago Dantas T. Fruk", "28' André Tiago Dantas"],
-            away: ["46' M. Šitum A. Stojaković"]
+            home: [goalEvent("5", "Tiago Dantas", { assist: "A. Oreč" }), goalEvent("12", "Tiago Dantas", { assist: "T. Fruk" }), goalEvent("28", "André", { assist: "Tiago Dantas" })],
+            away: [goalEvent("46", "A. Stojaković", { assist: "M. Šitum" })]
         },
-        stats: [
-            { label: "Posse", home: "50%", away: "50%" },
-            { label: "Remates", home: "12", away: "13" },
-            { label: "Remates à Baliza", home: "7", away: "4" },
-            { label: "xG", home: "1,54", away: "0,98" },
-            { label: "PADPAD", home: "22,39", away: "35,55" },
-            { label: "Oportunidades Flagrantes", home: "1", away: "0" },
-            { label: "Cantos", home: "4", away: "3" },
-            { label: "Passes Completados", home: "92%", away: "87%" },
-            { label: "Cruzamentos Completados", home: "15%", away: "36%" },
-            { label: "Faltas", home: "13", away: "12" },
-            { label: "Cartões amarelos", home: "2", away: "1" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "115", away: "114" },
-            { label: "Classificação Média", home: "7,1", away: "6,5" }
-        ]
+        stats: reportStats([
+            ["Posse", "50%", "50%"],
+            ["Remates", "12", "13"],
+            ["Remates à Baliza", "7", "4"],
+            ["xG", "1,54", "0,98"],
+            ["PADPAD", "22,39", "35,55"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "4", "3"],
+            ["Passes Completados", "92%", "87%"],
+            ["Cruzamentos Completados", "15%", "36%"],
+            ["Faltas", "13", "12"],
+            ["Cartões amarelos", "2", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "115", "114"],
+            ["Classificação Média", "7,1", "6,5"]
+        ])
     },
     {
         fixtureKey: "2025-08-02-hnk-vukovar-nk-slaven-belupo",
