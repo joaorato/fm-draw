@@ -337,48 +337,42 @@ const croatiaMatchReports = [
         rating: "7,42",
         coaches: { home: "Gamy Chambelito", away: "Hugo Macedo" },
         formations: {
-            home: {
-                name: "4-2-3-1",
-                players: [
-                    [{ number: "17", name: "Jakupović", rating: "6,1", pos: "AvR" }],
-                    [{ number: "6", name: "Nico Gaitán", rating: "6,3", pos: "CL" }, { number: "99", name: "Teklić", rating: "6,7", pos: "ME" }, { number: "10", name: "Shopov", rating: "6,3", pos: "CJA" }],
-                    [{ number: "23", name: "Vrbančić", rating: "6,6", pos: "CJA" }],
-                    [{ number: "38", name: "Čolina", rating: "7,1", pos: "AI" }, { number: "16", name: "Petrusenko", rating: "7,1", pos: "MD" }, { number: "29", name: "Karačić", rating: "7,3", pos: "AI", goal: true }],
-                    [{ number: "26", name: "Jelenić", rating: "6,7", pos: "CC" }, { number: "15", name: "Mersinaj", rating: "6,9", pos: "DC" }],
-                    [{ number: "31", name: "Malenica", rating: "6,6", pos: "GR" }]
-                ]
-            },
-            away: {
-                name: "4-3-1-2",
-                players: [
-                    [{ number: "21", name: "Puljić", rating: "7,1", pos: "AAE", goal: true }, { number: "9", name: "Kulušić", rating: "6,4", pos: "AC" }],
-                    [{ number: "10", name: "Gonzalez", rating: "6,0", pos: "CL" }],
-                    [{ number: "3", name: "Bosec", rating: "7,0", pos: "AI" }, { number: "13", name: "Čaić", rating: "6,4", pos: "MD" }, { number: "18", name: "Antolković", rating: "6,4", pos: "MAA" }, { number: "91", name: "Tićinović", rating: "6,5", pos: "AI" }],
-                    [{ number: "5", name: "Elez", rating: "6,7", pos: "CC" }, { number: "34", name: "Tadić", rating: "6,4", pos: "DC" }, { number: "4", name: "Mitrović", rating: "7,1", pos: "CC" }],
-                    [{ number: "1", name: "Bulat", rating: "6,6", pos: "GR" }]
-                ]
-            }
+            home: reportFormation("3-1-3-2-1", [
+                [reportPlayer("10", "Shopov", "6,3", "AR")],
+                [reportPlayer("38", "Čolina", "7,1", "MO"), reportPlayer("6", "Nico Gaitán", "6,3", "MO")],
+                [reportPlayer("23", "Vrbančić", "6,6", "MAI"), reportPlayer("16", "Petrusenko", "7,1", "MC"), reportPlayer("29", "Karačić", "7,3", "MAI", true)],
+                [reportPlayer("17", "Jakupović", "6,1", "Pi")],
+                [reportPlayer("26", "Jelenić", "6,7", "CP"), reportPlayer("99", "Teklić", "6,7", "CP"), reportPlayer("15", "Mersinaj", "6,9", "CP")],
+                [reportPlayer("31", "Malenica", "6,6", "GR")]
+            ]),
+            away: reportFormation("3-4-2-1", [
+                [reportPlayer("9", "Kulušić", "6,4", "AAE")],
+                [reportPlayer("18", "Antolković", "6,4", "MO"), reportPlayer("21", "Puljić", "7,1", "MO")],
+                [reportPlayer("3", "Bosec", "7,0", "AI"), reportPlayer("13", "Čaić", "6,4", "MD"), reportPlayer("10", "Gonzalez", "6,0", "CJR"), reportPlayer("91", "Tićinović", "6,5", "AI")],
+                [reportPlayer("5", "Elez", "6,7", "CC"), reportPlayer("34", "Tadić", "6,4", "CC"), reportPlayer("4", "Mitrović", "7,1", "CC")],
+                [reportPlayer("1", "Bulat", "6,6", "GR")]
+            ])
         },
         events: {
-            home: ["4' M. Tadić (AG)", "43' F. Karačić O. Petrusenko"],
-            away: ["46' J. Puljić J. Moreno"]
+            home: [goalEvent("4", "M. Tadić", { ownGoal: true }), goalEvent("43", "F. Karačić", { assist: "O. Petrusenko" })],
+            away: [goalEvent("46", "J. Moreno", { assist: "J. Puljić" })]
         },
-        stats: [
-            { label: "Posse", home: "61%", away: "39%" },
-            { label: "Remates", home: "16", away: "8" },
-            { label: "Remates à Baliza", home: "3", away: "3" },
-            { label: "xG", home: "1,22", away: "1,43" },
-            { label: "PADPAD", home: "20,40", away: "17,85" },
-            { label: "Oportunidades Flagrantes", home: "1", away: "2" },
-            { label: "Cantos", home: "7", away: "3" },
-            { label: "Passes Completados", home: "85%", away: "81%" },
-            { label: "Cruzamentos Completados", home: "18%", away: "12%" },
-            { label: "Faltas", home: "16", away: "18" },
-            { label: "Cartões amarelos", home: "2", away: "1" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "123", away: "125" },
-            { label: "Classificação Média", home: "6,7", away: "6,7" }
-        ]
+        stats: reportStats([
+            ["Posse", "61%", "39%"],
+            ["Remates", "16", "8"],
+            ["Remates à Baliza", "3", "3"],
+            ["xG", "1,22", "1,43"],
+            ["PADPAD", "20,40", "17,85"],
+            ["Oportunidades Flagrantes", "1", "2"],
+            ["Cantos", "7", "3"],
+            ["Passes Completados", "85%", "81%"],
+            ["Cruzamentos Completados", "18%", "12%"],
+            ["Faltas", "16", "18"],
+            ["Cartões amarelos", "2", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "123", "125"],
+            ["Classificação Média", "6,7", "6,7"]
+        ])
     },
     {
         fixtureKey: "2025-08-09-nk-slaven-belupo-dinamo-zagreb",
