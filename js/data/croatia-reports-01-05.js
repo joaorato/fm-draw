@@ -846,7 +846,7 @@ const croatiaRoundFourReports = [
         weather: "Calmo",
         playerOfMatch: "Ante Matej Jurić",
         rating: "8,24",
-        coaches: { home: "N. Petrović", away: "Zép Jóbes" },
+        coaches: { home: "Gamy Chambelito", away: "Zép Jóbes" },
         formations: {
             home: reportFormation("4-2-3-1", [
                 [reportPlayer("17", "Jakupović", "6,5", "AAE")],
