@@ -308,9 +308,14 @@ Use the helpers from `report-core.js`:
 
 Transcribe a report from an FM screenshot with the pipeline, not by hand: `scripts/report_crop.py`
 cuts the screenshot into readable pieces, you write a JSON transcription, and
-`scripts/report_build.js` validates it against the fixtures and emits the report object.
-`report_build.js <json> --diff` re-reads a match that is already in the data and shows what changes,
-which is how a suspect old report gets checked. The `fm-match-report` skill has the details.
+`scripts/report_build.js <json> --write` validates it and writes the block into the right file -
+replacing the report already there, or appending with `--para js/data/croatia-reports-<block>.js`.
+**Leave it uncommitted**: the user reviews the `git diff` and decides.
+
+`--diff` prints the comparison and the whole block to the terminal instead of writing. It costs far
+more than it is worth as a routine step, since `git diff` shows the same thing afterwards - keep it
+for when you genuinely want to look before touching the file. The `fm-match-report` skill has the
+details.
 
 Build keys with `createFixtureKey()` from `fixtures-core.js`.
 

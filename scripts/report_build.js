@@ -331,10 +331,64 @@ function diff(t, fixture, dados) {
     console.log(linhas.length ? linhas.join("\n") : "  nenhuma.");
 }
 
+// Escreve o relatório no ficheiro certo. Substituir um bloco que já existe é a
+// operação normal; até aqui era feita à mão, com um script improvisado de cada
+// vez, e partiu-se duas vezes — os ficheiros misturam `compactReport(...)` com
+// objetos literais, e as duas formas fecham em sítios diferentes.
+function acharBloco(texto, fixtureKey) {
+    let i = texto.indexOf(`"${fixtureKey}"`);
+    if (i < 0) return null;
+
+    let aberturaObj = texto.lastIndexOf("\n    {", i);
+    let aberturaCr = texto.lastIndexOf("\n    compactReport(", i);
+    let usaCr = aberturaCr > aberturaObj;
+    let inicio = (usaCr ? aberturaCr : aberturaObj) + 1;
+    let [abre, fecha] = usaCr ? ["(", ")"] : ["{", "}"];
+
+    let j = texto.indexOf(abre, inicio);
+    let nivel = 0;
+    while (j < texto.length) {
+        if (texto[j] === abre) nivel++;
+        else if (texto[j] === fecha && --nivel === 0) break;
+        j++;
+    }
+    let fim = j + 1;
+    if (texto[fim] === ",") fim++;
+    return { inicio, fim };
+}
+
+function escrever(t, fixtureKey, destinoPedido) {
+    let pasta = path.join(__dirname, "..", "js", "data");
+    let ficheiros = fs.readdirSync(pasta).filter((f) => /^croatia-reports-.*\.js$/.test(f));
+    let bloco = relatorioJs(t, fixtureKey);
+
+    let alvo = ficheiros.find((f) => fs.readFileSync(path.join(pasta, f), "utf8").includes(`"${fixtureKey}"`));
+    if (alvo) {
+        let caminho = path.join(pasta, alvo);
+        let texto = fs.readFileSync(caminho, "utf8");
+        let sitio = acharBloco(texto, fixtureKey);
+        fs.writeFileSync(caminho, texto.slice(0, sitio.inicio) + bloco + "," + texto.slice(sitio.fim));
+        return { ficheiro: alvo, novo: false };
+    }
+
+    if (!destinoPedido) {
+        throw new Error("é um relatório novo e não sei em que ficheiro pô-lo:"
+            + " junta --para js/data/croatia-reports-<bloco>.js");
+    }
+    let caminho = path.join(__dirname, "..", destinoPedido);
+    let texto = fs.readFileSync(caminho, "utf8");
+    let fecho = texto.lastIndexOf("\n];");
+    if (fecho < 0) throw new Error(`não encontrei o fim do array em ${destinoPedido}`);
+    let antes = texto.slice(0, fecho);
+    let virgula = antes.trimEnd().endsWith(",") ? "" : ",";
+    fs.writeFileSync(caminho, antes + virgula + "\n" + bloco + texto.slice(fecho));
+    return { ficheiro: path.basename(destinoPedido), novo: true };
+}
+
 function main() {
     let caminho = process.argv[2];
     if (!caminho) {
-        console.error("Uso: node scripts/report_build.js <transcricao.json> [--diff]");
+        console.error("Uso: node scripts/report_build.js <transcricao.json> [--diff] [--write [--para <ficheiro>]]");
         process.exit(2);
     }
 
@@ -369,8 +423,15 @@ function main() {
         process.exit(1);
     }
 
-    console.log("\n--- relatório para colar no ficheiro do bloco ---\n");
-    console.log(relatorioJs(t, fixtureKey) + ",");
+    if (!process.argv.includes("--write")) {
+        console.log("\n--- relatório para colar no ficheiro do bloco ---\n");
+        console.log(relatorioJs(t, fixtureKey) + ",");
+        return;
+    }
+
+    let destino = process.argv[process.argv.indexOf("--para") + 1];
+    let { ficheiro, novo } = escrever(t, fixtureKey, process.argv.includes("--para") ? destino : null);
+    console.log(`\n${novo ? "acrescentado a" : "substituído em"} js/data/${ficheiro}`);
 }
 
 main();

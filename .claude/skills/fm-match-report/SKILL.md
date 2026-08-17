@@ -15,8 +15,9 @@ O caminho é sempre o mesmo:
 captura .png
   -> report_crop.py          recorta e amplia
   -> (leitura)               escreves a transcrição em JSON
-  -> report_build.js         valida contra os dados e escreve o relatório
-  -> report_lint.js          confere depois de colado
+  -> report_build.js --write valida e escreve no ficheiro certo
+  -> report_lint.js          confere depois de escrito
+  -> (o utilizador confirma no git diff e manda commitar)
 ```
 
 A transcrição vai para um ficheiro JSON com `scorer` e `assist` em campos
@@ -166,15 +167,19 @@ onze pode usar `compactReport`. As estatísticas vão em `reportStats([[...]])`.
 ## 5. Construir e verificar
 
 ```bash
-node scripts/report_build.js <transcricao.json>           # valida e imprime o relatório
-node scripts/report_build.js <transcricao.json> --diff    # e compara com o que já lá está
+node scripts/report_build.js <transcricao.json> --write
 ```
 
-O `--diff` é o que serve para **voltar a passar um jogo antigo**: transcreves de
-novo a partir da captura, comparas com o que está nos dados e vês o que muda. É
-assim que se corrige um relatório suspeito sem ter de acreditar no que lá está.
-Compara cabeçalho, onzes, eventos e as catorze estatísticas, por isso "nenhuma
-diferença" quer mesmo dizer que o relatório e a captura dizem o mesmo.
+Valida e escreve o bloco no ficheiro certo: substitui o relatório que lá estiver,
+ou acrescenta um novo se juntares `--para js/data/croatia-reports-<bloco>.js`.
+**Não commites** — deixa ficar por commitar para o utilizador ver o `git diff` e
+decidir.
+
+Não uses o `--diff` por hábito. Ele imprime a comparação toda e o bloco inteiro
+para o terminal, e isso custa muito mais do que vale quando o `git diff` mostra o
+mesmo depois de escrever. Guarda-o para quando quiseres mesmo ver o que muda
+antes de mexer no ficheiro — por exemplo num relatório antigo de que desconfias,
+ou quando o utilizador pede para veres primeiro.
 
 O `report_build.js` recusa-se a escrever com erros por resolver. Os que apanha:
 
@@ -186,7 +191,7 @@ O `report_build.js` recusa-se a escrever com erros por resolver. Os que apanha:
   entrou espelhada;
 - dois jogadores com o mesmo número no mesmo onze.
 
-Depois de colar o relatório no ficheiro do bloco:
+Depois de escrever:
 
 ```bash
 node --check js/data/croatia-reports-<bloco>.js
