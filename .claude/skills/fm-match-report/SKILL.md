@@ -26,11 +26,25 @@ que já lá está: o `report_build.js` acha o jogo pela data e pelas equipas, e 
 de transcrever não te diz nada que precises e ainda te encosta a repeti-lo — e é
 o antigo que costuma estar errado.
 
-Quando o pedido é só uma parte do relatório — corrigir os onzes, por exemplo —,
-os recortes que interessam são os quatro das fichas (`casa-*`, `fora-*`) e o dos
-eventos, que é a segunda leitura do `goal: true`. O cabeçalho e as catorze
-estatísticas lêem-se no print que o utilizador colou, que já está à tua frente.
-O JSON vai completo à mesma, porque o `--write` reescreve o relatório todo, mas
+## Que recortes ler
+
+Sete, sempre os mesmos: os quatro das fichas (`casa-*`, `fora-*`), o dos eventos
+— que é a segunda leitura do `goal: true` — e os dois das estatísticas
+(`dados-*`), que nada valida depois de escritas. O `cabecalho.png` não se lê: o
+resultado, a data, o estádio, o tempo e o homem do jogo estão em letra grande no
+print que o utilizador colou e que já tens à frente. Se ele só te tiver dado o
+caminho do ficheiro, sem colar a imagem, então são oito e o cabeçalho lê-se
+também.
+
+**Não faças ampliações por tua conta antes de escrever.** Nem para conferir
+números de camisola, nem para caçar diacríticos. Escreve o que lês, corre o
+`report_build.js --write` e depois o `report_lint.js`: ele compara cada número e
+cada nome com o resto da época e diz-te quais é que merecem uma segunda vista.
+Ampliar à cautela custa mais do que o relatório todo e responde pior — o print
+não sabe o que os outros jogos já dizem daquele jogador, e o lint sabe.
+
+Quando o pedido é só uma parte do relatório — corrigir os onzes, por exemplo — o
+JSON vai completo à mesma, porque o `--write` reescreve o relatório todo, mas
 tudo o que ele leva sai do print e não do que estava gravado.
 
 ## O JSON
@@ -77,20 +91,34 @@ conta com a maioria dos jogos antigos precisar de correção.
 ## As quatro armadilhas
 
 **Números de camisola com um dígito tapado.** O desenho da camisola come o
-primeiro dígito: 33 lê-se 3, 71 lê-se 1. O sinal é o número estar descentrado ou
-colidir com o de um colega. O `report_lint.js` diz que número aquele jogador usa
-nos outros relatórios; se continuar duvidoso, pergunta.
+primeiro dígito: 33 lê-se 3, 71 lê-se 1. Não andes à procura deles no print —
+escreve o que vês e deixa o `report_lint.js` dizer que número aquele jogador usa
+nos outros relatórios. Amplia só o que ele apontar, e se continuar duvidoso
+pergunta em vez de escolher.
 
 **O treinador pode ser o adjunto.** Nos oito clubes dos humanos escreve-se sempre
 o humano, mesmo quando o cabeçalho mostra outro nome. Dinamo e Hajduk não têm
 humano e levam o que o FM mostrar.
 
-**O nome da formação não está neste ecrã** — o cartão diz "(PI)". A linha antes
-do guarda-redes são os defesas e é o primeiro número do nome. O resto não se
-deduz, e não o copies dos relatórios antigos: 35 deles estão errados. Pergunta.
+**A forma lê-se no campo, o nome pergunta-se.** O cartão diz sempre "(PI)": o
+nome não está neste ecrã e não vale a pena ampliar à procura dele. A linha antes
+do guarda-redes são os defesas e é o primeiro número; as bandas a seguir dão o
+resto, e a mesma forma aceita mais do que um nome — 4-3-3 DM e 4-1-2-3
+desenham-se igual. Descreve ao utilizador as linhas que leste e pergunta-lhe o
+nome, a não ser que ele já to tenha dado no pedido. **Não o vás buscar aos
+relatórios antigos nem à contagem do que a época já usa:** 35 estão errados, e um
+nome errado muitas vezes continua a ser um nome errado.
 
 **Cartões e autogolos vivem na lista dos golos.** O autogolo escreve-se do lado
 que beneficia, embora o jogador seja da outra equipa.
+
+## A grafia é a do print
+
+Quando o print escreve um nome de uma maneira e o resto da época o escreve de
+outra, manda o print. Não dobres o relatório novo para condizer com os antigos:
+escreve-o como está no ecrã e, se o `report_lint.js` apontar a divergência,
+corrige a época toda de uma vez. O mesmo vale para um número de camisola que o
+utilizador confirme — muda em todos os relatórios, não só neste.
 
 ## O `goal: true`
 
