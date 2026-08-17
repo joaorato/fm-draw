@@ -386,10 +386,26 @@ const croatiaRecentReports = [
         playerOfMatch: "Anton Matković",
         rating: "9,76",
         coaches: { home: "Francisco Pinto", away: "Gamy Chambelito" },
-        formations: { home: "3-4-1-2", away: "4-1-2-3" },
+        formations: {
+            home: reportFormation("4-2-2-2", [
+                [reportPlayer("90", "Nestorovski", "7,0", "AA", true), reportPlayer("7", "Dabro", "6,6", "AR")],
+                [reportPlayer("10", "Caimacov", "6,2", "EAI"), reportPlayer("23", "Lepinjica", "6,4", "Ex")],
+                [reportPlayer("8", "Mrowca", "7,0", "MD"), reportPlayer("21", "Crepulja", "6,2", "CJA")],
+                [reportPlayer("35", "Žuta", "6,0", "AI"), reportPlayer("5", "Katalinić", "6,4", "DC"), reportPlayer("4", "Kovicic", "6,6", "CC"), reportPlayer("18", "Krušelj", "6,3", "DL")],
+                [reportPlayer("31", "Hadžikić", "6,6", "GR")]
+            ]),
+            away: reportFormation("3-4-2-1", [
+                [reportPlayer("17", "Jakupović", "7,4", "AR", true)],
+                [reportPlayer("38", "Čolina", "6,8", "MO"), reportPlayer("11", "Omerović", "9,2", "MO", true)],
+                [reportPlayer("20", "Gradel", "7,6", "MAI"), reportPlayer("23", "Vrbančić", "7,7", "MC"), reportPlayer("29", "Karačić", "6,4", "MAI")],
+                [reportPlayer("21", "Bubanja", "7,4", "Pi")],
+                [reportPlayer("26", "Jelenić", "7,0", "CP"), reportPlayer("34", "Matković", "9,8", "CP", true), reportPlayer("33", "Hasić", "7,1", "CP")],
+                [reportPlayer("31", "Malenica", "7,0", "GR")]
+            ])
+        },
         events: {
-            home: ["33' V. Bubanja a.g.", "84' I. Nestorovski J. Mitrović"],
-            away: ["3' N. Omerović A. Matković", "56' L. Vrbančić N. Omerović", "61' A. Matković A. Jakupović", "67' V. Bubanja Y. Touré", "89' N. Mikić A. Matković"]
+            home: [goalEvent("33", "V. Bubanja", { ownGoal: true }), goalEvent("84", "I. Nestorovski", { assist: "J. Mitrović" })],
+            away: [goalEvent("3", "A. Matković", { assist: "N. Omerović" }), goalEvent("56", "N. Omerović", { assist: "L. Vrbančić" }), goalEvent("61", "A. Jakupović", { assist: "A. Matković" }), goalEvent("67", "Y. Touré", { assist: "V. Bubanja" }), goalEvent("89", "A. Matković", { assist: "N. Mikić" })]
         },
         stats: reportStats([
             ["Posse", "42%", "58%"],
