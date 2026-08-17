@@ -20,6 +20,19 @@ Os relatórios estão todos no `js/data/croatia-reports.js` e é lá que o `--wr
 escreve, tanto a substituir um que já existe como a acrescentar um novo. Não há
 ficheiro para escolher nem `<script>` para juntar.
 
+**Não vás procurar o jogo aos dados.** Nem o jogo, nem a chave, nem o relatório
+que já lá está: o `report_build.js` acha o jogo pela data e pelas equipas, e o
+`git diff` depois do `--write` mostra o que mudou. Ler o relatório antigo antes
+de transcrever não te diz nada que precises e ainda te encosta a repeti-lo — e é
+o antigo que costuma estar errado.
+
+Quando o pedido é só uma parte do relatório — corrigir os onzes, por exemplo —,
+os recortes que interessam são os quatro das fichas (`casa-*`, `fora-*`) e o dos
+eventos, que é a segunda leitura do `goal: true`. O cabeçalho e as catorze
+estatísticas lêem-se no print que o utilizador colou, que já está à tua frente.
+O JSON vai completo à mesma, porque o `--write` reescreve o relatório todo, mas
+tudo o que ele leva sai do print e não do que estava gravado.
+
 ## O JSON
 
 ```json

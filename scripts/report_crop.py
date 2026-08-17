@@ -10,6 +10,11 @@ Sem --box escreve o conjunto normal de recortes: cabeçalho, eventos, as duas
 fichas de equipa partidas em duas metades cada, e o painel de dados em duas
 metades. É esse conjunto que chega para transcrever um relatório inteiro.
 
+Cada recorte sai aparado por baixo até à última linha que tem alguma coisa
+desenhada. As caixas são folgadas de propósito e num jogo com poucos golos o
+cartão dos eventos saía quase todo vazio; um recorte vazio custa a ler o mesmo
+que um cheio.
+
 Com --box corta uma região à medida, para quando um número de camisola ou um
 nome não se lê no recorte normal. As coordenadas são em pixéis da imagem
 original.
@@ -47,9 +52,53 @@ REGIOES = {
 
 ESCALA_NORMAL = 3
 
+# Quanto é que um pixel tem de destoar do fundo para contar como conteúdo, e
+# quantas linhas se deixam por baixo da última que tem alguma coisa.
+#
+# O fundo do cartão não é liso: medido neste ecrã, uma linha vazia chega a ter
+# quatro pixéis a destoar 12 do fundo. Daí o 16, que fica acima disso e muito
+# abaixo do texto. A moldura das etiquetas dos golos é ténue e cai do lado do
+# fundo nesta conta, e é para ela que serve a margem — sem margem o corte passa
+# rente ao texto e a etiqueta do último golo fica sem o rebordo de baixo.
+DESVIO_MINIMO = 16
+MARGEM_CORTE = 16
 
-def cortar(imagem, caixa, escala, destino):
+
+def ultima_linha_com_conteudo(recorte):
+    """Última linha do recorte que tem alguma coisa desenhada, ou None.
+
+    As caixas em REGIOES são folgadas de propósito, e num jogo de dois golos
+    três quartos do cartão dos eventos saem vazios. Aqui a folga volta a sair
+    depois de cortada, medida no que lá está em vez de adivinhada: só se tiram
+    linhas onde não há nada, e por isso continua a não haver forma de perder um
+    golo por cortar de menos.
+
+    A moldura do cartão é uma risca de um ou dois pixéis que atravessa o recorte
+    todo, e é por isso que uma linha precisa de mais do que meia dúzia de pixéis
+    destoantes para contar como conteúdo.
+    """
+    cinza = recorte.convert("L")
+    largura, altura = cinza.size
+    pixeis = cinza.load()
+    fundo = cinza.histogram().index(max(cinza.histogram()))
+    minimo = max(4, int(largura * 0.02))
+
+    for y in range(altura - 1, -1, -1):
+        destoantes = 0
+        for x in range(largura):
+            if abs(pixeis[x, y] - fundo) > DESVIO_MINIMO:
+                destoantes += 1
+                if destoantes > minimo:
+                    return y
+    return None
+
+
+def cortar(imagem, caixa, escala, destino, aparar=True):
     recorte = imagem.crop(caixa)
+    if aparar:
+        fim = ultima_linha_com_conteudo(recorte)
+        if fim is not None and fim + MARGEM_CORTE < recorte.height:
+            recorte = recorte.crop((0, 0, recorte.width, fim + MARGEM_CORTE))
     if escala != 1:
         recorte = recorte.resize(
             (recorte.width * escala, recorte.height * escala), Image.LANCZOS
@@ -80,7 +129,7 @@ def main():
             sys.exit('--box precisa de quatro inteiros: --box "x0,y0,x1,y1"')
 
         caminho = os.path.join(destino, "zoom.png")
-        tamanho = cortar(imagem, (x0, y0, x1, y1), args.scale or 10, caminho)
+        tamanho = cortar(imagem, (x0, y0, x1, y1), args.scale or 10, caminho, aparar=False)
         print(f"{caminho}  {tamanho[0]}x{tamanho[1]}")
         return
 
