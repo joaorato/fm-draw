@@ -248,6 +248,25 @@ function isWingBackRow(rows, index) {
     return row.every((player) => wingBackPositions.has(getFormationPlayerPosition(player)));
 }
 
+// EAI, EX e ME são os códigos dos extremos. Um par deles entre duas linhas do
+// mesmo tamanho não dá para distinguir de um par de médios pelo desenho, e é por
+// isso que a regra dos alas não o apanha: num 4-2-2-2 os três pares saem em
+// coluna pelo meio. Quem manda é o nome da formação - o sufixo "Wide" diz que
+// aquele par joga nas alas - e não a leitura das posições, senão os 26 relatórios
+// com dois EAI ao lado do ponta-de-lança de um 4-3-3 mudavam todos de desenho.
+const wingerPositions = new Set(["EAI", "EX", "ME"]);
+
+function isWideFormationName(name) {
+    return /\bwide\b/i.test(String(name || ""));
+}
+
+function isWingerRow(rows, index) {
+    let row = rows[index] || [];
+    if (row.length !== 2) return false;
+
+    return row.every((player) => wingerPositions.has(getFormationPlayerPosition(player)));
+}
+
 function inferThreeCenterBackFormationName(formation) {
     let rows = formation?.players || [];
     if (rows.length < 4) return formation?.name;
@@ -357,13 +376,17 @@ function renderFormationPitch(report, side) {
         return `<div class="match-report-pitch match-report-pitch-empty"><span class="match-report-empty">Formação detalhada indisponível</span></div>`;
     }
     let totalRows = rows.length;
+    let wideFormation = isWideFormationName(formation.name);
     return `
         <div class="match-report-pitch match-report-pitch-${side}">
-            ${rows.map((row, index) => `
-                <div class="match-report-pitch-row match-report-pitch-row-${index + 1}${isWingBackRow(rows, index) ? " match-report-pitch-row-alas" : ""}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
+            ${rows.map((row, index) => {
+                let alas = isWingBackRow(rows, index) || (wideFormation && isWingerRow(rows, index));
+                return `
+                <div class="match-report-pitch-row match-report-pitch-row-${index + 1}${alas ? " match-report-pitch-row-alas" : ""}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
                     ${row.map((player) => renderFormationPlayer(player, scorers)).join("")}
                 </div>
-            `).join("")}
+                `;
+            }).join("")}
         </div>
     `;
 }
