@@ -245,47 +245,42 @@ const croatiaMatchReports = [
         rating: "7,33",
         coaches: { home: "João Pedro Rato", away: "Zép Jóbes" },
         formations: {
-            home: {
-                name: "4-2-3-1",
-                players: [
-                    [{ number: "9", name: "Prevljak", rating: "7,0", pos: "AAE", goal: true }],
-                    [{ number: "11", name: "Goričan", rating: "7,3", pos: "AA" }, { number: "17", name: "Frederiksen", rating: "6,2", pos: "SA" }, { number: "7", name: "Rozić", rating: "6,3", pos: "Ex" }],
-                    [{ number: "10", name: "Lončar", rating: "6,6", pos: "MAA" }, { number: "5", name: "Radošević", rating: "6,9", pos: "MD" }],
-                    [{ number: "26", name: "Heister", rating: "6,2", pos: "AI" }, { number: "8", name: "Maurić", rating: "6,6", pos: "CC" }, { number: "3", name: "Nasraoui", rating: "6,6", pos: "DC" }, { number: "97", name: "Kadušić", rating: "6,4", pos: "AI" }],
-                    [{ number: "1", name: "Kolić", rating: "6,7", pos: "GR" }]
-                ]
-            },
-            away: {
-                name: "4-2-3-1",
-                players: [
-                    [{ number: "10", name: "Fruk", rating: "6,6", pos: "AvR" }],
-                    [{ number: "14", name: "Gojak", rating: "7,2", pos: "ME", goal: true }, { number: "26", name: "Dantas", rating: "6,9", pos: "MO" }],
-                    [{ number: "34", name: "Devetak", rating: "6,5", pos: "AI" }, { number: "21", name: "Lacoux", rating: "7,0", pos: "MD" }, { number: "11", name: "André", rating: "6,8", pos: "CJR" }, { number: "23", name: "Lasickas", rating: "7,0", pos: "AI" }],
-                    [{ number: "51", name: "Husić", rating: "6,8", pos: "DC" }, { number: "6", name: "Radeljić", rating: "6,7", pos: "DC" }, { number: "45", name: "Majstorović", rating: "6,8", pos: "DC" }],
-                    [{ number: "13", name: "Zlomislić", rating: "6,9", pos: "GR" }]
-                ]
-            }
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Prevljak", "7,0", "AC", true)],
+                [reportPlayer("11", "Goričan", "7,3", "AA"), reportPlayer("17", "Frederiksen", "6,2", "MO"), reportPlayer("7", "Rozić", "6,3", "EAI")],
+                [reportPlayer("10", "Lončar", "6,6", "MD"), reportPlayer("5", "Radošević", "6,9", "CJR")],
+                [reportPlayer("26", "Heister", "6,2", "AI"), reportPlayer("8", "Maurić", "6,6", "CC"), reportPlayer("3", "Nasraoui", "6,6", "DC"), reportPlayer("97", "Kadušić", "6,4", "AI")],
+                [reportPlayer("1", "Kolić", "6,7", "GRC")]
+            ]),
+            away: reportFormation("4-2-1-2-1", [
+                [reportPlayer("51", "Husić", "6,8", "AR")],
+                [reportPlayer("10", "Fruk", "6,6", "ME"), reportPlayer("14", "Gojak", "7,2", "MO", true)],
+                [reportPlayer("11", "André", "6,8", "MC")],
+                [reportPlayer("21", "Lacoux", "7,0", "MD"), reportPlayer("26", "Dantas", "6,9", "CJR")],
+                [reportPlayer("34", "Devetak", "6,5", "AI"), reportPlayer("6", "Radeljić", "6,7", "CC"), reportPlayer("45", "Majstorović", "6,8", "CC"), reportPlayer("23", "Lasickas", "7,0", "AI")],
+                [reportPlayer("13", "Zlomislić", "6,9", "GR")]
+            ])
         },
         events: {
-            home: ["58' S. Prevljak S. Goričan"],
-            away: ["19' A. Gojak Tiago Dantas"]
+            home: [goalEvent("58", "S. Prevljak", { assist: "S. Goričan" })],
+            away: [goalEvent("19", "A. Gojak", { assist: "Tiago Dantas" })]
         },
-        stats: [
-            { label: "Posse", home: "38%", away: "62%" },
-            { label: "Remates", home: "9", away: "9" },
-            { label: "Remates à Baliza", home: "7", away: "4" },
-            { label: "xG", home: "0,82", away: "0,78" },
-            { label: "PADPAD", home: "30,06", away: "29,33" },
-            { label: "Oportunidades Flagrantes", home: "1", away: "0" },
-            { label: "Cantos", home: "6", away: "2" },
-            { label: "Passes Completados", home: "88%", away: "92%" },
-            { label: "Cruzamentos Completados", home: "9%", away: "5%" },
-            { label: "Faltas", home: "12", away: "9" },
-            { label: "Cartões amarelos", home: "0", away: "0" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "125", away: "124" },
-            { label: "Classificação Média", home: "6,6", away: "6,8" }
-        ]
+        stats: reportStats([
+            ["Posse", "38%", "62%"],
+            ["Remates", "9", "9"],
+            ["Remates à Baliza", "7", "4"],
+            ["xG", "0,82", "0,78"],
+            ["PADPAD", "30,06", "29,33"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "6", "2"],
+            ["Passes Completados", "88%", "92%"],
+            ["Cruzamentos Completados", "9%", "5%"],
+            ["Faltas", "12", "9"],
+            ["Cartões amarelos", "0", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "125", "124"],
+            ["Classificação Média", "6,6", "6,8"]
+        ])
     },
     {
         fixtureKey: "2025-08-09-nk-lokomotiva-hajduk-split",
