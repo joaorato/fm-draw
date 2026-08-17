@@ -229,6 +229,25 @@ function getFormationPlayerPosition(player) {
     return (typeof player === "string" ? player : player?.pos || "").toUpperCase();
 }
 
+// AI e AP são os códigos que os alas levam nos relatórios. AE não entra: aparece
+// num avançado isolado, e MAI nos interiores de um meio-campo a três.
+const wingBackPositions = new Set(["AI", "AP"]);
+
+// Uma linha de dois alas entre duas linhas mais largas fica encostada às linhas
+// laterais em vez de repartida pelo meio, senão os cinco médios de um 3-5-2
+// desenham-se como um 3-2-3-2.
+function isWingBackRow(rows, index) {
+    let row = rows[index] || [];
+    if (row.length !== 2) return false;
+
+    let above = rows[index - 1];
+    let below = rows[index + 1];
+    if (!above || !below) return false;
+    if (row.length >= above.length || row.length >= below.length) return false;
+
+    return row.every((player) => wingBackPositions.has(getFormationPlayerPosition(player)));
+}
+
 function inferThreeCenterBackFormationName(formation) {
     let rows = formation?.players || [];
     if (rows.length < 4) return formation?.name;
@@ -341,7 +360,7 @@ function renderFormationPitch(report, side) {
     return `
         <div class="match-report-pitch match-report-pitch-${side}">
             ${rows.map((row, index) => `
-                <div class="match-report-pitch-row match-report-pitch-row-${index + 1}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
+                <div class="match-report-pitch-row match-report-pitch-row-${index + 1}${isWingBackRow(rows, index) ? " match-report-pitch-row-alas" : ""}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
                     ${row.map((player) => renderFormationPlayer(player, scorers)).join("")}
                 </div>
             `).join("")}
