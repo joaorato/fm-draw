@@ -100,7 +100,26 @@ function isKnownSquadPlayer(squad, text) {
     return !!matches && matches.size === 1;
 }
 
+// Um evento vem numa de duas formas. A antiga é uma string, "71' W. Sule
+// J. Pršir", que é preciso partir contra o plantel e cuja ordem já esteve
+// trocada em jogos inteiros. A nova é um objeto de `goalEvent()`, que diz por
+// extenso quem marcou e quem assistiu: não há o que partir nem o que inferir.
+// Relatórios novos usam a nova; a antiga fica a funcionar para os que já existem.
 function readGoalEvent(text) {
+    if (text && typeof text === "object") {
+        let scorer = text.sendOff ? text.player : text.scorer;
+        return {
+            minute: text.minute ?? "",
+            name: scorer || "",
+            scorer: scorer || "",
+            assist: text.assist ?? null,
+            penalty: !!text.penalty,
+            ownGoal: !!text.ownGoal,
+            sendOff: !!text.sendOff,
+            structured: true
+        };
+    }
+
     let raw = String(text).trim();
     let minuteMatch = raw.match(EVENT_MINUTE);
     let body = raw.replace(EVENT_MINUTE, "").trim();
@@ -177,6 +196,19 @@ function buildGoalRecords(league, options = {}) {
                     // O autogolo é listado do lado que beneficia: conta para a
                     // equipa, mas não entra na lista de marcadores.
                     records.push({ fixture, team, scorer: parsed.name, assist: null, penalty: false, ownGoal: true });
+                    return;
+                }
+
+                // O evento estruturado já traz os dois nomes separados.
+                if (parsed.structured) {
+                    records.push({
+                        fixture,
+                        team,
+                        scorer: parsed.scorer,
+                        assist: parsed.assist,
+                        penalty: parsed.penalty,
+                        ownGoal: false
+                    });
                     return;
                 }
 

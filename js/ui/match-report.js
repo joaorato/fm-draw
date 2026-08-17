@@ -110,6 +110,19 @@ function matchEventEdgeName(body = "", playerNames = [], side = "home") {
 }
 
 function parseMatchReportEvent(event = "", playerNames = [], side = "home") {
+    // Evento estruturado (`goalEvent()` / `sendOffEvent()`): já vem com marcador
+    // e assistente separados, não há nada para interpretar.
+    if (event && typeof event === "object") {
+        if (event.sendOff) return { minute: event.minute, scorer: event.player, assist: "Expulso", type: "red" };
+        if (event.ownGoal) return { minute: event.minute, scorer: event.scorer, assist: "Autogolo", type: "own-goal" };
+        return {
+            minute: event.minute,
+            scorer: event.scorer,
+            assist: event.assist || (event.penalty ? "Penálti" : ""),
+            type: event.penalty ? "penalty" : "goal"
+        };
+    }
+
     const eventMatch = event.match(/^(\d+(?:\+\d+)?)'\s+(.+)$/);
     if (!eventMatch) {
         return { minute: "", scorer: event, assist: "", type: "goal" };
