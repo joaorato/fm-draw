@@ -64,7 +64,7 @@ const croatiaRoundOneReports = [
                     [{ number: "10", name: "Pršir", rating: "6,6", pos: "CJA" }, { number: "7", name: "Bakić", rating: "6,4", pos: "ME" }],
                     [{ number: "36", name: "Kavelj", rating: "6,5", pos: "CJR" }],
                     [{ number: "19", name: "Čabraja", rating: "6,2", pos: "AI" }, { number: "4", name: "J. Filipović", rating: "7,7", pos: "DC", goal: true }, { number: "45", name: "Perić", rating: "6,5", pos: "CP" }, { number: "9", name: "Bogojević", rating: "6,7", pos: "AI" }],
-                    [{ number: "21", name: "Matijaš", rating: "6,3", pos: "GRC" }]
+                    [{ number: "71", name: "Matijaš", rating: "6,3", pos: "GRC" }]
                 ]
             },
             away: {
@@ -229,7 +229,7 @@ const croatiaRoundOneReports = [
                     [{ number: "15", name: "Čubelić", rating: "6,1", pos: "MO" }],
                     [{ number: "3", name: "Jakir", rating: "6,1", pos: "AI" }, { number: "21", name: "Crepulja", rating: "5,9", pos: "CJR" }, { number: "8", name: "Mrowca", rating: "6,1", pos: "MD" }, { number: "18", name: "Krušelj", rating: "6,5", pos: "AI" }],
                     [{ number: "4", name: "Ković", rating: "6,5", pos: "CC" }, { number: "6", name: "Božić", rating: "6,8", pos: "CC" }, { number: "2", name: "Međimorec", rating: "6,7", pos: "DC" }],
-                    [{ number: "", name: "Hadžikić", rating: "6,5", pos: "GR" }]
+                    [{ number: "31", name: "Hadžikić", rating: "6,5", pos: "GR" }]
                 ]
             }
         },
@@ -428,7 +428,7 @@ const croatiaRoundTwoReports = [
                     [{ number: "15", name: "Čubelić", rating: "6,3", pos: "MO" }],
                     [{ number: "3", name: "Jakir", rating: "6,7", pos: "AI" }, { number: "21", name: "Crepulja", rating: "6,8", pos: "CJR" }, { number: "8", name: "Mrowca", rating: "7,5", pos: "MD" }, { number: "18", name: "Krušelj", rating: "6,3", pos: "AI" }],
                     [{ number: "4", name: "Ković", rating: "7,2", pos: "CC" }, { number: "6", name: "Božić", rating: "6,6", pos: "CC", goal: true }, { number: "2", name: "Međimorec", rating: "7,1", pos: "DC" }],
-                    [{ number: "1", name: "Hadžikić", rating: "6,8", pos: "GR" }]
+                    [{ number: "31", name: "Hadžikić", rating: "6,8", pos: "GR" }]
                 ]
             },
             away: {
@@ -490,7 +490,7 @@ const croatiaRoundTwoReports = [
                     [{ number: "10", name: "Pršir", rating: "6,1", pos: "CJA" }, { number: "7", name: "Bakić", rating: "6,4", pos: "ME" }],
                     [{ number: "36", name: "Kavelj", rating: "6,4", pos: "CJR" }],
                     [{ number: "19", name: "Čabraja", rating: "6,4", pos: "AI" }, { number: "4", name: "J. Filipović", rating: "6,3", pos: "DC" }, { number: "45", name: "Perić", rating: "6,3", pos: "CP" }, { number: "9", name: "Bogojević", rating: "5,9", pos: "AI" }],
-                    [{ number: "44", name: "Matijaš", rating: "6,6", pos: "GRC" }]
+                    [{ number: "71", name: "Matijaš", rating: "6,6", pos: "GRC" }]
                 ]
             }
         },
@@ -578,7 +578,7 @@ const croatiaRoundThreeReports = [
                 [reportPlayer("18", "Fiolić", "6,4", "CJA"), reportPlayer("36", "Kavelj", "6,7", "ME")],
                 [reportPlayer("10", "Pršir", "6,5", "CJR")],
                 [reportPlayer("19", "Čabraja", "7,5", "AI"), reportPlayer("5", "Leš", "6,8", "DC"), reportPlayer("4", "J. Filipović", "6,7", "CP"), reportPlayer("45", "Perić", "6,6", "AI")],
-                [reportPlayer("1", "Matijaš", "8,3", "GRC")]
+                [reportPlayer("71", "Matijaš", "8,3", "GRC")]
             ]),
             away: reportFormation("4-3-3 DM", [
                 [reportPlayer("13", "Elis", "6,1", "AR")],
@@ -676,7 +676,7 @@ const croatiaRoundThreeReports = [
                 [reportPlayer("15", "Čubelić", "6,9", "MO", true)],
                 [reportPlayer("3", "Jakir", "7,1", "AI"), reportPlayer("21", "Crepulja", "7,1", "CJR"), reportPlayer("8", "Mrowca", "6,8", "MD"), reportPlayer("18", "Krušelj", "6,9", "AI")],
                 [reportPlayer("4", "Kovicić", "6,7", "CC"), reportPlayer("6", "Božić", "6,5", "CC"), reportPlayer("2", "Medimorec", "6,6", "DC")],
-                [reportPlayer("1", "Hadžikić", "6,3", "GR")]
+                [reportPlayer("31", "Hadžikić", "6,3", "GR")]
             ])
         },
         events: {
@@ -815,7 +815,7 @@ const croatiaRoundFourReports = [
                 [reportPlayer("10", "Pršir", "6,3", "CJA"), reportPlayer("7", "Bakić", "7,9", "ME")],
                 [reportPlayer("36", "Kavelj", "6,4", "CJR")],
                 [reportPlayer("19", "Čabraja", "6,4", "AI"), reportPlayer("4", "J. Filipović", "7,2", "DC"), reportPlayer("45", "Perić", "6,8", "CP"), reportPlayer("22", "Trontelj", "6,4", "AI")],
-                [reportPlayer("1", "Matijaš", "6,3", "GRC")]
+                [reportPlayer("71", "Matijaš", "6,3", "GRC")]
             ])
         },
         events: {
@@ -898,7 +898,7 @@ const croatiaRoundFourReports = [
                 [reportPlayer("15", "Čubelić", "6,3", "MO")],
                 [reportPlayer("3", "Jakir", "6,7", "AI"), reportPlayer("21", "Crepulja", "7,3", "CJR"), reportPlayer("8", "Mrowca", "7,7", "MD", true), reportPlayer("18", "Krušelj", "6,8", "AI")],
                 [reportPlayer("4", "Kovicić", "6,6", "CC"), reportPlayer("6", "Božić", "6,9", "CC"), reportPlayer("2", "Medimorec", "6,7", "DC")],
-                [reportPlayer("1", "Hadžikić", "6,4", "GR")]
+                [reportPlayer("31", "Hadžikić", "6,4", "GR")]
             ]),
             away: reportFormation("4-2-3-1", [
                 [reportPlayer("9", "Prevljak", "8,2", "AAE", true), reportPlayer("17", "Frederiksen", "6,1", "AA")],
@@ -1123,7 +1123,7 @@ const croatiaRoundFiveReports = [
                 [reportPlayer("15", "Čubelić", "7,0", "MO")],
                 [reportPlayer("3", "Jakir", "6,3", "AI"), reportPlayer("10", "Caimacov", "6,9", "CJR"), reportPlayer("8", "Mrowca", "6,4", "MD"), reportPlayer("18", "Krušelj", "6,5", "AI")],
                 [reportPlayer("4", "Kovicić", "6,7", "CC"), reportPlayer("6", "Božić", "6,4", "CC"), reportPlayer("2", "Medimorec", "6,7", "DC")],
-                [reportPlayer("1", "Hadžikić", "6,5", "GR")]
+                [reportPlayer("31", "Hadžikić", "6,5", "GR")]
             ]),
             away: reportFormation("4-2-3-1", [
                 [reportPlayer("10", "Rui Pedro", "6,4", "AvR")],
@@ -1175,7 +1175,7 @@ const croatiaRoundFiveReports = [
                 [reportPlayer("10", "Pršir", "7,1", "CJA"), reportPlayer("7", "Bakić", "6,8", "ME")],
                 [reportPlayer("36", "Kavelj", "6,8", "CJR")],
                 [reportPlayer("19", "Čabraja", "6,2", "AI"), reportPlayer("4", "J. Filipović", "6,5", "DC"), reportPlayer("45", "Perić", "6,4", "CP"), reportPlayer("22", "Trontelj", "6,1", "AI")],
-                [reportPlayer("1", "Matijaš", "6,5", "GRC")]
+                [reportPlayer("71", "Matijaš", "6,5", "GRC")]
             ])
         },
         events: {
