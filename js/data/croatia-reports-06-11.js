@@ -891,7 +891,7 @@ const croatiaRoundTenReports = [
                 [reportPlayer("40", "McCarthy", "6,7", "MC"), reportPlayer("28", "Belcar", "7,2", "MC"), reportPlayer("26", "Rog", "7,8", "MC", true)],
                 [reportPlayer("17", "Pajač", "6,9", "AP"), reportPlayer("23", "Vešović", "6,6", "AP")],
                 [reportPlayer("4", "Sigali", "6,7", "DC"), reportPlayer("16", "Dajčer", "6,6", "CC"), reportPlayer("20", "Kolinger", "6,9", "DC")],
-                [reportPlayer("", "Posavec", "6,5", "GR")]
+                [reportPlayer("12", "Posavec", "6,5", "GR")]
             ])
         },
         events: {
@@ -1121,7 +1121,7 @@ const croatiaRoundElevenReports = [
                 [reportPlayer("20", "Vrzić", "6,2", "Ex"), reportPlayer("10", "Pršir", "6,2", "ME"), reportPlayer("9", "Bogojević", "6,0", "Ex")],
                 [reportPlayer("8", "Pozo", "6,4", "CJA"), reportPlayer("24", "Pavičić", "6,1", "ME")],
                 [reportPlayer("36", "Kavelj", "6,3", "CJR")],
-                [reportPlayer("19", "Čabraja", "6,1", "AI"), reportPlayer("4", "J. Filipović", "6,5", "DC"), reportPlayer("45", "Leš", "6,5", "CP"), reportPlayer("22", "Trontelj", "6,6", "AI")],
+                [reportPlayer("19", "Čabraja", "6,1", "AI"), reportPlayer("4", "J. Filipović", "6,5", "DC"), reportPlayer("5", "Leš", "6,5", "CP"), reportPlayer("22", "Trontelj", "6,6", "AI")],
                 [reportPlayer("71", "Matijaš", "6,9", "GRC")]
             ])
         },
