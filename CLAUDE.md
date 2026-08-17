@@ -55,31 +55,27 @@ Current order:
 8. `js/data/scotland.js`
 9. `js/data/croatia-table.js`
 10. `js/data/croatia-fixtures.js`
-11. `js/data/croatia-reports-01-05.js`
-12. `js/data/croatia-reports-06-11.js`
-13. `js/data/croatia-reports-12.js`
-14. `js/data/croatia-reports-taca.js`
-15. `js/data/croatia-reports-recentes.js`
-16. `js/data/croatia-wiring.js`
-17. `js/data/croatia-standings.js`
-18. `js/data/croatia-transfers.js`
-19. `js/data/croatia-news.js`
-20. `js/data/leagues.js`
-21. `js/ui/shared.js`
-22. `js/ui/chrome.js`
-23. `js/ui/coaches.js`
-24. `js/ui/standings-ui.js`
-25. `js/ui/league-selector.js`
-26. `js/ui/match-report.js`
-27. `js/ui/league-live.js`
-28. `js/ui/league-transfers.js`
-29. `js/ui/league-stats.js`
-30. `js/ui/league-calendar.js`
-31. `js/ui/league-race.js`
-32. `js/ui/league-panel.js`
-33. `js/ui/draw.js`
-34. `js/ui/share.js`
-35. `app.js`
+11. `js/data/croatia-reports.js`
+12. `js/data/croatia-wiring.js`
+13. `js/data/croatia-standings.js`
+14. `js/data/croatia-transfers.js`
+15. `js/data/croatia-news.js`
+16. `js/data/leagues.js`
+17. `js/ui/shared.js`
+18. `js/ui/chrome.js`
+19. `js/ui/coaches.js`
+20. `js/ui/standings-ui.js`
+21. `js/ui/league-selector.js`
+22. `js/ui/match-report.js`
+23. `js/ui/league-live.js`
+24. `js/ui/league-transfers.js`
+25. `js/ui/league-stats.js`
+26. `js/ui/league-calendar.js`
+27. `js/ui/league-race.js`
+28. `js/ui/league-panel.js`
+29. `js/ui/draw.js`
+30. `js/ui/share.js`
+31. `app.js`
 
 If you add a new data file, add its `<script>` tag before the file that consumes it. A new `js/ui/`
 file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` and before `app.js`.
@@ -98,8 +94,8 @@ file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` an
 | `js/data/scotland.js` | All Scotland season data, hand-typed (see Croatia Standings) |
 | `js/data/croatia-table.js` | Croatia league config: `croatiaSeedTable`, `croatiaZonas`, `croatiaRegras`, `croatiaClassificacaoFM`, `croatiaFixtureMonths` |
 | `js/data/croatia-fixtures.js` | Croatia fixtures/results |
-| `js/data/croatia-reports-*.js` | Croatia match reports, grouped by jornada/block |
-| `js/data/croatia-wiring.js` | Merges Croatia reports, links them to fixtures, derives form/result groups |
+| `js/data/croatia-reports.js` | Every Croatia match report, in one array. Written by `scripts/report_build.js` |
+| `js/data/croatia-wiring.js` | Links reports to fixtures by `fixtureKey`, derives form/result groups |
 | `js/data/croatia-standings.js` | Computes `croatiaCurrentTable` and `croatiaSeasonScores` from the fixtures |
 | `js/data/croatia-transfers.js` | Croatia transfers and extra club logos |
 | `js/data/croatia-news.js` | Croatia live/news carousel and articles |
@@ -166,15 +162,20 @@ For a new Croatia session:
 
 - Results/fixtures: edit `js/data/croatia-fixtures.js`.
 - Standings: nothing to edit. The table is computed from the fixtures (see Croatia Standings).
-- Match reports: append to `croatiaRecentReports` in `js/data/croatia-reports-recentes.js`. To
-  transcribe one from an FM screenshot, follow the `fm-match-report` skill in
-  `.claude/skills/` - it carries the traps that produce silently wrong data.
+- Match reports: they all live in `croatiaMatchReports`, in `js/data/croatia-reports.js`, and
+  `scripts/report_build.js --write` writes them there itself. To transcribe one from an FM
+  screenshot, follow the `fm-match-report` skill in `.claude/skills/` - it carries the traps that
+  produce silently wrong data.
 - News article/carousel item: edit `js/data/croatia-news.js`.
 - Transfers: edit `js/data/croatia-transfers.js`.
 - Marcadores/assistências: nothing to edit. They come from the reports' goal events. Run
   `node scripts/validate_goals.js` after adding reports (see Golos e Assistências).
 
-If `croatia-reports-recentes.js` becomes too large, create a new `js/data/croatia-reports-<block>.js` file with a new `const`, add its script tag before `croatia-wiring.js`, and add that array to the spread in `croatiaMatchReports`.
+The reports used to be split across five files by jornada block. They are in one file on purpose: the
+split recorded when the work happened rather than anything about the data, nothing downstream read it,
+and every new report cost a `<script>` tag, an entry in a spread, and a renumbered list here. Adding a
+report now touches the data and nothing else. A second league brings its own file, not a new block of
+this one.
 
 ## Croatia Standings
 
@@ -308,8 +309,9 @@ Use the helpers from `report-core.js`:
 
 Transcribe a report from an FM screenshot with the pipeline, not by hand: `scripts/report_crop.py`
 cuts the screenshot into readable pieces, you write a JSON transcription, and
-`scripts/report_build.js <json> --write` validates it and writes the block into the right file -
-replacing the report already there, or appending with `--para js/data/croatia-reports-<block>.js`.
+`scripts/report_build.js <json> --write` validates it and writes the block into
+`js/data/croatia-reports.js` - replacing the report already there, or appending if the match has none
+yet.
 **Leave it uncommitted**: the user reviews the `git diff` and decides.
 
 The `fm-match-report` skill has the details. (`--diff` prints the comparison instead of writing; it

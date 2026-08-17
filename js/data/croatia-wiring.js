@@ -1,4 +1,3 @@
-const croatiaMatchReports = [...croatiaRoundOneReports, ...croatiaRoundTwoReports, ...croatiaRoundThreeReports, ...croatiaRoundFourReports, ...croatiaRoundFiveReports, ...croatiaRoundSixReports, ...croatiaRoundSevenReports, ...croatiaRoundEightReports, ...croatiaRoundNineReports, ...croatiaRoundTenReports, ...croatiaRoundElevenReports, ...croatiaRoundTwelveReports, ...croatiaCupFirstRoundReports, ...croatiaRecentReports];
 const croatiaMatchReportsByFixtureKey = new Map(croatiaMatchReports.map((report) => [report.fixtureKey, report]));
 
 assignLeagueFixtureRounds(croatiaFixtures, { teamNames: croatiaSeedTable.map((entry) => entry.equipa) });

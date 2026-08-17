@@ -357,9 +357,15 @@ function acharBloco(texto, fixtureKey) {
     return { inicio, fim };
 }
 
+const FICHEIRO_RELATORIOS = "js/data/croatia-reports.js";
+
 function escrever(t, fixtureKey, destinoPedido) {
     let pasta = path.join(__dirname, "..", "js", "data");
-    let ficheiros = fs.readdirSync(pasta).filter((f) => /^croatia-reports-.*\.js$/.test(f));
+    // Sem hífen a seguir a "reports": os relatórios estão todos no
+    // croatia-reports.js, e a procura tem de o apanhar. Se não apanhar, um
+    // relatório que já existe cai no ramo do relatório novo e é acrescentado
+    // outra vez — fica lá duas vezes e o Map do wiring guarda o último.
+    let ficheiros = fs.readdirSync(pasta).filter((f) => /^croatia-reports.*\.js$/.test(f));
     let bloco = relatorioJs(t, fixtureKey);
 
     let alvo = ficheiros.find((f) => fs.readFileSync(path.join(pasta, f), "utf8").includes(`"${fixtureKey}"`));
@@ -371,18 +377,19 @@ function escrever(t, fixtureKey, destinoPedido) {
         return { ficheiro: alvo, novo: false };
     }
 
-    if (!destinoPedido) {
-        throw new Error("é um relatório novo e não sei em que ficheiro pô-lo:"
-            + " junta --para js/data/croatia-reports-<bloco>.js");
+    let destino = destinoPedido || FICHEIRO_RELATORIOS;
+    let caminho = path.join(__dirname, "..", destino);
+    if (!fs.existsSync(caminho)) {
+        throw new Error(`é um relatório novo e ${destino} não existe:`
+            + " junta --para <ficheiro> para dizer onde pô-lo");
     }
-    let caminho = path.join(__dirname, "..", destinoPedido);
     let texto = fs.readFileSync(caminho, "utf8");
     let fecho = texto.lastIndexOf("\n];");
-    if (fecho < 0) throw new Error(`não encontrei o fim do array em ${destinoPedido}`);
+    if (fecho < 0) throw new Error(`não encontrei o fim do array em ${destino}`);
     let antes = texto.slice(0, fecho);
     let virgula = antes.trimEnd().endsWith(",") ? "" : ",";
     fs.writeFileSync(caminho, antes + virgula + "\n" + bloco + texto.slice(fecho));
-    return { ficheiro: path.basename(destinoPedido), novo: true };
+    return { ficheiro: path.basename(destino), novo: true };
 }
 
 function main() {
@@ -424,7 +431,7 @@ function main() {
     }
 
     if (!process.argv.includes("--write")) {
-        console.log("\n--- relatório para colar no ficheiro do bloco ---\n");
+        console.log(`\n--- relatório para colar no ${FICHEIRO_RELATORIOS} ---\n`);
         console.log(relatorioJs(t, fixtureKey) + ",");
         return;
     }

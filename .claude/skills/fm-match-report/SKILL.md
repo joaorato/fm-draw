@@ -16,18 +16,9 @@ node scripts/validate_goals.js
 **Não commites.** Deixa por commitar para o utilizador ver o `git diff` e decidir.
 **Não abras o browser** sem te pedirem: quem confere a página é ele.
 
-Se for um relatório novo, junta `--para js/data/croatia-reports-<bloco>.js`:
-
-| Jornadas | Ficheiro |
-|---|---|
-| 1 a 5 | `croatia-reports-01-05.js` |
-| 6 a 11 | `croatia-reports-06-11.js` |
-| 12 | `croatia-reports-12.js` |
-| Taça | `croatia-reports-taca.js` |
-| 13 em diante | `croatia-reports-recentes.js` |
-
-Um bloco novo precisa do `<script>` em `index.html` antes de `croatia-wiring.js`,
-do array no spread de `croatiaMatchReports`, e da lista do `CLAUDE.md` renumerada.
+Os relatórios estão todos no `js/data/croatia-reports.js` e é lá que o `--write`
+escreve, tanto a substituir um que já existe como a acrescentar um novo. Não há
+ficheiro para escolher nem `<script>` para juntar.
 
 ## O JSON
 
