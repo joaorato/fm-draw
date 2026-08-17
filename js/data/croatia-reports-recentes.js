@@ -598,7 +598,7 @@ const croatiaRecentReports = [
             [reportPlayer("", "Vozinha", "6,0", "GRC")]
         ])
     }, { home: ["5' M. Caimacov", "65' I. Nestorovski S. Šunta", "90+2' M. Dabro I. Lepinjica"], away: ["82' A. Trajkovski Rui Pedro", "86' L. Belcar Rui Pedro"] }, [["Posse", "55%", "45%"], ["Remates", "13", "15"], ["Remates à Baliza", "5", "7"], ["xG", "1,80", "0,66"], ["PADPAD", "21,84", "17,96"], ["Oportunidades Flagrantes", "3", "0"], ["Cantos", "3", "7"], ["Passes Completados", "87%", "83%"], ["Cruzamentos Completados", "8%", "15%"], ["Faltas", "0", "11"], ["Cartões amarelos", "0", "1"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "141", "147"], ["Classificação Média", "6,9", "6,8"]]),
-    compactReport("2025-02-21-hnk-vukovar-hnk-gorica", "Sábado 21 de Fevereiro de 2026", "Gradski vrt", "Brisa", "Robin Gonzalez", "7,78", { home: "J. Barišić", away: "D. Mojstrović" }, {
+    compactReport("2025-02-21-hnk-vukovar-hnk-gorica", "Sábado 21 de Fevereiro de 2026", "Gradski vrt", "Brisa", "Robin Gonzalez", "7,78", { home: "J. Barišić", away: "Miguel Cardoso" }, {
         home: reportFormation("4-2-3-1", [
             [reportPlayer("21", "Puljić", "6,4", "AR")],
             [reportPlayer("8", "Horvat", "6,6", "AI"), reportPlayer("77", "Shabani", "6,8", "Ex")],

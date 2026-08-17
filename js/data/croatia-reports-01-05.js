@@ -571,7 +571,7 @@ const croatiaRoundThreeReports = [
         weather: "Calmo",
         playerOfMatch: "Davor Matijaš",
         rating: "8,29",
-        coaches: { home: "D. Mojstrović", away: "Gonzalo Garcia" },
+        coaches: { home: "Miguel Cardoso", away: "Gonzalo Garcia" },
         formations: {
             home: reportFormation("4-3-3 DM", [
                 [reportPlayer("64", "Epailly", "7,4", "Ex", true), reportPlayer("11", "Šule", "6,2", "MO"), reportPlayer("8", "Pozo", "6,6", "Ex")],
@@ -938,42 +938,42 @@ const croatiaRoundFourReports = [
         rating: "9,28",
         coaches: { home: "João Nabais", away: "M. Kovačević" },
         formations: {
-            home: reportFormation("4-3-3 DM", [
-                [reportPlayer("38", "Iuri Tavares", "6,2", "AAE")],
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("38", "Iuri Tavares", "6,2", "AR")],
                 [reportPlayer("7", "Vuk", "6,2", "AI"), reportPlayer("27", "Latković", "7,4", "SA"), reportPlayer("22", "Mamić", "7,0", "Ex", true)],
-                [reportPlayer("8", "Duvnjak", "6,7", "CJR"), reportPlayer("24", "Marina", "6,3", "MD")],
+                [reportPlayer("8", "Duvnjak", "6,7", "CJR"), reportPlayer("24", "Marina", "6,3", "CJA")],
                 [reportPlayer("3", "Sikošek", "6,3", "AI"), reportPlayer("44", "Barać", "6,6", "DC"), reportPlayer("16", "Tepšić", "6,4", "CC"), reportPlayer("23", "Maglica", "6,8", "DL")],
                 [reportPlayer("1", "Zelenika", "6,0", "GR")]
             ]),
             away: reportFormation("4-3-3 DM", [
                 [reportPlayer("9", "Dion Beljo", "7,4", "AvR", true)],
-                [reportPlayer("11", "Hoxha", "9,3", "EAI"), reportPlayer("7", "Stojković", "6,8", "EAI")],
-                [reportPlayer("27", "Mišić", "7,6", "MC", true), reportPlayer("8", "Zajc", "8,1", "MC", true)],
+                [reportPlayer("11", "Hoxha", "9,3", "EAI", true), reportPlayer("7", "Stojković", "6,8", "EAI")],
+                [reportPlayer("27", "Mišić", "7,6", "MC"), reportPlayer("8", "Zajc", "8,1", "MC")],
                 [reportPlayer("4", "Bennacer", "6,7", "MD")],
-                [reportPlayer("22", "Pérez Vinlöf", "6,6", "AI"), reportPlayer("28", "Théophile-Cat.", "6,9", "CC"), reportPlayer("36", "Domínguez", "7,4", "CC"), reportPlayer("25", "Valinčić", "7,0", "AI", true)],
+                [reportPlayer("22", "Pérez Vinlöf", "6,6", "AI"), reportPlayer("28", "Théophile-Cat.", "6,9", "CC"), reportPlayer("36", "Domínguez", "7,4", "CC"), reportPlayer("25", "Valinčić", "7,0", "AI")],
                 [reportPlayer("40", "Livaković", "6,8", "GR")]
             ])
         },
         events: {
-            home: ["61' L. Mamić A. Latković"],
-            away: ["37' M. Valinčić Dion Beljo", "49' J. Mišić A. Hoxha", "54' M. Zajc A. Hoxha", "70' M. Zajc A. Hoxha"]
+            home: [goalEvent("61", "L. Mamić", { assist: "A. Latković" })],
+            away: [goalEvent("37", "Dion Beljo", { assist: "M. Valinčić" }), goalEvent("49", "A. Hoxha", { assist: "J. Mišić" }), goalEvent("54", "A. Hoxha", { assist: "M. Zajc" }), goalEvent("70", "A. Hoxha", { assist: "M. Zajc" })]
         },
-        stats: [
-            { label: "Posse", home: "43%", away: "57%" },
-            { label: "Remates", home: "11", away: "14" },
-            { label: "Remates à Baliza", home: "5", away: "7" },
-            { label: "xG", home: "0,98", away: "0,78" },
-            { label: "PADPAD", home: "20,32", away: "23,29" },
-            { label: "Oportunidades Flagrantes", home: "0", away: "0" },
-            { label: "Cantos", home: "4", away: "7" },
-            { label: "Passes Completados", home: "85%", away: "91%" },
-            { label: "Cruzamentos Completados", home: "19%", away: "12%" },
-            { label: "Faltas", home: "6", away: "10" },
-            { label: "Cartões amarelos", home: "0", away: "1" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "130", away: "125" },
-            { label: "Classificação Média", home: "6,6", away: "7,3" }
-        ]
+        stats: reportStats([
+            ["Posse", "43%", "57%"],
+            ["Remates", "11", "14"],
+            ["Remates à Baliza", "5", "7"],
+            ["xG", "0,98", "0,78"],
+            ["PADPAD", "20,32", "23,29"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "4", "7"],
+            ["Passes Completados", "85%", "91%"],
+            ["Cruzamentos Completados", "19%", "12%"],
+            ["Faltas", "6", "10"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "130", "125"],
+            ["Classificação Média", "6,6", "7,3"]
+        ])
     }
 ];
 
