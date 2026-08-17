@@ -62,48 +62,42 @@ const croatiaMatchReports = [
         rating: "7,68",
         coaches: { home: "Miguel Cardoso", away: "Gamy Chambelito" },
         formations: {
-            home: {
-                name: "4-3-3 DM",
-                players: [
-                    [{ number: "18", name: "Fiolić", rating: "6,2", pos: "Ex" }, { number: "24", name: "Pavičić", rating: "6,7", pos: "MO" }, { number: "20", name: "Vrzić", rating: "6,4", pos: "Ex" }],
-                    [{ number: "10", name: "Pršir", rating: "6,6", pos: "CJA" }, { number: "7", name: "Bakić", rating: "6,4", pos: "ME" }],
-                    [{ number: "36", name: "Kavelj", rating: "6,5", pos: "CJR" }],
-                    [{ number: "19", name: "Čabraja", rating: "6,2", pos: "AI" }, { number: "4", name: "J. Filipović", rating: "7,7", pos: "DC", goal: true }, { number: "45", name: "Perić", rating: "6,5", pos: "CP" }, { number: "9", name: "Bogojević", rating: "6,7", pos: "AI" }],
-                    [{ number: "71", name: "Matijaš", rating: "6,3", pos: "GRC" }]
-                ]
-            },
-            away: {
-                name: "4-2-3-1",
-                players: [
-                    [{ number: "39", name: "Bukvić", rating: "6,5", pos: "AvR" }],
-                    [{ number: "11", name: "Omerović", rating: "7,0", pos: "CL", goal: true }, { number: "16", name: "Petrusenko", rating: "6,8", pos: "ME" }, { number: "17", name: "Jakupović", rating: "6,2", pos: "CJA" }],
-                    [{ number: "6", name: "Nico Gaitán", rating: "6,4", pos: "CJA" }],
-                    [{ number: "38", name: "Čolina", rating: "6,8", pos: "AI" }, { number: "23", name: "Vrbančić", rating: "6,5", pos: "MD" }, { number: "29", name: "Karačić", rating: "6,2", pos: "AI" }],
-                    [{ number: "26", name: "Jelenić", rating: "6,8", pos: "CC" }, { number: "15", name: "Mersinaj", rating: "7,1", pos: "DC" }],
-                    [{ number: "31", name: "Malenica", rating: "6,8", pos: "GR" }]
-                ]
-            }
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("24", "Pavičić", "6,7", "Ex"), reportPlayer("18", "Fiolić", "6,2", "ME"), reportPlayer("20", "Vrzić", "6,4", "Ex")],
+                [reportPlayer("10", "Pršir", "6,6", "CJA"), reportPlayer("7", "Bakić", "6,4", "ME")],
+                [reportPlayer("36", "Kavelj", "6,5", "MD")],
+                [reportPlayer("19", "Čabraja", "6,2", "AI"), reportPlayer("4", "J. Filipović", "7,7", "DC", true), reportPlayer("45", "Perić", "6,5", "CP"), reportPlayer("9", "Bogojević", "6,7", "AI")],
+                [reportPlayer("71", "Matijaš", "6,3", "GRC")]
+            ]),
+            away: reportFormation("3-1-3-2-1", [
+                [reportPlayer("17", "Jakupović", "6,2", "AR")],
+                [reportPlayer("38", "Čolina", "6,8", "MO"), reportPlayer("11", "Omerović", "7,0", "MO", true)],
+                [reportPlayer("6", "Nico Gaitán", "6,4", "MAI"), reportPlayer("23", "Vrbančić", "6,5", "MC"), reportPlayer("29", "Karačić", "6,2", "MAI")],
+                [reportPlayer("39", "Bukvić", "6,5", "Pi")],
+                [reportPlayer("26", "Jelenić", "6,8", "CP"), reportPlayer("16", "Petrusenko", "6,8", "CP"), reportPlayer("15", "Mersinaj", "7,1", "CP")],
+                [reportPlayer("31", "Malenica", "6,8", "GR")]
+            ])
         },
         events: {
-            home: ["61' J. Filipović J. Pršir"],
-            away: ["30' N. Omerović"]
+            home: [goalEvent("61", "J. Filipović", { assist: "J. Pršir" })],
+            away: [goalEvent("30", "N. Omerović")]
         },
-        stats: [
-            { label: "Posse", home: "31%", away: "69%" },
-            { label: "Remates", home: "10", away: "13" },
-            { label: "Remates à Baliza", home: "7", away: "4" },
-            { label: "xG", home: "0,73", away: "0,55" },
-            { label: "PADPAD", home: "24,40", away: "10,77" },
-            { label: "Oportunidades Flagrantes", home: "0", away: "0" },
-            { label: "Cantos", home: "4", away: "6" },
-            { label: "Passes Completados", home: "84%", away: "90%" },
-            { label: "Cruzamentos Completados", home: "25%", away: "12%" },
-            { label: "Faltas", home: "7", away: "16" },
-            { label: "Cartões amarelos", home: "1", away: "3" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "120", away: "121" },
-            { label: "Classificação Média", home: "6,6", away: "6,6" }
-        ]
+        stats: reportStats([
+            ["Posse", "31%", "69%"],
+            ["Remates", "10", "13"],
+            ["Remates à Baliza", "7", "4"],
+            ["xG", "0,73", "0,55"],
+            ["PADPAD", "24,40", "10,77"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "4", "6"],
+            ["Passes Completados", "84%", "90%"],
+            ["Cruzamentos Completados", "25%", "12%"],
+            ["Faltas", "7", "16"],
+            ["Cartões amarelos", "1", "3"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "120", "121"],
+            ["Classificação Média", "6,6", "6,6"]
+        ])
     },
     {
         fixtureKey: "2025-08-02-hajduk-split-nk-varazdin",
