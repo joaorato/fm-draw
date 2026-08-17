@@ -709,41 +709,41 @@ const croatiaRoundThreeReports = [
         rating: "8,62",
         coaches: { home: "Hugo Macedo", away: "João Nabais" },
         formations: {
-            home: reportFormation("4-2-3-1", [
-                [reportPlayer("21", "Puljić", "6,0", "AAE")],
-                [reportPlayer("11", "Moreno", "6,1", "AI"), reportPlayer("10", "Gonzalez", "6,9", "MO", true), reportPlayer("35", "Kaúa Valente", "6,3", "Ex")],
-                [reportPlayer("13", "Čaić", "6,7", "MAA"), reportPlayer("18", "Antolković", "6,4", "MD")],
-                [reportPlayer("91", "Tićinović", "7,3", "AI"), reportPlayer("5", "Elez", "6,5", "DC"), reportPlayer("12", "Živković", "6,3", "DC"), reportPlayer("4", "Mitrović", "6,2", "DL")],
+            home: reportFormation("3-4-2-1", [
+                [reportPlayer("11", "Moreno", "6,1", "AAE")],
+                [reportPlayer("18", "Antolković", "6,4", "MO"), reportPlayer("21", "Puljić", "6,0", "MO")],
+                [reportPlayer("35", "Kauã Valente", "6,3", "AI"), reportPlayer("13", "Čaić", "6,7", "MD"), reportPlayer("10", "Gonzalez", "6,9", "CJR", true), reportPlayer("91", "Tićinović", "7,3", "AI")],
+                [reportPlayer("5", "Elez", "6,5", "CC"), reportPlayer("12", "Živković", "6,3", "CC"), reportPlayer("4", "Mitrović", "6,2", "CC")],
                 [reportPlayer("14", "Pintol", "6,3", "GR")]
             ]),
-            away: reportFormation("4-3-3 DM", [
-                [reportPlayer("9", "Jurić", "6,6", "AAE")],
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Jurić", "6,6", "AR")],
                 [reportPlayer("38", "Iuri Tavares", "7,6", "AI", true), reportPlayer("27", "Latković", "8,6", "SA", true), reportPlayer("22", "Mamić", "6,7", "Ex")],
-                [reportPlayer("8", "Duvnjak", "6,7", "CJR"), reportPlayer("24", "Marina", "7,3", "MD")],
+                [reportPlayer("8", "Duvnjak", "6,7", "CJR"), reportPlayer("24", "Marina", "7,3", "CJA")],
                 [reportPlayer("3", "Sikošek", "7,4", "AI", true), reportPlayer("44", "Barać", "7,3", "DC", true), reportPlayer("16", "Tepšić", "6,6", "CC"), reportPlayer("23", "Maglica", "6,6", "DL")],
                 [reportPlayer("1", "Zelenika", "7,3", "GR")]
             ])
         },
         events: {
-            home: ["64' L. Kulušić M. Tićinović", "88' R. Gonzalez P. Horvat"],
-            away: ["28' I. Tavares L. Mamić", "45+1' A. Latković", "54' G. Sikošek A. Latković", "83' G. Sikošek M. Marina", "90+5' M. Barać P. Bočkaj"]
+            home: [goalEvent("64", "L. Kulušić", { assist: "M. Tićinović" }), sendOffEvent("69", "M. Tićinović"), goalEvent("88", "R. Gonzalez", { assist: "P. Horvat" })],
+            away: [goalEvent("28", "I. Tavares", { assist: "L. Mamić" }), goalEvent("45+1", "A. Latković"), goalEvent("54", "A. Latković", { assist: "G. Sikošek" }), goalEvent("83", "G. Sikošek", { assist: "M. Marina" }), goalEvent("90+5", "M. Barać", { assist: "P. Bočkaj" })]
         },
-        stats: [
-            { label: "Posse", home: "55%", away: "45%" },
-            { label: "Remates", home: "10", away: "18" },
-            { label: "Remates à Baliza", home: "5", away: "9" },
-            { label: "xG", home: "1,14", away: "1,31" },
-            { label: "PADPAD", home: "46,67", away: "87,75" },
-            { label: "Oportunidades Flagrantes", home: "1", away: "0" },
-            { label: "Cantos", home: "6", away: "4" },
-            { label: "Passes Completados", home: "90%", away: "88%" },
-            { label: "Cruzamentos Completados", home: "16%", away: "29%" },
-            { label: "Faltas", home: "22", away: "12" },
-            { label: "Cartões amarelos", home: "4", away: "3" },
-            { label: "Cartões vermelhos", home: "1", away: "0" },
-            { label: "Distância Percorrida", home: "117", away: "120" },
-            { label: "Classificação Média", home: "6,5", away: "7,1" }
-        ]
+        stats: reportStats([
+            ["Posse", "55%", "45%"],
+            ["Remates", "10", "18"],
+            ["Remates à Baliza", "5", "9"],
+            ["xG", "1,14", "1,31"],
+            ["PADPAD", "46,67", "87,75"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "6", "4"],
+            ["Passes Completados", "90%", "88%"],
+            ["Cruzamentos Completados", "16%", "29%"],
+            ["Faltas", "22", "12"],
+            ["Cartões amarelos", "4", "3"],
+            ["Cartões vermelhos", "1", "0"],
+            ["Distância Percorrida", "117", "120"],
+            ["Classificação Média", "6,5", "7,1"]
+        ])
     }
 ];
 
