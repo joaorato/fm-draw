@@ -631,24 +631,53 @@ const croatiaRecentReports = [
             [reportPlayer("71", "Matijaš", "6,9", "GRC")]
         ])
     }, { home: ["86' R. Gonzalez"], away: ["29' A. Erceg J. Pršir"] }, [["Posse", "39%", "61%"], ["Remates", "15", "19"], ["Remates à Baliza", "5", "11"], ["xG", "1,90", "1,16"], ["PADPAD", "25,25", "18,65"], ["Oportunidades Flagrantes", "2", "1"], ["Cantos", "8", "9"], ["Passes Completados", "86%", "93%"], ["Cruzamentos Completados", "23%", "14%"], ["Faltas", "8", "5"], ["Cartões amarelos", "2", "1"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "132", "135"], ["Classificação Média", "6,8", "7,0"]]),
-    compactReport("2025-02-28-hajduk-split-hnk-rijeka", "Sábado 28 de Fevereiro de 2026", "Poljud", "Calmo", "Jonathan Silva", "8,69", { home: "Gonzalo Garcia", away: "Zép Jóbes" }, {
-        home: reportFormation("4-3-3 DM", [
-            [reportPlayer("10", "Livaja", "7,2", "AR")],
-            [reportPlayer("9", "A. Rebić", "6,4", "EAI"), reportPlayer("11", "Šego", "6,5", "EAI")],
-            [reportPlayer("23", "Krovinović", "7,2", "MC"), reportPlayer("21", "Pukštas", "6,5", "MC")],
-            [reportPlayer("6", "Hugo G.", "6,6", "MD")],
-            [reportPlayer("32", "Hrgović", "6,3", "AI"), reportPlayer("14", "Raçi", "6,6", "CC"), reportPlayer("31", "Šarlija", "6,4", "CP"), reportPlayer("8", "Sigur", "6,3", "AI")],
-            [reportPlayer("3", "Silić", "6,5", "GR")]
-        ]),
-        away: reportFormation("3-4-2-1", [
-            [reportPlayer("77", "Jurić", "8,1", "AR")],
-            [reportPlayer("20", "Ndockyt", "8,4", "ME"), reportPlayer("10", "Fruk", "7,5", "MO")],
-            [reportPlayer("14", "Gojak", "6,7", "MC")],
-            [reportPlayer("21", "Lacoux", "6,8", "MD"), reportPlayer("26", "Dantas", "6,9", "CJR")],
-            [reportPlayer("24", "J. Silva", "8,7", "AI"), reportPlayer("53", "Emirhan", "6,6", "CC"), reportPlayer("6", "Radeljić", "6,8", "CC"), reportPlayer("22", "Oreč", "6,6", "AI")],
-            [reportPlayer("", "Letica", "6,5", "GR")]
+    {
+        fixtureKey: "2025-02-28-hajduk-split-hnk-rijeka",
+        date: "Sábado 28 de Fevereiro de 2026",
+        stadium: "Poljud",
+        weather: "Calmo",
+        playerOfMatch: "Jonathan Silva",
+        rating: "8,69",
+        coaches: { home: "Gonzalo García", away: "Zép Jóbes" },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("10", "Livaja", "7,2", "AR")],
+                [reportPlayer("9", "A. Rebić", "6,4", "EAI"), reportPlayer("11", "Šego", "6,5", "EAI")],
+                [reportPlayer("23", "Krovinović", "7,2", "MC", true), reportPlayer("21", "Pukstas", "6,5", "MC")],
+                [reportPlayer("6", "Hugo G.", "6,6", "MD")],
+                [reportPlayer("32", "Hrgović", "6,3", "AI"), reportPlayer("14", "Raçi", "6,6", "CC"), reportPlayer("31", "Šarlija", "6,4", "CP"), reportPlayer("8", "Sigur", "6,3", "AI")],
+                [reportPlayer("3", "Silić", "6,5", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("77", "Jurić", "8,1", "AR", true)],
+                [reportPlayer("20", "Ndockyt", "8,4", "ME", true), reportPlayer("10", "Fruk", "7,5", "MO")],
+                [reportPlayer("14", "Gojak", "6,7", "MC")],
+                [reportPlayer("21", "Lacoux", "6,8", "MD"), reportPlayer("26", "Dantas", "6,9", "CJR")],
+                [reportPlayer("24", "J. Silva", "8,7", "AI"), reportPlayer("53", "Emirhan", "6,6", "CC"), reportPlayer("6", "Radeljić", "6,8", "CC"), reportPlayer("22", "Oreč", "6,6", "AI")],
+                [reportPlayer("1", "Letica", "6,5", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("50", "F. Krovinović", { assist: "M. Livaja" }), goalEvent("74", "A. Pajaziti", { assist: "A. Kalik" })],
+            away: [goalEvent("6", "M. Ndockyt", { assist: "A. Jurić" }), goalEvent("45+1", "M. Ndockyt", { assist: "J. Silva" }), goalEvent("53", "A. Jurić", { assist: "T. Fruk" }), goalEvent("89", "K. Andrade", { assist: "J. Silva" })]
+        },
+        stats: reportStats([
+            ["Posse", "48%", "52%"],
+            ["Remates", "9", "13"],
+            ["Remates à Baliza", "6", "9"],
+            ["xG", "1,12", "2,08"],
+            ["PADPAD", "18,04", "18,67"],
+            ["Oportunidades Flagrantes", "1", "3"],
+            ["Cantos", "5", "1"],
+            ["Passes Completados", "91%", "92%"],
+            ["Cruzamentos Completados", "13%", "28%"],
+            ["Faltas", "10", "7"],
+            ["Cartões amarelos", "2", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "121", "124"],
+            ["Classificação Média", "6,6", "7,2"]
         ])
-    }, { home: ["50' F. Krovinović M. Livaja", "74' A. Pajaziti A. Kalik"], away: ["6' A. Jurić M. Ndockyt", "45+1' J. Silva M. Ndockyt", "53' T. Fruk A. Jurić", "89' J. Silva K. Andrade"] }, [["Posse", "48%", "52%"], ["Remates", "9", "13"], ["Remates à Baliza", "6", "9"], ["xG", "1,12", "2,08"], ["PADPAD", "18,04", "18,67"], ["Oportunidades Flagrantes", "1", "3"], ["Cantos", "5", "1"], ["Passes Completados", "91%", "92%"], ["Cruzamentos Completados", "13%", "28%"], ["Faltas", "10", "7"], ["Cartões amarelos", "2", "1"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "121", "124"], ["Classificação Média", "6,6", "7,2"]]),
+    },
     compactReport("2025-02-28-nk-lokomotiva-hnk-vukovar", "Sábado 28 de Fevereiro de 2026", "Maksimir", "Tempestuoso", "Eniss Shabani", "8,56", { home: "D. Ferenčina", away: "Hugo Macedo" }, {
         home: reportFormation("3-4-1-2", [
             [reportPlayer("10", "Rui Pedro", "6,1", "AvR"), reportPlayer("62", "I. Sabra", "6,2", "AAE")],
