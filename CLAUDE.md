@@ -165,7 +165,9 @@ For a new Croatia session:
 
 - Results/fixtures: edit `js/data/croatia-fixtures.js`.
 - Standings: nothing to edit. The table is computed from the fixtures (see Croatia Standings).
-- Match reports: append to `croatiaRecentReports` in `js/data/croatia-reports-recentes.js`.
+- Match reports: append to `croatiaRecentReports` in `js/data/croatia-reports-recentes.js`. To
+  transcribe one from an FM screenshot, follow the `fm-match-report` skill in
+  `.claude/skills/` - it carries the traps that produce silently wrong data.
 - News article/carousel item: edit `js/data/croatia-news.js`.
 - Transfers: edit `js/data/croatia-transfers.js`.
 - Marcadores/assistências: nothing to edit. They come from the reports' goal events. Run
@@ -301,10 +303,45 @@ Use the helpers from `report-core.js`:
 - `reportPlayer()`
 - `reportFormation()`
 - `reportStats()`
+- `goalEvent()` and `sendOffEvent()`
+
+Transcribe a report from an FM screenshot with the pipeline, not by hand: `scripts/report_crop.py`
+cuts the screenshot into readable pieces, you write a JSON transcription, and
+`scripts/report_build.js` validates it against the fixtures and emits the report object.
+`report_build.js <json> --diff` re-reads a match that is already in the data and shows what changes,
+which is how a suspect old report gets checked. The `fm-match-report` skill has the details.
 
 Build keys with `createFixtureKey()` from `fixtures-core.js`.
 
 Important: a report whose `fixtureKey` does not match any fixture is silently dropped. After adding reports, check that the target fixture has `fixture.report`.
+
+**Write new goal events with `goalEvent()`, not as a string.** There are two shapes:
+
+```js
+goalEvent("71", "W. Sule", { assist: "J. Pršir" })   // novo
+"71' W. Sule J. Pršir"                                // antigo, ainda lido
+```
+
+The string has no separator between scorer and assister, so reading it means guessing where the name
+splits, and it says who scored only through word order. That order is not the same on both sides. FM
+mirrors the away column on screen and prints it assister, scorer, minute, and the strings were copied
+as they appeared, so **in a legacy string the away scorer is the last name, not the first**:
+`"49' J. Mišić A. Hoxha"` is Hoxha scoring. Confirmed against the save on two matches, and it is what
+explains the goal marks in the reports whose marks were read off the pitch rather than inferred.
+
+`orderLegacyEventNames()` in `js/data/stats-core.js` applies that swap, and the away branches of
+`getEventEdgePerson()`/`matchEventEdgeName()` in `js/ui/match-report.js` are the same rule in the
+report modal. The two must keep agreeing - when they disagreed, the modal and the top-scorer list
+named different players for the same goal, and `report_lint.js` now fails if they ever do again.
+
+None of that applies to `goalEvent()`: two named fields, no order to interpret, no side to special
+case. Each match re-transcribed through `scripts/report_build.js` stops depending on the legacy rule,
+which is the point - the rule is a decoder for old data, not a convention to keep writing to.
+
+`node scripts/report_lint.js <fixtureKey>` checks a report against what the rest of the season
+already says: event order against the goal marks on the pitch card, shirt numbers against the same
+player elsewhere, names against the known squad, and the coach against the club's human manager.
+`--all` sweeps every report. Run it alongside `validate_goals.js`, which only proves the goal count.
 
 ## Scoring
 
@@ -413,6 +450,10 @@ Useful checks:
 - Run a syntax check on changed JS files with Node if available: `node --check <file>`.
 - After touching match reports or `stats-core.js`, run `node scripts/validate_goals.js`. It should
   report 0 unresolved, 0 ambiguous and 0 fixtures disagreeing with the score.
+- After adding or editing a report, also run `node scripts/report_lint.js <fixtureKey>`. It catches
+  what the goal count cannot: a scorer and assister stored the wrong way round, a shirt number with a
+  digit hidden by the shirt graphic, a name spelled differently from the rest of the season, or an
+  assistant recorded as the coach of a human-managed club.
 - Serve the folder (`python3 -m http.server`) and drive the page with the Playwright MCP tools to check the console and click through the affected tab. Note that the browser aggressively caches `js/data/*.js` and `js/ui/*.js`; serve on a fresh port after editing, or you will be testing the old file.
 - Open `index.html` locally to verify the affected tab.
 - For data changes, check that the relevant table/card/report appears and no dependent script is loaded before its data.
