@@ -174,6 +174,22 @@ function splitScorerAndAssist(name, squad) {
     return { reading: winners.length === 1 ? winners[0] : null, readings: winners };
 }
 
+// No ecrã do FM a coluna da equipa visitante está espelhada: escreve assistente,
+// marcador, minuto. Os eventos em string foram copiados como apareciam, por isso
+// num evento antigo do lado de fora os dois nomes estão ao contrário do que a
+// ordem sugere — "49' J. Mišić A. Hoxha" é o Hoxha a marcar, com assistência do
+// Mišić. Confirmado no save em dois jogos, e é o que explica as bolas desenhadas
+// no campo nos relatórios em que essas bolas foram lidas do ecrã em vez de
+// deduzidas do próprio evento.
+//
+// Isto vale só para o formato antigo. Um evento escrito com `goalEvent()` traz
+// marcador e assistente em campos separados e nunca passa por aqui, por isso
+// cada jogo que for outra vez transcrito deixa de depender desta regra.
+function orderLegacyEventNames(reading, side) {
+    if (side !== "away" || !reading.assist) return reading;
+    return { scorer: reading.assist, assist: reading.scorer };
+}
+
 function buildGoalRecords(league, options = {}) {
     let isLeagueMatch = options.isLeagueMatch || (() => true);
     let squads = buildSquadIndex(league);
@@ -218,11 +234,12 @@ function buildGoalRecords(league, options = {}) {
                     return;
                 }
 
+                let ordered = orderLegacyEventNames(reading, side);
                 records.push({
                     fixture,
                     team,
-                    scorer: reading.scorer,
-                    assist: reading.assist,
+                    scorer: ordered.scorer,
+                    assist: ordered.assist,
                     penalty: parsed.penalty,
                     ownGoal: false
                 });

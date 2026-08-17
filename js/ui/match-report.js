@@ -80,19 +80,16 @@ function getEventNameVariants(name = "") {
     return [...new Set(variants)].filter(Boolean);
 }
 
+// Num evento em string do lado visitante o marcador é o nome do fim, não o do
+// princípio: essa coluna foi copiada tal como o FM a desenha, espelhada. É a
+// mesma regra que `orderLegacyEventNames()` aplica em js/data/stats-core.js, e
+// as duas têm de continuar a dizer o mesmo — o `scripts/report_lint.js` falha se
+// alguma vez discordarem. Um evento de `goalEvent()` não passa por aqui.
 function getEventEdgePerson(body = "", side = "home") {
     let parts = body.split(/\s+/).filter(Boolean);
     if (parts.length <= 2) return body.trim();
 
-    if (side === "away") {
-        let lastTwo = parts.slice(-2);
-        if (/^\p{L}\.$/u.test(lastTwo[0])) return lastTwo.join(" ");
-        return parts.slice(-2).join(" ");
-    }
-
-    let firstTwo = parts.slice(0, 2);
-    if (/^\p{L}\.$/u.test(firstTwo[0])) return firstTwo.join(" ");
-    return firstTwo.join(" ");
+    return side === "away" ? parts.slice(-2).join(" ") : parts.slice(0, 2).join(" ");
 }
 
 function matchEventEdgeName(body = "", playerNames = [], side = "home") {
@@ -154,12 +151,7 @@ function parseMatchReportEvent(event = "", playerNames = [], side = "home") {
         let assist = side === "away"
             ? body.slice(0, body.length - scorer.length).trim()
             : body.slice(scorer.length).trim();
-        return {
-            minute,
-            scorer,
-            assist,
-            type: "goal"
-        };
+        return { minute, scorer, assist, type: "goal" };
     }
 
     const scorer = getEventEdgePerson(body, side);
