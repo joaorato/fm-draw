@@ -329,16 +329,18 @@ function main() {
     let dados = loadLeagueData();
 
     let data = readDate(t.date);
-    let fixtureKey = data && t.teams
-        ? `${data.ano}-${{ Jan:"01",Fev:"02",Mar:"03",Abr:"04",Mai:"05",Jun:"06",Jul:"07",Ago:"08",Set:"09",Out:"10",Nov:"11",Dez:"12" }[data.mes]}-`
-          + `${String(data.dia).padStart(2, "0")}-`
-          + `${stripDiacritics(t.teams.home).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}-`
-          + `${stripDiacritics(t.teams.away).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`
+    // A chave não se constrói a partir da data por extenso: o createFixtureKey()
+    // do site escreve sempre o ano 2025, mesmo nos jogos de 2026, por isso um
+    // "28 de Fevereiro de 2026" daria uma chave que não existe. Procura-se o jogo
+    // pelo dia, mês e equipas, e usa-se a chave que ele já tem.
+    let fixture = data && t.teams
+        ? dados.leagues.flatMap((l) => l.fixtures || []).find((f) =>
+            f.home === t.teams.home
+            && f.away === t.teams.away
+            && String(f.date || "").trim() === `${Number(data.dia)} ${data.mes}`)
         : null;
 
-    let fixture = fixtureKey
-        ? dados.leagues.flatMap((l) => l.fixtures || []).find((f) => f.fixtureKey === fixtureKey)
-        : null;
+    let fixtureKey = fixture?.fixtureKey || null;
 
     let { erros, avisos } = validar(t, dados, fixture);
 
