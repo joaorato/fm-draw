@@ -442,6 +442,7 @@ Avoid broad restyles. Keep CSS changes close to the feature being changed.
 - Do not reorder scripts casually.
 - Do not introduce unrelated refactors while adding data or fixing UI.
 - Preserve user changes in a dirty worktree.
+- Commit messages are one line. No body, no bullet list of what changed - the diff says that.
 
 ## Verification
 
@@ -454,8 +455,12 @@ Useful checks:
   what the goal count cannot: a scorer and assister stored the wrong way round, a shirt number with a
   digit hidden by the shirt graphic, a name spelled differently from the rest of the season, or an
   assistant recorded as the coach of a human-managed club.
-- Serve the folder (`python3 -m http.server`) and drive the page with the Playwright MCP tools to check the console and click through the affected tab. Note that the browser aggressively caches `js/data/*.js` and `js/ui/*.js`; serve on a fresh port after editing, or you will be testing the old file.
-- Open `index.html` locally to verify the affected tab.
 - For data changes, check that the relevant table/card/report appears and no dependent script is loaded before its data.
+
+**Do not drive the browser unless asked.** The user checks the page themselves. Verify with the Node
+checks above, which cover the data and the parsing; if something can only be settled by looking at
+the rendered page, say so and let the user look. When the user does ask for a browser check, serve on
+a fresh port (`python3 -m http.server`) - the browser caches `js/data/*.js` and `js/ui/*.js` hard,
+and reusing a port means testing the old file.
 
 When changing match reports or fixtures, verify the `fixtureKey` link, not just syntax.
