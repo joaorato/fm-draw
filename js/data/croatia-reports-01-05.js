@@ -574,7 +574,7 @@ const croatiaRoundThreeReports = [
         coaches: { home: "Miguel Cardoso", away: "Gonzalo Garcia" },
         formations: {
             home: reportFormation("4-3-3 DM", [
-                [reportPlayer("64", "Epailly", "7,4", "Ex", true), reportPlayer("11", "Šule", "6,2", "MO"), reportPlayer("8", "Pozo", "6,6", "Ex")],
+                [reportPlayer("64", "Epailly", "7,4", "Ex", true), reportPlayer("11", "Sule", "6,2", "MO"), reportPlayer("8", "Pozo", "6,6", "Ex")],
                 [reportPlayer("18", "Fiolić", "6,4", "CJA"), reportPlayer("36", "Kavelj", "6,7", "ME")],
                 [reportPlayer("10", "Pršir", "6,5", "CJR")],
                 [reportPlayer("19", "Čabraja", "7,5", "AI"), reportPlayer("5", "Leš", "6,8", "DC"), reportPlayer("4", "J. Filipović", "6,7", "CP"), reportPlayer("45", "Perić", "6,6", "AI")],

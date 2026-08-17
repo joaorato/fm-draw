@@ -437,7 +437,7 @@ const croatiaRecentReports = [
                 [reportPlayer("19", "Jurilj", "6,3", "AR")],
                 [reportPlayer("10", "Gonzalez", "6,4", "AI"), reportPlayer("9", "Kulušić", "6,6", "Ex")],
                 [reportPlayer("15", "Gurlica", "6,6", "MC"), reportPlayer("8", "Horvat", "8,0", "CJA", true)],
-                [reportPlayer("20", "Čabrajic", "6,4", "CJR")],
+                [reportPlayer("20", "Čabrajić", "6,4", "CJR")],
                 [reportPlayer("3", "Bosec", "6,4", "AI"), reportPlayer("5", "Elez", "7,0", "DC"), reportPlayer("4", "Mitrović", "7,0", "DC"), reportPlayer("91", "Tićinović", "7,0", "DL")],
                 [reportPlayer("42", "Đaković", "6,6", "GR")]
             ]),
@@ -765,7 +765,7 @@ const croatiaRecentReports = [
         home: reportFormation("4-2-3-1", [
             [reportPlayer("77", "Jurić", "7,5", "AR", true)],
             [reportPlayer("20", "Ndockyt", "7,0", "ME"), reportPlayer("10", "Fruk", "6,7", "MO"), reportPlayer("19", "Ntcham", "6,5", "MC")],
-            [reportPlayer("17", "Martinez T.", "6,4", "MD"), reportPlayer("26", "Dantas", "6,7", "CJR")],
+            [reportPlayer("15", "Martínez T.", "6,4", "MD"), reportPlayer("26", "Dantas", "6,7", "CJR")],
             [reportPlayer("24", "J. Silva", "7,7", "AI", true), reportPlayer("53", "Emirhan", "6,9", "CC"), reportPlayer("6", "Radeljić", "6,5", "CC"), reportPlayer("22", "Oreč", "7,1", "AI")],
             [reportPlayer("1", "Letica", "6,9", "GR")]
         ]),
@@ -878,7 +878,7 @@ const croatiaRecentReports = [
     }, { home: ["54' I. Nestorovski pen"], away: ["29' I. Mamut T. Gaprindashvili", "41' I. Mamut P. Bočkaj", "47' I. Mamut pen", "81' M. Vuk D. Puclin", "85' I. Mamut M. Vuk", "88' M. Vuk R. Brajković"] }, [["Posse", "48%", "52%"], ["Remates", "7", "24"], ["Remates à Baliza", "2", "14"], ["xG", "1,65", "3,84"], ["PADPAD", "18,89", "17,90"], ["Oportunidades Flagrantes", "2", "3"], ["Cantos", "4", "8"], ["Passes Completados", "86%", "86%"], ["Cruzamentos Completados", "4%", "33%"], ["Faltas", "15", "9"], ["Cartões amarelos", "3", "1"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "117", "123"], ["Classificação Média", "6,5", "7,5"]]),
     compactReport("2025-03-14-hnk-gorica-nk-istra-1961", "Sábado 14 de Março de 2026", "Gradski stadion Velika Gorica", "Tempestuoso", "George Johnston", "7,39", { home: "Miguel Cardoso", away: "João Pedro Rato" }, {
         home: reportFormation("4-3-3 DM", [
-            [reportPlayer("64", "Epailly", "6,1", "Ex"), reportPlayer("10", "Pršir", "6,2", "ME"), reportPlayer("24", "Sule", "6,3", "Ex")],
+            [reportPlayer("64", "Epailly", "6,1", "Ex"), reportPlayer("10", "Pršir", "6,2", "ME"), reportPlayer("11", "Sule", "6,3", "Ex")],
             [reportPlayer("18", "Frigan", "6,4", "CJA"), reportPlayer("36", "Kavelj", "6,6", "ME")],
             [reportPlayer("7", "Bakić", "6,6", "MD")],
             [reportPlayer("19", "Čabraja", "6,7", "AI"), reportPlayer("45", "Perić", "7,0", "DC"), reportPlayer("5", "Leš", "7,1", "CP"), reportPlayer("22", "Trontelj", "6,6", "AI")],
@@ -946,7 +946,7 @@ const croatiaRecentReports = [
         home: reportFormation("4-2-3-1", [
             [reportPlayer("8", "Horvat", "6,3", "AAE")],
             [reportPlayer("41", "Šporn", "6,9", "MO"), reportPlayer("21", "Puljić", "6,1", "MO")],
-            [reportPlayer("77", "Akpata", "6,8", "AI"), reportPlayer("27", "Čuić", "6,1", "MD"), reportPlayer("10", "Gonzalez", "6,5", "CJR"), reportPlayer("22", "Čabrajić", "6,1", "AI")],
+            [reportPlayer("77", "Akpata", "6,8", "AI"), reportPlayer("27", "Čuić", "6,1", "MD"), reportPlayer("10", "Gonzalez", "6,5", "CJR"), reportPlayer("20", "Čabrajić", "6,1", "AI")],
             [reportPlayer("4", "Mitrović", "6,4", "CC"), reportPlayer("5", "Elez", "6,2", "CC"), reportPlayer("3", "Bosec", "6,4", "CC")],
             [reportPlayer("42", "Đaković", "6,5", "GR")]
         ]),
