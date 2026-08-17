@@ -315,6 +315,19 @@ function diff(t, fixture, dados) {
         }
     });
 
+    // As catorze linhas de estatística também entram no diff: sem isto, uma posse
+    // ou um xG mal lidos passavam despercebidos e o --diff dizia "nenhuma".
+    let statsAntes = new Map((atual.stats || []).map((linha) => [linha.label, linha]));
+    (t.stats || []).forEach(([rotulo, casa, fora]) => {
+        let velho = statsAntes.get(rotulo);
+        statsAntes.delete(rotulo);
+        if (!velho) { linhas.push(`  estatística "${rotulo}" é nova`); return; }
+        if (String(velho.home) !== String(casa) || String(velho.away) !== String(fora)) {
+            linhas.push(`  ${rotulo}\n    dados: ${velho.home} / ${velho.away}\n    JSON : ${casa} / ${fora}`);
+        }
+    });
+    statsAntes.forEach((linha, rotulo) => linhas.push(`  estatística "${rotulo}" deixou de aparecer`));
+
     console.log(linhas.length ? linhas.join("\n") : "  nenhuma.");
 }
 

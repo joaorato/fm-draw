@@ -68,7 +68,7 @@ const croatiaTransfers = [
     { date: "10/01/2026", player: "J. Wrąbel", from: "Miedź Legnica", to: "NK Istra 1961", value: "70m €" },
     { date: "10/01/2026", player: "Can Coşkun", from: "Duisburg", to: "NK Istra 1961", value: "245m €" },
     { date: "10/01/2026", player: "T. Akpata", from: "West Ham", to: "HNK Vukovar", value: "Empréstimo" },
-    { date: "10/01/2026", player: "B. Racovitan", from: "Raków Częstochowa", to: "NK Osijek", value: "750m € (900m €)" },
+    { date: "10/01/2026", player: "B. Racovițan", from: "Raków Częstochowa", to: "NK Osijek", value: "750m € (900m €)" },
     { date: "06/01/2026", player: "R. Coly", from: "NK Osijek", to: "Al-Sailiya", value: "63m €" },
     { date: "05/01/2026", player: "Renan Guedes", from: "NK Osijek", to: "CUI", value: "24,5m € (29,5m €)" },
     { date: "02/01/2026", player: "L. Kitin", from: "HNK Rijeka", to: "Salernitana", value: "215m €" },

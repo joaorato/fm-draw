@@ -58,6 +58,7 @@ function lineupPlayers(formation) {
 // que nomes cada clube já teve, e que treinador aparece normalmente em cada clube.
 function buildReference(league) {
     let numbers = new Map();   // "equipa|jogador" -> Map(numero -> vezes)
+    let spellings = new Map(); // "equipa|jogador" -> Set(grafias tal e qual)
     let names = new Map();     // equipa -> Map(apelido -> Set(nomes completos))
     let coaches = new Map();   // equipa -> Map(treinador -> vezes)
 
@@ -80,6 +81,8 @@ function buildReference(league) {
                 if (!player?.name) return;
 
                 let key = `${team}|${nameKey(player.name)}`;
+                if (!spellings.has(key)) spellings.set(key, new Set());
+                spellings.get(key).add(player.name);
                 if (!numbers.has(key)) numbers.set(key, new Map());
                 if (player.number) {
                     let tally = numbers.get(key);
@@ -106,7 +109,7 @@ function buildReference(league) {
         });
     });
 
-    return { numbers, names, coaches };
+    return { numbers, names, coaches, spellings };
 }
 
 function usualCoach(reference, team, exclude) {
@@ -251,6 +254,15 @@ function checkFixture(league, fixture, helpers, reference, renderer) {
                     avisos.push(`${team}: ${player.name} está com o número ${player.number}, `
                         + `mas noutros relatórios usa ${outros.map(([n, c]) => `${n} (${c}x)`).join(", ")}`);
                 }
+            }
+
+            // Duas grafias do mesmo jogador passam despercebidas a tudo o resto:
+            // a auditoria de números agrupa pelo nome tal e qual, por isso vê dois
+            // jogadores com um número cada em vez de um jogador com dois números.
+            let grafias = reference.spellings.get(`${team}|${nameKey(player.name)}`);
+            if (grafias && grafias.size > 1) {
+                avisos.push(`${team}: ${player.name} aparece escrito de ${grafias.size} maneiras`
+                    + ` ao longo da época — ${[...grafias].join(", ")}`);
             }
 
             let bySurname = reference.names.get(team);

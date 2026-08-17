@@ -14,7 +14,7 @@ const croatiaRoundTwelveReports = [
             home: reportFormation("4-3-3 DM", [
                     [reportPlayer("10", "Livaja", "7,8", "AR", true)],
                     [reportPlayer("9", "A. Rebić", "6,2", "EAI"), reportPlayer("30", "Almena", "6,6", "EAI")],
-                    [reportPlayer("23", "Krovinović", "7,0", "MC"), reportPlayer("21", "Pukstas", "6,7", "MC")],
+                    [reportPlayer("23", "Krovinović", "7,0", "MC"), reportPlayer("21", "Pukštas", "6,7", "MC")],
                     [reportPlayer("6", "Hugo G.", "6,8", "MD")],
                     [reportPlayer("3", "Auer", "6,7", "AI"), reportPlayer("14", "Raçi", "6,9", "CC"), reportPlayer("15", "Marešić", "6,6", "CC"), reportPlayer("32", "Hrgović", "7,9", "AI")],
                     [reportPlayer("33", "Silić", "6,6", "GR")]
