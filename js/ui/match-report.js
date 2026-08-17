@@ -267,6 +267,23 @@ function isWingerRow(rows, index) {
     return row.every((player) => wingerPositions.has(getFormationPlayerPosition(player)));
 }
 
+// Um trio ofensivo desenha-se com o ponta-de-lança sozinho e os dois extremos na
+// linha a seguir, e é aí que eles pertencem às colunas de fora - por cima dos
+// laterais e não por cima dos médios. Quem diz que a frente é de três é o nome:
+// um 3-4-2-1 põe os mesmos dois códigos debaixo de um avançado isolado e esses
+// jogam por dentro.
+function isFrontThreeName(name) {
+    let bands = String(name || "").match(/\d+/g);
+    return Boolean(bands) && bands[bands.length - 1] === "3";
+}
+
+function isFrontThreeWingerRow(rows, index) {
+    if (!isWingerRow(rows, index)) return false;
+
+    let above = rows[index - 1];
+    return Boolean(above) && above.length === 1;
+}
+
 function inferThreeCenterBackFormationName(formation) {
     let rows = formation?.players || [];
     if (rows.length < 4) return formation?.name;
@@ -377,12 +394,14 @@ function renderFormationPitch(report, side) {
     }
     let totalRows = rows.length;
     let wideFormation = isWideFormationName(formation.name);
+    let frontThree = isFrontThreeName(formation.name);
     return `
         <div class="match-report-pitch match-report-pitch-${side}">
             ${rows.map((row, index) => {
                 let alas = isWingBackRow(rows, index) || (wideFormation && isWingerRow(rows, index));
+                let extremos = !alas && frontThree && isFrontThreeWingerRow(rows, index);
                 return `
-                <div class="match-report-pitch-row match-report-pitch-row-${index + 1}${alas ? " match-report-pitch-row-alas" : ""}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
+                <div class="match-report-pitch-row match-report-pitch-row-${index + 1}${alas ? " match-report-pitch-row-alas" : ""}${extremos ? " match-report-pitch-row-extremos" : ""}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
                     ${row.map((player) => renderFormationPlayer(player, scorers)).join("")}
                 </div>
                 `;

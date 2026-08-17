@@ -4376,6 +4376,20 @@ button.league-fixture-score {
     justify-content: space-between;
 }
 
+/* Os extremos de um trio ofensivo caem nas colunas de fora de uma linha de
+   quatro, ou seja por cima dos laterais. Sem isto ficavam a um quarto e a três
+   quartos, como qualquer linha de dois, e desenhavam-se em cima dos médios. */
+.match-report-pitch-row-extremos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    justify-items: center;
+}
+
+.match-report-pitch-row-extremos > :last-child {
+    grid-column: 4;
+}
+
 .match-report-pitch-row:nth-last-child(2) {
     margin-top: clamp(2px, 0.45vw, 8px);
 }
