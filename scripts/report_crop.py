@@ -36,7 +36,7 @@ REGIOES = {
     # começam a alturas diferentes conforme a formação tenha ou não ponta de
     # lança. Estas caixas são folgadas de propósito: cortar de menos custa uma
     # leitura, cortar de mais faz perder um golo ou um jogador sem dar sinal.
-    "eventos": (0.209, 0.260, 0.398, 0.560),
+    "eventos": (0.209, 0.260, 0.398, 0.660),
     "casa-ataque": (0.015, 0.360, 0.201, 0.684),
     "casa-defesa": (0.015, 0.673, 0.201, 0.878),
     "fora-ataque": (0.795, 0.360, 0.986, 0.704),

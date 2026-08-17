@@ -193,25 +193,33 @@ function validar(t, dados, fixture) {
         // A bola no campo é a segunda leitura de quem marcou. Se ela e os eventos
         // discordarem, um dos dois foi lido mal - e é exatamente aqui que a troca
         // entre marcador e assistente se denuncia, antes de entrar nos dados.
-        let comBola = new Set(jogadores.filter((j) => j.goal).map((j) => nameKey(j.name)));
-        let titulares = new Set(jogadores.map((j) => nameKey(j.name)));
-        let marcadores = new Set(golos.filter((e) => !e.ownGoal).map((e) => nameKey(e.scorer)));
+        //
+        // Os eventos escrevem "I. Tavares" onde o campo escreve "Iuri Tavares",
+        // por isso compara-se pelo nome inteiro ou pelo apelido, como faz o
+        // índice de planteis do stats-core.js.
+        let mesmoJogador = (a, b) => nameKey(a) === nameKey(b) || surnameKey(a) === surnameKey(b);
+        let comBola = jogadores.filter((j) => j.goal).map((j) => j.name);
+        let marcadores = golos.filter((e) => !e.ownGoal).map((e) => e.scorer);
 
-        [...comBola].forEach((quem) => {
-            if (!marcadores.has(quem)) {
+        comBola.forEach((quem) => {
+            if (!marcadores.some((m) => mesmoJogador(m, quem))) {
                 erros.push(`${equipa}: ${quem} tem bola no campo mas não marca em nenhum evento`);
             }
         });
-        [...marcadores].forEach((quem) => {
-            if (titulares.has(quem) && !comBola.has(quem)) {
+        marcadores.forEach((quem) => {
+            let titular = jogadores.some((j) => mesmoJogador(j.name, quem));
+            if (titular && !comBola.some((b) => mesmoJogador(b, quem))) {
                 erros.push(`${equipa}: ${quem} marca num evento mas não tem bola no campo`);
             }
         });
 
-        let assistentes = new Set(golos.map((e) => e.assist).filter(Boolean).map(nameKey));
-        [...assistentes].forEach((quem) => {
-            if (comBola.has(quem)) {
-                erros.push(`${equipa}: ${quem} aparece como assistente mas tem bola no campo`
+        // Um jogador que marque num golo e assista noutro tem bola no campo com
+        // toda a razão, por isso só conta quem apareça como assistente e não
+        // marque nada.
+        let assistentes = golos.map((e) => e.assist).filter(Boolean);
+        assistentes.forEach((quem) => {
+            if (comBola.some((b) => mesmoJogador(b, quem)) && !marcadores.some((m) => mesmoJogador(m, quem))) {
+                erros.push(`${equipa}: ${quem} aparece só como assistente mas tem bola no campo`
                     + ` — é o sinal de que marcador e assistente estão trocados`);
             }
         });
@@ -219,8 +227,9 @@ function validar(t, dados, fixture) {
         if (squads) {
             let squad = squads.get(equipa);
             [...marcadores, ...assistentes].forEach((quem) => {
-                if (titulares.has(quem)) return;
-                let conhecido = squad && (squad.byName.has(quem) || squad.bySurname.has(surnameKey(quem)));
+                if (jogadores.some((j) => mesmoJogador(j.name, quem))) return;
+                let conhecido = squad
+                    && (squad.byName.has(nameKey(quem)) || squad.bySurname.has(surnameKey(quem)));
                 if (!conhecido) avisos.push(`${equipa}: "${quem}" não é titular nem aparece noutro relatório`);
             });
         }
@@ -294,10 +303,13 @@ function diff(t, fixture, dados) {
             let p = dados.readGoalEvent(e);
             if (p.structured) return eventoTexto(e);
             let squad = dados.buildSquadIndex(dados.leagues.find((l) => (l.fixtures || []).includes(fixture))).get(fixture[side]);
-            let { reading } = dados.splitScorerAndAssist(p.name, squad);
             if (p.sendOff) return `${p.minute}' ${p.name} (expulso)`;
             if (p.ownGoal) return `${p.minute}' ${p.name} (a.g.)`;
-            return `${p.minute}' ${reading?.scorer ?? p.name}${reading?.assist ? ` (assist. ${reading.assist})` : ""}`;
+            let { reading } = dados.splitScorerAndAssist(p.name, squad);
+            // O site aplica orderLegacyEventNames() a estes eventos; o diff tem de
+            // mostrar o que o site mostra, não a ordem crua da string.
+            let lido = reading ? dados.orderLegacyEventNames(reading, side) : null;
+            return `${p.minute}' ${lido?.scorer ?? p.name}${lido?.assist ? ` (assist. ${lido.assist})` : ""}`;
         });
         let depois = (t.events[side] || []).map(eventoTexto);
         if (antes.join(" | ") !== depois.join(" | ")) {
