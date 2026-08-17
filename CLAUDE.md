@@ -312,10 +312,8 @@ cuts the screenshot into readable pieces, you write a JSON transcription, and
 replacing the report already there, or appending with `--para js/data/croatia-reports-<block>.js`.
 **Leave it uncommitted**: the user reviews the `git diff` and decides.
 
-`--diff` prints the comparison and the whole block to the terminal instead of writing. It costs far
-more than it is worth as a routine step, since `git diff` shows the same thing afterwards - keep it
-for when you genuinely want to look before touching the file. The `fm-match-report` skill has the
-details.
+The `fm-match-report` skill has the details. (`--diff` prints the comparison instead of writing; it
+is not part of the routine, since `git diff` shows the same thing after `--write`.)
 
 Build keys with `createFixtureKey()` from `fixtures-core.js`.
 

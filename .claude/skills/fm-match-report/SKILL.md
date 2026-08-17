@@ -5,209 +5,102 @@ description: Transcreve uma captura do ecrã "Relatório no final do jogo" do Fo
 
 # Relatório de jogo do FM para os dados do site
 
-Uma captura do relatório de fim de jogo do FM tem tudo o que um relatório do site
-precisa. O que se segue é a ordem de trabalho e, sobretudo, as armadilhas: quase
-todas já morderam uma vez, e nenhuma delas dá erro nenhum quando corre mal.
-
-O caminho é sempre o mesmo:
-
-```
-captura .png
-  -> report_crop.py          recorta e amplia
-  -> (leitura)               escreves a transcrição em JSON
-  -> report_build.js --write valida e escreve no ficheiro certo
-  -> report_lint.js          confere depois de escrito
-  -> (o utilizador confirma no git diff e manda commitar)
-```
-
-A transcrição vai para um ficheiro JSON com `scorer` e `assist` em campos
-separados, e o `report_build.js` recusa-se a escrever seja o que for enquanto
-houver erros. O formato antigo, `"71' W. Sule J. Pršir"`, continua a ser lido
-para os relatórios que já existem, mas **não se escrevem eventos novos assim**:
-essa string não separa marcador de assistente e obriga a adivinhar os dois.
-
-## 1. Recortar antes de ler
-
 ```bash
-python3 scripts/report_crop.py <captura.png> --out <pasta-de-trabalho>
+python3 scripts/report_crop.py <captura.png> --out <pasta>     # recorta e amplia
+#   lê os recortes e escreve a transcrição em JSON
+node scripts/report_build.js <json> --write                     # valida e escreve
+node scripts/report_lint.js <fixtureKey>
+node scripts/validate_goals.js
 ```
 
-Escreve oito recortes ampliados: `cabecalho`, `eventos`, `casa-ataque`,
-`casa-defesa`, `fora-ataque`, `fora-defesa`, `dados-cima`, `dados-baixo`. Lê
-esses, não a imagem inteira — os nomes croatas e as décimas das notas não se leem
-na imagem original.
+**Não commites.** Deixa por commitar para o utilizador ver o `git diff` e decidir.
+**Não abras o browser** sem te pedirem: quem confere a página é ele.
 
-Quando um valor continua ilegível, amplia só esse sítio:
+Se for um relatório novo, junta `--para js/data/croatia-reports-<bloco>.js`:
 
-```bash
-python3 scripts/report_crop.py <captura.png> --box 178,765,232,798 --scale 12
+| Jornadas | Ficheiro |
+|---|---|
+| 1 a 5 | `croatia-reports-01-05.js` |
+| 6 a 11 | `croatia-reports-06-11.js` |
+| 12 | `croatia-reports-12.js` |
+| Taça | `croatia-reports-taca.js` |
+| 13 em diante | `croatia-reports-recentes.js` |
+
+Um bloco novo precisa do `<script>` em `index.html` antes de `croatia-wiring.js`,
+do array no spread de `croatiaMatchReports`, e da lista do `CLAUDE.md` renumerada.
+
+## O JSON
+
+```json
+{
+  "date": "Sábado 1 de Novembro de 2025",
+  "teams": { "home": "Hajduk Split", "away": "HNK Gorica" },
+  "score": { "home": 1, "away": 1 },
+  "stadium": "Poljud", "weather": "Calmo",
+  "playerOfMatch": { "name": "Šimun Hrgović", "rating": "7,91" },
+  "coaches": { "home": "Gonzalo García", "away": "Miguel Cardoso" },
+  "lineups": { "home": { "formation": "4-3-3 DM", "rows": [[{ "number": "10",
+      "name": "Livaja", "rating": "7,8", "pos": "AR", "goal": true }]] } },
+  "events": { "away": [{ "minute": "71", "scorer": "W. Sule", "assist": "J. Pršir" }] },
+  "stats": [["Posse", "59%", "41%"]]
+}
 ```
 
-## 2. O que sai de cada recorte
+As linhas do onze vão do ataque para o guarda-redes. Um evento pode levar
+`"penalty": true`, `"ownGoal": true` ou `"sendOff": true` (aí usa `"player"` em
+vez de `"scorer"`).
 
-`cabecalho`: data por extenso, estádio, tempo, homem do jogo e nota. Os nomes dos
-treinadores também, mas lê primeiro a secção dos treinadores aqui em baixo.
+A chave não se escreve à mão — o `report_build.js` acha o jogo pelo dia, mês e
+equipas. **Um relatório cujo fixtureKey não bate certo é descartado sem dar erro.**
 
-`eventos`: golos dos dois lados.
+## O marcador é o nome mais perto da bola
 
-**O marcador é o nome que está mais perto da bola.** É esta a regra, e chega para
-os dois lados sem ter de decorar qual deles está espelhado:
+Vale para os dois lados, sem ter de decorar qual está espelhado:
 
 ```
 casa    ⚽  61' L. Mamić  A. Latković        -> marcou o Mamić
 fora        M. Zajc  A. Hoxha  70'  ⚽       -> marcou o Hoxha
 ```
 
-A bola fica sempre do lado de fora da caixa, o minuto encostado a ela, e o
-marcador a seguir ao minuto. O assistente é o que sobra, do lado de dentro.
-
-Vale a pena perceber porque é esta a regra boa e não "confirmar pelo campo": **o
-marcador pode ter entrado do banco**, e nesse caso não está desenhado no campo
-nenhum. A bola no onze só confirma marcadores que eram titulares; a bola no
-painel de eventos identifica todos.
-
-No JSON o golo fica `{ "minute": "70", "scorer": "A. Hoxha", "assist": "M. Zajc" }`,
-com os nomes nos campos certos, e a partir daí não há ordem nenhuma para
-interpretar.
+A bola fica por fora, o minuto encostado a ela, o marcador a seguir ao minuto, o
+assistente por dentro. É a regra boa porque **o marcador pode ter entrado do
+banco** e aí não está desenhado no campo.
 
 Copiar a coluna da direita pela ordem em que aparece é o erro mais caro do
-projeto, e não foi um deslize isolado: há jogos inteiros da época gravados assim,
-com o golo no assistente e a assistência no marcador.
+projeto: há jogos inteiros gravados com o golo no assistente. Não tem padrão —
+conta com a maioria dos jogos antigos precisar de correção.
 
-E não vale a pena procurar-lhe um padrão — já se procurou, e chegou a estar um
-descodificador escrito no código antes de ser desfeito. Dos cinco jogos
-confirmados contra o save, quatro tinham a coluna de fora toda trocada e um, o
-Vukovar-Varaždin da jornada 3, tinha três dos quatro golos certos e um trocado no
-mesmo relatório. Ao todo, 16 eventos em 19 estavam trocados: quase sempre, mas
-não sempre, e é o "não sempre" que impede qualquer regra automática.
+## As quatro armadilhas
 
-Por isso a coluna de fora dos relatórios antigos não se corrige a pensar,
-corrige-se a voltar a passar o jogo pela captura — e é para isso que serve a
-transcrição em JSON. Conta com a maioria dos jogos por passar precisar de
-correção.
+**Números de camisola com um dígito tapado.** O desenho da camisola come o
+primeiro dígito: 33 lê-se 3, 71 lê-se 1. O sinal é o número estar descentrado ou
+colidir com o de um colega. O `report_lint.js` diz que número aquele jogador usa
+nos outros relatórios; se continuar duvidoso, pergunta.
 
-`casa-*` e `fora-*`: o onze inicial. As linhas vão do ataque para o guarda-redes,
-que é a ordem em que ficam no `players`. Quem tem a bola ao lado da camisola
-marcou, e leva `goal: true`. Os suplentes não aparecem no campo, por isso um
-marcador que não esteja no onze é normal.
+**O treinador pode ser o adjunto.** Nos oito clubes dos humanos escreve-se sempre
+o humano, mesmo quando o cabeçalho mostra outro nome. Dinamo e Hajduk não têm
+humano e levam o que o FM mostrar.
 
-**O `goal: true` lê-se do campo, nunca se deduz do evento que acabaste de
-escrever.** Este campo não aparece em lado nenhum do site — a bola que a ficha
-desenha sai do evento, não daqui. A única razão para ele existir é ser uma
-segunda leitura, independente, de quem marcou, e é com ela que o
-`report_build.js` confirma o painel de eventos. Se for preenchido a olhar para o
-evento, deixa de ser prova de nada e passa a repetir o erro. Já aconteceu: no
-Varaždin-Dinamo de 23 de agosto as bolas ficaram nos três assistentes e o Hoxha,
-que fez um hat-trick e foi homem do jogo com 9,28, não tem nenhuma.
+**O nome da formação não está neste ecrã** — o cartão diz "(PI)". A linha antes
+do guarda-redes são os defesas e é o primeiro número do nome. O resto não se
+deduz, e não o copies dos relatórios antigos: 35 deles estão errados. Pergunta.
 
-A confirmação só cobre titulares, e é por isso que ela **confirma** mas não
-**decide**: um suplente que marque não tem camisola no campo para levar bola. Quem
-decide é o painel de eventos.
+**Cartões e autogolos vivem na lista dos golos.** O autogolo escreve-se do lado
+que beneficia, embora o jogador seja da outra equipa.
 
-`dados-*`: as catorze linhas de estatística, sempre as mesmas e sempre por esta
-ordem: Posse, Remates, Remates à Baliza, xG, PADPAD, Oportunidades Flagrantes,
-Cantos, Passes Completados, Cruzamentos Completados, Faltas, Cartões amarelos,
-Cartões vermelhos, Distância Percorrida, Classificação Média. O FM escreve
-"Cartões Vermelhos" com V grande; nos dados fica minúsculo, como as outras.
+## O `goal: true`
 
-## 3. Os quatro sítios onde o ecrã engana
+Lê-se do campo, **nunca se deduz do evento que acabaste de escrever**. Não aparece
+em lado nenhum do site: existe só para ser uma segunda leitura de quem marcou, e
+é com ela que o `report_build.js` confirma o painel de eventos. Se for preenchido
+a olhar para o evento, deixa de ser prova e passa a repetir o erro.
 
-**Números de camisola com um dígito tapado.** O desenho da camisola pode comer o
-primeiro dígito: a lista branca do guarda-redes do Hajduk escondia o 3 de 33, a
-costura central da camisola do Gorica esconde o 7 de 71. O sinal é o número estar
-descentrado para a direita, ou colidir com o de um colega. Não adivinhes: o
-`report_lint.js` compara com os outros relatórios e diz que números aquele
-jogador costuma usar. Se continuar duvidoso, pergunta.
+Confirma só titulares — um suplente que marque não tem camisola no campo.
 
-**O treinador pode ser o adjunto.** Quando o humano sai do jogo antes do fim, o
-FM mostra o adjunto no cabeçalho. Nos oito clubes dos humanos escreve-se sempre o
-humano — Gorica é "Miguel Cardoso", mesmo quando o cabeçalho diz
-"D. Mojstrovič". Os clubes sem humano (Dinamo, Hajduk) levam o nome que o FM
-mostrar, e aí uma mudança de treinador é mesmo uma mudança de treinador.
+## As catorze estatísticas
 
-**O nome da formação não está neste ecrã.** O título do cartão diz "(PI)" e não
-"4-3-3 DM". A linha antes do guarda-redes são os defesas, e é o primeiro número
-do nome — isso o `report_build.js` confirma. O resto do nome não se deduz do
-desenho, e **não vale a pena copiá-lo dos relatórios antigos**: 35 deles têm o
-nome errado, escrito por quem transcreveu e não lido do ecrã. Na dúvida, pergunta
-ao utilizador em vez de inventar.
-
-**Cartões e autogolos vivem na lista dos golos.** Um vermelho é o evento com
-`expulso` no fim; um autogolo leva `a.g.` ou `(AG)` e escreve-se do lado que
-beneficia, embora o jogador seja da outra equipa. Nenhum dos dois é um golo do
-marcador.
-
-## 4. Onde é que o relatório fica
-
-A chave não se escreve à mão: o `report_build.js` procura o jogo pelo dia, mês e
-equipas e usa a chave que ele já tem. **Não a construas a partir da data por
-extenso**, porque o `createFixtureKey()` do site escreve sempre o ano 2025, mesmo
-nos jogos de 2026 — um "28 de Fevereiro de 2026" daria
-`2026-02-28-…`, que não existe. **Um relatório cujo fixtureKey não bate certo com
-nenhum jogo é descartado sem dar erro nenhum.**
-
-Se o jogo já tem relatório, não se acrescenta outro: substitui-se o bloco que lá
-está pelo que o `report_build.js` imprime. O `--diff` mostra primeiro o que muda.
-
-| Jornadas | Ficheiro | `const` |
-|---|---|---|
-| 1 a 5 | `js/data/croatia-reports-01-05.js` | `croatiaRoundOneReports` … `croatiaRoundFiveReports` |
-| 6 a 11 | `js/data/croatia-reports-06-11.js` | `croatiaRoundSixReports` … `croatiaRoundElevenReports` |
-| 12 | `js/data/croatia-reports-12.js` | `croatiaRoundTwelveReports` |
-| Taça | `js/data/croatia-reports-taca.js` | `croatiaCupFirstRoundReports` |
-| 13 em diante | `js/data/croatia-reports-recentes.js` | `croatiaRecentReports` |
-
-Um bloco novo precisa de três coisas: o `<script>` em `index.html` antes de
-`croatia-wiring.js`, o array no spread de `croatiaMatchReports` em
-`croatia-wiring.js`, e a lista numerada do `CLAUDE.md` renumerada.
-
-Um relatório com onze escreve-se com `reportFormation` e `reportPlayer`; um sem
-onze pode usar `compactReport`. As estatísticas vão em `reportStats([[...]])`.
-
-## 5. Construir e verificar
-
-```bash
-node scripts/report_build.js <transcricao.json> --write
-```
-
-Valida e escreve o bloco no ficheiro certo: substitui o relatório que lá estiver,
-ou acrescenta um novo se juntares `--para js/data/croatia-reports-<bloco>.js`.
-**Não commites** — deixa ficar por commitar para o utilizador ver o `git diff` e
-decidir.
-
-Não uses o `--diff` por hábito. Ele imprime a comparação toda e o bloco inteiro
-para o terminal, e isso custa muito mais do que vale quando o `git diff` mostra o
-mesmo depois de escrever. Guarda-o para quando quiseres mesmo ver o que muda
-antes de mexer no ficheiro — por exemplo num relatório antigo de que desconfias,
-ou quando o utilizador pede para veres primeiro.
-
-O `report_build.js` recusa-se a escrever com erros por resolver. Os que apanha:
-
-- golos nos eventos a menos ou a mais para o resultado;
-- um jogador com bola no campo que não marca em evento nenhum;
-- um titular que marca num evento mas não tem bola no campo;
-- **um assistente que tem bola no campo** — este é o sinal exato de que marcador
-  e assistente estão trocados, e é o que faltava quando a coluna da direita
-  entrou espelhada;
-- dois jogadores com o mesmo número no mesmo onze.
-
-Depois de escrever:
-
-```bash
-node --check js/data/croatia-reports-<bloco>.js
-node scripts/report_lint.js <fixtureKey>
-node scripts/validate_goals.js
-```
-
-O `report_lint.js` é o que apanha o que o `validate_goals.js` não vê. O
-`validate_goals.js` confirma que se leram tantos golos quantos o resultado diz, e
-isso continua verdade se o nome for partido no sítio errado. O `report_lint.js`
-compara a ordem do evento com a bola desenhada na ficha, os números de camisola
-com os outros relatórios, os nomes com o plantel conhecido e o treinador com o
-humano do clube. Um ERRO corrige-se antes de seguir; um AVISO confirma-se contra
-o ecrã do FM.
-
-Não abras o browser sem te pedirem: quem confere a página é o utilizador. As
-verificações acima cobrem os dados e a leitura dos eventos, que é onde os erros
-deste trabalho aparecem. Se alguma coisa só se resolver a olhar para a página
-desenhada, di-lo e deixa o utilizador olhar.
+Sempre estas e sempre por esta ordem: Posse, Remates, Remates à Baliza, xG,
+PADPAD, Oportunidades Flagrantes, Cantos, Passes Completados, Cruzamentos
+Completados, Faltas, Cartões amarelos, Cartões vermelhos, Distância Percorrida,
+Classificação Média. O FM escreve "Cartões Vermelhos" com V grande; nos dados fica
+minúsculo.
