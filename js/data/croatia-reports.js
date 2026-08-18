@@ -426,47 +426,41 @@ const croatiaMatchReports = [
         rating: "8,30",
         coaches: { home: "João Nabais", away: "Miguel Cardoso" },
         formations: {
-            home: {
-                name: "4-2-3-1",
-                players: [
-                    [{ number: "9", name: "Jurić", rating: "6,4", pos: "AR" }],
-                    [{ number: "7", name: "Vuk", rating: "6,8", pos: "Ex" }, { number: "27", name: "Latković", rating: "8,3", pos: "CJA" }, { number: "12", name: "Bočkaj", rating: "7,0", pos: "AI" }],
-                    [{ number: "8", name: "Duvnjak", rating: "7,3", pos: "CJR" }, { number: "6", name: "Puclin", rating: "7,7", pos: "MAA", goal: true }],
-                    [{ number: "3", name: "Sikošek", rating: "6,5", pos: "AI" }, { number: "44", name: "Barać", rating: "7,1", pos: "DC" }, { number: "16", name: "Tepšić", rating: "7,0", pos: "CC" }, { number: "23", name: "Maglica", rating: "7,5", pos: "AI" }],
-                    [{ number: "1", name: "Zelenika", rating: "7,3", pos: "GR" }]
-                ]
-            },
-            away: {
-                name: "4-3-3 DM",
-                players: [
-                    [{ number: "18", name: "Fiolić", rating: "6,7", pos: "Ex" }, { number: "24", name: "Pavičić", rating: "5,7", pos: "MO" }, { number: "20", name: "Vrzić", rating: "5,7", pos: "Ex" }],
-                    [{ number: "10", name: "Pršir", rating: "6,1", pos: "CJA" }, { number: "7", name: "Bakić", rating: "6,4", pos: "ME" }],
-                    [{ number: "36", name: "Kavelj", rating: "6,4", pos: "CJR" }],
-                    [{ number: "19", name: "Čabraja", rating: "6,4", pos: "AI" }, { number: "4", name: "J. Filipović", rating: "6,3", pos: "DC" }, { number: "45", name: "Perić", rating: "6,3", pos: "CP" }, { number: "9", name: "Bogojević", rating: "5,9", pos: "AI" }],
-                    [{ number: "71", name: "Matijaš", rating: "6,6", pos: "GRC" }]
-                ]
-            }
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Jurić", "6,4", "AR")],
+                [reportPlayer("7", "Vuk", "6,8", "AI"), reportPlayer("27", "Latković", "8,3", "SA"), reportPlayer("12", "Bočkaj", "7,0", "Ex")],
+                [reportPlayer("8", "Duvnjak", "7,3", "CJR"), reportPlayer("6", "Puclin", "7,7", "CJA", true)],
+                [reportPlayer("3", "Sikošek", "6,5", "AI"), reportPlayer("44", "Barać", "7,1", "DC"), reportPlayer("16", "Tepšić", "7,0", "CC"), reportPlayer("23", "Maglica", "7,5", "DL")],
+                [reportPlayer("1", "Zelenika", "7,3", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("24", "Pavičić", "5,7", "Ex"), reportPlayer("18", "Fiolić", "6,7", "ME"), reportPlayer("20", "Vrzić", "5,7", "Ex")],
+                [reportPlayer("10", "Pršir", "6,1", "CJA"), reportPlayer("7", "Bakić", "6,4", "ME")],
+                [reportPlayer("36", "Kavelj", "6,4", "MD")],
+                [reportPlayer("19", "Čabraja", "6,4", "AI"), reportPlayer("4", "J. Filipović", "6,3", "DC"), reportPlayer("45", "Perić", "6,3", "CP"), reportPlayer("9", "Bogojević", "5,9", "AI")],
+                [reportPlayer("71", "Matijaš", "6,6", "GRC")]
+            ])
         },
         events: {
-            home: ["14' D. Puclin A. Latković", "80' B. Biró A. Latković", "86' B. Biró I. Tavares"],
+            home: [goalEvent("14", "D. Puclin", { assist: "A. Latković" }), goalEvent("80", "B. Biró", { assist: "A. Latković" }), goalEvent("86", "B. Biró", { assist: "I. Tavares" })],
             away: []
         },
-        stats: [
-            { label: "Posse", home: "65%", away: "35%" },
-            { label: "Remates", home: "21", away: "9" },
-            { label: "Remates à Baliza", home: "10", away: "3" },
-            { label: "xG", home: "2,23", away: "0,56" },
-            { label: "PADPAD", home: "14,53", away: "28,69" },
-            { label: "Oportunidades Flagrantes", home: "2", away: "0" },
-            { label: "Cantos", home: "6", away: "5" },
-            { label: "Passes Completados", home: "91%", away: "83%" },
-            { label: "Cruzamentos Completados", home: "23%", away: "25%" },
-            { label: "Faltas", home: "8", away: "18" },
-            { label: "Cartões amarelos", home: "0", away: "1" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "114", away: "113" },
-            { label: "Classificação Média", home: "7,2", away: "6,2" }
-        ]
+        stats: reportStats([
+            ["Posse", "65%", "35%"],
+            ["Remates", "21", "9"],
+            ["Remates à Baliza", "10", "3"],
+            ["xG", "2,23", "0,56"],
+            ["PADPAD", "14,53", "28,69"],
+            ["Oportunidades Flagrantes", "2", "0"],
+            ["Cantos", "6", "5"],
+            ["Passes Completados", "91%", "83%"],
+            ["Cruzamentos Completados", "23%", "25%"],
+            ["Faltas", "8", "18"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "114", "113"],
+            ["Classificação Média", "7,2", "6,2"]
+        ])
     },
     {
         fixtureKey: "2025-08-16-dinamo-zagreb-nk-osijek",
