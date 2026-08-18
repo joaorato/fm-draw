@@ -383,48 +383,42 @@ const croatiaMatchReports = [
         rating: "7,76",
         coaches: { home: "Francisco Pinto", away: "M. Kovačević" },
         formations: {
-            home: {
-                name: "4-3-1-2",
-                players: [
-                    [{ number: "90", name: "Nestorovski", rating: "6,9", pos: "AR" }, { number: "7", name: "Dabro", rating: "6,7", pos: "AC" }],
-                    [{ number: "15", name: "Ćubelić", rating: "6,3", pos: "MO" }],
-                    [{ number: "3", name: "Jakir", rating: "6,7", pos: "AI" }, { number: "21", name: "Crepulja", rating: "6,8", pos: "CJR" }, { number: "8", name: "Mrowca", rating: "7,5", pos: "MD" }, { number: "18", name: "Krušelj", rating: "6,3", pos: "AI" }],
-                    [{ number: "4", name: "Kovačić", rating: "7,2", pos: "CC" }, { number: "6", name: "Božić", rating: "6,6", pos: "CC", goal: true }, { number: "2", name: "Međimorec", rating: "7,1", pos: "DC" }],
-                    [{ number: "31", name: "Hadžikić", rating: "6,8", pos: "GR" }]
-                ]
-            },
-            away: {
-                name: "4-3-3 DM",
-                players: [
-                    [{ number: "9", name: "Dion Beljo", rating: "6,6", pos: "AvR" }],
-                    [{ number: "11", name: "Hoxha", rating: "6,4", pos: "EAI" }, { number: "30", name: "Topić", rating: "6,4", pos: "EAI" }],
-                    [{ number: "27", name: "Mišić", rating: "6,6", pos: "MC" }, { number: "8", name: "Zajc", rating: "7,7", pos: "MC", goal: true }],
-                    [{ number: "4", name: "Bennacer", rating: "6,9", pos: "MD" }],
-                    [{ number: "22", name: "Pérez Vinlöf", rating: "6,9", pos: "AI" }, { number: "26", name: "McKenna", rating: "6,9", pos: "CC" }, { number: "36", name: "Domínguez", rating: "6,6", pos: "CC" }, { number: "25", name: "Valinčić", rating: "6,4", pos: "AI" }],
-                    [{ number: "40", name: "Livaković", rating: "6,5", pos: "GR" }]
-                ]
-            }
+            home: reportFormation("4-2-2-2 Wide", [
+                [reportPlayer("7", "Dabro", "6,7", "AA"), reportPlayer("6", "Božić", "6,6", "AR")],
+                [reportPlayer("15", "Ćubelić", "6,3", "EAI"), reportPlayer("90", "Nestorovski", "6,9", "Ex")],
+                [reportPlayer("21", "Crepulja", "6,8", "MD"), reportPlayer("8", "Mrowca", "7,5", "CJA")],
+                [reportPlayer("3", "Jakir", "6,7", "AI"), reportPlayer("4", "Kovačić", "7,2", "DC"), reportPlayer("2", "Međimorec", "7,1", "CC"), reportPlayer("18", "Krušelj", "6,3", "DL")],
+                [reportPlayer("31", "Hadžikić", "6,8", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("9", "Dion Beljo", "6,6", "AvR")],
+                [reportPlayer("11", "Hoxha", "6,4", "EAI"), reportPlayer("30", "Topić", "6,4", "EAI")],
+                [reportPlayer("27", "Mišić", "6,6", "MC"), reportPlayer("8", "Zajc", "7,7", "MC", true)],
+                [reportPlayer("4", "Bennacer", "6,9", "MD")],
+                [reportPlayer("22", "Pérez Vinlöf", "6,9", "AI"), reportPlayer("26", "McKenna", "6,9", "CC"), reportPlayer("36", "Domínguez", "6,6", "CC"), reportPlayer("25", "Valinčić", "6,4", "AI")],
+                [reportPlayer("40", "Livaković", "6,5", "GR")]
+            ])
         },
         events: {
-            home: ["73' I. Božić I. Nestorovski"],
-            away: ["56' M. Zajc"]
+            home: [goalEvent("73", "I. Božić", { assist: "I. Nestorovski" })],
+            away: [goalEvent("56", "M. Zajc")]
         },
-        stats: [
-            { label: "Posse", home: "62%", away: "38%" },
-            { label: "Remates", home: "10", away: "16" },
-            { label: "Remates à Baliza", home: "2", away: "6" },
-            { label: "xG", home: "0,84", away: "1,18" },
-            { label: "PADPAD", home: "13,00", away: "25,91" },
-            { label: "Oportunidades Flagrantes", home: "0", away: "1" },
-            { label: "Cantos", home: "7", away: "9" },
-            { label: "Passes Completados", home: "89%", away: "86%" },
-            { label: "Cruzamentos Completados", home: "10%", away: "14%" },
-            { label: "Faltas", home: "4", away: "8" },
-            { label: "Cartões amarelos", home: "1", away: "0" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "128", away: "129" },
-            { label: "Classificação Média", home: "6,8", away: "6,7" }
-        ]
+        stats: reportStats([
+            ["Posse", "62%", "38%"],
+            ["Remates", "10", "16"],
+            ["Remates à Baliza", "2", "6"],
+            ["xG", "0,84", "1,18"],
+            ["PADPAD", "13,00", "25,91"],
+            ["Oportunidades Flagrantes", "0", "1"],
+            ["Cantos", "7", "9"],
+            ["Passes Completados", "89%", "86%"],
+            ["Cruzamentos Completados", "10%", "14%"],
+            ["Faltas", "4", "8"],
+            ["Cartões amarelos", "1", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "128", "129"],
+            ["Classificação Média", "6,8", "6,7"]
+        ])
     },
     {
         fixtureKey: "2025-08-09-nk-varazdin-hnk-gorica",
