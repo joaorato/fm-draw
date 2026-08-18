@@ -26,6 +26,24 @@ que já lá está: o `report_build.js` acha o jogo pela data e pelas equipas, e 
 de transcrever não te diz nada que precises e ainda te encosta a repeti-lo — e é
 o antigo que costuma estar errado.
 
+## Vários jogos ao mesmo tempo
+
+Quando chegam várias capturas na mesma mensagem, recorta todas primeiro — cada
+`report_crop.py` escreve na sua própria pasta e não há conflito nenhum em
+correr os vários seguidos.
+
+A parte que compensa paralelizar é a leitura dos recortes. Por cada jogo, lança
+um agente novo (subagent_type `general-purpose`, sem contexto desta conversa)
+com a pasta de recortes desse jogo e a instrução de seguir esta skill do
+início. Cada agente escreve só o seu JSON e pára aí — não corre o `--write`.
+
+O `--write` não paraleliza: lê o `croatia-reports.js` inteiro e escreve-o de
+volta, por isso duas escritas ao mesmo tempo apagam-se uma à outra. Aplica os
+JSONs um de cada vez, tu próprio (o agente que orquestra, não os que
+transcreveram), correndo o `report_lint.js` de cada um antes de passar ao
+seguinte. O `validate_goals.js` corre uma vez só, no fim, sobre a época toda —
+não faz sentido por jogo.
+
 ## Que recortes ler
 
 Sete, sempre os mesmos: os quatro das fichas (`casa-*`, `fora-*`), o dos eventos
