@@ -947,22 +947,22 @@ const croatiaMatchReports = [
             ])
         },
         events: { home: [], away: [] },
-        stats: [
-            { label: "Posse", home: "37%", away: "63%" },
-            { label: "Remates", home: "10", away: "14" },
-            { label: "Remates à Baliza", home: "4", away: "5" },
-            { label: "xG", home: "0,61", away: "0,82" },
-            { label: "PADPAD", home: "21,36", away: "27,23" },
-            { label: "Oportunidades Flagrantes", home: "0", away: "1" },
-            { label: "Cantos", home: "3", away: "8" },
-            { label: "Passes Completados", home: "88%", away: "91%" },
-            { label: "Cruzamentos Completados", home: "5%", away: "20%" },
-            { label: "Faltas", home: "9", away: "8" },
-            { label: "Cartões amarelos", home: "3", away: "3" },
-            { label: "Cartões vermelhos", home: "0", away: "1" },
-            { label: "Distância Percorrida", home: "114", away: "115" },
-            { label: "Classificação Média", home: "6,7", away: "6,8" }
-        ]
+        stats: reportStats([
+            ["Posse", "37%", "63%"],
+            ["Remates", "10", "14"],
+            ["Remates à Baliza", "4", "5"],
+            ["xG", "0,61", "0,82"],
+            ["PADPAD", "21,36", "27,23"],
+            ["Oportunidades Flagrantes", "0", "1"],
+            ["Cantos", "3", "8"],
+            ["Passes Completados", "88%", "91%"],
+            ["Cruzamentos Completados", "5%", "20%"],
+            ["Faltas", "9", "8"],
+            ["Cartões amarelos", "3", "3"],
+            ["Cartões vermelhos", "0", "1"],
+            ["Distância Percorrida", "114", "115"],
+            ["Classificação Média", "6,7", "6,8"]
+        ])
     },
     {
         fixtureKey: "2025-08-30-nk-istra-1961-nk-osijek",
@@ -973,7 +973,7 @@ const croatiaMatchReports = [
         rating: "8,24",
         coaches: { home: "João Pedro Rato", away: "Gamy Chambelito" },
         formations: {
-            home: reportFormation("4-2-3-1", [
+            home: reportFormation("4-2-2-2 Wide", [
                 [reportPlayer("9", "Prevljak", "6,6", "AAE"), reportPlayer("12", "Obando", "6,7", "AA")],
                 [reportPlayer("11", "Goričan", "6,5", "AA"), reportPlayer("7", "Rozić", "6,5", "Ex")],
                 [reportPlayer("10", "Lončar", "6,6", "MAA"), reportPlayer("5", "Radošević", "7,2", "MD")],
@@ -989,22 +989,22 @@ const croatiaMatchReports = [
             ])
         },
         events: { home: [], away: [] },
-        stats: [
-            { label: "Posse", home: "46%", away: "54%" },
-            { label: "Remates", home: "18", away: "13" },
-            { label: "Remates à Baliza", home: "7", away: "4" },
-            { label: "xG", home: "1,67", away: "1,23" },
-            { label: "PADPAD", home: "14,83", away: "21,38" },
-            { label: "Oportunidades Flagrantes", home: "0", away: "0" },
-            { label: "Cantos", home: "11", away: "14" },
-            { label: "Passes Completados", home: "84%", away: "85%" },
-            { label: "Cruzamentos Completados", home: "16%", away: "6%" },
-            { label: "Faltas", home: "13", away: "9" },
-            { label: "Cartões amarelos", home: "2", away: "3" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "128", away: "129" },
-            { label: "Classificação Média", home: "6,8", away: "6,9" }
-        ]
+        stats: reportStats([
+            ["Posse", "46%", "54%"],
+            ["Remates", "18", "13"],
+            ["Remates à Baliza", "7", "4"],
+            ["xG", "1,67", "1,23"],
+            ["PADPAD", "14,83", "21,38"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "11", "14"],
+            ["Passes Completados", "84%", "85%"],
+            ["Cruzamentos Completados", "16%", "6%"],
+            ["Faltas", "13", "9"],
+            ["Cartões amarelos", "2", "3"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "128", "129"],
+            ["Classificação Média", "6,8", "6,9"]
+        ])
     },
     {
         fixtureKey: "2025-08-30-hnk-rijeka-nk-varazdin",
