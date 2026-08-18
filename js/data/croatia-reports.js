@@ -13,45 +13,42 @@ const croatiaMatchReports = [
         rating: "7,65",
         coaches: { home: "M. Kovačević", away: "João Pedro Rato" },
         formations: {
-            home: {
-                name: "4-3-3 DM",
-                players: [
-                    [{ number: "9", name: "Dion Beljo", rating: "6,3", pos: "AvR" }],
-                    [{ number: "10", name: "Vidović", rating: "6,6", pos: "EAI" }, { number: "30", name: "Topić", rating: "6,3", pos: "EAI" }],
-                    [{ number: "27", name: "Mišić", rating: "6,8", pos: "MC" }, { number: "14", name: "Soldo", rating: "6,8", pos: "MC" }],
-                    [{ number: "4", name: "Bennacer", rating: "7,2", pos: "CJR" }],
-                    [{ number: "22", name: "Pérez Vinlöf", rating: "6,8", pos: "AI" }, { number: "26", name: "McKenna", rating: "6,9", pos: "CC" }, { number: "36", name: "Domínguez", rating: "6,7", pos: "CC" }, { number: "25", name: "Valinčić", rating: "6,5", pos: "AI" }],
-                    [{ number: "40", name: "Livaković", rating: "7,1", pos: "GR" }]
-                ]
-            },
-            away: {
-                name: "4-2-3-1",
-                players: [
-                    [{ number: "9", name: "Prevljak", rating: "6,4", pos: "AAE" }],
-                    [{ number: "11", name: "Goričan", rating: "6,5", pos: "AA" }, { number: "17", name: "Frederiksen", rating: "6,3", pos: "SA" }, { number: "7", name: "Rozić", rating: "6,3", pos: "Ex" }],
-                    [{ number: "10", name: "Lončar", rating: "7,0", pos: "MAA" }, { number: "5", name: "Radošević", rating: "7,0", pos: "MD" }],
-                    [{ number: "26", name: "Heister", rating: "6,4", pos: "AI" }, { number: "8", name: "Maurić", rating: "6,8", pos: "CC" }, { number: "3", name: "Nasraoui", rating: "6,6", pos: "DC" }, { number: "97", name: "Kadušić", rating: "6,6", pos: "AI" }],
-                    [{ number: "1", name: "Kolić", rating: "7,7", pos: "GR" }]
-                ]
-            }
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("9", "Dion Beljo", "6,3", "AvR")],
+                [reportPlayer("10", "Vidović", "6,6", "EAI"), reportPlayer("30", "Topić", "6,3", "EAI")],
+                [reportPlayer("27", "Mišić", "6,8", "MC"), reportPlayer("14", "Soldo", "6,8", "MC")],
+                [reportPlayer("4", "Bennacer", "7,2", "CJR")],
+                [reportPlayer("22", "Pérez Vinlöf", "6,8", "AI"), reportPlayer("26", "McKenna", "6,9", "CC"), reportPlayer("36", "Domínguez", "6,7", "CC"), reportPlayer("25", "Valinčić", "6,5", "AI")],
+                [reportPlayer("40", "Livaković", "7,1", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Prevljak", "6,4", "AC")],
+                [reportPlayer("11", "Goričan", "6,5", "AA"), reportPlayer("17", "Frederiksen", "6,3", "MO"), reportPlayer("7", "Rozić", "6,3", "EAI")],
+                [reportPlayer("10", "Lončar", "7,0", "MD"), reportPlayer("5", "Radošević", "7,0", "CJR")],
+                [reportPlayer("26", "Heister", "6,4", "AI"), reportPlayer("8", "Maurić", "6,8", "CC"), reportPlayer("3", "Nasraoui", "6,6", "DC"), reportPlayer("97", "Kadušić", "6,6", "AI")],
+                [reportPlayer("1", "Kolić", "7,7", "GRC")]
+            ])
         },
-        events: { home: [], away: [] },
-        stats: [
-            { label: "Posse", home: "49%", away: "51%" },
-            { label: "Remates", home: "17", away: "8" },
-            { label: "Remates à Baliza", home: "8", away: "5" },
-            { label: "xG", home: "1,01", away: "0,21" },
-            { label: "PADPAD", home: "26,94", away: "28,08" },
-            { label: "Oportunidades Flagrantes", home: "0", away: "0" },
-            { label: "Cantos", home: "12", away: "6" },
-            { label: "Passes Completados", home: "90%", away: "88%" },
-            { label: "Cruzamentos Completados", home: "18%", away: "13%" },
-            { label: "Faltas", home: "8", away: "9" },
-            { label: "Cartões amarelos", home: "0", away: "1" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "119", away: "119" },
-            { label: "Classificação Média", home: "6,7", away: "6,7" }
-        ]
+        events: {
+            home: [],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "49%", "51%"],
+            ["Remates", "17", "8"],
+            ["Remates à Baliza", "8", "5"],
+            ["xG", "1,01", "0,21"],
+            ["PADPAD", "26,94", "28,08"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "12", "6"],
+            ["Passes Completados", "90%", "88%"],
+            ["Cruzamentos Completados", "18%", "13%"],
+            ["Faltas", "8", "9"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "119", "119"],
+            ["Classificação Média", "6,7", "6,7"]
+        ])
     },
     {
         fixtureKey: "2025-08-02-hnk-gorica-nk-osijek",
