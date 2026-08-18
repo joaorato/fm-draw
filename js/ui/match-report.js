@@ -248,13 +248,18 @@ function isWingBackRow(rows, index) {
     return row.every((player) => wingBackPositions.has(getFormationPlayerPosition(player)));
 }
 
-// EAI, EX e ME são os códigos dos extremos. Um par deles entre duas linhas do
-// mesmo tamanho não dá para distinguir de um par de médios pelo desenho, e é por
-// isso que a regra dos alas não o apanha: num 4-2-2-2 os três pares saem em
-// coluna pelo meio. Quem manda é o nome da formação - o sufixo "Wide" diz que
-// aquele par joga nas alas - e não a leitura das posições, senão os 26 relatórios
-// com dois EAI ao lado do ponta-de-lança de um 4-3-3 mudavam todos de desenho.
-const wingerPositions = new Set(["EAI", "EX", "ME"]);
+// EAI, EX, ME e AI são os códigos dos extremos. AI é também o código dos alas
+// em wingBackPositions acima - Avançado Interior e Ala não têm nada a ver um
+// com o outro, só partilham as letras -, mas os dois nunca se cruzam: o dos
+// alas exige uma linha mais estreita que as duas vizinhas, o dos extremos
+// exige uma linha de dois mesmo do tamanho das vizinhas. Um par deles entre
+// duas linhas do mesmo tamanho não dá para distinguir de um par de médios
+// pelo desenho, e é por isso que a regra dos alas não o apanha: num 4-2-2-2
+// os três pares saem em coluna pelo meio. Quem manda é o nome da formação -
+// o sufixo "Wide" diz que aquele par joga nas alas - e não a leitura das
+// posições, senão os 26 relatórios com dois EAI ao lado do ponta-de-lança de
+// um 4-3-3 mudavam todos de desenho.
+const wingerPositions = new Set(["EAI", "EX", "ME", "AI"]);
 
 // AA e CJA são cada um o código de dois papéis diferentes. AA é o Avançado
 // Aberto (extremo) ou o Avançado Alvo (por dentro); CJA é o Construtor de Jogo
