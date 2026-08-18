@@ -82,7 +82,7 @@ const croatiaTransfers = [
     { date: "01/01/2026", player: "K. Théophile-Catherine", from: "Dinamo Zagreb", to: "Pau", value: "15,25m € (19m €)" },
     { date: "26/12/2025", player: "J. Šporn", from: "", to: "HNK Vukovar", value: "Livre" },
     { date: "21/09/2025", player: "G. Landel", from: "", to: "HNK Vukovar", value: "Livre" },
-    { date: "08/09/2025", player: "A. Sanyang", from: "Hajduk Split", to: "Dynamo Moscow", value: "Empréstimo - 275m €" },
+    { date: "08/09/2025", player: "Bamba", from: "Hajduk Split", to: "Dynamo Moscow", value: "Empréstimo - 275m €" },
     { date: "08/09/2025", player: "R. Pierre-Gabriel", from: "Dinamo Zagreb", to: "Dynamo Moscow", value: "300m € (375m €)" },
     { date: "05/09/2025", player: "L. Šimunović", from: "", to: "NK Slaven Belupo", value: "Livre" },
     { date: "05/09/2025", player: "T. Gaprindashvili", from: "Arka Gdynia", to: "NK Varaždin", value: "125m € (220m €)" },
