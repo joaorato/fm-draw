@@ -2938,9 +2938,25 @@ const croatiaMatchReports = [
         playerOfMatch: "Dion Beljo",
         rating: "8,35",
         coaches: { home: "M. Kovačević", away: "João Nabais" },
-        formations: { home: "4-3-3 DM", away: "4-3-3 DM" },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("9", "Dion Beljo", "8,4", "AvR", true)],
+                [reportPlayer("11", "Hoxha", "7,1", "EAI"), reportPlayer("30", "Topić", "6,7", "EAI")],
+                [reportPlayer("27", "Mišić", "6,8", "MC"), reportPlayer("8", "Zajc", "6,7", "ME")],
+                [reportPlayer("4", "Bennacer", "6,5", "CJR")],
+                [reportPlayer("3", "Goda", "7,0", "DL"), reportPlayer("26", "McKenna", "7,2", "CC"), reportPlayer("15", "Galešić", "7,4", "CC"), reportPlayer("25", "Valinčić", "8,0", "AI")],
+                [reportPlayer("40", "Livaković", "7,2", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Jurić", "6,3", "AR")],
+                [reportPlayer("7", "Vuk", "6,6", "AI"), reportPlayer("27", "Latković", "6,6", "SA"), reportPlayer("18", "Gaprindashvili", "6,3", "Ex")],
+                [reportPlayer("8", "Duvnjak", "6,8", "CJR"), reportPlayer("6", "Puclin", "6,6", "CJA")],
+                [reportPlayer("3", "Sikošek", "6,2", "AI"), reportPlayer("44", "Barać", "6,4", "DC"), reportPlayer("16", "Tepšić", "6,2", "CC"), reportPlayer("23", "Maglica", "6,9", "DL")],
+                [reportPlayer("33", "Silić", "6,6", "GR")]
+            ])
+        },
         events: {
-            home: ["1' Dion Beljo Hoxha", "59' Dion Beljo M. Valinčić", "70' F. Maglica a.g."],
+            home: [goalEvent("1", "Dion Beljo", { assist: "A. Hoxha" }), goalEvent("59", "Dion Beljo", { assist: "M. Valinčić" }), goalEvent("70", "F. Maglica", { ownGoal: true })],
             away: []
         },
         stats: reportStats([
@@ -2968,8 +2984,26 @@ const croatiaMatchReports = [
         playerOfMatch: "Domagoj Antolić",
         rating: "8,17",
         coaches: { home: "Miguel Cardoso", away: "Pai Natal" },
-        formations: { home: "4-3-3 DM", away: "3-4-1-2" },
-        events: { home: [], away: ["53' Rui Pedro D. Antolić", "90+3' M. Rog L. Belcar"] },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("20", "Vrzić", "6,4", "Ex"), reportPlayer("10", "Pršir", "6,1", "ME"), reportPlayer("9", "Bogojević", "6,2", "Ex")],
+                [reportPlayer("8", "Pozo", "6,4", "CJA"), reportPlayer("24", "Pavičić", "5,9", "ME")],
+                [reportPlayer("36", "Kavelj", "6,4", "MD")],
+                [reportPlayer("19", "Čabraja", "6,6", "AI"), reportPlayer("4", "J. Filipović", "6,4", "DC"), reportPlayer("5", "Leš", "6,3", "CP"), reportPlayer("22", "Trontelj", "5,9", "AI")],
+                [reportPlayer("71", "Matijaš", "6,5", "GRC")]
+            ]),
+            away: reportFormation("3-5-2", [
+                [reportPlayer("7", "Trajkovski", "6,4", "AAE"), reportPlayer("28", "Belcar", "7,5", "AvR")],
+                [reportPlayer("26", "Rog", "7,9", "MC", true), reportPlayer("8", "Antolić", "8,2", "CJA"), reportPlayer("16", "Dajčer", "7,5", "MC")],
+                [reportPlayer("17", "Pajač", "7,1", "AI"), reportPlayer("23", "Vešović", "7,7", "AI")],
+                [reportPlayer("4", "Sigali", "7,6", "DC"), reportPlayer("10", "Rui Pedro", "7,5", "CP", true), reportPlayer("20", "Kolinger", "7,5", "CP")],
+                [reportPlayer("12", "Posavec", "7,4", "GR")]
+            ])
+        },
+        events: {
+            home: [],
+            away: [goalEvent("53", "Rui Pedro", { assist: "D. Antolić" }), goalEvent("90+3", "M. Rog", { assist: "L. Belcar" })]
+        },
         stats: reportStats([
             ["Posse", "36%", "64%"],
             ["Remates", "9", "14"],
@@ -2995,8 +3029,26 @@ const croatiaMatchReports = [
         playerOfMatch: "Smail Prevljak",
         rating: "7,68",
         coaches: { home: "João Pedro Rato", away: "Francisco Pinto" },
-        formations: { home: "4-2-3-1", away: "3-4-1-2" },
-        events: { home: ["82' S. Prevljak D. Đurić"], away: ["3' I. Nestorovski I. Ćubelić"] },
+        formations: {
+            home: reportFormation("4-2-2-2 Wide", [
+                [reportPlayer("9", "Prevljak", "7,7", "AAE", true), reportPlayer("14", "Tóth", "6,8", "AR")],
+                [reportPlayer("11", "Goričan", "7,3", "AA"), reportPlayer("7", "Rozić", "6,3", "EAI")],
+                [reportPlayer("23", "Štulac", "6,5", "MD"), reportPlayer("5", "Radošević", "6,6", "CJR")],
+                [reportPlayer("26", "Heister", "6,4", "AI"), reportPlayer("4", "Johnston", "6,7", "CC"), reportPlayer("3", "Nasraoui", "6,7", "DC"), reportPlayer("24", "Hrvatin", "6,3", "AI")],
+                [reportPlayer("1", "Kolić", "6,7", "GRC")]
+            ]),
+            away: reportFormation("4-2-2-2 Wide", [
+                [reportPlayer("90", "Nestorovski", "7,6", "AA", true), reportPlayer("17", "Ćosić", "6,6", "AR")],
+                [reportPlayer("15", "Ćubelić", "7,3", "EAI"), reportPlayer("7", "Dabro", "6,6", "Ex")],
+                [reportPlayer("21", "Crepulja", "6,7", "MD"), reportPlayer("8", "Mrowca", "6,5", "CJA")],
+                [reportPlayer("3", "Jakir", "6,7", "AI"), reportPlayer("5", "Katalinić", "6,5", "DC"), reportPlayer("4", "Kovačić", "6,8", "CC"), reportPlayer("18", "Krušelj", "6,5", "DL")],
+                [reportPlayer("31", "Hadžikić", "7,0", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("82", "S. Prevljak", { assist: "D. Đurić" })],
+            away: [goalEvent("3", "I. Nestorovski", { assist: "I. Ćubelić" })]
+        },
         stats: reportStats([
             ["Posse", "49%", "51%"],
             ["Remates", "16", "10"],
@@ -3022,8 +3074,28 @@ const croatiaMatchReports = [
         playerOfMatch: "Ante Matej Jurić",
         rating: "7,84",
         coaches: { home: "Zép Jóbes", away: "Gamy Chambelito" },
-        formations: { home: "3-4-2-1", away: "4-1-2-3" },
-        events: { home: ["51' A. Jurić J. Lasickas", "55' Tiago Dantas D. Petrovič"], away: [] },
+        formations: {
+            home: reportFormation("4-2-1-2-1", [
+                [reportPlayer("7", "Keita Balde", "7,3", "AR")],
+                [reportPlayer("77", "Jurić", "7,8", "ME", true), reportPlayer("10", "Fruk", "6,7", "MO")],
+                [reportPlayer("8", "Petrovič", "7,6", "MC")],
+                [reportPlayer("15", "Martínez T.", "6,8", "MD"), reportPlayer("26", "Dantas", "7,8", "CJR", true)],
+                [reportPlayer("34", "Devetak", "6,9", "AI"), reportPlayer("53", "Emirhan", "6,6", "CC"), reportPlayer("4", "Andrade", "6,9", "CC"), reportPlayer("23", "Lasickas", "7,0", "AI")],
+                [reportPlayer("1", "Letica", "7,4", "GR")]
+            ]),
+            away: reportFormation("3-1-3-2-1", [
+                [reportPlayer("9", "Touré", "6,5", "AR")],
+                [reportPlayer("38", "Čolina", "6,5", "MO"), reportPlayer("34", "Matković", "6,0", "MO")],
+                [reportPlayer("99", "Teklić", "6,5", "MAI"), reportPlayer("17", "Jakupović", "6,2", "MC"), reportPlayer("29", "Karačić", "6,5", "MAI")],
+                [reportPlayer("23", "Vrbančić", "6,1", "Pi")],
+                [reportPlayer("26", "Jelenić", "6,2", "CP"), reportPlayer("16", "Petrusenko", "6,6", "CP"), reportPlayer("33", "Hasić", "6,5", "CP")],
+                [reportPlayer("31", "Malenica", "6,7", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("51", "A. Jurić", { assist: "J. Lasickas" }), goalEvent("55", "Tiago Dantas", { assist: "D. Petrovič" })],
+            away: []
+        },
         stats: reportStats([
             ["Posse", "56%", "44%"],
             ["Remates", "19", "10"],
@@ -3047,10 +3119,29 @@ const croatiaMatchReports = [
         stadium: "Stadion HNK Cibalia",
         weather: "Calmo",
         playerOfMatch: "Ante Rebić",
-        rating: "7,66",
-        coaches: { home: "Hugo Macedo", away: "Gonçalo Garcia" },
-        formations: { home: "4-2-3-1", away: "4-3-3 DM" },
-        events: { home: ["89' J. Elez pen"], away: ["67' A. Rebić Š. Hrgović"] },
+        rating: "7,56",
+        coaches: { home: "Hugo Macedo", away: "Gonzalo García" },
+        formations: {
+            home: reportFormation("3-4-2-1", [
+                [reportPlayer("8", "Horvat", "6,5", "AAE")],
+                [reportPlayer("77", "Shabani", "7,1", "MO"), reportPlayer("21", "Puljić", "6,3", "MO")],
+                [reportPlayer("36", "Butić", "6,9", "AI"), reportPlayer("23", "Matić", "6,6", "MD"), reportPlayer("10", "Gonzalez", "6,7", "CJR"), reportPlayer("7", "Kerim Çalhanoğlu", "6,8", "AI")],
+                [reportPlayer("5", "Elez", "6,9", "CC", true), reportPlayer("12", "Živković", "6,7", "CC"), reportPlayer("91", "Tićinović", "6,9", "CC")],
+                [reportPlayer("42", "Đaković", "6,7", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("10", "Livaja", "6,3", "AR")],
+                [reportPlayer("9", "A. Rebić", "7,6", "EAI", true), reportPlayer("30", "Almena", "6,9", "EAI")],
+                [reportPlayer("23", "Krovinović", "6,6", "MO"), reportPlayer("21", "Pukstas", "7,1", "MC")],
+                [reportPlayer("6", "Hugo G.", "6,5", "MD")],
+                [reportPlayer("3", "Auer", "7,4", "DL"), reportPlayer("14", "Raçi", "6,5", "CC"), reportPlayer("15", "Marešić", "6,7", "CC"), reportPlayer("32", "Hrgović", "7,1", "AI")],
+                [reportPlayer("33", "Silić", "7,0", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("89", "J. Elez")],
+            away: [goalEvent("67", "A. Rebić", { assist: "Š. Hrgović" })]
+        },
         stats: reportStats([
             ["Posse", "51%", "49%"],
             ["Remates", "16", "15"],
