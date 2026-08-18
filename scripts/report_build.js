@@ -37,7 +37,8 @@
 // `goal: true` nas linhas é a leitura das bolas desenhadas no campo, e tem de
 // ser lida do campo e não do evento: é a segunda opinião que apanha uma troca
 // entre marcador e assistente. Um evento pode ainda levar "penalty": true,
-// "ownGoal": true ou "sendOff": true.
+// "ownGoal": true, "sendOff": true ou "substitute": true - este último para um
+// marcador que entrou do banco e cujo apelido também está no onze.
 
 const fs = require("fs");
 const path = require("path");
@@ -199,7 +200,15 @@ function validar(t, dados, fixture) {
         // índice de planteis do stats-core.js.
         let mesmoJogador = (a, b) => nameKey(a) === nameKey(b) || surnameKey(a) === surnameKey(b);
         let comBola = jogadores.filter((j) => j.goal).map((j) => j.name);
-        let marcadores = golos.filter((e) => !e.ownGoal).map((e) => e.scorer);
+        let golosMarcados = golos.filter((e) => !e.ownGoal);
+        let marcadores = golosMarcados.map((e) => e.scorer);
+
+        // Um suplente não tem camisola no campo e por isso nunca tem bola. Quando
+        // partilha o apelido com um titular - o Slaven pôs dois Božić no mesmo jogo -
+        // a comparação pelo apelido dá-o como titular e passa a exigir uma bola que
+        // não pode existir. O "substitute": true na transcrição diz que aquele
+        // marcador entrou do banco e desliga a exigência só para ele.
+        let doBanco = new Set(golosMarcados.filter((e) => e.substitute).map((e) => e.scorer));
 
         comBola.forEach((quem) => {
             if (!marcadores.some((m) => mesmoJogador(m, quem))) {
@@ -207,6 +216,7 @@ function validar(t, dados, fixture) {
             }
         });
         marcadores.forEach((quem) => {
+            if (doBanco.has(quem)) return;
             let titular = jogadores.some((j) => mesmoJogador(j.name, quem));
             if (titular && !comBola.some((b) => mesmoJogador(b, quem))) {
                 erros.push(`${equipa}: ${quem} marca num evento mas não tem bola no campo`);

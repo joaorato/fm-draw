@@ -66,7 +66,9 @@ tudo o que ele leva sai do print e não do que estava gravado.
 
 As linhas do onze vão do ataque para o guarda-redes. Um evento pode levar
 `"penalty": true`, `"ownGoal": true` ou `"sendOff": true` (aí usa `"player"` em
-vez de `"scorer"`).
+vez de `"scorer"`). Leva `"substitute": true` quando quem marcou entrou do banco
+e o apelido dele também está no onze: sem isso o `report_build.js` toma o titular
+pelo marcador e exige uma bola no campo que um suplente nunca pode ter.
 
 A chave não se escreve à mão — o `report_build.js` acha o jogo pelo dia, mês e
 equipas. **Um relatório cujo fixtureKey não bate certo é descartado sem dar erro.**
