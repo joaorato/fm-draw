@@ -256,11 +256,13 @@ function isWingBackRow(rows, index) {
 // com dois EAI ao lado do ponta-de-lança de um 4-3-3 mudavam todos de desenho.
 const wingerPositions = new Set(["EAI", "EX", "ME"]);
 
-// AA é o código de dois papéis diferentes: o Avançado Aberto, que é extremo, e
-// o Avançado Alvo, que joga por dentro. Um "Wide" só entra nesta lista maior -
-// nunca na de cima, que também serve o trio ofensivo de um 4-3-3, onde um par
-// de Avançados Alvo debaixo do ponta-de-lança não deve sair para a lateral.
-const wideWingerPositions = new Set([...wingerPositions, "AA"]);
+// AA e CJA são cada um o código de dois papéis diferentes. AA é o Avançado
+// Aberto (extremo) ou o Avançado Alvo (por dentro); CJA é o Construtor de Jogo
+// Aberto (extremo) ou o Construtor de Jogo Avançado (por dentro). Um "Wide" só
+// entra nesta lista maior - nunca na de cima, que também serve o trio
+// ofensivo de um 4-3-3, onde um par por dentro debaixo do ponta-de-lança não
+// deve sair para a lateral.
+const wideWingerPositions = new Set([...wingerPositions, "AA", "CJA"]);
 
 function isWideFormationName(name) {
     return /\bwide\b/i.test(String(name || ""));
@@ -355,8 +357,12 @@ function getReportFormation(report, side) {
             players: matchFormationLayouts[formation] || []
         };
     }
+    // O nome transcrito manda sempre que existe. A inferência é só para a
+    // formação sem nome nenhum: um 3-5-2 com o trio da frente, o meio e os
+    // alas em três linhas separadas relia como "3-2-3-2" se a inferência
+    // corresse primeiro, porque conta cada linha como uma banda da formação.
     return {
-        name: inferThreeCenterBackFormationName(formation) || formation.name || "Sem dados",
+        name: formation.name || inferThreeCenterBackFormationName(formation) || "Sem dados",
         players: formation.players || []
     };
 }
