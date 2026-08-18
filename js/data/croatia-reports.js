@@ -1613,7 +1613,7 @@ const croatiaMatchReports = [
                 [reportPlayer("5", "Leš", "6,8", "AI"), reportPlayer("4", "J. Filipović", "7,6", "DC"), reportPlayer("45", "Perić", "7,3", "CP"), reportPlayer("22", "Trontelj", "6,7", "AI")],
                 [reportPlayer("71", "Matijaš", "8,7", "GRC")]
             ]),
-            away: reportFormation("4-2-3-1", [
+            away: reportFormation("4-2-2-2 Wide", [
                 [reportPlayer("9", "Prevljak", "6,3", "AAE"), reportPlayer("12", "Obando", "6,4", "AR")],
                 [reportPlayer("11", "Goričan", "6,4", "AA"), reportPlayer("17", "Frederiksen", "6,6", "CJA")],
                 [reportPlayer("10", "Lončar", "6,5", "MAA"), reportPlayer("5", "Radošević", "6,1", "MD")],
@@ -1621,23 +1621,26 @@ const croatiaMatchReports = [
                 [reportPlayer("1", "Kolić", "6,6", "GR")]
             ])
         },
-        events: { home: ["34' I. Fiolić O. Bakić"], away: [] },
-        stats: [
-            { label: "Posse", home: "42%", away: "58%" },
-            { label: "Remates", home: "9", away: "17" },
-            { label: "Remates à Baliza", home: "5", away: "9" },
-            { label: "xG", home: "1,31", away: "1,92" },
-            { label: "PADPAD", home: "29,79", away: "15,64" },
-            { label: "Oportunidades Flagrantes", home: "2", away: "1" },
-            { label: "Cantos", home: "3", away: "12" },
-            { label: "Passes Completados", home: "85%", away: "88%" },
-            { label: "Cruzamentos Completados", home: "8%", away: "25%" },
-            { label: "Faltas", home: "6", away: "11" },
-            { label: "Cartões amarelos", home: "0", away: "0" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "126", away: "125" },
-            { label: "Classificação Média", home: "7,1", away: "6,6" }
-        ]
+        events: {
+            home: [goalEvent("34", "I. Fiolić", { assist: "O. Bakić" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "42%", "58%"],
+            ["Remates", "9", "17"],
+            ["Remates à Baliza", "5", "9"],
+            ["xG", "1,31", "1,92"],
+            ["PADPAD", "29,79", "15,64"],
+            ["Oportunidades Flagrantes", "2", "1"],
+            ["Cantos", "3", "12"],
+            ["Passes Completados", "85%", "88%"],
+            ["Cruzamentos Completados", "8%", "25%"],
+            ["Faltas", "6", "11"],
+            ["Cartões amarelos", "0", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "126", "125"],
+            ["Classificação Média", "7,1", "6,6"]
+        ])
     },
     {
         fixtureKey: "2025-09-27-hajduk-split-nk-slaven-belupo",
@@ -1656,7 +1659,7 @@ const croatiaMatchReports = [
                 [reportPlayer("32", "Hrgović", "6,7", "AI"), reportPlayer("14", "Raçi", "6,7", "CC"), reportPlayer("15", "Marešić", "7,1", "CC"), reportPlayer("38", "Hodak", "6,7", "DL")],
                 [reportPlayer("33", "Silić", "6,4", "GR")]
             ]),
-            away: reportFormation("4-2-3-1", [
+            away: reportFormation("3-3-2-2", [
                 [reportPlayer("7", "Dabro", "7,4", "AR", true), reportPlayer("90", "Nestorovski", "6,7", "AAE")],
                 [reportPlayer("15", "Ćubelić", "6,4", "ME"), reportPlayer("21", "Crepulja", "7,0", "CJA")],
                 [reportPlayer("3", "Jakir", "6,9", "AI"), reportPlayer("8", "Mrowca", "7,1", "MD"), reportPlayer("27", "Grgić", "6,6", "AI")],
@@ -1664,23 +1667,26 @@ const croatiaMatchReports = [
                 [reportPlayer("31", "Hadžikić", "6,7", "GR")]
             ])
         },
-        events: { home: ["70' M. Livaja"], away: ["71' L. Crepulja M. Dabro"] },
-        stats: [
-            { label: "Posse", home: "46%", away: "54%" },
-            { label: "Remates", home: "22", away: "6" },
-            { label: "Remates à Baliza", home: "6", away: "3" },
-            { label: "xG", home: "2,61", away: "0,50" },
-            { label: "PADPAD", home: "29,00", away: "15,77" },
-            { label: "Oportunidades Flagrantes", home: "2", away: "1" },
-            { label: "Cantos", home: "14", away: "3" },
-            { label: "Passes Completados", home: "92%", away: "90%" },
-            { label: "Cruzamentos Completados", home: "20%", away: "0%" },
-            { label: "Faltas", home: "9", away: "10" },
-            { label: "Cartões amarelos", home: "1", away: "1" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "126", away: "121" },
-            { label: "Classificação Média", home: "6,7", away: "6,9" }
-        ]
+        events: {
+            home: [goalEvent("70", "M. Livaja")],
+            away: [goalEvent("71", "M. Dabro", { assist: "L. Crepulja" })]
+        },
+        stats: reportStats([
+            ["Posse", "46%", "54%"],
+            ["Remates", "22", "6"],
+            ["Remates à Baliza", "6", "3"],
+            ["xG", "2,61", "0,50"],
+            ["PADPAD", "29,00", "15,77"],
+            ["Oportunidades Flagrantes", "2", "1"],
+            ["Cantos", "14", "3"],
+            ["Passes Completados", "92%", "90%"],
+            ["Cruzamentos Completados", "20%", "0%"],
+            ["Faltas", "9", "10"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "126", "121"],
+            ["Classificação Média", "6,7", "6,9"]
+        ])
     },
     {
         fixtureKey: "2025-09-27-nk-varazdin-nk-osijek",
@@ -1691,14 +1697,14 @@ const croatiaMatchReports = [
         rating: "8,44",
         coaches: { home: "João Nabais", away: "Gamy Chambelito" },
         formations: {
-            home: reportFormation("4-3-3 DM", [
+            home: reportFormation("4-2-3-1", [
                 [reportPlayer("9", "Jurić", "7,4", "AR", true)],
                 [reportPlayer("38", "Iuri Tavares", "6,7", "AI"), reportPlayer("27", "Latković", "6,4", "MO"), reportPlayer("18", "Gaprindashvili", "7,0", "Ex")],
                 [reportPlayer("8", "Duvnjak", "7,0", "CJR", true), reportPlayer("24", "Marina", "6,6", "MD")],
                 [reportPlayer("3", "Sikošek", "6,4", "AI"), reportPlayer("44", "Barać", "8,4", "DC", true), reportPlayer("16", "Tepšić", "6,9", "CC"), reportPlayer("23", "Maglica", "6,7", "DL")],
                 [reportPlayer("1", "Zelenika", "7,5", "GR")]
             ]),
-            away: reportFormation("4-2-3-1", [
+            away: reportFormation("4-3-3", [
                 [reportPlayer("99", "Teklić", "6,8", "AAE", true), reportPlayer("16", "Petrusenko", "6,7", "F9"), reportPlayer("23", "Vrbančić", "7,1", "AAE")],
                 [reportPlayer("9", "Touré", "6,4", "MO"), reportPlayer("17", "Jakupović", "6,1", "MO")],
                 [reportPlayer("18", "Farkaš", "6,5", "Pi")],
@@ -1707,25 +1713,25 @@ const croatiaMatchReports = [
             ])
         },
         events: {
-            home: ["64' S. Jurić M. Vuk", "67' T. Duvnjak M. Vuk", "73' M. Barać P. Bočkaj", "86' M. Barać"],
-            away: ["8' T. Teklić L. Vrbančić"]
+            home: [goalEvent("64", "S. Jurić", { assist: "M. Vuk" }), goalEvent("67", "T. Duvnjak", { assist: "M. Vuk" }), goalEvent("73", "M. Barać", { assist: "P. Bočkaj" }), goalEvent("86", "M. Barać")],
+            away: [goalEvent("8", "T. Teklić", { assist: "L. Vrbančić" })]
         },
-        stats: [
-            { label: "Posse", home: "30%", away: "70%" },
-            { label: "Remates", home: "21", away: "10" },
-            { label: "Remates à Baliza", home: "10", away: "6" },
-            { label: "xG", home: "2,90", away: "1,65" },
-            { label: "PADPAD", home: "25,56", away: "9,33" },
-            { label: "Oportunidades Flagrantes", home: "3", away: "1" },
-            { label: "Cantos", home: "8", away: "6" },
-            { label: "Passes Completados", home: "74%", away: "88%" },
-            { label: "Cruzamentos Completados", home: "41%", away: "22%" },
-            { label: "Faltas", home: "6", away: "14" },
-            { label: "Cartões amarelos", home: "0", away: "2" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "117", away: "118" },
-            { label: "Classificação Média", home: "7,1", away: "6,5" }
-        ]
+        stats: reportStats([
+            ["Posse", "30%", "70%"],
+            ["Remates", "21", "10"],
+            ["Remates à Baliza", "10", "6"],
+            ["xG", "2,90", "1,65"],
+            ["PADPAD", "25,56", "9,33"],
+            ["Oportunidades Flagrantes", "3", "1"],
+            ["Cantos", "8", "6"],
+            ["Passes Completados", "74%", "88%"],
+            ["Cruzamentos Completados", "41%", "22%"],
+            ["Faltas", "6", "14"],
+            ["Cartões amarelos", "0", "2"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "117", "118"],
+            ["Classificação Média", "7,1", "6,5"]
+        ])
     },
     {
         fixtureKey: "2025-09-27-hnk-vukovar-hnk-rijeka",
@@ -1736,14 +1742,14 @@ const croatiaMatchReports = [
         rating: "8,53",
         coaches: { home: "Hugo Macedo", away: "Zép Jóbes" },
         formations: {
-            home: reportFormation("4-2-3-1", [
+            home: reportFormation("3-3-2-2", [
                 [reportPlayer("21", "Puljić", "5,8", "F9"), reportPlayer("10", "Gonzalez", "6,2", "AAE")],
                 [reportPlayer("9", "Kulušić", "6,4", "MC"), reportPlayer("77", "Shabani", "6,2", "MO")],
                 [reportPlayer("3", "Bosec", "6,2", "AI"), reportPlayer("18", "Antolković", "6,4", "MD"), reportPlayer("91", "Tićinović", "7,2", "AI")],
                 [reportPlayer("5", "Elez", "6,6", "CC"), reportPlayer("12", "Živković", "6,5", "DC"), reportPlayer("4", "Mitrović", "6,6", "CC")],
                 [reportPlayer("42", "Daković", "7,2", "GR")]
             ]),
-            away: reportFormation("3-4-2-1", [
+            away: reportFormation("4-1-2-1-2", [
                 [reportPlayer("7", "Keita Balde", "7,5", "AAE", true), reportPlayer("77", "Jurić", "6,5", "AvR")],
                 [reportPlayer("10", "Fruk", "6,9", "CL")],
                 [reportPlayer("26", "Dantas", "6,7", "CJA"), reportPlayer("8", "Petrović", "6,9", "MC")],
@@ -1752,23 +1758,26 @@ const croatiaMatchReports = [
                 [reportPlayer("1", "Letica", "7,4", "GRC")]
             ])
         },
-        events: { home: [], away: ["11' M. Devetak T. Fruk", "74' K. Baldé J. Lasickas"] },
-        stats: [
-            { label: "Posse", home: "40%", away: "60%" },
-            { label: "Remates", home: "8", away: "11" },
-            { label: "Remates à Baliza", home: "0", away: "7" },
-            { label: "xG", home: "1,13", away: "1,40" },
-            { label: "PADPAD", home: "16,57", away: "29,92" },
-            { label: "Oportunidades Flagrantes", home: "1", away: "2" },
-            { label: "Cantos", home: "3", away: "4" },
-            { label: "Passes Completados", home: "90%", away: "92%" },
-            { label: "Cruzamentos Completados", home: "20%", away: "28%" },
-            { label: "Faltas", home: "14", away: "16" },
-            { label: "Cartões amarelos", home: "1", away: "0" },
-            { label: "Cartões vermelhos", home: "0", away: "0" },
-            { label: "Distância Percorrida", home: "135", away: "136" },
-            { label: "Classificação Média", home: "6,5", away: "7,3" }
-        ]
+        events: {
+            home: [],
+            away: [goalEvent("11", "M. Devetak", { assist: "T. Fruk" }), goalEvent("74", "K. Baldé", { assist: "J. Lasickas" })]
+        },
+        stats: reportStats([
+            ["Posse", "40%", "60%"],
+            ["Remates", "8", "11"],
+            ["Remates à Baliza", "0", "7"],
+            ["xG", "1,13", "1,40"],
+            ["PADPAD", "16,57", "29,92"],
+            ["Oportunidades Flagrantes", "1", "2"],
+            ["Cantos", "3", "4"],
+            ["Passes Completados", "90%", "92%"],
+            ["Cruzamentos Completados", "20%", "28%"],
+            ["Faltas", "14", "16"],
+            ["Cartões amarelos", "1", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "135", "136"],
+            ["Classificação Média", "6,5", "7,3"]
+        ])
     },
     {
         fixtureKey: "2025-10-04-nk-istra-1961-hnk-vukovar",
