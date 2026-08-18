@@ -256,15 +256,21 @@ function isWingBackRow(rows, index) {
 // com dois EAI ao lado do ponta-de-lança de um 4-3-3 mudavam todos de desenho.
 const wingerPositions = new Set(["EAI", "EX", "ME"]);
 
+// AA é o código de dois papéis diferentes: o Avançado Aberto, que é extremo, e
+// o Avançado Alvo, que joga por dentro. Um "Wide" só entra nesta lista maior -
+// nunca na de cima, que também serve o trio ofensivo de um 4-3-3, onde um par
+// de Avançados Alvo debaixo do ponta-de-lança não deve sair para a lateral.
+const wideWingerPositions = new Set([...wingerPositions, "AA"]);
+
 function isWideFormationName(name) {
     return /\bwide\b/i.test(String(name || ""));
 }
 
-function isWingerRow(rows, index) {
+function isWingerRow(rows, index, positions = wingerPositions) {
     let row = rows[index] || [];
     if (row.length !== 2) return false;
 
-    return row.every((player) => wingerPositions.has(getFormationPlayerPosition(player)));
+    return row.every((player) => positions.has(getFormationPlayerPosition(player)));
 }
 
 // Um trio ofensivo desenha-se com o ponta-de-lança sozinho e os dois extremos na
@@ -398,7 +404,7 @@ function renderFormationPitch(report, side) {
     return `
         <div class="match-report-pitch match-report-pitch-${side}">
             ${rows.map((row, index) => {
-                let alas = isWingBackRow(rows, index) || (wideFormation && isWingerRow(rows, index));
+                let alas = isWingBackRow(rows, index) || (wideFormation && isWingerRow(rows, index, wideWingerPositions));
                 let extremos = !alas && frontThree && isFrontThreeWingerRow(rows, index);
                 return `
                 <div class="match-report-pitch-row match-report-pitch-row-${index + 1}${alas ? " match-report-pitch-row-alas" : ""}${extremos ? " match-report-pitch-row-extremos" : ""}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
