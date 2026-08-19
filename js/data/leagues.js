@@ -7,7 +7,7 @@ const leagues = [
         descricao: "Dashboard vivo da nova liga EMG na Croácia. A classificação, sessões e métricas vão sendo atualizadas após cada noite de jogos.",
         logo: "assets/logos/teams/croacia/supersport_hnl.png",
         logoAlt: "SuperSport HNL",
-        epoca: "Época 26/27",
+        epoca: "Época 25/26",
         formula: "(prevista - final) × 3",
         scores: croatiaSeasonScores,
         fixtures: croatiaFixtures,
