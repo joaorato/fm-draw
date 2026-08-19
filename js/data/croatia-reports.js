@@ -4135,11 +4135,192 @@ const croatiaMatchReports = [
             ["Classificação Média", "6,7", "6,8"]
         ])
     },
-    compactReport("2025-12-20-dinamo-zagreb-hnk-rijeka", "Sábado 20 de Dezembro de 2025", "Maksimir", "Calmo", "Luka Stojković", "7,56", { home: "M. Kovačević", away: "Zép Jóbes" }, { home: "4-3-3 DM", away: "3-4-2-1" }, { home: ["67' Dion Beljo L. Stojković"], away: ["10' M. Devetak expulso", "77' Jean Carlos T. Ambrose"] }, [["Posse", "55%", "45%"], ["Remates", "26", "9"], ["Remates à Baliza", "12", "4"], ["xG", "2,21", "0,79"], ["PADPAD", "13,96", "30,00"], ["Oportunidades Flagrantes", "2", "1"], ["Cantos", "6", "6"], ["Passes Completados", "89%", "87%"], ["Cruzamentos Completados", "18%", "19%"], ["Faltas", "6", "12"], ["Cartões amarelos", "0", "2"], ["Cartões vermelhos", "0", "1"], ["Distância Percorrida", "126", "117"], ["Classificação Média", "6,8", "6,8"]]),
-    compactReport("2025-12-20-hajduk-split-nk-osijek", "Sábado 20 de Dezembro de 2025", "Poljud", "Calmo", "Marko Livaja", "8,35", { home: "Gonzalo Garcia", away: "Gamy Chambelito" }, { home: "4-3-3 DM", away: "4-1-2-3" }, { home: ["8' M. Livaja I. Almena", "24' I. Almena L. Hodak", "90' M. Livaja M. Šego"], away: [] }, [["Posse", "42%", "58%"], ["Remates", "9", "9"], ["Remates à Baliza", "5", "7"], ["xG", "1,50", "0,86"], ["PADPAD", "41,42", "18,71"], ["Oportunidades Flagrantes", "2", "0"], ["Cantos", "5", "6"], ["Passes Completados", "91%", "92%"], ["Cruzamentos Completados", "11%", "15%"], ["Faltas", "11", "18"], ["Cartões amarelos", "1", "0"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "123", "130"], ["Classificação Média", "7,2", "6,5"]]),
+    {
+        fixtureKey: "2025-12-20-dinamo-zagreb-hnk-rijeka",
+        date: "Sábado 20 de Dezembro de 2025",
+        stadium: "Maksimir",
+        weather: "Calmo",
+        playerOfMatch: "Luka Stojković",
+        rating: "7,56",
+        coaches: { home: "M. Kovačević", away: "Zép Jóbes" },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("9", "Dion Beljo", "7,4", "AvR", true)],
+                [reportPlayer("11", "Hoxha", "6,9", "EAI"), reportPlayer("30", "Topić", "6,9", "EAI")],
+                [reportPlayer("14", "Soldo", "7,0", "MC"), reportPlayer("8", "Zajc", "6,5", "MC")],
+                [reportPlayer("27", "Mišić", "6,5", "MD")],
+                [reportPlayer("22", "Pérez Vinlöf", "6,5", "AI"), reportPlayer("26", "McKenna", "7,0", "CC"), reportPlayer("36", "Domínguez", "6,7", "CC"), reportPlayer("25", "Valinčić", "6,9", "AI")],
+                [reportPlayer("40", "Livaković", "6,4", "GR")]
+            ]),
+            away: reportFormation("4-2-1-2-1", [
+                [reportPlayer("27", "Ambrose", "7,4", "AR", true)],
+                [reportPlayer("14", "Gojak", "6,6", "ME"), reportPlayer("10", "Fruk", "6,4", "MO")],
+                [reportPlayer("8", "Petrovič", "6,8", "MC")],
+                [reportPlayer("15", "Martínez T.", "6,3", "MD"), reportPlayer("26", "Dantas", "6,7", "CJR")],
+                [reportPlayer("34", "Devetak", "6,7", "AI"), reportPlayer("53", "Emirhan", "6,4", "CC"), reportPlayer("6", "Radeljič", "6,8", "CC"), reportPlayer("22", "Oreč", "7,4", "AI")],
+                [reportPlayer("1", "Letica", "7,2", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("67", "Dion Beljo", { assist: "L. Stojković" })],
+            away: [sendOffEvent("10", "M. Devetak"), goalEvent("77", "T. Ambrose", { assist: "Jean Carlos" })]
+        },
+        stats: reportStats([
+            ["Posse", "55%", "45%"],
+            ["Remates", "26", "9"],
+            ["Remates à Baliza", "12", "4"],
+            ["xG", "2,21", "0,79"],
+            ["PADPAD", "13,96", "30,00"],
+            ["Oportunidades Flagrantes", "2", "1"],
+            ["Cantos", "6", "6"],
+            ["Passes Completados", "89%", "87%"],
+            ["Cruzamentos Completados", "18%", "19%"],
+            ["Faltas", "6", "12"],
+            ["Cartões amarelos", "0", "2"],
+            ["Cartões vermelhos", "0", "1"],
+            ["Distância Percorrida", "126", "117"],
+            ["Classificação Média", "6,8", "6,8"]
+        ])
+    },
+    {
+        fixtureKey: "2025-12-20-hajduk-split-nk-osijek",
+        date: "Sábado 20 de Dezembro de 2025",
+        stadium: "Poljud",
+        weather: "Calmo",
+        playerOfMatch: "Marko Livaja",
+        rating: "8,35",
+        coaches: { home: "Gonzalo García", away: "Gamy Chambelito" },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("10", "Livaja", "8,4", "AR", true)],
+                [reportPlayer("9", "Rebić", "6,7", "EAI"), reportPlayer("30", "Almena", "8,3", "EAI", true)],
+                [reportPlayer("23", "Krovinović", "6,9", "MC"), reportPlayer("21", "Pukstas", "6,7", "MC")],
+                [reportPlayer("6", "Guillamón", "6,5", "MD")],
+                [reportPlayer("32", "Hrgović", "7,1", "AI"), reportPlayer("14", "Raçi", "7,1", "CC"), reportPlayer("15", "Marešić", "6,6", "CC"), reportPlayer("38", "Hodak", "7,0", "AI")],
+                [reportPlayer("33", "Silić", "8,3", "GR")]
+            ]),
+            away: reportFormation("3-1-3-2-1", [
+                [reportPlayer("17", "Jakupović", "6,5", "AAE")],
+                [reportPlayer("38", "Čolina", "6,5", "MO"), reportPlayer("20", "Gradel", "6,4", "SA")],
+                [reportPlayer("6", "Gaitán", "6,2", "MAI"), reportPlayer("21", "Bubanja", "7,1", "MC"), reportPlayer("27", "Mikić", "6,5", "MAI")],
+                [reportPlayer("34", "Matković", "6,0", "CJR")],
+                [reportPlayer("26", "Jelenić", "6,8", "CP"), reportPlayer("23", "Vrbančić", "6,4", "CP"), reportPlayer("33", "Hasić", "6,6", "CP")],
+                [reportPlayer("31", "Malenica", "6,0", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("8", "M. Livaja", { assist: "I. Almena" }), goalEvent("24", "I. Almena", { assist: "L. Hodak" }), goalEvent("90", "M. Livaja", { assist: "M. Šego" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "42%", "58%"],
+            ["Remates", "9", "9"],
+            ["Remates à Baliza", "5", "7"],
+            ["xG", "1,50", "0,86"],
+            ["PADPAD", "41,42", "18,71"],
+            ["Oportunidades Flagrantes", "2", "0"],
+            ["Cantos", "5", "6"],
+            ["Passes Completados", "91%", "92%"],
+            ["Cruzamentos Completados", "11%", "15%"],
+            ["Faltas", "11", "18"],
+            ["Cartões amarelos", "1", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "123", "130"],
+            ["Classificação Média", "7,2", "6,5"]
+        ])
+    },
     compactReport("2025-12-20-hnk-gorica-nk-slaven-belupo", "Sábado 20 de Dezembro de 2025", "Gradski stadion Velika Gorica", "Brisa", "Filip Krušelj", "7,47", { home: "Miguel Cardoso", away: "Francisco Pinto" }, { home: "4-3-3 DM", away: "3-4-1-2" }, { home: ["78' D. Kovačić a.g."], away: ["20' F. Krušelj I. Ćubelić"] }, [["Posse", "41%", "59%"], ["Remates", "13", "12"], ["Remates à Baliza", "5", "6"], ["xG", "1,60", "0,80"], ["PADPAD", "23,45", "21,00"], ["Oportunidades Flagrantes", "1", "0"], ["Cantos", "9", "6"], ["Passes Completados", "86%", "88%"], ["Cruzamentos Completados", "3%", "12%"], ["Faltas", "11", "6"], ["Cartões amarelos", "2", "1"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "127", "121"], ["Classificação Média", "6,4", "6,7"]]),
-    compactReport("2025-12-20-nk-varazdin-nk-lokomotiva", "Sábado 20 de Dezembro de 2025", "Anđelko Herjavec", "Calmo", "Aleksa Latković", "8,46", { home: "João Nabais", away: "Pai Natal" }, { home: "4-3-3 DM", away: "3-4-1-2" }, { home: ["5' M. Vuk I. Mamut", "26' T. Duvnjak S. Ilinković", "72' A. Latković G. Sikošek", "75' I. Mamut A. Latković"], away: [] }, [["Posse", "62%", "38%"], ["Remates", "28", "4"], ["Remates à Baliza", "15", "1"], ["xG", "2,39", "0,04"], ["PADPAD", "12,40", "21,29"], ["Oportunidades Flagrantes", "0", "0"], ["Cantos", "10", "1"], ["Passes Completados", "84%", "78%"], ["Cruzamentos Completados", "30%", "11%"], ["Faltas", "7", "9"], ["Cartões amarelos", "1", "1"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "129", "124"], ["Classificação Média", "7,6", "6,4"]]),
-    compactReport("2025-12-20-hnk-vukovar-nk-istra-1961", "Sábado 20 de Dezembro de 2025", "Stadion HNK Cibalia", "Calmo", "Patrik Horvat", "9,69", { home: "Hugo Macedo", away: "João Pedro Rato" }, { home: "4-2-3-1", away: "4-2-3-1" }, { home: ["4' E. Shabani P. Horvat", "27' P. Horvat R. Gonzalez", "73' P. Horvat L. Kulušić"], away: [] }, [["Posse", "49%", "51%"], ["Remates", "14", "10"], ["Remates à Baliza", "7", "2"], ["xG", "1,85", "0,42"], ["PADPAD", "42,36", "21,05"], ["Oportunidades Flagrantes", "1", "0"], ["Cantos", "6", "9"], ["Passes Completados", "87%", "89%"], ["Cruzamentos Completados", "28%", "6%"], ["Faltas", "5", "6"], ["Cartões amarelos", "0", "0"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "130", "130"], ["Classificação Média", "7,5", "6,4"]]),
+    {
+        fixtureKey: "2025-12-20-nk-varazdin-nk-lokomotiva",
+        date: "Sábado 20 de Dezembro de 2025",
+        stadium: "Anđelko Herjavec",
+        weather: "Calmo",
+        playerOfMatch: "Aleksa Latković",
+        rating: "8,46",
+        coaches: { home: "João Nabais", away: "Pai Natal" },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("17", "Mamut", "8,0", "AR", true)],
+                [reportPlayer("7", "Vuk", "7,5", "AI", true), reportPlayer("27", "Latković", "8,5", "SA", true), reportPlayer("12", "Bočkaj", "6,2", "Ex")],
+                [reportPlayer("14", "Ilinković", "7,5", "CJR"), reportPlayer("8", "Duvnjak", "8,1", "CJA", true)],
+                [reportPlayer("3", "Sikošek", "7,7", "AI"), reportPlayer("44", "Barać", "7,7", "DC"), reportPlayer("13", "Mladenovski", "7,9", "CC"), reportPlayer("23", "Maglica", "7,0", "DL")],
+                [reportPlayer("1", "Zelenika", "7,5", "GR")]
+            ]),
+            away: reportFormation("3-5-2", [
+                [reportPlayer("10", "Rui Pedro", "6,1", "AAE"), reportPlayer("7", "Trajkovski", "6,1", "AvR")],
+                [reportPlayer("40", "McCarthy", "6,5", "CJA"), reportPlayer("80", "Redmond", "6,2", "MC"), reportPlayer("37", "Córdoba", "6,4", "MC")],
+                [reportPlayer("17", "Pajač", "6,6", "AI"), reportPlayer("23", "Vešović", "6,3", "AI")],
+                [reportPlayer("20", "Kolinger", "6,7", "DC"), reportPlayer("28", "Belcar", "6,7", "CP"), reportPlayer("3", "Diop", "6,4", "CP")],
+                [reportPlayer("1", "Hendija", "7,0", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("5", "M. Vuk", { assist: "I. Mamut" }), goalEvent("26", "T. Duvnjak", { assist: "S. Ilinković" }), goalEvent("72", "A. Latković", { assist: "G. Sikošek" }), goalEvent("75", "I. Mamut", { assist: "A. Latković" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "62%", "38%"],
+            ["Remates", "28", "4"],
+            ["Remates à Baliza", "15", "1"],
+            ["xG", "2,39", "0,04"],
+            ["PADPAD", "12,40", "21,29"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "10", "1"],
+            ["Passes Completados", "84%", "78%"],
+            ["Cruzamentos Completados", "30%", "11%"],
+            ["Faltas", "7", "9"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "129", "124"],
+            ["Classificação Média", "7,6", "6,4"]
+        ])
+    },
+    {
+        fixtureKey: "2025-12-20-hnk-vukovar-nk-istra-1961",
+        date: "Sábado 20 de Dezembro de 2025",
+        stadium: "Stadion HNK Cibalia",
+        weather: "Calmo",
+        playerOfMatch: "Patrik Horvat",
+        rating: "9,69",
+        coaches: { home: "Hugo Macedo", away: "João Pedro Rato" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("8", "Horvat", "9,7", "AA", true), reportPlayer("21", "Puljić", "6,7", "CL"), reportPlayer("36", "Butić", "6,8", "Ex")],
+                [reportPlayer("77", "Shabani", "7,9", "MC", true), reportPlayer("10", "Gonzalez", "7,4", "CJA")],
+                [reportPlayer("6", "Biljan", "7,3", "CJR")],
+                [reportPlayer("3", "Bosec", "7,4", "DL"), reportPlayer("5", "Elez", "7,7", "DC"), reportPlayer("4", "Mitrović", "7,4", "DC"), reportPlayer("91", "Tićinović", "7,1", "DL")],
+                [reportPlayer("42", "Đaković", "7,4", "GR")]
+            ]),
+            away: reportFormation("3-4-2-1", [
+                [reportPlayer("9", "Prevljak", "6,3", "AC")],
+                [reportPlayer("11", "Goričan", "6,1", "MO"), reportPlayer("17", "Frederiksen", "6,6", "MO")],
+                [reportPlayer("23", "Štulac", "6,7", "MD"), reportPlayer("5", "Radošević", "7,1", "CJR")],
+                [reportPlayer("26", "Heister", "6,3", "AI"), reportPlayer("97", "Kadušić", "6,4", "AI")],
+                [reportPlayer("4", "Johnston", "6,5", "CC"), reportPlayer("8", "Maurić", "6,5", "DC"), reportPlayer("38", "Kumar", "6,2", "CC")],
+                [reportPlayer("1", "Kolić", "6,2", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("4", "E. Shabani", { assist: "P. Horvat" }), goalEvent("27", "P. Horvat", { assist: "R. Gonzalez" }), goalEvent("73", "P. Horvat", { assist: "L. Kulušić" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "49%", "51%"],
+            ["Remates", "14", "10"],
+            ["Remates à Baliza", "7", "2"],
+            ["xG", "1,85", "0,42"],
+            ["PADPAD", "42,36", "21,05"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "6", "9"],
+            ["Passes Completados", "87%", "89%"],
+            ["Cruzamentos Completados", "28%", "6%"],
+            ["Faltas", "5", "6"],
+            ["Cartões amarelos", "0", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "130", "130"],
+            ["Classificação Média", "7,5", "6,4"]
+        ])
+    },
     compactReport("2025-01-24-nk-istra-1961-hnk-rijeka", "Sábado 24 de Janeiro de 2026", "Aldo Drosina", "Temporal", "Keita Baldé", "8,10", { home: "João Pedro Rato", away: "Zép Jóbes" }, { home: "4-2-3-1", away: "3-4-2-1" }, { home: ["11' J. Radošević C. Núñez", "45' C. Núñez A. Liber"], away: ["25' Tiago Dantas S. Radeljić", "57' A. Gojak K. Baldé", "90+3' K. Baldé M. Ndockyt"] }, [["Posse", "64%", "36%"], ["Remates", "14", "8"], ["Remates à Baliza", "7", "6"], ["xG", "1,21", "1,09"], ["PADPAD", "18,88", "27,45"], ["Oportunidades Flagrantes", "0", "2"], ["Cantos", "12", "5"], ["Passes Completados", "92%", "87%"], ["Cruzamentos Completados", "16%", "15%"], ["Faltas", "13", "18"], ["Cartões amarelos", "0", "3"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "127", "126"], ["Classificação Média", "6,8", "6,8"]]),
     compactReport("2025-01-24-nk-lokomotiva-hajduk-split", "Sábado 24 de Janeiro de 2026", "Maksimir", "Calmo", "Marko Pajač", "7,66", { home: "Pai Natal", away: "Gonzalo Garcia" }, { home: "3-4-1-2", away: "4-3-3 DM" }, { home: ["37' A. Trajkovski"], away: [] }, [["Posse", "56%", "44%"], ["Remates", "11", "9"], ["Remates à Baliza", "2", "5"], ["xG", "0,94", "0,59"], ["PADPAD", "19,90", "30,80"], ["Oportunidades Flagrantes", "0", "0"], ["Cantos", "6", "3"], ["Passes Completados", "90%", "89%"], ["Cruzamentos Completados", "20%", "10%"], ["Faltas", "11", "10"], ["Cartões amarelos", "4", "0"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "117", "118"], ["Classificação Média", "7,0", "6,6"]]),
     compactReport("2025-01-24-nk-osijek-hnk-vukovar", "Sábado 24 de Janeiro de 2026", "Opus Arena", "Tempestuoso", "Fran Álvarez", "9,19", { home: "Gamy Chambelito", away: "Hugo Macedo" }, { home: "4-1-2-3", away: "4-2-3-1" }, { home: ["45+1' N. Mikić F. Álvarez", "48' F. Álvarez A. Matković", "75' F. Álvarez A. Jakupović", "90+4' A. Jakupović F. Karačić"], away: ["53' M. Tićinović M. Čuić", "63' L. Kulušić"] }, [["Posse", "56%", "44%"], ["Remates", "18", "17"], ["Remates à Baliza", "8", "8"], ["xG", "2,12", "1,86"], ["PADPAD", "22,50", "58,20"], ["Oportunidades Flagrantes", "2", "1"], ["Cantos", "9", "6"], ["Passes Completados", "88%", "85%"], ["Cruzamentos Completados", "36%", "27%"], ["Faltas", "10", "17"], ["Cartões amarelos", "2", "2"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "131", "126"], ["Classificação Média", "7,2", "6,6"]]),
