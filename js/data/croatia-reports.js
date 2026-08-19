@@ -4229,7 +4229,50 @@ const croatiaMatchReports = [
             ["Classificação Média", "7,2", "6,5"]
         ])
     },
-    compactReport("2025-12-20-hnk-gorica-nk-slaven-belupo", "Sábado 20 de Dezembro de 2025", "Gradski stadion Velika Gorica", "Brisa", "Filip Krušelj", "7,47", { home: "Miguel Cardoso", away: "Francisco Pinto" }, { home: "4-3-3 DM", away: "3-4-1-2" }, { home: ["78' D. Kovačić a.g."], away: ["20' F. Krušelj I. Ćubelić"] }, [["Posse", "41%", "59%"], ["Remates", "13", "12"], ["Remates à Baliza", "5", "6"], ["xG", "1,60", "0,80"], ["PADPAD", "23,45", "21,00"], ["Oportunidades Flagrantes", "1", "0"], ["Cantos", "9", "6"], ["Passes Completados", "86%", "88%"], ["Cruzamentos Completados", "3%", "12%"], ["Faltas", "11", "6"], ["Cartões amarelos", "2", "1"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "127", "121"], ["Classificação Média", "6,4", "6,7"]]),
+    {
+        fixtureKey: "2025-12-20-hnk-gorica-nk-slaven-belupo",
+        date: "Sábado 20 de Dezembro de 2025",
+        stadium: "Gradski stadion Velika Gorica",
+        weather: "Brisa",
+        playerOfMatch: "Filip Krušelj",
+        rating: "7,47",
+        coaches: { home: "Miguel Cardoso", away: "Francisco Pinto" },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("20", "Vrzić", "6,3", "Ex"), reportPlayer("10", "Pršir", "6,1", "ME"), reportPlayer("9", "Bogojević", "6,2", "Ex")],
+                [reportPlayer("8", "Pozo", "6,4", "CJA"), reportPlayer("7", "Bakić", "6,4", "MC")],
+                [reportPlayer("36", "Kavelj", "6,5", "MD")],
+                [reportPlayer("19", "Čabraja", "6,3", "AI"), reportPlayer("4", "Filipović", "6,5", "DC"), reportPlayer("5", "Leš", "6,6", "CP"), reportPlayer("22", "Trontelj", "6,4", "AI")],
+                [reportPlayer("71", "Matijaš", "6,7", "GRC")]
+            ]),
+            away: reportFormation("4-4-2", [
+                [reportPlayer("7", "Dabro", "6,4", "AC"), reportPlayer("10", "Caimacov", "6,2", "AC")],
+                [reportPlayer("15", "Ćubelić", "7,0", "MA", true), reportPlayer("23", "Lepinjica", "6,5", "MC"), reportPlayer("21", "Crepulja", "6,6", "MC"), reportPlayer("8", "Mrowca", "6,8", "MA")],
+                [reportPlayer("35", "Žuta", "7,0", "DL"), reportPlayer("6", "Božić", "6,8", "DC"), reportPlayer("4", "Kovačić", "6,3", "DC"), reportPlayer("18", "Krušelj", "7,5", "DL")],
+                [reportPlayer("31", "Hadžikić", "6,6", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("78", "D. Kovačić", { ownGoal: true })],
+            away: [goalEvent("20", "I. Ćubelić", { assist: "F. Krušelj" })]
+        },
+        stats: reportStats([
+            ["Posse", "41%", "59%"],
+            ["Remates", "13", "12"],
+            ["Remates à Baliza", "5", "6"],
+            ["xG", "1,60", "0,80"],
+            ["PADPAD", "23,45", "21,00"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "9", "6"],
+            ["Passes Completados", "86%", "88%"],
+            ["Cruzamentos Completados", "3%", "12%"],
+            ["Faltas", "11", "6"],
+            ["Cartões amarelos", "2", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "127", "121"],
+            ["Classificação Média", "6,4", "6,7"]
+        ])
+    },
     {
         fixtureKey: "2025-12-20-nk-varazdin-nk-lokomotiva",
         date: "Sábado 20 de Dezembro de 2025",
