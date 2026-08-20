@@ -4821,11 +4821,235 @@ const croatiaMatchReports = [
             ["Classificação Média", "7,1", "6,7"]
         ])
     },
-    compactReport("2025-02-07-dinamo-zagreb-nk-osijek", "Sábado 7 de Fevereiro de 2026", "Maksimir", "Brisa", "Arbër Hoxha", "7,67", { home: "M. Kovačević", away: "Gamy Chambelito" }, { home: "4-3-3 DM", away: "4-1-2-3" }, { home: ["5' A. Hoxha M. Soldo", "18' Dion Beljo L. Stojković"], away: [] }, [["Posse", "53%", "47%"], ["Remates", "17", "8"], ["Remates à Baliza", "7", "0"], ["xG", "2,31", "0,95"], ["PADPAD", "14,57", "17,86"], ["Oportunidades Flagrantes", "2", "1"], ["Cantos", "9", "4"], ["Passes Completados", "88%", "84%"], ["Cruzamentos Completados", "17%", "12%"], ["Faltas", "8", "11"], ["Cartões amarelos", "0", "1"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "129", "134"], ["Classificação Média", "7,1", "6,4"]]),
-    compactReport("2025-02-07-hnk-gorica-hajduk-split", "Sábado 7 de Fevereiro de 2026", "Gradski stadion Velika Gorica", "Calmo", "Iker Pozo", "7,70", { home: "Miguel Cardoso", away: "Gonzalo Garcia" }, { home: "4-3-3 DM", away: "4-3-3 DM" }, { home: ["89' I. Pozo O. Bakić"], away: [] }, [["Posse", "31%", "69%"], ["Remates", "14", "15"], ["Remates à Baliza", "7", "4"], ["xG", "1,20", "0,62"], ["PADPAD", "34,19", "11,71"], ["Oportunidades Flagrantes", "0", "0"], ["Cantos", "9", "8"], ["Passes Completados", "84%", "92%"], ["Cruzamentos Completados", "19%", "5%"], ["Faltas", "12", "2"], ["Cartões amarelos", "0", "0"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "128", "122"], ["Classificação Média", "6,9", "6,8"]]),
-    compactReport("2025-02-07-nk-istra-1961-nk-lokomotiva", "Sábado 7 de Fevereiro de 2026", "Aldo Drosina", "Calmo", "Chema Núñez", "8,12", { home: "João Pedro Rato", away: "Pai Natal" }, { home: "4-2-3-1", away: "3-4-1-2" }, { home: ["37' S. Prevljak C. Núñez", "66' A. Maurić C. Núñez"], away: ["9' M. Pajač M. Rog"] }, [["Posse", "54%", "46%"], ["Remates", "17", "15"], ["Remates à Baliza", "10", "10"], ["xG", "1,42", "1,54"], ["PADPAD", "15,16", "24,47"], ["Oportunidades Flagrantes", "1", "1"], ["Cantos", "8", "6"], ["Passes Completados", "90%", "87%"], ["Cruzamentos Completados", "29%", "17%"], ["Faltas", "13", "17"], ["Cartões amarelos", "1", "1"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "123", "116"], ["Classificação Média", "7,0", "6,7"]]),
-    compactReport("2025-02-07-hnk-rijeka-nk-slaven-belupo", "Sábado 7 de Fevereiro de 2026", "Rujevica", "Calmo", "Ante Matej Jurić", "8,68", { home: "Zép Jóbes", away: "Francisco Pinto" }, { home: "3-4-2-1", away: "3-4-1-2" }, { home: ["20' A. Jurić M. Ndockyt", "35' T. Fruk pen", "37' T. Fruk M. Ndockyt", "45' A. Jurić A. Gojak", "45+2' A. Gojak J. Silva"], away: ["75' I. Ćubelić M. Dabro", "88' I. Nestorovski R. Wolski"] }, [["Posse", "59%", "41%"], ["Remates", "15", "6"], ["Remates à Baliza", "9", "3"], ["xG", "3,04", "1,42"], ["PADPAD", "26,31", "59,00"], ["Oportunidades Flagrantes", "3", "1"], ["Cantos", "4", "3"], ["Passes Completados", "93%", "89%"], ["Cruzamentos Completados", "11%", "14%"], ["Faltas", "11", "21"], ["Cartões amarelos", "2", "4"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "123", "120"], ["Classificação Média", "7,4", "6,6"]]),
-    compactReport("2025-02-07-hnk-vukovar-nk-varazdin", "Sábado 7 de Fevereiro de 2026", "Gradski vrt", "Calmo", "Šimun Butić", "7,89", { home: "Hugo Macedo", away: "João Nabais" }, { home: "4-2-3-1", away: "4-3-3 DM" }, { home: ["58' R. Gonzalez Š. Butić"], away: ["59' M. Jacob M. Vuk", "86' R. Brajković I. Tavares"] }, [["Posse", "47%", "53%"], ["Remates", "14", "15"], ["Remates à Baliza", "9", "4"], ["xG", "1,61", "1,30"], ["PADPAD", "18,09", "13,00"], ["Oportunidades Flagrantes", "1", "1"], ["Cantos", "6", "3"], ["Passes Completados", "86%", "88%"], ["Cruzamentos Completados", "25%", "30%"], ["Faltas", "14", "6"], ["Cartões amarelos", "1", "0"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "131", "134"], ["Classificação Média", "6,8", "6,9"]]),
+    {
+        fixtureKey: "2025-02-07-dinamo-zagreb-nk-osijek",
+        date: "Sábado 7 de Fevereiro de 2026",
+        stadium: "Maksimir",
+        weather: "Brisa",
+        playerOfMatch: "Arbër Hoxha",
+        rating: "7,67",
+        coaches: { home: "M. Kovačević", away: "Gamy Chambelito" },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("9", "Dion Beljo", "7,5", "AvR", true)],
+                [reportPlayer("11", "Hoxha", "7,7", "EAI", true), reportPlayer("7", "Stojković", "7,5", "EAI")],
+                [reportPlayer("14", "Soldo", "7,6", "MC"), reportPlayer("8", "Zajc", "6,6", "MO")],
+                [reportPlayer("27", "Mišić", "7,0", "CJR")],
+                [reportPlayer("22", "Pérez Vinlöf", "6,7", "AI"), reportPlayer("26", "McKenna", "7,5", "CC"), reportPlayer("36", "Domínguez", "6,9", "CC"), reportPlayer("15", "Galešić", "7,0", "DL")],
+                [reportPlayer("40", "Livaković", "7,3", "GR")]
+            ]),
+            away: reportFormation("3-1-3-2-1", [
+                [reportPlayer("17", "Jakupović", "6,0", "AR")],
+                [reportPlayer("38", "Čolina", "6,3", "MO"), reportPlayer("20", "Gradel", "6,4", "MO")],
+                [reportPlayer("23", "Vrbančić", "6,0", "MAI"), reportPlayer("25", "Børkeeiet", "6,3", "MC"), reportPlayer("29", "Karačić", "6,1", "MAI")],
+                [reportPlayer("34", "Matković", "7,2", "Pi")],
+                [reportPlayer("26", "Jelenić", "6,7", "CP"), reportPlayer("28", "Abrigo", "6,0", "CP"), reportPlayer("33", "Hasić", "6,3", "CP")],
+                [reportPlayer("31", "Malenica", "7,4", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("5", "A. Hoxha", { assist: "M. Soldo" }), goalEvent("18", "Dion Beljo", { assist: "L. Stojković" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "53%", "47%"],
+            ["Remates", "17", "8"],
+            ["Remates à Baliza", "7", "0"],
+            ["xG", "2,31", "0,95"],
+            ["PADPAD", "14,57", "17,86"],
+            ["Oportunidades Flagrantes", "2", "1"],
+            ["Cantos", "9", "4"],
+            ["Passes Completados", "88%", "84%"],
+            ["Cruzamentos Completados", "17%", "12%"],
+            ["Faltas", "8", "11"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "129", "134"],
+            ["Classificação Média", "7,1", "6,4"]
+        ])
+    },
+    {
+        fixtureKey: "2025-02-07-hnk-gorica-hajduk-split",
+        date: "Sábado 7 de Fevereiro de 2026",
+        stadium: "Gradski stadion Velika Gorica",
+        weather: "Calmo",
+        playerOfMatch: "Iker Pozo",
+        rating: "7,70",
+        coaches: { home: "Miguel Cardoso", away: "Gonzalo García" },
+        formations: {
+            home: reportFormation("4-3-3 DM", [
+                [reportPlayer("20", "Vrzić", "6,7", "Ex"), reportPlayer("10", "Pršir", "6,2", "ME"), reportPlayer("9", "Bogojević", "6,2", "Ex")],
+                [reportPlayer("8", "Pozo", "7,7", "CJA", true), reportPlayer("7", "Bakić", "7,3", "ME")],
+                [reportPlayer("36", "Kavelj", "6,8", "MD")],
+                [reportPlayer("19", "Čabraja", "6,8", "AI"), reportPlayer("4", "J. Filipović", "6,9", "DC"), reportPlayer("5", "Leš", "6,8", "CP"), reportPlayer("22", "Trontelj", "6,8", "AI")],
+                [reportPlayer("71", "Matijaš", "7,1", "GRC")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("10", "Livaja", "7,0", "AR")],
+                [reportPlayer("9", "A. Rebić", "6,5", "EAI"), reportPlayer("11", "Šego", "6,6", "EAI")],
+                [reportPlayer("23", "Krovinović", "6,9", "MC"), reportPlayer("21", "Pukstas", "6,8", "MC")],
+                [reportPlayer("6", "Hugo G.", "7,0", "MD")],
+                [reportPlayer("32", "Hrgović", "6,7", "AI"), reportPlayer("14", "Raçi", "7,1", "CC"), reportPlayer("31", "Šarlija", "6,7", "CP"), reportPlayer("8", "Sigur", "6,8", "AI")],
+                [reportPlayer("3", "Toni Silić", "6,5", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("89", "I. Pozo", { assist: "O. Bakić" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "31%", "69%"],
+            ["Remates", "14", "15"],
+            ["Remates à Baliza", "7", "4"],
+            ["xG", "1,20", "0,62"],
+            ["PADPAD", "34,19", "11,71"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "9", "8"],
+            ["Passes Completados", "84%", "92%"],
+            ["Cruzamentos Completados", "19%", "5%"],
+            ["Faltas", "12", "2"],
+            ["Cartões amarelos", "0", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "128", "122"],
+            ["Classificação Média", "6,9", "6,8"]
+        ])
+    },
+    {
+        fixtureKey: "2025-02-07-nk-istra-1961-nk-lokomotiva",
+        date: "Sábado 7 de Fevereiro de 2026",
+        stadium: "Aldo Drosina",
+        weather: "Calmo",
+        playerOfMatch: "Chema Núñez",
+        rating: "8,12",
+        coaches: { home: "João Pedro Rato", away: "Pai Natal" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Prevljak", "7,1", "AC", true)],
+                [reportPlayer("11", "Goričan", "6,4", "AA"), reportPlayer("21", "Núñez", "8,1", "MO"), reportPlayer("17", "Frederiksen", "6,7", "EAI")],
+                [reportPlayer("10", "Lončar", "6,9", "MD"), reportPlayer("5", "Radošević", "6,3", "CJR")],
+                [reportPlayer("26", "Heister", "6,8", "AI"), reportPlayer("4", "Johnston", "7,3", "CC"), reportPlayer("3", "Nasraoui", "6,6", "DC"), reportPlayer("97", "Kadušić", "6,7", "AI")],
+                [reportPlayer("99", "Wrąbel", "7,2", "GRC")]
+            ]),
+            away: reportFormation("3-5-2", [
+                [reportPlayer("7", "Trajkovski", "6,6", "AAE"), reportPlayer("28", "Belcar", "6,1", "AvR")],
+                [reportPlayer("26", "Rog", "7,3", "MC", true), reportPlayer("14", "Lorber", "6,9", "CJA"), reportPlayer("16", "Dajčer", "6,7", "MC")],
+                [reportPlayer("17", "Pajač", "7,4", "AI"), reportPlayer("23", "Vešović", "6,1", "AI")],
+                [reportPlayer("4", "Sigali", "6,7", "DC"), reportPlayer("10", "Rui Pedro", "6,5", "CP"), reportPlayer("20", "Kolinger", "6,6", "CP")],
+                [reportPlayer("99", "Vozinha", "6,7", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("37", "S. Prevljak", { assist: "C. Núñez" }), goalEvent("66", "A. Maurić", { assist: "C. Núñez" })],
+            away: [goalEvent("9", "M. Rog", { assist: "M. Pajač" })]
+        },
+        stats: reportStats([
+            ["Posse", "54%", "46%"],
+            ["Remates", "17", "15"],
+            ["Remates à Baliza", "10", "10"],
+            ["xG", "1,42", "1,54"],
+            ["PADPAD", "15,16", "24,47"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "8", "6"],
+            ["Passes Completados", "90%", "87%"],
+            ["Cruzamentos Completados", "29%", "17%"],
+            ["Faltas", "13", "17"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "123", "116"],
+            ["Classificação Média", "7,0", "6,7"]
+        ])
+    },
+    {
+        fixtureKey: "2025-02-07-hnk-rijeka-nk-slaven-belupo",
+        date: "Sábado 7 de Fevereiro de 2026",
+        stadium: "Rujevica",
+        weather: "Calmo",
+        playerOfMatch: "Ante Matej Jurić",
+        rating: "8,68",
+        coaches: { home: "Zép Jóbes", away: "Francisco Pinto" },
+        formations: {
+            home: reportFormation("4-2-1-2-1", [
+                [reportPlayer("77", "Jurić", "8,7", "AR", true)],
+                [reportPlayer("20", "Ndockyt", "8,7", "ME"), reportPlayer("10", "Fruk", "8,4", "MO", true)],
+                [reportPlayer("14", "Gojak", "8,0", "MC", true)],
+                [reportPlayer("21", "Lacoux", "6,8", "MD"), reportPlayer("26", "Dantas", "6,9", "CJR")],
+                [reportPlayer("24", "J. Silva", "7,9", "AI"), reportPlayer("53", "Emirhan", "6,9", "CC"), reportPlayer("6", "Radeljić", "6,7", "CC"), reportPlayer("22", "Oreč", "6,6", "AI")],
+                [reportPlayer("1", "Letica", "6,5", "GR")]
+            ]),
+            away: reportFormation("4-2-2-2 Wide", [
+                [reportPlayer("7", "Dabro", "7,3", "AA", true), reportPlayer("90", "Nestorovski", "6,9", "AR")],
+                [reportPlayer("28", "Šunta", "6,1", "EAI"), reportPlayer("57", "Ereiz", "6,1", "Ex")],
+                [reportPlayer("10", "Caimacov", "6,0", "MD"), reportPlayer("23", "Lepinjica", "6,3", "CJA")],
+                [reportPlayer("35", "Žuta", "6,4", "AI"), reportPlayer("6", "Božić", "5,9", "DC"), reportPlayer("4", "Kovicic", "6,6", "CC"), reportPlayer("18", "Krušelj", "6,6", "DL")],
+                [reportPlayer("31", "Hadžikić", "6,3", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("20", "A. Jurić", { assist: "M. Ndockyt" }), goalEvent("35", "T. Fruk", { penalty: true }), goalEvent("37", "T. Fruk", { assist: "M. Ndockyt" }), goalEvent("45", "A. Jurić", { assist: "A. Gojak" }), goalEvent("45+2", "A. Gojak", { assist: "J. Silva" })],
+            away: [goalEvent("75", "M. Dabro", { assist: "I. Ćubelić" }), goalEvent("88", "R. Wolski", { assist: "I. Nestorovski" })]
+        },
+        stats: reportStats([
+            ["Posse", "59%", "41%"],
+            ["Remates", "15", "6"],
+            ["Remates à Baliza", "9", "3"],
+            ["xG", "3,04", "1,42"],
+            ["PADPAD", "26,31", "59,00"],
+            ["Oportunidades Flagrantes", "3", "1"],
+            ["Cantos", "4", "3"],
+            ["Passes Completados", "93%", "89%"],
+            ["Cruzamentos Completados", "11%", "14%"],
+            ["Faltas", "11", "21"],
+            ["Cartões amarelos", "2", "4"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "123", "120"],
+            ["Classificação Média", "7,4", "6,6"]
+        ])
+    },
+    {
+        fixtureKey: "2025-02-07-hnk-vukovar-nk-varazdin",
+        date: "Sábado 7 de Fevereiro de 2026",
+        stadium: "Gradski vrt",
+        weather: "Calmo",
+        playerOfMatch: "Šimun Butić",
+        rating: "7,89",
+        coaches: { home: "Hugo Macedo", away: "João Nabais" },
+        formations: {
+            home: reportFormation("3-4-2-1", [
+                [reportPlayer("8", "Horvat", "6,6", "AAE")],
+                [reportPlayer("19", "Mioč", "6,9", "MO"), reportPlayer("10", "Gonzalez", "7,3", "MO", true)],
+                [reportPlayer("36", "Butić", "7,9", "AI"), reportPlayer("41", "Šporn", "6,5", "MD"), reportPlayer("77", "Shabani", "6,8", "CJR"), reportPlayer("3", "Bosec", "6,8", "AI")],
+                [reportPlayer("5", "Elez", "6,8", "CC"), reportPlayer("4", "Mitrović", "6,6", "CC"), reportPlayer("91", "Tićinović", "6,6", "CC")],
+                [reportPlayer("42", "Đaković", "6,3", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("17", "Mamut", "6,4", "AR")],
+                [reportPlayer("7", "Vuk", "7,1", "AI", true), reportPlayer("27", "Latković", "6,4", "SA"), reportPlayer("18", "Gaprindashvili", "6,7", "Ex")],
+                [reportPlayer("14", "Ilinković", "6,6", "CJR"), reportPlayer("8", "Duvnjak", "6,7", "CJA")],
+                [reportPlayer("15", "Jacob", "7,5", "AI"), reportPlayer("44", "Barać", "7,4", "DC"), reportPlayer("16", "Tepšić", "6,8", "CC"), reportPlayer("23", "Maglica", "6,7", "DL")],
+                [reportPlayer("32", "Mamić", "7,2", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("58", "R. Gonzalez", { assist: "Š. Butić" })],
+            away: [goalEvent("59", "M. Vuk", { assist: "M. Jacob" }), goalEvent("86", "I. Tavares", { assist: "R. Brajković" })]
+        },
+        stats: reportStats([
+            ["Posse", "47%", "53%"],
+            ["Remates", "14", "15"],
+            ["Remates à Baliza", "9", "4"],
+            ["xG", "1,61", "1,30"],
+            ["PADPAD", "18,09", "13,00"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "6", "3"],
+            ["Passes Completados", "86%", "88%"],
+            ["Cruzamentos Completados", "25%", "30%"],
+            ["Faltas", "14", "6"],
+            ["Cartões amarelos", "1", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "131", "134"],
+            ["Classificação Média", "6,8", "6,9"]
+        ])
+    },
     compactReport("2025-02-14-hajduk-split-hnk-vukovar", "Sábado 14 de Fevereiro de 2026", "Poljud", "Brisa", "Jakov Puljić", "7,71", { home: "Gonzalo Garcia", away: "Hugo Macedo" }, { home: "4-3-3 DM", away: "4-2-3-1" }, { home: ["22' R. Raçi Š. Hrgović"], away: ["23' E. Shabani R. Gonzalez", "80' Š. Butić J. Puljić"] }, [["Posse", "52%", "48%"], ["Remates", "22", "9"], ["Remates à Baliza", "10", "4"], ["xG", "1,97", "0,84"], ["PADPAD", "26,39", "29,69"], ["Oportunidades Flagrantes", "1", "0"], ["Cantos", "13", "5"], ["Passes Completados", "90%", "89%"], ["Cruzamentos Completados", "23%", "26%"], ["Faltas", "10", "7"], ["Cartões amarelos", "1", "2"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "129", "131"], ["Classificação Média", "6,7", "6,9"]]),
     compactReport("2025-02-14-nk-lokomotiva-hnk-gorica", "Sábado 14 de Fevereiro de 2026", "Maksimir", "Tempestuoso", "Jakov Filipović", "8,46", { home: "Pai Natal", away: "Miguel Cardoso" }, { home: "3-4-1-2", away: "4-3-3 DM" }, { home: [], away: ["22' J. Pršir J. Filipović", "64' J. Pršir J. Filipović", "71' J. McCarthy a.g.", "86' T. Epailly O. Bakić"] }, [["Posse", "75%", "25%"], ["Remates", "16", "21"], ["Remates à Baliza", "7", "13"], ["xG", "1,21", "1,93"], ["PADPAD", "21,91", "60,89"], ["Oportunidades Flagrantes", "1", "2"], ["Cantos", "9", "8"], ["Passes Completados", "91%", "82%"], ["Cruzamentos Completados", "21%", "40%"], ["Faltas", "9", "10"], ["Cartões amarelos", "2", "3"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "112", "115"], ["Classificação Média", "6,4", "7,2"]]),
     compactReport("2025-02-14-nk-slaven-belupo-nk-istra-1961", "Sábado 14 de Fevereiro de 2026", "Gradski stadion Ivan Kušek Apaš", "Calmo", "Chema Núñez", "8,34", { home: "Francisco Pinto", away: "João Pedro Rato" }, { home: "3-4-1-2", away: "4-2-3-1" }, { home: ["67' M. Dabro R. Kriwak"], away: ["30' C. Núñez J. Radošević", "45' C. Núñez pen", "73' C. Núñez Ángel Pérez"] }, [["Posse", "50%", "50%"], ["Remates", "8", "13"], ["Remates à Baliza", "2", "9"], ["xG", "1,07", "2,42"], ["PADPAD", "21,25", "20,87"], ["Oportunidades Flagrantes", "1", "1"], ["Cantos", "5", "8"], ["Passes Completados", "89%", "89%"], ["Cruzamentos Completados", "12%", "27%"], ["Faltas", "15", "10"], ["Cartões amarelos", "0", "0"], ["Cartões vermelhos", "0", "0"], ["Distância Percorrida", "121", "129"], ["Classificação Média", "6,6", "7,0"]]),
