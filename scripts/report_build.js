@@ -367,6 +367,37 @@ function acharBloco(texto, fixtureKey) {
     return { inicio, fim };
 }
 
+// Enquanto o jogo ainda não tinha relatório, o placar em createLeagueMatch()
+// ficava "-" e alguém tinha de o trocar à mão pelo resultado depois de este
+// escrever o relatório — a mesma pessoa a escrever o mesmo número duas vezes
+// a partir do mesmo ecrã, e a segunda vez é fácil de esquecer. Este relatório
+// já traz o placar (`t.score`, para validar os golos contra ele); usa-se o
+// mesmo aqui para acertar o jogo na lista, em vez de o deixar por conta de
+// quem escreveu a transcrição.
+const FICHEIROS_FIXTURES = ["croatia-fixtures.js", "scotland.js"];
+
+function escaparRegex(texto) {
+    return String(texto).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function atualizarPlacarFixture(fixture, score) {
+    let pasta = path.join(__dirname, "..", "js", "data");
+    let re = new RegExp(
+        `(createLeagueMatch\\(\\s*"[^"]*"\\s*,\\s*"[^"]*"\\s*,\\s*"${escaparRegex(fixture.date)}"`
+        + `\\s*,\\s*"${escaparRegex(fixture.home)}"\\s*,\\s*)"-"(\\s*,\\s*"${escaparRegex(fixture.away)}")`
+    );
+
+    for (let nome of FICHEIROS_FIXTURES) {
+        let caminho = path.join(pasta, nome);
+        if (!fs.existsSync(caminho)) continue;
+        let texto = fs.readFileSync(caminho, "utf8");
+        if (!re.test(texto)) continue;
+        fs.writeFileSync(caminho, texto.replace(re, `$1${jsString(score)}$2`));
+        return nome;
+    }
+    return null;
+}
+
 const FICHEIRO_RELATORIOS = "js/data/croatia-reports.js";
 
 function escrever(t, fixtureKey, destinoPedido) {
@@ -449,6 +480,14 @@ function main() {
     let destino = process.argv[process.argv.indexOf("--para") + 1];
     let { ficheiro, novo } = escrever(t, fixtureKey, process.argv.includes("--para") ? destino : null);
     console.log(`\n${novo ? "acrescentado a" : "substituído em"} js/data/${ficheiro}`);
+
+    if (!Number.isFinite(fixture.homeGoals)) {
+        let placar = `${t.score.home}-${t.score.away}`;
+        let alvo = atualizarPlacarFixture(fixture, placar);
+        if (alvo) console.log(`placar ${placar} colocado em js/data/${alvo}`);
+        else console.log(`\n  AVISO não encontrei a chamada createLeagueMatch deste jogo para lhe pôr o placar ${placar}`
+            + ` — acerta-o à mão em js/data/${FICHEIROS_FIXTURES.join(" ou ")}`);
+    }
 }
 
 main();
