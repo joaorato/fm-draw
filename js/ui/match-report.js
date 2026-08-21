@@ -80,36 +80,48 @@ function getEventNameVariants(name = "") {
     return [...new Set(variants)].filter(Boolean);
 }
 
-function getEventEdgePerson(body = "", side = "home") {
+// Num evento em string o marcador é o primeiro nome, dos dois lados. É o que o
+// formato diz, é o que o js/data/stats-core.js lê, e os dois têm de continuar a
+// dizer o mesmo — o `scripts/report_lint.js` falha se alguma vez discordarem.
+//
+// Que fique claro o que isto não é: não é uma garantia de que o nome está certo.
+// A coluna da direita do FM aparece espelhada no ecrã e foi copiada ora de uma
+// maneira ora da outra, às vezes dentro do mesmo jogo — no Vukovar-Varaždin da
+// jornada 3 três dos quatro golos estavam bem e um estava trocado. Não há regra
+// que arrume isso; arruma-se voltando a passar o jogo pela captura, e aí o
+// relatório passa a usar `goalEvent()` e não chega sequer aqui.
+function getEventEdgePerson(body = "") {
     let parts = body.split(/\s+/).filter(Boolean);
     if (parts.length <= 2) return body.trim();
 
-    if (side === "away") {
-        let lastTwo = parts.slice(-2);
-        if (/^\p{L}\.$/u.test(lastTwo[0])) return lastTwo.join(" ");
-        return parts.slice(-2).join(" ");
-    }
-
-    let firstTwo = parts.slice(0, 2);
-    if (/^\p{L}\.$/u.test(firstTwo[0])) return firstTwo.join(" ");
-    return firstTwo.join(" ");
+    return parts.slice(0, 2).join(" ");
 }
 
-function matchEventEdgeName(body = "", playerNames = [], side = "home") {
+function matchEventEdgeName(body = "", playerNames = []) {
     let candidates = playerNames
         .flatMap((name) => getEventNameVariants(name))
         .sort((a, b) => b.length - a.length);
 
     return candidates.find((name) => {
         let escaped = escapeRegExp(name);
-        let pattern = side === "away"
-            ? new RegExp(`(?:^|\\s)${escaped}$`, "iu")
-            : new RegExp(`^${escaped}(?:\\s|$)`, "iu");
-        return pattern.test(body);
+        return new RegExp(`^${escaped}(?:\\s|$)`, "iu").test(body);
     }) || "";
 }
 
-function parseMatchReportEvent(event = "", playerNames = [], side = "home") {
+function parseMatchReportEvent(event = "", playerNames = []) {
+    // Evento estruturado (`goalEvent()` / `sendOffEvent()`): já vem com marcador
+    // e assistente separados, não há nada para interpretar.
+    if (event && typeof event === "object") {
+        if (event.sendOff) return { minute: event.minute, scorer: event.player, assist: "Expulso", type: "red" };
+        if (event.ownGoal) return { minute: event.minute, scorer: event.scorer, assist: "Autogolo", type: "own-goal" };
+        return {
+            minute: event.minute,
+            scorer: event.scorer,
+            assist: event.assist || (event.penalty ? "Penálti" : ""),
+            type: event.penalty ? "penalty" : "goal"
+        };
+    }
+
     const eventMatch = event.match(/^(\d+(?:\+\d+)?)'\s+(.+)$/);
     if (!eventMatch) {
         return { minute: "", scorer: event, assist: "", type: "goal" };
@@ -128,31 +140,19 @@ function parseMatchReportEvent(event = "", playerNames = [], side = "home") {
         return { minute, scorer: body.replace(/\s*pen\s*/i, "").trim(), assist: "Penálti", type: "penalty" };
     }
 
-    const knownScorer = matchEventEdgeName(body, playerNames, side);
+    const knownScorer = matchEventEdgeName(body, playerNames);
     if (knownScorer) {
-        let scorerMatch = side === "away"
-            ? body.match(new RegExp(`(?:^|\\s)(${escapeRegExp(knownScorer)})$`, "iu"))
-            : body.match(new RegExp(`^(${escapeRegExp(knownScorer)})(?:\\s|$)`, "iu"));
+        let scorerMatch = body.match(new RegExp(`^(${escapeRegExp(knownScorer)})(?:\\s|$)`, "iu"));
         let scorer = scorerMatch?.[1] || knownScorer;
-        let edgeScorer = getEventEdgePerson(body, side);
+        let edgeScorer = getEventEdgePerson(body);
         if (!knownScorer.includes(" ") && edgeScorer.toLowerCase().endsWith(knownScorer.toLowerCase())) {
             scorer = edgeScorer;
         }
-        let assist = side === "away"
-            ? body.slice(0, body.length - scorer.length).trim()
-            : body.slice(scorer.length).trim();
-        return {
-            minute,
-            scorer,
-            assist,
-            type: "goal"
-        };
+        return { minute, scorer, assist: body.slice(scorer.length).trim(), type: "goal" };
     }
 
-    const scorer = getEventEdgePerson(body, side);
-    const assist = side === "away"
-        ? body.slice(0, body.length - scorer.length).trim()
-        : body.slice(scorer.length).trim();
+    const scorer = getEventEdgePerson(body);
+    const assist = body.slice(scorer.length).trim();
 
     return {
         minute,
@@ -185,7 +185,7 @@ function getScorerNames(report, side) {
     let playerNames = getFormationPlayerNames(formation);
     let scorerKeys = new Set();
     (report.events?.[side] || [])
-        .map((event) => parseMatchReportEvent(event, playerNames, side))
+        .map((event) => parseMatchReportEvent(event, playerNames))
         .filter((event) => event.type === "goal" || event.type === "penalty")
         .forEach((event) => {
             getPlayerGoalKeys(event.scorer).forEach((key) => scorerKeys.add(key));
@@ -193,14 +193,14 @@ function getScorerNames(report, side) {
     return scorerKeys;
 }
 
-function renderMatchReportEvents(events = [], formation = {}, side = "home") {
+function renderMatchReportEvents(events = [], formation = {}) {
     if (!events.length) {
         return `<span class="match-report-empty">Sem golos</span>`;
     }
 
     const playerNames = getFormationPlayerNames(formation);
     return events.map((event) => {
-        const parsed = parseMatchReportEvent(event, playerNames, side);
+        const parsed = parseMatchReportEvent(event, playerNames);
         const detail = parsed.assist
             ? (parsed.type === "goal" ? `Assist. ${parsed.assist}` : parsed.assist)
             : "";
@@ -227,6 +227,74 @@ const matchFormationLayouts = {
 
 function getFormationPlayerPosition(player) {
     return (typeof player === "string" ? player : player?.pos || "").toUpperCase();
+}
+
+// AI e AP são os códigos que os alas levam nos relatórios. AE não entra: aparece
+// num avançado isolado, e MAI nos interiores de um meio-campo a três.
+const wingBackPositions = new Set(["AI", "AP"]);
+
+// Uma linha de dois alas entre duas linhas mais largas fica encostada às linhas
+// laterais em vez de repartida pelo meio, senão os cinco médios de um 3-5-2
+// desenham-se como um 3-2-3-2.
+function isWingBackRow(rows, index) {
+    let row = rows[index] || [];
+    if (row.length !== 2) return false;
+
+    let above = rows[index - 1];
+    let below = rows[index + 1];
+    if (!above || !below) return false;
+    if (row.length >= above.length || row.length >= below.length) return false;
+
+    return row.every((player) => wingBackPositions.has(getFormationPlayerPosition(player)));
+}
+
+// EAI, EX, ME e AI são os códigos dos extremos. AI é também o código dos alas
+// em wingBackPositions acima - Avançado Interior e Ala não têm nada a ver um
+// com o outro, só partilham as letras -, mas os dois nunca se cruzam: o dos
+// alas exige uma linha mais estreita que as duas vizinhas, o dos extremos
+// exige uma linha de dois mesmo do tamanho das vizinhas. Um par deles entre
+// duas linhas do mesmo tamanho não dá para distinguir de um par de médios
+// pelo desenho, e é por isso que a regra dos alas não o apanha: num 4-2-2-2
+// os três pares saem em coluna pelo meio. Quem manda é o nome da formação -
+// o sufixo "Wide" diz que aquele par joga nas alas - e não a leitura das
+// posições, senão os 26 relatórios com dois EAI ao lado do ponta-de-lança de
+// um 4-3-3 mudavam todos de desenho.
+const wingerPositions = new Set(["EAI", "EX", "ME", "AI"]);
+
+// AA e CJA são cada um o código de dois papéis diferentes. AA é o Avançado
+// Aberto (extremo) ou o Avançado Alvo (por dentro); CJA é o Construtor de Jogo
+// Aberto (extremo) ou o Construtor de Jogo Avançado (por dentro). Um "Wide" só
+// entra nesta lista maior - nunca na de cima, que também serve o trio
+// ofensivo de um 4-3-3, onde um par por dentro debaixo do ponta-de-lança não
+// deve sair para a lateral.
+const wideWingerPositions = new Set([...wingerPositions, "AA", "CJA"]);
+
+function isWideFormationName(name) {
+    return /\bwide\b/i.test(String(name || ""));
+}
+
+function isWingerRow(rows, index, positions = wingerPositions) {
+    let row = rows[index] || [];
+    if (row.length !== 2) return false;
+
+    return row.every((player) => positions.has(getFormationPlayerPosition(player)));
+}
+
+// Um trio ofensivo desenha-se com o ponta-de-lança sozinho e os dois extremos na
+// linha a seguir, e é aí que eles pertencem às colunas de fora - por cima dos
+// laterais e não por cima dos médios. Quem diz que a frente é de três é o nome:
+// um 3-4-2-1 põe os mesmos dois códigos debaixo de um avançado isolado e esses
+// jogam por dentro.
+function isFrontThreeName(name) {
+    let bands = String(name || "").match(/\d+/g);
+    return Boolean(bands) && bands[bands.length - 1] === "3";
+}
+
+function isFrontThreeWingerRow(rows, index) {
+    if (!isWingerRow(rows, index)) return false;
+
+    let above = rows[index - 1];
+    return Boolean(above) && above.length === 1;
 }
 
 function inferThreeCenterBackFormationName(formation) {
@@ -294,8 +362,12 @@ function getReportFormation(report, side) {
             players: matchFormationLayouts[formation] || []
         };
     }
+    // O nome transcrito manda sempre que existe. A inferência é só para a
+    // formação sem nome nenhum: um 3-5-2 com o trio da frente, o meio e os
+    // alas em três linhas separadas relia como "3-2-3-2" se a inferência
+    // corresse primeiro, porque conta cada linha como uma banda da formação.
     return {
-        name: inferThreeCenterBackFormationName(formation) || formation.name || "Sem dados",
+        name: formation.name || inferThreeCenterBackFormationName(formation) || "Sem dados",
         players: formation.players || []
     };
 }
@@ -338,13 +410,19 @@ function renderFormationPitch(report, side) {
         return `<div class="match-report-pitch match-report-pitch-empty"><span class="match-report-empty">Formação detalhada indisponível</span></div>`;
     }
     let totalRows = rows.length;
+    let wideFormation = isWideFormationName(formation.name);
+    let frontThree = isFrontThreeName(formation.name);
     return `
         <div class="match-report-pitch match-report-pitch-${side}">
-            ${rows.map((row, index) => `
-                <div class="match-report-pitch-row match-report-pitch-row-${index + 1}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
+            ${rows.map((row, index) => {
+                let alas = isWingBackRow(rows, index) || (wideFormation && isWingerRow(rows, index, wideWingerPositions));
+                let extremos = !alas && frontThree && isFrontThreeWingerRow(rows, index);
+                return `
+                <div class="match-report-pitch-row match-report-pitch-row-${index + 1}${alas ? " match-report-pitch-row-alas" : ""}${extremos ? " match-report-pitch-row-extremos" : ""}" style="--row-count:${row.length}; --row-index:${index + 1}; --total-rows:${totalRows};">
                     ${row.map((player) => renderFormationPlayer(player, scorers)).join("")}
                 </div>
-            `).join("")}
+                `;
+            }).join("")}
         </div>
     `;
 }
@@ -411,8 +489,8 @@ function openMatchReport(reportId) {
                     <section class="match-report-card match-report-events">
                         <h3>Eventos do jogo</h3>
                         <div class="match-report-events-grid">
-                            <div class="match-report-events-team match-report-events-team-home">${renderMatchReportEvents(report.events.home, getReportFormation(report, "home"), "home")}</div>
-                            <div class="match-report-events-team match-report-events-team-away">${renderMatchReportEvents(report.events.away, getReportFormation(report, "away"), "away")}</div>
+                            <div class="match-report-events-team match-report-events-team-home">${renderMatchReportEvents(report.events.home, getReportFormation(report, "home"))}</div>
+                            <div class="match-report-events-team match-report-events-team-away">${renderMatchReportEvents(report.events.away, getReportFormation(report, "away"))}</div>
                         </div>
                     </section>
                     <section class="match-report-card match-report-data">

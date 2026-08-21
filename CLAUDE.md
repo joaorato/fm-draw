@@ -55,30 +55,27 @@ Current order:
 8. `js/data/scotland.js`
 9. `js/data/croatia-table.js`
 10. `js/data/croatia-fixtures.js`
-11. `js/data/croatia-reports-01-05.js`
-12. `js/data/croatia-reports-06-11.js`
-13. `js/data/croatia-reports-taca.js`
-14. `js/data/croatia-reports-recentes.js`
-15. `js/data/croatia-wiring.js`
-16. `js/data/croatia-standings.js`
-17. `js/data/croatia-transfers.js`
-18. `js/data/croatia-news.js`
-19. `js/data/leagues.js`
-20. `js/ui/shared.js`
-21. `js/ui/chrome.js`
-22. `js/ui/coaches.js`
-23. `js/ui/standings-ui.js`
-24. `js/ui/league-selector.js`
-25. `js/ui/match-report.js`
-26. `js/ui/league-live.js`
-27. `js/ui/league-transfers.js`
-28. `js/ui/league-stats.js`
-29. `js/ui/league-calendar.js`
-30. `js/ui/league-race.js`
-31. `js/ui/league-panel.js`
-32. `js/ui/draw.js`
-33. `js/ui/share.js`
-34. `app.js`
+11. `js/data/croatia-reports.js`
+12. `js/data/croatia-wiring.js`
+13. `js/data/croatia-standings.js`
+14. `js/data/croatia-transfers.js`
+15. `js/data/croatia-news.js`
+16. `js/data/leagues.js`
+17. `js/ui/shared.js`
+18. `js/ui/chrome.js`
+19. `js/ui/coaches.js`
+20. `js/ui/standings-ui.js`
+21. `js/ui/league-selector.js`
+22. `js/ui/match-report.js`
+23. `js/ui/league-live.js`
+24. `js/ui/league-transfers.js`
+25. `js/ui/league-stats.js`
+26. `js/ui/league-calendar.js`
+27. `js/ui/league-race.js`
+28. `js/ui/league-panel.js`
+29. `js/ui/draw.js`
+30. `js/ui/share.js`
+31. `app.js`
 
 If you add a new data file, add its `<script>` tag before the file that consumes it. A new `js/ui/`
 file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` and before `app.js`.
@@ -97,8 +94,8 @@ file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` an
 | `js/data/scotland.js` | All Scotland season data, hand-typed (see Croatia Standings) |
 | `js/data/croatia-table.js` | Croatia league config: `croatiaSeedTable`, `croatiaZonas`, `croatiaRegras`, `croatiaClassificacaoFM`, `croatiaFixtureMonths` |
 | `js/data/croatia-fixtures.js` | Croatia fixtures/results |
-| `js/data/croatia-reports-*.js` | Croatia match reports, grouped by jornada/block |
-| `js/data/croatia-wiring.js` | Merges Croatia reports, links them to fixtures, derives form/result groups |
+| `js/data/croatia-reports.js` | Every Croatia match report, in one array. Written by `scripts/report_build.js` |
+| `js/data/croatia-wiring.js` | Links reports to fixtures by `fixtureKey`, derives form/result groups |
 | `js/data/croatia-standings.js` | Computes `croatiaCurrentTable` and `croatiaSeasonScores` from the fixtures |
 | `js/data/croatia-transfers.js` | Croatia transfers and extra club logos |
 | `js/data/croatia-news.js` | Croatia live/news carousel and articles |
@@ -165,13 +162,20 @@ For a new Croatia session:
 
 - Results/fixtures: edit `js/data/croatia-fixtures.js`.
 - Standings: nothing to edit. The table is computed from the fixtures (see Croatia Standings).
-- Match reports: append to `croatiaRecentReports` in `js/data/croatia-reports-recentes.js`.
+- Match reports: they all live in `croatiaMatchReports`, in `js/data/croatia-reports.js`, and
+  `scripts/report_build.js --write` writes them there itself. To transcribe one from an FM
+  screenshot, follow the `fm-match-report` skill in `.claude/skills/` - it carries the traps that
+  produce silently wrong data.
 - News article/carousel item: edit `js/data/croatia-news.js`.
 - Transfers: edit `js/data/croatia-transfers.js`.
 - Marcadores/assistências: nothing to edit. They come from the reports' goal events. Run
   `node scripts/validate_goals.js` after adding reports (see Golos e Assistências).
 
-If `croatia-reports-recentes.js` becomes too large, create a new `js/data/croatia-reports-<block>.js` file with a new `const`, add its script tag before `croatia-wiring.js`, and add that array to the spread in `croatiaMatchReports`.
+The reports used to be split across five files by jornada block. They are in one file on purpose: the
+split recorded when the work happened rather than anything about the data, nothing downstream read it,
+and every new report cost a `<script>` tag, an entry in a spread, and a renumbered list here. Adding a
+report now touches the data and nothing else. A second league brings its own file, not a new block of
+this one.
 
 ## Croatia Standings
 
@@ -301,10 +305,48 @@ Use the helpers from `report-core.js`:
 - `reportPlayer()`
 - `reportFormation()`
 - `reportStats()`
+- `goalEvent()` and `sendOffEvent()`
+
+Transcribe a report from an FM screenshot with the pipeline, not by hand: `scripts/report_crop.py`
+cuts the screenshot into readable pieces, you write a JSON transcription, and
+`scripts/report_build.js <json> --write` validates it and writes the block into
+`js/data/croatia-reports.js` - replacing the report already there, or appending if the match has none
+yet.
+**Leave it uncommitted**: the user reviews the `git diff` and decides.
+
+The `fm-match-report` skill has the details. (`--diff` prints the comparison instead of writing; it
+is not part of the routine, since `git diff` shows the same thing after `--write`.)
 
 Build keys with `createFixtureKey()` from `fixtures-core.js`.
 
 Important: a report whose `fixtureKey` does not match any fixture is silently dropped. After adding reports, check that the target fixture has `fixture.report`.
+
+**Write new goal events with `goalEvent()`, not as a string.** There are two shapes:
+
+```js
+goalEvent("71", "W. Sule", { assist: "J. Pršir" })   // novo
+"71' W. Sule J. Pršir"                                // antigo, ainda lido
+```
+
+The string has no separator between scorer and assister, so reading it means guessing where the name
+splits, and it says who scored only through word order. Both readers take the first name as the
+scorer, on both sides.
+
+**That order is not reliable in the existing data, and no rule fixes it.** FM mirrors the away column
+on screen and prints it assister, scorer, minute, and the strings were copied sometimes as displayed
+and sometimes corrected - occasionally within the same match. In jornada 3 Vukovar-Varaždin, three of
+the four away goals were stored scorer-first and one was reversed. Across every match checked against
+the save, reading the first name as the scorer is right 3 times out of 10 and reading the last name
+7 times out of 10, so neither is a rule. The only fix is re-reading the match from its screenshot,
+and the per-fixture goal count never catches any of it.
+
+`goalEvent()` ends the problem: two named fields, no order to interpret. A match re-transcribed
+through `scripts/report_build.js` stops depending on word order entirely.
+
+`node scripts/report_lint.js <fixtureKey>` checks a report against what the rest of the season
+already says: event order against the goal marks on the pitch card, shirt numbers against the same
+player elsewhere, names against the known squad, and the coach against the club's human manager.
+`--all` sweeps every report. Run it alongside `validate_goals.js`, which only proves the goal count.
 
 ## Scoring
 
@@ -405,6 +447,7 @@ Avoid broad restyles. Keep CSS changes close to the feature being changed.
 - Do not reorder scripts casually.
 - Do not introduce unrelated refactors while adding data or fixing UI.
 - Preserve user changes in a dirty worktree.
+- Commit messages are one line. No body, no bullet list of what changed - the diff says that.
 
 ## Verification
 
@@ -413,8 +456,16 @@ Useful checks:
 - Run a syntax check on changed JS files with Node if available: `node --check <file>`.
 - After touching match reports or `stats-core.js`, run `node scripts/validate_goals.js`. It should
   report 0 unresolved, 0 ambiguous and 0 fixtures disagreeing with the score.
-- Serve the folder (`python3 -m http.server`) and drive the page with the Playwright MCP tools to check the console and click through the affected tab. Note that the browser aggressively caches `js/data/*.js` and `js/ui/*.js`; serve on a fresh port after editing, or you will be testing the old file.
-- Open `index.html` locally to verify the affected tab.
+- After adding or editing a report, also run `node scripts/report_lint.js <fixtureKey>`. It catches
+  what the goal count cannot: a scorer and assister stored the wrong way round, a shirt number with a
+  digit hidden by the shirt graphic, a name spelled differently from the rest of the season, or an
+  assistant recorded as the coach of a human-managed club.
 - For data changes, check that the relevant table/card/report appears and no dependent script is loaded before its data.
+
+**Do not drive the browser unless asked.** The user checks the page themselves. Verify with the Node
+checks above, which cover the data and the parsing; if something can only be settled by looking at
+the rendered page, say so and let the user look. When the user does ask for a browser check, serve on
+a fresh port (`python3 -m http.server`) - the browser caches `js/data/*.js` and `js/ui/*.js` hard,
+and reusing a port means testing the old file.
 
 When changing match reports or fixtures, verify the `fixtureKey` link, not just syntax.
