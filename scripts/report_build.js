@@ -374,7 +374,7 @@ function acharBloco(texto, fixtureKey) {
 // já traz o placar (`t.score`, para validar os golos contra ele); usa-se o
 // mesmo aqui para acertar o jogo na lista, em vez de o deixar por conta de
 // quem escreveu a transcrição.
-const FICHEIROS_FIXTURES = ["croatia-fixtures.js", "scotland.js"];
+const FICHEIROS_FIXTURES = ["croatia/croatia-fixtures.js", "scotland.js"];
 
 function escaparRegex(texto) {
     return String(texto).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -398,24 +398,24 @@ function atualizarPlacarFixture(fixture, score) {
     return null;
 }
 
-const FICHEIRO_RELATORIOS = "js/data/croatia-reports.js";
+const FICHEIRO_RELATORIOS = "js/data/croatia/croatia-reports.js";
 
 function escrever(t, fixtureKey, destinoPedido) {
-    let pasta = path.join(__dirname, "..", "js", "data");
+    let pastaRelatorios = path.join(__dirname, "..", path.dirname(FICHEIRO_RELATORIOS));
     // Sem hífen a seguir a "reports": os relatórios estão todos no
     // croatia-reports.js, e a procura tem de o apanhar. Se não apanhar, um
     // relatório que já existe cai no ramo do relatório novo e é acrescentado
     // outra vez — fica lá duas vezes e o Map do wiring guarda o último.
-    let ficheiros = fs.readdirSync(pasta).filter((f) => /^croatia-reports.*\.js$/.test(f));
+    let ficheiros = fs.readdirSync(pastaRelatorios).filter((f) => /^croatia-reports.*\.js$/.test(f));
     let bloco = relatorioJs(t, fixtureKey);
 
-    let alvo = ficheiros.find((f) => fs.readFileSync(path.join(pasta, f), "utf8").includes(`"${fixtureKey}"`));
+    let alvo = ficheiros.find((f) => fs.readFileSync(path.join(pastaRelatorios, f), "utf8").includes(`"${fixtureKey}"`));
     if (alvo) {
-        let caminho = path.join(pasta, alvo);
+        let caminho = path.join(pastaRelatorios, alvo);
         let texto = fs.readFileSync(caminho, "utf8");
         let sitio = acharBloco(texto, fixtureKey);
         fs.writeFileSync(caminho, texto.slice(0, sitio.inicio) + bloco + "," + texto.slice(sitio.fim));
-        return { ficheiro: alvo, novo: false };
+        return { ficheiro: path.join(path.dirname(FICHEIRO_RELATORIOS), alvo), novo: false };
     }
 
     let destino = destinoPedido || FICHEIRO_RELATORIOS;
@@ -430,7 +430,7 @@ function escrever(t, fixtureKey, destinoPedido) {
     let antes = texto.slice(0, fecho);
     let virgula = antes.trimEnd().endsWith(",") ? "" : ",";
     fs.writeFileSync(caminho, antes + virgula + "\n" + bloco + texto.slice(fecho));
-    return { ficheiro: path.basename(destino), novo: true };
+    return { ficheiro: destino, novo: true };
 }
 
 function main() {
@@ -479,14 +479,14 @@ function main() {
 
     let destino = process.argv[process.argv.indexOf("--para") + 1];
     let { ficheiro, novo } = escrever(t, fixtureKey, process.argv.includes("--para") ? destino : null);
-    console.log(`\n${novo ? "acrescentado a" : "substituído em"} js/data/${ficheiro}`);
+    console.log(`\n${novo ? "acrescentado a" : "substituído em"} ${ficheiro}`);
 
     if (!Number.isFinite(fixture.homeGoals)) {
         let placar = `${t.score.home}-${t.score.away}`;
         let alvo = atualizarPlacarFixture(fixture, placar);
         if (alvo) console.log(`placar ${placar} colocado em js/data/${alvo}`);
         else console.log(`\n  AVISO não encontrei a chamada createLeagueMatch deste jogo para lhe pôr o placar ${placar}`
-            + ` — acerta-o à mão em js/data/${FICHEIROS_FIXTURES.join(" ou ")}`);
+            + ` — acerta-o à mão em ${FICHEIROS_FIXTURES.map((f) => `js/data/${f}`).join(" ou ")}`);
     }
 }
 

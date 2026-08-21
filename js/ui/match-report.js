@@ -81,7 +81,7 @@ function getEventNameVariants(name = "") {
 }
 
 // Num evento em string o marcador é o primeiro nome, dos dois lados. É o que o
-// formato diz, é o que o js/data/stats-core.js lê, e os dois têm de continuar a
+// formato diz, é o que o js/data/core/stats-core.js lê, e os dois têm de continuar a
 // dizer o mesmo — o `scripts/report_lint.js` falha se alguma vez discordarem.
 //
 // Que fique claro o que isto não é: não é uma garantia de que o nome está certo.

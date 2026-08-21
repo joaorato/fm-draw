@@ -16,7 +16,7 @@ node scripts/validate_goals.js
 **Não commites.** Deixa por commitar para o utilizador ver o `git diff` e decidir.
 **Não abras o browser** sem te pedirem: quem confere a página é ele.
 
-Os relatórios estão todos no `js/data/croatia-reports.js` e é lá que o `--write`
+Os relatórios estão todos no `js/data/croatia/croatia-reports.js` e é lá que o `--write`
 escreve, tanto a substituir um que já existe como a acrescentar um novo. Não há
 ficheiro para escolher nem `<script>` para juntar.
 

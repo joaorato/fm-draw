@@ -24,7 +24,8 @@ Do not introduce Node, npm, bundlers, modules or generated build output unless t
 - `index.html` - page structure, tab sections, modal/lightbox shells and the ordered script list.
 - `app.js` - bootstrap only. Calls the render functions once the rest has loaded, and must stay last.
 - `style.css` - all visual styling.
-- `js/data/` - data layer. One classic script per domain.
+- `js/data/` - data layer. One classic script per domain, grouped into `core/` (league-agnostic)
+  and one subfolder per season (`croatia/`), with `scotland.js` and `leagues.js` at the top level.
 - `js/ui/` - UI layer. One classic script per area: rendering, DOM events, tabs, draw ceremony, coach modals, league dashboard, news, transfers, calendar and match reports.
 - `assets/` - logos, coach images, flags, social icons, audio and result screenshots.
 
@@ -45,21 +46,21 @@ Two rules, and they are not the same rule:
 
 Current order:
 
-1. `js/data/coaches.js`
-2. `js/data/teams.js`
-3. `js/data/fixtures-core.js`
-4. `js/data/standings-core.js`
-5. `js/data/scoring-core.js`
-6. `js/data/report-core.js`
-7. `js/data/stats-core.js`
+1. `js/data/core/coaches.js`
+2. `js/data/core/teams.js`
+3. `js/data/core/fixtures-core.js`
+4. `js/data/core/standings-core.js`
+5. `js/data/core/scoring-core.js`
+6. `js/data/core/report-core.js`
+7. `js/data/core/stats-core.js`
 8. `js/data/scotland.js`
-9. `js/data/croatia-table.js`
-10. `js/data/croatia-fixtures.js`
-11. `js/data/croatia-reports.js`
-12. `js/data/croatia-wiring.js`
-13. `js/data/croatia-standings.js`
-14. `js/data/croatia-transfers.js`
-15. `js/data/croatia-news.js`
+9. `js/data/croatia/croatia-table.js`
+10. `js/data/croatia/croatia-fixtures.js`
+11. `js/data/croatia/croatia-reports.js`
+12. `js/data/croatia/croatia-wiring.js`
+13. `js/data/croatia/croatia-standings.js`
+14. `js/data/croatia/croatia-transfers.js`
+15. `js/data/croatia/croatia-news.js`
 16. `js/data/leagues.js`
 17. `js/ui/shared.js`
 18. `js/ui/chrome.js`
@@ -84,21 +85,21 @@ file can go anywhere in the `js/ui/` block, as long as it is after `js/data/` an
 
 | File | Purpose |
 |---|---|
-| `js/data/coaches.js` | `jogadores`, `coachProfiles`, `coachAssetFiles`, `coachStats`, `coachProfileExtras` |
-| `js/data/teams.js` | `equipas`, the current draw pot |
-| `js/data/fixtures-core.js` | Fixture helpers: `fixtureMonthNumbers`, `createFixtureKey`, `createLeagueMatch`, `assignLeagueFixtureRounds` |
-| `js/data/standings-core.js` | League-agnostic standings maths: `getFixtureOutcome`, `buildStandingsFromFixtures`, `standingsCriteria`, `sortStandings`, `applyStandingsSnapshot`, `buildStandingsHistory` |
-| `js/data/scoring-core.js` | League-agnostic EMG points: `calcSeasonPoints`, `calcTableScores`, `calcCupBonuses`, `calcPositionBonuses` |
-| `js/data/report-core.js` | Match report helpers: `reportPlayer`, `reportFormation`, `reportStats`, `compactReport` |
-| `js/data/stats-core.js` | League-agnostic player stats from the reports: `buildSquadIndex`, `readGoalEvent`, `splitScorerAndAssist`, `buildGoalRecords`, `buildPlayerRankings`, `validateGoalRecords` |
+| `js/data/core/coaches.js` | `jogadores`, `coachProfiles`, `coachAssetFiles`, `coachStats`, `coachProfileExtras` |
+| `js/data/core/teams.js` | `equipas`, the current draw pot |
+| `js/data/core/fixtures-core.js` | Fixture helpers: `fixtureMonthNumbers`, `createFixtureKey`, `createLeagueMatch`, `assignLeagueFixtureRounds` |
+| `js/data/core/standings-core.js` | League-agnostic standings maths: `getFixtureOutcome`, `buildStandingsFromFixtures`, `standingsCriteria`, `sortStandings`, `applyStandingsSnapshot`, `buildStandingsHistory` |
+| `js/data/core/scoring-core.js` | League-agnostic EMG points: `calcSeasonPoints`, `calcTableScores`, `calcCupBonuses`, `calcPositionBonuses` |
+| `js/data/core/report-core.js` | Match report helpers: `reportPlayer`, `reportFormation`, `reportStats`, `compactReport` |
+| `js/data/core/stats-core.js` | League-agnostic player stats from the reports: `buildSquadIndex`, `readGoalEvent`, `splitScorerAndAssist`, `buildGoalRecords`, `buildPlayerRankings`, `validateGoalRecords` |
 | `js/data/scotland.js` | All Scotland season data, hand-typed (see Croatia Standings) |
-| `js/data/croatia-table.js` | Croatia league config: `croatiaSeedTable`, `croatiaZonas`, `croatiaRegras`, `croatiaClassificacaoFM`, `croatiaFixtureMonths` |
-| `js/data/croatia-fixtures.js` | Croatia fixtures/results |
-| `js/data/croatia-reports.js` | Every Croatia match report, in one array. Written by `scripts/report_build.js` |
-| `js/data/croatia-wiring.js` | Links reports to fixtures by `fixtureKey`, derives form/result groups |
-| `js/data/croatia-standings.js` | Computes `croatiaCurrentTable` and `croatiaSeasonScores` from the fixtures |
-| `js/data/croatia-transfers.js` | Croatia transfers and extra club logos |
-| `js/data/croatia-news.js` | Croatia live/news carousel and articles |
+| `js/data/croatia/croatia-table.js` | Croatia league config: `croatiaSeedTable`, `croatiaZonas`, `croatiaRegras`, `croatiaClassificacaoFM`, `croatiaFixtureMonths` |
+| `js/data/croatia/croatia-fixtures.js` | Croatia fixtures/results |
+| `js/data/croatia/croatia-reports.js` | Every Croatia match report, in one array. Written by `scripts/report_build.js` |
+| `js/data/croatia/croatia-wiring.js` | Links reports to fixtures by `fixtureKey`, derives form/result groups |
+| `js/data/croatia/croatia-standings.js` | Computes `croatiaCurrentTable` and `croatiaSeasonScores` from the fixtures |
+| `js/data/croatia/croatia-transfers.js` | Croatia transfers and extra club logos |
+| `js/data/croatia/croatia-news.js` | Croatia live/news carousel and articles |
 | `js/data/leagues.js` | Final `leagues` array consumed by the whole UI layer |
 
 ## UI Files
@@ -131,7 +132,7 @@ Each owns its own state. The `let`s listed are declared at the top of that file 
 - `coachStats` - career stats and trophies, keyed by coach id.
 - `coachProfileExtras` - narrative/identity sections for coach modals.
 - `leagues` - one object per league. Drives the league selector, league dashboard and global standings.
-- `croatiaCurrentTable` and `croatiaSeasonScores` - **derived**, not authored. Computed in `js/data/croatia-standings.js` from the fixtures. The Croatia `emgPontos` column in `leagues.js` is read from `croatiaSeasonScores`, never typed. Everything else in this list is hand-written.
+- `croatiaCurrentTable` and `croatiaSeasonScores` - **derived**, not authored. Computed in `js/data/croatia/croatia-standings.js` from the fixtures. The Croatia `emgPontos` column in `leagues.js` is read from `croatiaSeasonScores`, never typed. Everything else in this list is hand-written.
 - `generalStandings` - derived in `js/ui/standings-ui.js` from every league, split into `concluidas` (leagues with `status === "completed"`) and `projecao` (the rest), plus `total` and the `inf` arrow. See Scoring.
 - `DRAW_COMPLETED` and `FINAL_RESULTS` - control whether the draw tab shows stored results or runs the roulette.
 
@@ -160,14 +161,14 @@ Adding a new league should normally mean adding its data file(s), loading them b
 
 For a new Croatia session:
 
-- Results/fixtures: edit `js/data/croatia-fixtures.js`.
+- Results/fixtures: edit `js/data/croatia/croatia-fixtures.js`.
 - Standings: nothing to edit. The table is computed from the fixtures (see Croatia Standings).
-- Match reports: they all live in `croatiaMatchReports`, in `js/data/croatia-reports.js`, and
+- Match reports: they all live in `croatiaMatchReports`, in `js/data/croatia/croatia-reports.js`, and
   `scripts/report_build.js --write` writes them there itself. To transcribe one from an FM
   screenshot, follow the `fm-match-report` skill in `.claude/skills/` - it carries the traps that
   produce silently wrong data.
-- News article/carousel item: edit `js/data/croatia-news.js`.
-- Transfers: edit `js/data/croatia-transfers.js`.
+- News article/carousel item: edit `js/data/croatia/croatia-news.js`.
+- Transfers: edit `js/data/croatia/croatia-transfers.js`.
 - Marcadores/assistências: nothing to edit. They come from the reports' goal events. Run
   `node scripts/validate_goals.js` after adding reports (see Golos e Assistências).
 
@@ -179,11 +180,11 @@ this one.
 
 ## Croatia Standings
 
-`croatiaCurrentTable` is **computed, never typed**. `js/data/croatia-standings.js` derives J, V, E, D, GM, GS, DG, Pts, position, the form dots and the zone colours from `croatiaFixtures`. Do not reintroduce a hand-written table.
+`croatiaCurrentTable` is **computed, never typed**. `js/data/croatia/croatia-standings.js` derives J, V, E, D, GM, GS, DG, Pts, position, the form dots and the zone colours from `croatiaFixtures`. Do not reintroduce a hand-written table.
 
 Only league matches count (`competition` starting with `"HNL"`) and only fixtures with a finite score. That filter is why the postponed Dinamo–Lokomotiva placeholder, which sits in the fixture list alongside its replayed `8-atraso` entry, does not double-count.
 
-What stays hand-authored in `js/data/croatia-table.js`:
+What stays hand-authored in `js/data/croatia/croatia-table.js`:
 
 - `croatiaSeedTable` - team, logo, `cor` (the club's colour, for the evolution chart), `jogador`, `prevista` and `inf` (the ↑ ↓ arrows are an editorial note, not a computed value).
 - `croatiaZonas` - zone by **position**, so the championship/Europe/relegation stripes follow whoever is in those places.
@@ -262,7 +263,7 @@ golos: { isLeagueMatch }
 No `golos`, no tab. **Scotland must not declare one**: it has no match reports at all, and its
 fixture list only covers the 8 EMG clubs.
 
-Nothing here is hand-written. `js/data/stats-core.js` derives everything from the goal events, and
+Nothing here is hand-written. `js/data/core/stats-core.js` derives everything from the goal events, and
 three things about that data must not be forgotten:
 
 - **Red cards live in the same array as the goals**, marked only by a trailing `expulso`. There are
@@ -310,7 +311,7 @@ Use the helpers from `report-core.js`:
 Transcribe a report from an FM screenshot with the pipeline, not by hand: `scripts/report_crop.py`
 cuts the screenshot into readable pieces, you write a JSON transcription, and
 `scripts/report_build.js <json> --write` validates it and writes the block into
-`js/data/croatia-reports.js` - replacing the report already there, or appending if the match has none
+`js/data/croatia/croatia-reports.js` - replacing the report already there, or appending if the match has none
 yet.
 **Leave it uncommitted**: the user reviews the `git diff` and decides.
 
@@ -354,7 +355,7 @@ Base formula:
 
 `(posição prevista - posição final) × 3`
 
-The maths lives in `js/data/scoring-core.js` and knows nothing about a specific league.
+The maths lives in `js/data/core/scoring-core.js` and knows nothing about a specific league.
 `calcBonuses()` in `js/ui/standings-ui.js` is just `calcCupBonuses(league.tacas)` + `calcPositionBonuses(league.tabela)`:
 
 - Champion: `+10`
