@@ -431,3 +431,74 @@ const coachProfileExtras = {
     }
 };
 
+const coachByNarrativeTeam = {
+    "Aberdeen": { coachName: "Gonçalo", team: "Aberdeen" },
+    "Hibernian": { coachName: "Rato", team: "Hibernian" },
+    "Dundee": { coachName: "Nabais", team: "Dundee" },
+    "Hearts": { coachName: "Cardoso", team: "Hearts" },
+    "Falkirk": { coachName: "Hugo", team: "Falkirk" },
+    "Kilmarnock": { coachName: "Chico", team: "Kilmarnock" },
+    "Dundee Utd": { coachName: "Gamy", team: "Dundee Utd" },
+    "Livingston": { coachName: "Painatal", team: "Livingston" }
+};
+
+const palmaresCountries = {
+    croacia: {
+        flag: "assets/flags/croatia.webp",
+        label: "Croácia",
+        available: false,
+        items: []
+    },
+    escocia: {
+        flag: "assets/flags/scotland.webp",
+        label: "Escócia",
+        available: true,
+        items: [
+            {
+                key: "league",
+                label: "Liga Escocesa",
+                icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Williamhillpremiership_locked_clickable.webp"
+            },
+            {
+                key: "league-cup",
+                label: "Taça da Liga Escocesa",
+                icon: "assets/logos/trophy_cabinet/escocia/premiersports.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Premiersports_locked_clickable.webp",
+                cabinetImage: "assets/logos/trophy_cabinet/escocia/Premiersports_cabinet.webp"
+            },
+            {
+                key: "cup",
+                label: "Taça Escocesa",
+                icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_locked_clickable.webp",
+                cabinetImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_cabinet.webp"
+            },
+            {
+                key: "europa",
+                label: "UEFA Europe League",
+                icon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked_clickable.webp"
+            },
+            {
+                key: "conference",
+                label: "UEFA Conference League",
+                icon: "assets/logos/trophy_cabinet/UEFA/conference league/UEFAConference.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked_clickable.webp"
+            },
+            {
+                key: "champions",
+                label: "UEFA Champions League",
+                icon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked_clickable.webp"
+            }
+        ]
+    }
+};
+
