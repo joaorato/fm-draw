@@ -503,14 +503,11 @@ function openMatchReport(reportId) {
         </article>
     `;
     document.body.appendChild(modal);
-    document.body.classList.add("modal-open");
+    openOverlay(modal, { onEscape: closeMatchReport });
 }
 
 function closeMatchReport() {
     let modal = document.getElementById("matchReportModal");
     if (!modal) return;
-    modal.remove();
-    if (!document.getElementById("coachModal") || document.getElementById("coachModal").hidden) {
-        document.body.classList.remove("modal-open");
-    }
+    closeOverlay(modal);
 }

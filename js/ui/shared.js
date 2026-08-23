@@ -26,3 +26,27 @@ function bindCoachLinks(scope = document) {
         link.dataset.bound = "true";
     });
 }
+
+let overlayStack = [];
+
+function openOverlay(el, { show, onEscape } = {}) {
+    if (!el) return;
+    if (show === "hidden") el.hidden = false;
+    else if (show === "class") el.classList.add("active");
+    overlayStack.push({ el, onEscape });
+    document.body.classList.add("modal-open");
+}
+
+function closeOverlay(el, { show } = {}) {
+    if (!el) return;
+    overlayStack = overlayStack.filter((entry) => entry.el !== el);
+    if (show === "hidden") el.hidden = true;
+    else if (show === "class") el.classList.remove("active");
+    else el.remove();
+    if (!overlayStack.length) document.body.classList.remove("modal-open");
+}
+
+document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !overlayStack.length) return;
+    overlayStack[overlayStack.length - 1].onEscape?.();
+});

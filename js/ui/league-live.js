@@ -440,7 +440,7 @@ function openLeagueNewsArticle(leagueId, index) {
     activeLeagueNewsIndex[leagueId] = activeIndex;
 
     let existingModal = document.getElementById("leagueNewsArticleModal");
-    existingModal?.remove();
+    if (existingModal) closeOverlay(existingModal);
 
     let modal = document.createElement("div");
     modal.id = "leagueNewsArticleModal";
@@ -469,16 +469,13 @@ function openLeagueNewsArticle(leagueId, index) {
     `;
 
     document.body.appendChild(modal);
-    document.body.classList.add("modal-open");
+    openOverlay(modal, { onEscape: closeLeagueNewsArticle });
 }
 
 function closeLeagueNewsArticle() {
     let modal = document.getElementById("leagueNewsArticleModal");
     if (!modal) return;
-    modal.remove();
-    if (!document.getElementById("matchReportModal") && (!document.getElementById("coachModal") || document.getElementById("coachModal").hidden)) {
-        document.body.classList.remove("modal-open");
-    }
+    closeOverlay(modal);
 }
 
 function stepLeagueLivePage(leagueId, direction = 1) {
@@ -504,12 +501,6 @@ document.addEventListener("click", (event) => {
     }
     if (!event.target.closest(".league-main-select-wrap")) {
         closeMainLeagueMenu();
-    }
-});
-
-document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && document.getElementById("leagueNewsArticleModal")) {
-        closeLeagueNewsArticle();
     }
 });
 

@@ -19,7 +19,6 @@ let raceFrameIndex = 0;
 let racePinned = new Set();
 let racePlaying = false;
 let raceAutoTimer = null;
-let raceEscapeBound = false;
 let raceHistoryCache = {};
 let raceSeriesByLeague = {};
 
@@ -399,12 +398,6 @@ function bindLeagueRaceEvents(modal) {
             toggleLeagueRaceTeam(badge.dataset.raceTeam);
         });
     });
-
-    if (raceEscapeBound) return;
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && document.getElementById("leagueRaceModal")) closeLeagueRace();
-    });
-    raceEscapeBound = true;
 }
 
 function openLeagueRace(leagueId) {
@@ -456,7 +449,7 @@ function openLeagueRace(leagueId) {
     `;
 
     document.body.appendChild(modal);
-    document.body.classList.add("modal-open");
+    openOverlay(modal, { onEscape: closeLeagueRace });
     bindLeagueRaceEvents(modal);
     applyLeagueRaceFrame();
     syncLeagueRacePlayButton();
@@ -472,13 +465,8 @@ function closeLeagueRace() {
     if (!modal) return;
 
     pauseLeagueRace();
-    modal.remove();
+    closeOverlay(modal);
     raceLeagueId = null;
-
-    let coachModal = document.getElementById("coachModal");
-    if (!document.getElementById("matchReportModal") && (!coachModal || coachModal.hidden)) {
-        document.body.classList.remove("modal-open");
-    }
 }
 
 function renderLeagueRaceTrigger(league) {

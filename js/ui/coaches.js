@@ -258,8 +258,7 @@ function setupPalmaresFlagInteraction() {
 }
 
 function openTrophyLightbox(src, label) {
-    let existing = document.getElementById("trophyLightbox");
-    if (existing) existing.remove();
+    closeTrophyLightbox();
 
     let lightbox = document.createElement("div");
     lightbox.id = "trophyLightbox";
@@ -272,8 +271,15 @@ function openTrophyLightbox(src, label) {
         </div>
     `;
     document.body.appendChild(lightbox);
+    lightbox.addEventListener("click", closeTrophyLightbox);
 
-    lightbox.addEventListener("click", () => lightbox.remove());
+    openOverlay(lightbox, { onEscape: closeTrophyLightbox });
+}
+
+function closeTrophyLightbox() {
+    let lightbox = document.getElementById("trophyLightbox");
+    if (!lightbox) return;
+    closeOverlay(lightbox);
 }
 
 function renderCoachInsightGrid(title, items) {
@@ -590,16 +596,14 @@ function openCoachModal(id, preserveTab) {
     setCoachModalView(currentView);
     setupCoachModalGallery();
     setupPalmaresFlagInteraction();
-    document.getElementById("coachModal").hidden = false;
-    document.body.classList.add("modal-open");
+    openOverlay(document.getElementById("coachModal"), { show: "hidden", onEscape: closeCoachModal });
     requestAnimationFrame(() => fitNarrativeNames(document.getElementById("coachModal")));
 }
 
 function closeCoachModal() {
     let modal = document.getElementById("coachModal");
     if (!modal) return;
-    modal.hidden = true;
-    document.body.classList.remove("modal-open");
+    closeOverlay(modal, { show: "hidden" });
 }
 
 function setupCoachModal() {
@@ -615,11 +619,6 @@ function setupCoachModal() {
 
     closeBtn?.addEventListener("click", closeCoachModal);
     backdrop?.addEventListener("click", closeCoachModal);
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && !modal.hidden) {
-            closeCoachModal();
-        }
-    });
 
     presentationTab?.addEventListener("click", () => setCoachModalView("presentation"));
     statsTab?.addEventListener("click", () => setCoachModalView("stats"));
@@ -801,15 +800,13 @@ function openPhotoLightbox(src, alt) {
     if (!lightbox || !img) return;
     img.src = src;
     img.alt = alt || "";
-    lightbox.classList.add("active");
-    document.body.style.overflow = "hidden";
+    openOverlay(lightbox, { show: "class", onEscape: closePhotoLightbox });
 }
 
 function closePhotoLightbox() {
     let lightbox = document.getElementById("photoLightbox");
     if (!lightbox) return;
-    lightbox.classList.remove("active");
-    document.body.style.overflow = "";
+    closeOverlay(lightbox, { show: "class" });
 }
 
 function setupPhotoLightbox() {
@@ -818,11 +815,6 @@ function setupPhotoLightbox() {
 
     lightbox.querySelector(".photo-lightbox-backdrop")?.addEventListener("click", closePhotoLightbox);
     lightbox.querySelector(".photo-lightbox-img")?.addEventListener("click", closePhotoLightbox);
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && lightbox.classList.contains("active")) {
-            closePhotoLightbox();
-        }
-    });
 
     lightbox.dataset.bound = "true";
 }
