@@ -1,4 +1,4 @@
-let activeLeagueId = "croatia";
+let activeLeagueId = (leagues.find((league) => league.status === "live") || leagues[0]).id;
 
 function renderLeagueSelector() {
     let selector = document.getElementById("leagueSelector");
