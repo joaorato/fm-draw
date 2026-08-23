@@ -502,3 +502,21 @@ const palmaresCountries = {
     }
 };
 
+const coachInsightPlaceholders = {
+    "Narrativa": [
+        { label: "Maior Vítima", value: "A recolher", meta: "Sem dados ainda" },
+        { label: "Maior Vitória", value: "A recolher", meta: "Sem dados ainda" },
+        { label: "Pior Derrota", value: "A recolher", meta: "Sem dados ainda" },
+        { label: "Némesis", value: "A recolher", meta: "Sem dados ainda" },
+        { label: "Jogo Mais Caótico", value: "A recolher", meta: "Sem dados ainda" }
+    ],
+    "Legado": [
+        { label: "Melhor Jogador", value: "A recolher", meta: "Sem dados ainda" },
+        { label: "Melhor Marcador", value: "A recolher", meta: "Sem dados ainda" }
+    ],
+    "Identidade": [
+        { label: "Especialidade", value: "A recolher", meta: "Sem dados ainda" },
+        { label: "Assinatura Tática", value: "A recolher", meta: "Sem dados ainda" }
+    ]
+};
+
