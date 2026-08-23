@@ -86,73 +86,73 @@ const coachProfiles = [
 
 const coachAssetFiles = {
     "goncalo": [
-        "goncalo_card.png",
-        "goncalo_profile.png",
-        "goncalo_profile2.png",
-        "goncalo_profile3.png",
-        "zepjobsrijeka_profile.png",
-        "zeprijeka2_profile.png",
-        "teste_goncalo.png",
-        "teste_goncalo2.png",
-        "teste_goncalo3.png",
-        "stats_treinador_goncalo.png"
+        "goncalo_card.webp",
+        "goncalo_profile.webp",
+        "goncalo_profile2.webp",
+        "goncalo_profile3.webp",
+        "zepjobsrijeka_profile.webp",
+        "zeprijeka2_profile.webp",
+        "teste_goncalo.webp",
+        "teste_goncalo2.webp",
+        "teste_goncalo3.webp",
+        "stats_treinador_goncalo.webp"
     ],
     "rato": [
-        "rato_card.png",
-        "rato_profile.png",
-        "rato_profile2.png",
-        "rato_profile5.png",
-        "rato_profile6.png",
-        "stats_treinador_rato.png"
+        "rato_card.webp",
+        "rato_profile.webp",
+        "rato_profile2.webp",
+        "rato_profile5.webp",
+        "rato_profile6.webp",
+        "stats_treinador_rato.webp"
     ],
     "chico": [
-        "chico_card.png",
-        "chico_profile.png",
-        "chico_profile2.png",
-        "chico_profile3.png",
-        "chicooficial2.png",
-        "stats_treinador_chico.png"
+        "chico_card.webp",
+        "chico_profile.webp",
+        "chico_profile2.webp",
+        "chico_profile3.webp",
+        "chicooficial2.webp",
+        "stats_treinador_chico.webp"
     ],
     "nabais": [
-        "nabais_card.png",
-        "nabais_profile_png.png",
-        "nabais_profile1.png",
-        "nabais_profile2.png",
-        "stats_treinador_nabais.png"
+        "nabais_card.webp",
+        "nabais_profile_png.webp",
+        "nabais_profile1.webp",
+        "nabais_profile2.webp",
+        "stats_treinador_nabais.webp"
     ],
     "gamy": [
-        "game_card.png",
-        "gamy_profile.png",
-        "gamy_profile2.png",
-        "gamy_profile3.png",
-        "gamy_profile4.png",
-        "gamyoficial2.png",
-        "stats_treinador_gamy.png"
+        "game_card.webp",
+        "gamy_profile.webp",
+        "gamy_profile2.webp",
+        "gamy_profile3.webp",
+        "gamy_profile4.webp",
+        "gamyoficial2.webp",
+        "stats_treinador_gamy.webp"
     ],
     "painatal": [
-        "painatal_card.png",
-        "painatal_profile.png",
-        "painatal_profile1.png",
-        "painatal_profile2.png",
-        "painatal_profile3.png",
-        "stats_treinador_painatal.png"
+        "painatal_card.webp",
+        "painatal_profile.webp",
+        "painatal_profile1.webp",
+        "painatal_profile2.webp",
+        "painatal_profile3.webp",
+        "stats_treinador_painatal.webp"
     ],
     "cardoso": [
-        "cardoso_card.png",
-        "cardoso_profile.png",
-        "cardoso2_profile.png",
-        "cardoso_profile4.png",
-        "cardoso_profile5.png",
-        "stats_treinador_cardoso.png"
+        "cardoso_card.webp",
+        "cardoso_profile.webp",
+        "cardoso2_profile.webp",
+        "cardoso_profile4.webp",
+        "cardoso_profile5.webp",
+        "stats_treinador_cardoso.webp"
     ],
     "hugo": [
-        "hugo_card.png",
-        "hugo_profile.png",
-        "hugo_profile2.png",
-        "hugo_profile3.png",
-        "hugo_profile4.png",
-        "hugo_profile5.png",
-        "stats_treinador_hugo.png"
+        "hugo_card.webp",
+        "hugo_profile.webp",
+        "hugo_profile2.webp",
+        "hugo_profile3.webp",
+        "hugo_profile4.webp",
+        "hugo_profile5.webp",
+        "stats_treinador_hugo.webp"
     ]
 };
 

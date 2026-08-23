@@ -71,7 +71,7 @@ const croatiaLivePages = [
                             "<span class=\"news-inline-highlight\">\"Ainda não ganhámos nada. Mas ninguém em Velika Gorica esperava estar a discutir a Europa em março.\"</span>",
                             "Faltam nove jornadas para descobrir até onde vai uma equipa que resolveu jogar sem aquilo que todos os outros consideram indispensável."
                         ],
-                        image: "assets/treinadores/cardoso/cardoso_profile6.png",
+                        image: "assets/treinadores/cardoso/cardoso_profile6.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "34% 20%",
@@ -143,7 +143,7 @@ const croatiaLivePages = [
                             "O Istra era sexto nas previsões de agosto. Passou o inverno em penúltimo. Voltou de janeiro com seis jogadores novos, um sistema diferente e o jogo a passar por dentro.",
                             "Faltam oito jornadas. E, pela primeira vez esta época, o calendário do Istra começa a parecer uma oportunidade em vez de uma ameaça. Resta saber se a equipa de João Pedro Rato vai conseguir manter o nível até ao final da temporada."
                         ],
-                        image: "assets/treinadores/rato/rato_profile8.png",
+                        image: "assets/treinadores/rato/rato_profile8.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "56% 28%",
@@ -204,7 +204,7 @@ const croatiaLivePages = [
                             "Num campeonato decidido por margens cada vez mais pequenas, saber atacar pode conquistar títulos.",
                             "Saber quando não atacar também."
                         ],
-                        image: "assets/treinadores/goncalo/zepjobes_noticia.png",
+                        image: "assets/treinadores/goncalo/zepjobes_noticia.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "8% 36%",
@@ -267,7 +267,7 @@ const croatiaLivePages = [
                             "<strong>EMG | A FRASE</strong>",
                             "<span class=\"news-inline-highlight\">\"Francisco Pinto recebeu um mês para dar a volta à época. Até agora, quem tem aproveitado o bónus são os adversários.\"</span>"
                         ],
-                        image: "assets/treinadores/chico/chico_noticia.png",
+                        image: "assets/treinadores/chico/chico_noticia.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "50% 50%",
@@ -310,7 +310,7 @@ const croatiaLivePages = [
                             "A investigação está encerrada. O debate, esse, está longe de terminar.",
                             "Porque no futebol há processos que terminam quando faltam provas. E há suspeitas que continuam a viver porque nunca faltam coincidências."
                         ],
-                        image: "assets/treinadores/rato/rato_profile7.png",
+                        image: "assets/treinadores/rato/rato_profile7.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "50% 38%",
@@ -361,7 +361,7 @@ const croatiaLivePages = [
                             "E com toda a justiça.",
                             "<strong>— Delfim Vergalhos Canteiro<br>Ex-treinador do Ravenna e cronista desportivo</strong>"
                         ],
-                        image: "assets/treinadores/gamy/gamy_news.png",
+                        image: "assets/treinadores/gamy/gamy_news.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "48% 42%",
@@ -404,7 +404,7 @@ const croatiaLivePages = [
                             "Há inclusive quem diga que este jogo já não vale apenas três pontos.",
                             "Vale ego."
                         ],
-                        image: "assets/treinadores/chico/chico_profile4.png",
+                        image: "assets/treinadores/chico/chico_profile4.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "55% 40%",
@@ -439,7 +439,7 @@ const croatiaLivePages = [
                             "Ainda assim, vários jornalistas presentes notaram um sorriso discreto do treinador enquanto abandonava a sala de imprensa.",
                             "Entretanto, a liga já confirmou que não existe qualquer investigação em curso relacionada com a arbitragem do encontro, apesar da crescente pressão mediática em torno do caso."
                         ],
-                        image: "assets/treinadores/painatal/painatal_news2.png",
+                        image: "assets/treinadores/painatal/painatal_news2.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "58% 42%",
@@ -459,7 +459,7 @@ const croatiaLivePages = [
                             "Zép entra na Rijeka com estatuto de candidato e pressão para confirmar favoritismo. Rato pega no Istra 1961 como quem procura uma equipa incómoda, capaz de roubar pontos a qualquer um. Chico quer dar identidade ao Slaven Belupo, Nabais tenta transformar o Varaždin numa ameaça real e Gamy aparece no Osijek com ambição suficiente para mexer cedo na tabela.",
                             "Painatal tem no Lokomotiva uma oportunidade para reescrever a narrativa depois dos altos e baixos anteriores. Cardoso procura estabilidade no Gorica, enquanto Hugo chega ao Vukovar como um dos nomes mais imprevisíveis do grupo. A experiência escocesa fica como aviso: reputação ajuda a começar, mas na Liga EMG só os resultados sustentam a conversa."
                         ],
-                        image: "assets/logos/teams/croacia/supersport_hnl.png",
+                        image: "assets/logos/teams/croacia/supersport_hnl.webp",
                         visual: {
                             type: "logo",
                             cardPosition: "72% 42%",
@@ -492,7 +492,7 @@ const croatiaLivePages = [
                             "Nos bastidores do Vukovar já se comenta que o treinador pediu três monitores extra para análise, acesso permanente à sala de vídeo e uma internet “minimamente capaz de aguentar 4K”.",
                             "A estreia oficial está marcada para as próximas semanas, num jogo onde muitos adeptos estarão atentos não só ao resultado... mas também ao número de instruções individuais atribuídas aos laterais."
                         ],
-                        image: "assets/treinadores/hugo/hugo_profile3.png",
+                        image: "assets/treinadores/hugo/hugo_profile3.webp",
                         visual: {
                             type: "portrait",
                             cardPosition: "72% 42%",
@@ -511,7 +511,7 @@ const croatiaLivePages = [
                             "<strong>Zagreb, 18 de Julho</strong> — Está confirmado. <span class=\"news-inline-highlight\">Rui Pedro</span> é o mais recente reforço do <span class=\"news-inline-highlight\">NK Lokomotiva Zagreb</span>, num negócio fechado nas últimas horas que já começa a agitar o mercado da Liga Croata.",
                             "O avançado português chega com estatuto de contratação forte, depois de uma época marcada pela consistência ofensiva e por momentos decisivos."
                         ],
-                        image: "assets/treinadores/painatal/painatal_new.png",
+                        image: "assets/treinadores/painatal/painatal_new.webp",
                         visual: { type: "photo" },
                         quote: "É um projeto ambicioso. Quero deixar marca desde o primeiro jogo.",
                         quoteBy: "Rui Pedro"

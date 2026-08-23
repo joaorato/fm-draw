@@ -169,46 +169,46 @@ const palmaresCountries = {
             {
                 key: "league",
                 label: "Liga Escocesa",
-                icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.png",
-                lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.png",
-                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Williamhillpremiership_locked_clickable.png"
+                icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Williamhillpremiership_locked_clickable.webp"
             },
             {
                 key: "league-cup",
                 label: "Taça da Liga Escocesa",
-                icon: "assets/logos/trophy_cabinet/escocia/premiersports.png",
-                lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.png",
-                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Premiersports_locked_clickable.png",
-                cabinetImage: "assets/logos/trophy_cabinet/escocia/Premiersports_cabinet.png"
+                icon: "assets/logos/trophy_cabinet/escocia/premiersports.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Premiersports_locked_clickable.webp",
+                cabinetImage: "assets/logos/trophy_cabinet/escocia/Premiersports_cabinet.webp"
             },
             {
                 key: "cup",
                 label: "Taça Escocesa",
-                icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.png",
-                lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.png",
-                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_locked_clickable.png",
-                cabinetImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_cabinet.png"
+                icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_locked_clickable.webp",
+                cabinetImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_cabinet.webp"
             },
             {
                 key: "europa",
                 label: "UEFA Europe League",
-                icon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague.png",
-                lockedIcon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked.png",
-                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked_clickable.png"
+                icon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked_clickable.webp"
             },
             {
                 key: "conference",
                 label: "UEFA Conference League",
-                icon: "assets/logos/trophy_cabinet/UEFA/conference league/UEFAConference.png",
-                lockedIcon: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked.png",
-                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked_clickable.png"
+                icon: "assets/logos/trophy_cabinet/UEFA/conference league/UEFAConference.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked_clickable.webp"
             },
             {
                 key: "champions",
                 label: "UEFA Champions League",
-                icon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague.png",
-                lockedIcon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked.png",
-                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked_clickable.png"
+                icon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked_clickable.webp"
             }
         ]
     }

@@ -175,7 +175,7 @@ function renderLeagueTeamOfYear(league) {
 }
 
 function getLeagueNewsVisual(article) {
-    let image = article.image || "assets/treinadores/painatal/painatal_new.png";
+    let image = article.image || "assets/treinadores/painatal/painatal_new.webp";
     let visual = article.visual || {};
     let type = visual.type || (
         image.includes("supersport_hnl") ? "logo" :

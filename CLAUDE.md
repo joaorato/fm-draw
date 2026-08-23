@@ -27,7 +27,9 @@ Do not introduce Node, npm, bundlers, modules or generated build output unless t
 - `js/data/` - data layer. One classic script per domain, grouped into `core/` (league-agnostic)
   and one subfolder per season (`croatia/`), with `scotland.js` and `leagues.js` at the top level.
 - `js/ui/` - UI layer. One classic script per area: rendering, DOM events, tabs, draw ceremony, coach modals, league dashboard, news, transfers, calendar and match reports.
-- `assets/` - logos, coach images, flags, social icons, audio and result screenshots.
+- `assets/` - logos, coach images, flags, social icons and audio. **Generated** from
+  `assets-src/` by `scripts/build_assets.js`; see Assets.
+- `assets-src/` - the originals, gitignored. Not deployed, not committed.
 
 ## Critical Script Rule
 
@@ -171,6 +173,13 @@ For a new Croatia session:
 - Transfers: edit `js/data/croatia/croatia-transfers.js`.
 - Marcadores/assistências: nothing to edit. They come from the reports' goal events. Run
   `node scripts/validate_goals.js` after adding reports (see Golos e Assistências).
+- A new image: drop the original into `assets-src/`, in the folder that matches what it is, then run
+  `node scripts/build_assets.js`. It writes the WebP into `assets/` and the path to reference is that
+  WebP. Reference it from a `js/data/` file the same way as the ones already there; a coach photo also
+  needs its filename listed in `coachAssetFiles`, and the name must contain `card` or `profile` for
+  `resolveCoachMedia()` to pick it up. If the folder has no entry in `REGRAS`, the file is reported
+  and **not** written, and the script exits non-zero - add a size rule rather than letting it through
+  at some default. See Assets.
 
 The reports used to be split across five files by jornada block. They are in one file on purpose: the
 split recorded when the work happened rather than anything about the data, nothing downstream read it,
@@ -437,6 +446,62 @@ Main areas:
 
 Avoid broad restyles. Keep CSS changes close to the feature being changed.
 
+## Assets
+
+`assets/` is **generated output, not authored**. The originals live in `assets-src/`, which is in
+`.gitignore`, and `scripts/build_assets.js` writes `assets/` from them:
+
+```
+node scripts/build_assets.js            # escreve assets/
+node scripts/build_assets.js --check    # não escreve, diz o que faria
+node scripts/build_assets.js --verify   # confirma que tudo o que o site pede existe
+```
+
+Everything the site serves is WebP, resized to about twice what it actually renders at, with the
+per-group caps held in `REGRAS` in that script. There is **no PNG fallback and no `<picture>`**: WebP
+has been supported since Safari 14, and `assets/flags/*.webp` already shipped that way. Audio is
+re-encoded to 128 kbps. The pass took the deployed assets from 188 MB to under 10 MB.
+
+**On any other machine, `assets-src/` will not be there.** It is gitignored, so a `git pull` brings
+the WebPs and deletes the old PNGs from the working tree without bringing the originals. Nothing is
+broken by that — `assets/` already holds everything the site asks for, and the site runs normally.
+Only re-running the conversion needs the originals, and they are in the history:
+
+```
+mkdir assets-src
+git archive 153b17a assets | tar -x -C assets-src --strip-components=1
+```
+
+`153b17a` is the last commit before the conversion. Run without `assets-src/`, the script prints
+exactly that recipe and exits non-zero **before** touching `assets/`, so a collaborator who runs it
+out of curiosity cannot wipe the generated tree.
+
+Three things about this are easy to undo by accident:
+
+- **A file the script does not convert leaves `assets/` on its own.** There is no delete step. The
+  exclusions in `NAO_PUBLICADOS` are working material, not site content: the FM screenshots in
+  `Resultados_croacia/`, the `stats_treinador_*` reference images, the `teste*` images and the raw
+  exports in `treinadores/chico/`. Artwork that is merely *not wired up yet* — the UEFA trophies, the
+  next numbered portrait in a coach's series — is converted on purpose, so it is there the day
+  someone uses it.
+- **An unmatched file is a warning, not a silent skip.** A new group with no entry in `REGRAS` is
+  reported and not written, and the script exits non-zero. Add a size rule rather than letting it
+  through at some default.
+- **Rename nothing.** `resolveCoachMedia()` in `js/ui/coaches.js` picks the card and profile photos by
+  filename substring (`card`, `profile`, `teste`, `stats`), and `js/ui/league-live.js` tests for
+  `supersport_hnl` and `hugo_profile3`. All of that survived the extension change; none of it would
+  survive a rename.
+
+`resolveCoachMedia()` still builds a `statsPhoto` path that nothing reads, and it now points at a
+file that is deliberately not in `assets/`. Nothing breaks, because nothing reads it. It is dead code
+pointing at a dead path, and worth removing on its own rather than inside an asset change.
+
+Two traps found while writing the script, both still live in `assets-src/`:
+`treinadores/rato/rato_profile5.png` and `rato_profile6.png` **are JPEGs** despite the extension, so
+dimensions have to come from `sips` when the PNG magic bytes are missing; and
+`treinadores/chico/Captura de ecrã …` is stored NFD by macOS, so an exclusion matching the accented
+letter fails. Match the prefix before the accent.
+
 ## Conventions
 
 - UI text and data are mostly Portuguese. Keep new visible text in Portuguese unless the existing local context is English.
@@ -462,6 +527,10 @@ Useful checks:
   digit hidden by the shirt graphic, a name spelled differently from the rest of the season, or an
   assistant recorded as the coach of a human-managed club.
 - For data changes, check that the relevant table/card/report appears and no dependent script is loaded before its data.
+- After touching anything under `assets/` or any image path, run
+  `node scripts/build_assets.js --verify`. It must report **0 em falta**. This matters more than it
+  looks: nothing on the site reacts to an image failing to load - there is no `onerror` anywhere -
+  so a wrong path is invisible in the browser and only a static check catches it.
 
 **Do not drive the browser unless asked.** The user checks the page themselves. Verify with the Node
 checks above, which cover the data and the parsing; if something can only be settled by looking at
