@@ -6559,6 +6559,7 @@ button:disabled {
    As três cores de série estão validadas contra o fundo #02071b: são as únicas
    que entram no gráfico, e só nas equipas seguidas. As outras ficam a cinzento. */
 .league-race-trigger {
+    margin-left: auto;
     cursor: pointer;
     font-family: inherit;
     color: rgb(var(--c-glow));
@@ -6568,6 +6569,20 @@ button:disabled {
 
 .league-race-trigger:hover,
 .league-race-trigger:focus-visible {
+    border-color: rgba(var(--c-glow), 0.45);
+    box-shadow: 0 0 22px rgba(var(--c-glow), 0.18);
+}
+
+.league-xi-trigger {
+    cursor: pointer;
+    font-family: inherit;
+    color: rgb(var(--c-glow));
+    border-color: rgba(var(--c-glow), 0.24);
+    transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.league-xi-trigger:hover,
+.league-xi-trigger:focus-visible {
     border-color: rgba(var(--c-glow), 0.45);
     box-shadow: 0 0 22px rgba(var(--c-glow), 0.18);
 }
