@@ -141,15 +141,36 @@ function renderLeagueAwards(league) {
     `;
 }
 
-function renderLeagueTeamOfYear(league) {
-    if (!league.merits?.teamOfYear?.length) return "";
-    let teamOfYear = league.merits.teamOfYear.map((player) => `
+// Pitch partilhado por qualquer painel que mostre um onze sobre um campo:
+// hoje o Team of the Year (dados de autor) e a Equipa da Jornada (calculada).
+// `rating` é opcional - só aparece quando o chamador o define.
+function renderXiPitch(players) {
+    let nodes = players.map((player) => `
         <div class="league-toty-player" style="--x: ${player.x}%; --y: ${player.y}%;">
             <div class="league-toty-shirt">${player.number}</div>
             <div class="league-toty-name">${player.name}</div>
+            ${player.rating != null ? `<div class="league-toty-rating">${player.rating}</div>` : ""}
             <div class="league-toty-meta">${player.role} · ${player.team}</div>
         </div>
     `).join("");
+
+    return `
+        <div class="league-toty-pitch">
+            <div class="league-toty-lines" aria-hidden="true">
+                <span class="league-toty-halfway"></span>
+                <span class="league-toty-centre-circle"></span>
+                <span class="league-toty-box league-toty-box-left"></span>
+                <span class="league-toty-box league-toty-box-right"></span>
+                <span class="league-toty-small-box league-toty-small-box-left"></span>
+                <span class="league-toty-small-box league-toty-small-box-right"></span>
+            </div>
+            ${nodes}
+        </div>
+    `;
+}
+
+function renderLeagueTeamOfYear(league) {
+    if (!league.merits?.teamOfYear?.length) return "";
 
     return `
         <section class="league-side-card league-toty-card">
@@ -158,17 +179,7 @@ function renderLeagueTeamOfYear(league) {
                 <strong>Team of the Year</strong>
             </div>
             <div class="league-toty-panel">
-                <div class="league-toty-pitch">
-                    <div class="league-toty-lines" aria-hidden="true">
-                        <span class="league-toty-halfway"></span>
-                        <span class="league-toty-centre-circle"></span>
-                        <span class="league-toty-box league-toty-box-left"></span>
-                        <span class="league-toty-box league-toty-box-right"></span>
-                        <span class="league-toty-small-box league-toty-small-box-left"></span>
-                        <span class="league-toty-small-box league-toty-small-box-right"></span>
-                    </div>
-                    ${teamOfYear}
-                </div>
+                ${renderXiPitch(league.merits.teamOfYear)}
             </div>
         </section>
     `;

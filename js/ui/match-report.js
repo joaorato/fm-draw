@@ -313,10 +313,6 @@ function inferThreeCenterBackFormationName(formation) {
     return shape.join("-");
 }
 
-function hasDetailedFormation(formation) {
-    return Boolean(formation && typeof formation !== "string" && formation.players?.some((row) => row.some((player) => player?.name || player?.number || player?.rating)));
-}
-
 function getFallbackDetailedFormation(report, side) {
     let fixture = report.fixture;
     if (!fixture) return null;

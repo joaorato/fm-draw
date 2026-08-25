@@ -298,3 +298,111 @@ function validateGoalRecords(league, records, options = {}) {
 
     return mismatches;
 }
+
+// A equipa da jornada não pode ler o campo `pos`: códigos como "CJA" servem
+// dois papéis por completo diferentes (Construtor de Jogo Avançado ou Aberto)
+// e não há como distinguir sem mais contexto. O sinal fiável é a ordem das
+// linhas do onze, que é sempre do ataque para o guarda-redes: a última linha
+// é sempre o guarda-redes, a primeira é sempre a linha mais avançada, e tudo
+// o que fica entre as duas é meio-campo.
+function getFormationTierRows(formation) {
+    let rows = formation.players;
+    let gk = rows[rows.length - 1] || [];
+    let outfieldRows = rows.slice(0, -1);
+
+    if (!outfieldRows.length) return { gk, fwd: [], mid: [], def: [] };
+    if (outfieldRows.length === 1) return { gk, fwd: [], mid: outfieldRows[0], def: [] };
+
+    let fwd = outfieldRows[0];
+    let def = outfieldRows[outfieldRows.length - 1];
+    let mid = outfieldRows.slice(1, -1).flat();
+    return { gk, fwd, mid, def };
+}
+
+function parseMatchRating(rating) {
+    let value = Number.parseFloat(String(rating ?? "").replace(",", "."));
+    return Number.isFinite(value) ? value : null;
+}
+
+function collectRoundAppearances(league, round, isLeagueMatch) {
+    let pools = { gk: [], def: [], mid: [], fwd: [] };
+
+    (league.fixtures || []).forEach((fixture) => {
+        if (!isLeagueMatch(fixture) || fixture.round !== round || !fixture.report) return;
+
+        ["home", "away"].forEach((side) => {
+            let formation = fixture.report.formations?.[side];
+            if (!hasDetailedFormation(formation)) return;
+
+            let team = fixture[side];
+            let tiers = getFormationTierRows(formation);
+
+            let pushRow = (row, tier) => {
+                row.forEach((player) => {
+                    let rating = parseMatchRating(player.rating);
+                    if (rating === null || !player.name) return;
+                    pools[tier].push({ name: player.name, number: player.number, rating, team, tier });
+                });
+            };
+
+            if (tiers.gk.length === 1) pushRow(tiers.gk, "gk");
+            pushRow(tiers.def, "def");
+            pushRow(tiers.mid, "mid");
+            pushRow(tiers.fwd, "fwd");
+        });
+    });
+
+    return pools;
+}
+
+function sortAppearancesForDirection(pool, direction) {
+    let sign = direction === "worst" ? 1 : -1;
+    return [...pool].sort((a, b) =>
+        sign * (a.rating - b.rating) ||
+        a.team.localeCompare(b.team, "pt") ||
+        a.name.localeCompare(b.name, "pt")
+    );
+}
+
+function sumRatings(players) {
+    return players.reduce((total, player) => total + player.rating, 0);
+}
+
+// Esquemas reais, não uma otimização livre sobre todas as somas possíveis:
+// cada trinca é (defesas, médios, avançados), a somar sempre 10.
+const LEAGUE_XI_SHAPES = [
+    [5, 3, 2], [5, 4, 1], [4, 5, 1], [4, 4, 2], [4, 3, 3], [4, 2, 4], [3, 5, 2], [3, 4, 3]
+];
+
+function buildRoundXi(league, round, direction, options = {}) {
+    let isLeagueMatch = options.isLeagueMatch || (() => true);
+    let pools = collectRoundAppearances(league, round, isLeagueMatch);
+
+    let gk = sortAppearancesForDirection(pools.gk, direction)[0] || null;
+    if (!gk) return null;
+
+    let best = null;
+    LEAGUE_XI_SHAPES.forEach(([defCount, midCount, fwdCount]) => {
+        if (pools.def.length < defCount || pools.mid.length < midCount || pools.fwd.length < fwdCount) return;
+
+        let def = sortAppearancesForDirection(pools.def, direction).slice(0, defCount);
+        let mid = sortAppearancesForDirection(pools.mid, direction).slice(0, midCount);
+        let fwd = sortAppearancesForDirection(pools.fwd, direction).slice(0, fwdCount);
+        let total = sumRatings(def) + sumRatings(mid) + sumRatings(fwd);
+
+        let better = !best || (direction === "worst" ? total < best.total : total > best.total);
+        if (better) best = { shape: [defCount, midCount, fwdCount], def, mid, fwd, total };
+    });
+
+    if (!best) return null;
+    return { round, direction, gk, def: best.def, mid: best.mid, fwd: best.fwd, shape: best.shape };
+}
+
+// Uma jornada só entra no seletor se houver pelo menos um esquema viável -
+// "best" e "worst" só mudam quem se escolhe dentro de cada linha, nunca se
+// há gente suficiente para preencher alguma.
+function getFeasibleLeagueXiRounds(league, options = {}) {
+    let isLeagueMatch = options.isLeagueMatch || (() => true);
+    let rounds = [...new Set((league.fixtures || []).filter(isLeagueMatch).map((fixture) => fixture.round))];
+    return rounds.filter((round) => buildRoundXi(league, round, "best", options) !== null);
+}

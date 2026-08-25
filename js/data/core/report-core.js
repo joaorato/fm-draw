@@ -27,6 +27,10 @@ function reportFormation(name, players) {
     return { name, players };
 }
 
+function hasDetailedFormation(formation) {
+    return Boolean(formation && typeof formation !== "string" && formation.players?.some((row) => row.some((player) => player?.name || player?.number || player?.rating)));
+}
+
 function reportStats(rows) {
     return rows.map(([label, home, away]) => ({ label, home, away }));
 }

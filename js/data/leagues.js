@@ -29,6 +29,12 @@ const leagues = [
         golos: {
             isLeagueMatch: isCroatiaLeagueMatch
         },
+        // Declarar isto dá o "Equipa da Jornada" / "Equipa Fraca da Jornada" a uma
+        // liga. Vale a mesma ressalva do golos: precisa de relatórios com onzes
+        // detalhados, e a Escócia não tem nenhum.
+        equipaJornada: {
+            isLeagueMatch: isCroatiaLeagueMatch
+        },
         extraTeamLogos: croatiaCupTeamLogos,
         tacas: [],
         liveCards: [

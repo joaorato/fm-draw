@@ -60,7 +60,7 @@ Order in `index.html`:
 4. `js/data/leagues.js`
 5. `js/ui/` - `shared.js`, `chrome.js`, `coaches.js`, `standings-ui.js`, `league-selector.js`,
    `match-report.js`, `league-live.js`, `league-transfers.js`, `league-stats.js`,
-   `league-calendar.js`, `league-race.js`, `league-panel.js`, `draw.js`, `share.js`
+   `league-calendar.js`, `league-race.js`, `league-xi.js`, `league-panel.js`, `draw.js`, `share.js`
 6. `app.js`
 
 Within `js/data/croatia/`, the order matters: fixtures need the table's config, wiring needs the
@@ -76,8 +76,8 @@ reports, standings needs the wiring. A new data file goes before the file that c
 | `js/data/core/fixtures-core.js` | `fixtureMonthNumbers`, `createFixtureKey`, `createLeagueMatch`, `assignLeagueFixtureRounds` |
 | `js/data/core/standings-core.js` | League-agnostic standings maths: `getFixtureOutcome`, `buildStandingsFromFixtures`, `standingsCriteria`, `sortStandings`, `applyStandingsSnapshot`, `buildStandingsHistory` |
 | `js/data/core/scoring-core.js` | League-agnostic EMG points: `calcSeasonPoints`, `calcTableScores`, `calcCupBonuses`, `calcPositionBonuses` |
-| `js/data/core/report-core.js` | Report helpers: `compactReport`, `reportPlayer`, `reportFormation`, `reportStats`, `goalEvent`, `sendOffEvent` |
-| `js/data/core/stats-core.js` | Player stats from the reports: `buildSquadIndex`, `readGoalEvent`, `splitScorerAndAssist`, `buildGoalRecords`, `buildPlayerRankings`, `validateGoalRecords` |
+| `js/data/core/report-core.js` | Report helpers: `compactReport`, `reportPlayer`, `reportFormation`, `reportStats`, `goalEvent`, `sendOffEvent`, `hasDetailedFormation` |
+| `js/data/core/stats-core.js` | Player stats from the reports: `buildSquadIndex`, `readGoalEvent`, `splitScorerAndAssist`, `buildGoalRecords`, `buildPlayerRankings`, `validateGoalRecords`, `buildRoundXi`, `getFeasibleLeagueXiRounds` |
 | `js/data/scotland.js` | All Scotland season data, hand-typed |
 | `js/data/croatia/croatia-table.js` | Croatia config: `croatiaSeedTable`, `croatiaZonas`, `croatiaRegras`, `croatiaClassificacaoFM`, `croatiaFixtureMonths` |
 | `js/data/croatia/croatia-fixtures.js` | Croatia fixtures and results |
@@ -106,6 +106,7 @@ else.
 | `js/ui/league-stats.js` | Lower tabbed card: tab strip, marcadores and assistências | `activeLeagueLowerTab`, `leagueGoalsCache`, `leagueTransfersScrollTop` |
 | `js/ui/league-calendar.js` | Fixture grouping, round select, calendar | `activeLeagueCalendarRound` |
 | `js/ui/league-race.js` | Evolução da classificação: the animated position chart and its overlay | `raceLeagueId`, `raceFrameIndex`, `racePinned`, `racePlaying`, `raceAutoTimer`, `raceHistoryCache`, `raceSeriesByLeague` |
+| `js/ui/league-xi.js` | Team of the Week / Team of the Weak overlay | `activeLeagueXiRound`, `activeLeagueXiDirection` |
 | `js/ui/league-panel.js` | Lower panel, side stats, `renderLeague` | - |
 | `js/ui/draw.js` | Roulette maths and the draw ceremony | `shuffledTeams`, `shuffledPlayers`, `remainingTeams`, `remainingPlayers`, `currentRound`, `resultados`, `DRAW_COMPLETED`, `FINAL_RESULTS` |
 | `js/ui/share.js` | Discord share, on-demand `html2canvas`, fullscreen | `html2canvasLoader` |
@@ -139,7 +140,7 @@ A league object in `js/data/leagues.js` contains:
 - Required: `id`, `status` (`"live"` or `"completed"`), `statusLabel`, `nome`, `descricao`, `logo`,
   `logoAlt`, `epoca`, `formula`, `scores`, `fixtures`, `fixtureMonths`, `tabela`
 - Optional: `fixtureGroupBy`, `liveCards`, `livePages`, `transfers`, `merits`, `sideStats`, `tacas`,
-  `extraTeamLogos`, `evolucao`, `golos`
+  `extraTeamLogos`, `evolucao`, `golos`, `equipaJornada`
 
 Adding a league means adding its data file(s), loading them before `leagues.js`, then pushing a new
 object into `leagues`.
@@ -282,6 +283,45 @@ Two smaller decisions that are easy to undo by accident:
   `Hoxha`/`A. Hoxha`, `Petrovič`/`Petrović`, `Kadušić`/`Kadusić`.
 - **The squad index matches on the surname when the full name misses**, which is what links a
   lineup's `"Dantas"` to an event's `"Tiago Dantas"`.
+
+## Team of the Week
+
+A toolbar button next to the evolution chart's, opened as its own overlay (`js/ui/league-xi.js`),
+picking the best- and worst-rated XI for a chosen jornada from the reports' starting-lineup ratings.
+The pun between its two views - Team of the Week and Team of the Weak - is why this one feature
+keeps English labels against the site's usual Portuguese; it doesn't survive translation.
+
+A league opts in the same way it opts into the race chart and the golos tab:
+
+```js
+equipaJornada: { isLeagueMatch }
+```
+
+No `equipaJornada`, no button. **Scotland must not declare one**: same reasoning as `golos`, it has
+no match reports.
+
+**Only starting-XI ratings exist, and that ceiling is permanent.** FM's end-of-match report screen
+never shows a substitute's rating, so there is no screenshot that would ever carry one - this is not
+a transcription gap that more work closes. The overlay says so plainly, via a tooltip next to the
+best/worst toggle.
+
+**A player's role tier comes from the row they played in, never from their `pos` code.** Report
+`pos` values are FM's Portuguese position abbreviations, and several of them are genuinely
+ambiguous without more context than the report gives - `CJA` alone can mean an advanced playmaker
+(a central role) or a wide one (a winger). What every report can be trusted to say, because
+`scripts/report_build.js` enforces it on every transcription, is that a formation's rows run from
+attack to goalkeeper. `getFormationTierRows()` in `stats-core.js` uses exactly that: the last row is
+the goalkeeper, the first outfield row tiers `fwd`, the last outfield row tiers `def`, everything
+between tiers `mid`.
+
+**The XI shape is chosen per jornada, not fixed.** `buildRoundXi()` tries a whitelist of real
+`(DEF, MID, FWD)` shapes - `LEAGUE_XI_SHAPES` in `stats-core.js` - and picks whichever feasible one
+produces the most extreme total rating in the requested direction. A round with too few detailed
+reports to fill any shape isn't offered in the jornada selector at all; there is no partial XI.
+
+`renderXiPitch()` in `js/ui/league-live.js` is the shared pitch-drawing primitive behind both this
+feature and the (Scotland-only, hand-authored) Team of the Year card - one pitch renderer, two very
+different sources of players.
 
 ## Match Reports
 
@@ -427,6 +467,7 @@ changed rather than restyling broadly.
 - Calendar/fixtures: `.league-calendar-*`, `.league-fixture-*`, `.league-match-*`
 - Match report modal: `.match-report-*`
 - Evolution chart: `.league-race-*`
+- Team of the Week overlay: `.league-xi-*`, sharing the pitch itself with `.league-toty-*`
 - Draw ceremony: `.draw-*`, `#drawView`, roulette/table classes
 - Home/social: `.home-*`, social/logo selectors
 
