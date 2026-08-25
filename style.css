@@ -6062,6 +6062,7 @@ button:disabled {
 .home-logo {
     display: block;
     width: min(780px, 72vw);
+    height: auto;
     max-width: 100%;
     margin: 0 auto;
     cursor: pointer;
