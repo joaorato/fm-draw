@@ -7059,4 +7059,233 @@ const croatiaMatchReports = [
             ["Classificação Média", "6,4", "7,4"]
         ])
     },
+    {
+        fixtureKey: "2025-04-18-hajduk-split-hnk-gorica",
+        date: "Sábado 18 de Abril de 2026",
+        stadium: "Poljud",
+        weather: "Calmo",
+        playerOfMatch: "Iker Almena",
+        rating: "7,89",
+        coaches: { home: "S. Bilić", away: "Miguel Cardoso" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("34", "Durdov", "7,1", "AAE")],
+                [reportPlayer("11", "Šego", "6,5", "Ex"), reportPlayer("21", "Pukstas", "7,1", "SA"), reportPlayer("30", "Almena", "7,9", "AI", true)],
+                [reportPlayer("7", "Kalik", "7,8", "MAA", true), reportPlayer("15", "Marešić", "7,4", "MD")],
+                [reportPlayer("3", "Auer", "7,6", "AlI"), reportPlayer("14", "Raçi", "7,1", "CC"), reportPlayer("5", "Skelin", "6,8", "CC"), reportPlayer("38", "Hodak", "7,5", "DL")],
+                [reportPlayer("33", "Silić", "7,3", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("20", "Vrzić", "6,0", "Ex"), reportPlayer("10", "Pršir", "6,2", "ME"), reportPlayer("9", "Bogojević", "6,5", "Ex")],
+                [reportPlayer("8", "Pozo", "6,2", "CJA"), reportPlayer("7", "Bakić", "6,3", "MC")],
+                [reportPlayer("36", "Kavelj", "6,7", "MD")],
+                [reportPlayer("19", "Čabraja", "6,5", "AI"), reportPlayer("5", "Leš", "7,2", "DC"), reportPlayer("4", "J. Filipović", "6,6", "CP"), reportPlayer("22", "Trontelj", "6,1", "AI")],
+                [reportPlayer("71", "Matijaš", "6,1", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("40", "I. Almena", { assist: "B. Durdov" }), goalEvent("42", "A. Kalik", { assist: "R. Pukstas" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "63%", "37%"],
+            ["Remates", "17", "9"],
+            ["Remates à Baliza", "5", "4"],
+            ["xG", "1,00", "0,65"],
+            ["PADPAD", "16,05", "35,93"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "8", "8"],
+            ["Passes Completados", "90%", "85%"],
+            ["Cruzamentos Completados", "22%", "10%"],
+            ["Faltas", "5", "12"],
+            ["Cartões amarelos", "0", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "125", "130"],
+            ["Classificação Média", "7,2", "6,4"]
+        ])
+    },
+    {
+        fixtureKey: "2025-04-18-nk-lokomotiva-nk-istra-1961",
+        date: "Sábado 18 de Abril de 2026",
+        stadium: "Maksimir",
+        weather: "Brisa",
+        playerOfMatch: "Chema Núñez",
+        rating: "8,54",
+        coaches: { home: "Pai Natal", away: "João Pedro Rato" },
+        formations: {
+            home: reportFormation("4-5-1", [
+                [reportPlayer("10", "Rui Pedro", "6,5", "AC")],
+                [reportPlayer("80", "Redmond", "6,3", "AA"), reportPlayer("18", "Šitum", "6,5", "AA")],
+                [reportPlayer("26", "Rog", "6,4", "ME"), reportPlayer("28", "Belcar", "6,5", "MC"), reportPlayer("8", "Antolić", "6,0", "ME")],
+                [reportPlayer("17", "Pajač", "6,5", "DL"), reportPlayer("20", "Kolinger", "6,6", "DC"), reportPlayer("13", "Zebić", "6,9", "CC"), reportPlayer("23", "Vešović", "6,5", "DL")],
+                [reportPlayer("12", "Posavec", "6,7", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("12", "Obando", "6,4", "AC")],
+                [reportPlayer("11", "Goričan", "7,1", "AA"), reportPlayer("21", "Núñez", "8,5", "MO", true), reportPlayer("17", "Frederiksen", "6,4", "EAI")],
+                [reportPlayer("8", "Maurić", "7,1", "MD"), reportPlayer("15", "Liber", "7,3", "CJR", true)],
+                [reportPlayer("22", "Can Coşkun", "6,9", "AI"), reportPlayer("4", "Johnston", "7,8", "CC"), reportPlayer("3", "Nasraoui", "7,6", "DC"), reportPlayer("97", "Kadušić", "8,0", "AI")],
+                [reportPlayer("99", "Wrąbel", "7,5", "GRC")]
+            ])
+        },
+        events: {
+            home: [sendOffEvent("29", "M. Vešović")],
+            away: [goalEvent("3", "A. Liber", { assist: "A. Kadušić" }), goalEvent("69", "C. Núñez", { assist: "Benny" }), goalEvent("87", "S. Lončar", { assist: "R. Hrvatin" })]
+        },
+        stats: reportStats([
+            ["Posse", "47%", "53%"],
+            ["Remates", "6", "21"],
+            ["Remates à Baliza", "0", "10"],
+            ["xG", "0,55", "2,66"],
+            ["PADPAD", "26,64", "23,11"],
+            ["Oportunidades Flagrantes", "0", "2"],
+            ["Cantos", "4", "9"],
+            ["Passes Completados", "88%", "89%"],
+            ["Cruzamentos Completados", "11%", "40%"],
+            ["Faltas", "17", "4"],
+            ["Cartões amarelos", "3", "0"],
+            ["Cartões vermelhos", "1", "0"],
+            ["Distância Percorrida", "115", "128"],
+            ["Classificação Média", "6,4", "7,4"]
+        ])
+    },
+    {
+        fixtureKey: "2025-04-18-nk-osijek-dinamo-zagreb",
+        date: "Sábado 18 de Abril de 2026",
+        stadium: "Opus Arena",
+        weather: "Calmo",
+        playerOfMatch: "Mateo Lisica",
+        rating: "7,77",
+        coaches: { home: "Gamy Chambelito", away: "M. Kovačević" },
+        formations: {
+            home: reportFormation("3-1-3-2-1", [
+                [reportPlayer("34", "Matković", "7,7", "AR", true)],
+                [reportPlayer("23", "Vrbančić", "6,4", "MO"), reportPlayer("17", "Jakupović", "6,7", "SA")],
+                [reportPlayer("38", "Čolina", "6,8", "MAI"), reportPlayer("6", "Álvarez", "6,8", "MC"), reportPlayer("39", "Bukvić", "6,4", "MAI")],
+                [reportPlayer("25", "Børkeeiet", "6,9", "Pi")],
+                [reportPlayer("2", "Racoviţan", "6,9", "CP"), reportPlayer("15", "Mersinaj", "6,6", "CP"), reportPlayer("26", "Jelenić", "7,1", "CP")],
+                [reportPlayer("12", "Diogo Sousa", "7,3", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("30", "Topić", "6,9", "AAE", true)],
+                [reportPlayer("11", "Hoxha", "6,5", "EAI"), reportPlayer("21", "Lisica", "7,8", "EAI")],
+                [reportPlayer("14", "Soldo", "6,3", "ME"), reportPlayer("7", "Stojković", "6,1", "ME")],
+                [reportPlayer("37", "Radoš", "6,4", "CJR")],
+                [reportPlayer("22", "Pérez Vinlöf", "5,8", "AI"), reportPlayer("16", "Torrente", "6,9", "CP"), reportPlayer("15", "Galešić", "6,2", "CC"), reportPlayer("36", "Domínguez", "6,3", "DL")],
+                [reportPlayer("40", "Livaković", "6,7", "GR")]
+            ])
+        },
+        events: {
+            home: [sendOffEvent("52", "J. Mersinaj"), goalEvent("69", "A. Matković", { assist: "J. Abrigo" })],
+            away: [goalEvent("16", "F. Topić", { assist: "M. Lisica" }), sendOffEvent("84", "M. Pérez Vinlöf")]
+        },
+        stats: reportStats([
+            ["Posse", "70%", "30%"],
+            ["Remates", "18", "11"],
+            ["Remates à Baliza", "6", "8"],
+            ["xG", "1,57", "1,32"],
+            ["PADPAD", "11,65", "47,00"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "8", "6"],
+            ["Passes Completados", "91%", "85%"],
+            ["Cruzamentos Completados", "22%", "10%"],
+            ["Faltas", "10", "12"],
+            ["Cartões amarelos", "2", "3"],
+            ["Cartões vermelhos", "1", "1"],
+            ["Distância Percorrida", "119", "118"],
+            ["Classificação Média", "6,9", "6,5"]
+        ])
+    },
+    {
+        fixtureKey: "2025-04-18-nk-varazdin-hnk-vukovar",
+        date: "Sábado 18 de Abril de 2026",
+        stadium: "Anđelko Herjavec",
+        weather: "Calmo",
+        playerOfMatch: "Robin Gonzalez",
+        rating: "8,66",
+        coaches: { home: "João Nabais", away: "Hugo Macedo" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("17", "Mamut", "8,5", "AR", true)],
+                [reportPlayer("7", "Vuk", "8,6", "AI"), reportPlayer("22", "Mamić", "6,5", "SA"), reportPlayer("11", "Brajković", "6,9", "Ex", true)],
+                [reportPlayer("24", "Marina", "6,8", "CJR"), reportPlayer("6", "Puclin", "6,4", "CJA")],
+                [reportPlayer("12", "Bočkaj", "6,5", "AI"), reportPlayer("13", "Mladenovski", "6,8", "DC"), reportPlayer("16", "Tepšić", "7,3", "CC"), reportPlayer("23", "Maglica", "7,3", "DL")],
+                [reportPlayer("33", "Silić", "6,8", "GR")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("9", "Kulušić", "6,3", "AvR")],
+                [reportPlayer("8", "Horvat", "6,4", "AI"), reportPlayer("10", "Gonzalez", "8,7", "AI", true)],
+                [reportPlayer("77", "Shabani", "6,5", "MC"), reportPlayer("43", "Čuić", "8,1", "CJA", true)],
+                [reportPlayer("19", "Mioč", "6,4", "MD")],
+                [reportPlayer("3", "Bosec", "6,7", "DL"), reportPlayer("5", "Elez", "6,4", "DC"), reportPlayer("4", "Mitrović", "6,2", "DC"), reportPlayer("91", "Tićinović", "6,4", "DL")],
+                [reportPlayer("42", "Đaković", "5,9", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("34", "I. Mamut", { penalty: true }), goalEvent("36", "I. Mamut", { assist: "M. Vuk" }), goalEvent("68", "R. Brajković", { assist: "M. Vuk" }), goalEvent("79", "A. Latković", { assist: "I. Mamut" }), goalEvent("85", "A. Latković", { assist: "N. Tepšić" })],
+            away: [goalEvent("2", "R. Gonzalez", { assist: "M. Čuić" }), goalEvent("67", "M. Čuić", { assist: "R. Gonzalez" }), goalEvent("89", "Š. Butić", { assist: "M. Čuić" })]
+        },
+        stats: reportStats([
+            ["Posse", "50%", "50%"],
+            ["Remates", "16", "15"],
+            ["Remates à Baliza", "7", "9"],
+            ["xG", "2,58", "1,63"],
+            ["PADPAD", "16,52", "17,10"],
+            ["Oportunidades Flagrantes", "2", "2"],
+            ["Cantos", "2", "9"],
+            ["Passes Completados", "90%", "86%"],
+            ["Cruzamentos Completados", "31%", "16%"],
+            ["Faltas", "7", "11"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "122", "121"],
+            ["Classificação Média", "7,2", "6,8"]
+        ])
+    },
+    {
+        fixtureKey: "2025-04-19-nk-slaven-belupo-hnk-rijeka",
+        date: "Domingo 19 de Abril de 2026",
+        stadium: "Gradski stadion Ivan Kušek Apaš",
+        weather: "Calmo",
+        playerOfMatch: "Jonathan Silva",
+        rating: "8,78",
+        coaches: { home: "Francisco Pinto", away: "Zép Jóbes" },
+        formations: {
+            home: reportFormation("4-2-2-2 Wide", [
+                [reportPlayer("7", "Dabro", "6,9", "AA"), reportPlayer("90", "Nestorovski", "6,8", "AvR", true)],
+                [reportPlayer("28", "Šunta", "6,7", "EAI"), reportPlayer("11", "Mitrović", "6,2", "Ex")],
+                [reportPlayer("8", "Mrowca", "6,3", "MD"), reportPlayer("21", "Crepulja", "6,3", "CJR")],
+                [reportPlayer("3", "Jakir", "6,2", "AI"), reportPlayer("6", "Božić", "6,3", "DC"), reportPlayer("4", "Kovačić", "6,9", "DC"), reportPlayer("18", "Krušelj", "6,3", "DL")],
+                [reportPlayer("31", "Hadžikić", "6,8", "GR")]
+            ]),
+            away: reportFormation("4-2-1-2-1", [
+                [reportPlayer("7", "Baldé", "8,3", "AAE", true)],
+                [reportPlayer("20", "Ndockyt", "8,0", "ME", true), reportPlayer("10", "Fruk", "6,4", "MO")],
+                [reportPlayer("17", "Ntcham", "6,6", "MC")],
+                [reportPlayer("21", "Lacoux", "6,5", "MD"), reportPlayer("26", "Tiago Dantas", "6,5", "CJR")],
+                [reportPlayer("24", "J. Silva", "8,8", "AI"), reportPlayer("53", "Emirhan", "6,6", "CC"), reportPlayer("6", "Radeljić", "6,8", "CC"), reportPlayer("22", "Oreč", "6,9", "AI")],
+                [reportPlayer("1", "Letica", "6,6", "GRP")]
+            ])
+        },
+        events: {
+            home: [goalEvent("3", "I. Nestorovski", { assist: "M. Dabro" })],
+            away: [goalEvent("21", "M. Ndockyt", { assist: "K. Baldé" }), goalEvent("83", "T. Božić", { ownGoal: true }), goalEvent("90+3", "K. Baldé", { assist: "J. Silva" })]
+        },
+        stats: reportStats([
+            ["Posse", "42%", "58%"],
+            ["Remates", "5", "18"],
+            ["Remates à Baliza", "2", "10"],
+            ["xG", "0,40", "2,78"],
+            ["PADPAD", "35,50", "11,90"],
+            ["Oportunidades Flagrantes", "1", "3"],
+            ["Cantos", "3", "9"],
+            ["Passes Completados", "83%", "90%"],
+            ["Cruzamentos Completados", "6%", "25%"],
+            ["Faltas", "18", "9"],
+            ["Cartões amarelos", "1", "2"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "119", "122"],
+            ["Classificação Média", "6,5", "7,1"]
+        ])
+    }
 ];
