@@ -4877,7 +4877,7 @@ button.league-fixture-score {
     z-index: 10040;
     width: max-content;
     min-width: min(300px, 76vw);
-    max-width: min(640px, 92vw);
+    max-width: 92vw;
     padding: 16px 18px 17px;
     border: 1px solid rgba(132, 181, 255, 0.2);
     border-radius: 8px;
@@ -4950,9 +4950,11 @@ button.league-fixture-score {
 .standings-record-tooltip-list {
     display: grid;
     grid-auto-flow: column;
+    grid-auto-columns: minmax(180px, max-content);
     grid-template-rows: repeat(var(--tooltip-rows, 10), auto);
     column-gap: 22px;
     row-gap: 8px;
+    overflow-x: auto;
 }
 
 .standings-record-tooltip-item {
