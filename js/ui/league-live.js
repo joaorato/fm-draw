@@ -60,10 +60,17 @@ function renderResultGroupItem(detail, teamName, meta) {
     `;
 }
 
+function getResultGroupTooltipRows(count) {
+    let columns = Math.ceil(count / 10) || 1;
+    return Math.ceil(count / columns);
+}
+
 function renderResultGroupTooltip(entry, type) {
     let meta = getResultGroupMeta(type);
     let items = entry.resultGroups?.[type] || [];
     if (!items.length) return "";
+
+    let rows = getResultGroupTooltipRows(items.length);
 
     return `
         <template class="standings-tooltip-template">
@@ -77,7 +84,7 @@ function renderResultGroupTooltip(entry, type) {
                     </span>
                 </span>
             </span>
-            <span class="standings-record-tooltip-list">
+            <span class="standings-record-tooltip-list" style="--tooltip-rows: ${rows};">
                 ${items.map((detail) => renderResultGroupItem(detail, entry.equipa, meta)).join("")}
             </span>
             </span>
@@ -114,7 +121,9 @@ function renderFormDots(form = [], details = []) {
                 let className = key === "W" || key === "V" ? "win" : key === "E" ? "draw" : key === "L" || key === "D" ? "loss" : "empty";
                 let ariaLabel = detail ? ` aria-label="${escapeAttribute(`${label} - ${detail.home} ${detail.score} ${detail.away}, ${detail.date}`)}"` : "";
                 let tabIndex = detail ? ` tabindex="0"` : "";
-                return `<span class="standings-form-dot ${className}"${tabIndex}${ariaLabel}>${label === "-" ? "" : label}${renderFormTooltip(detail)}</span>`;
+                let clickable = detail?.reportId ? " is-clickable" : "";
+                let onClick = detail?.reportId ? ` onclick="openMatchReport('${detail.reportId}')"` : "";
+                return `<span class="standings-form-dot ${className}${clickable}"${tabIndex}${ariaLabel}${onClick}>${label === "-" ? "" : label}${renderFormTooltip(detail)}</span>`;
             }).join("")}
         </div>
     `;

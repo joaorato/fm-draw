@@ -4875,7 +4875,9 @@ button.league-fixture-score {
     left: 0;
     top: 0;
     z-index: 10040;
-    width: min(360px, 76vw);
+    width: max-content;
+    min-width: min(300px, 76vw);
+    max-width: min(640px, 92vw);
     padding: 16px 18px 17px;
     border: 1px solid rgba(132, 181, 255, 0.2);
     border-radius: 8px;
@@ -4947,7 +4949,10 @@ button.league-fixture-score {
 
 .standings-record-tooltip-list {
     display: grid;
-    gap: 8px;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(var(--tooltip-rows, 10), auto);
+    column-gap: 22px;
+    row-gap: 8px;
 }
 
 .standings-record-tooltip-item {
@@ -4955,7 +4960,7 @@ button.league-fixture-score {
     grid-template-columns: minmax(74px, auto) minmax(0, 1fr);
     align-items: center;
     gap: 12px;
-    min-width: 0;
+    min-width: 180px;
 }
 
 .standings-record-score {
@@ -5222,6 +5227,10 @@ button.league-fixture-score {
 
 .standings-form-dot[tabindex] {
     cursor: help;
+}
+
+.standings-form-dot.is-clickable[tabindex] {
+    cursor: pointer;
 }
 
 .standings-form-tooltip {

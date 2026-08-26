@@ -40,7 +40,8 @@ function getTeamFixtureFormDetail(fixture, teamName) {
         away: fixture.away,
         homeLogo: getCroatiaFixtureTeamLogo(fixture.home),
         awayLogo: getCroatiaFixtureTeamLogo(fixture.away),
-        score: getFixtureScoreLabel(fixture)
+        score: getFixtureScoreLabel(fixture),
+        reportId: fixture.report ? fixture.report.id : null
     };
 }
 
