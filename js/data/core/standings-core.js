@@ -213,3 +213,24 @@ function buildStandingsHistory(fixtures, teamNames, options = {}) {
         };
     });
 }
+
+// As setas ↑ ↓: a posição de uma equipa hoje contra a que tinha antes do seu
+// último jogo. Não é a jornada do calendário — um jogo em atraso ou antecipado
+// faz equipas diferentes chegarem ao seu próprio último jogo em jornadas
+// diferentes do calendário — por isso o corte segue os jogos da própria
+// equipa, não o número de jornada. Recebe o histórico já calculado por
+// buildStandingsHistory().
+function getStandingsMovement(history, equipa) {
+    let anterior = null;
+    let atual = null;
+    history.forEach((frame) => {
+        let row = frame.rows.find((entry) => entry.equipa === equipa);
+        if (!row) return;
+        if (!atual || atual.j !== row.j) {
+            anterior = atual;
+            atual = row;
+        }
+    });
+    if (!anterior || anterior.pos === atual.pos) return "--";
+    return anterior.pos > atual.pos ? "↑" : "↓";
+}
