@@ -7883,4 +7883,50 @@ const croatiaMatchReports = [
             ["Classificação Média", "6,4", "7,3"]
         ])
     },
+    {
+        fixtureKey: "2025-04-22-nk-slaven-belupo-hnk-vukovar",
+        date: "Quarta-feira 22 de Abril de 2026",
+        stadium: "Gradski stadion Ivan Kušek Apaš",
+        weather: "Calmo",
+        playerOfMatch: "Jakov Puljić",
+        rating: "8,14",
+        coaches: { home: "Francisco Pinto", away: "Hugo Macedo" },
+        formations: {
+            home: reportFormation("3-3-3-1", [
+                [reportPlayer("7", "Dabro", "6,3", "AAE")],
+                [reportPlayer("15", "Ćubelić", "6,7", "Ex"), reportPlayer("90", "Nestorovski", "6,8", "MO"), reportPlayer("11", "Mitrović", "6,1", "CJA")],
+                [reportPlayer("8", "Mrowca", "6,4", "CJR"), reportPlayer("21", "Crepulja", "6,7", "MD"), reportPlayer("18", "Krušelj", "6,9", "AP")],
+                [reportPlayer("3", "Jakir", "6,6", "LI"), reportPlayer("6", "Božić", "6,5", "DC"), reportPlayer("4", "Ković", "6,4", "DC")],
+                [reportPlayer("31", "Hadžikić", "6,8", "GR")]
+            ]),
+            away: reportFormation("4-1-2-2-1", [
+                [reportPlayer("22", "Santini", "6,7", "AAE")],
+                [reportPlayer("10", "Gonzalez", "7,3", "AI"), reportPlayer("9", "Kulušić", "7,2", "AI")],
+                [reportPlayer("77", "Shabani", "6,5", "MC"), reportPlayer("43", "Čuić", "7,1", "CJA")],
+                [reportPlayer("19", "Mioč", "6,8", "MD")],
+                [reportPlayer("3", "Bosec", "7,0", "AI"), reportPlayer("5", "Elez", "7,7", "CC"), reportPlayer("4", "Mitrović", "7,4", "DC"), reportPlayer("91", "Tićinović", "6,9", "AI")],
+                [reportPlayer("42", "Đaković", "7,2", "GR")]
+            ])
+        },
+        events: {
+            home: [],
+            away: [goalEvent("60", "J. Puljić", { assist: "L. Kulušić" })]
+        },
+        stats: reportStats([
+            ["Posse", "36%", "64%"],
+            ["Remates", "12", "15"],
+            ["Remates à Baliza", "3", "8"],
+            ["xG", "0,96", "1,54"],
+            ["PADPAD", "18,91", "18,50"],
+            ["Oportunidades Flagrantes", "0", "1"],
+            ["Cantos", "5", "2"],
+            ["Passes Completados", "88%", "90%"],
+            ["Cruzamentos Completados", "18%", "20%"],
+            ["Faltas", "13", "9"],
+            ["Cartões amarelos", "4", "2"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "132", "128"],
+            ["Classificação Média", "6,6", "7,1"]
+        ])
+    }
 ];
