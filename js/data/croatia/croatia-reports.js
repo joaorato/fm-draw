@@ -7836,5 +7836,51 @@ const croatiaMatchReports = [
             ["Distância Percorrida", "122", "121"],
             ["Classificação Média", "6,6", "6,8"]
         ])
-    }
+    },
+    {
+        fixtureKey: "2025-04-22-hajduk-split-hnk-rijeka",
+        date: "Quarta-feira 22 de Abril de 2026",
+        stadium: "Poljud",
+        weather: "Calmo",
+        playerOfMatch: "Ante Matej Jurić",
+        rating: "9,45",
+        coaches: { home: "S. Bilić", away: "Zép Jóbes" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("11", "Šego", "6,4", "AAE")],
+                [reportPlayer("9", "A. Rebić", "6,4", "AI"), reportPlayer("10", "Livaja", "6,8", "MO", true), reportPlayer("30", "Almena", "6,4", "AI")],
+                [reportPlayer("23", "Krovinović", "6,6", "CJR"), reportPlayer("6", "Hugo G.", "7,0", "MD")],
+                [reportPlayer("32", "Hrgović", "6,3", "AI"), reportPlayer("14", "Rači", "6,3", "CC"), reportPlayer("15", "Marešić", "6,0", "CC"), reportPlayer("38", "Hodak", "6,6", "DL")],
+                [reportPlayer("1", "Ivušić", "5,9", "GRC")]
+            ]),
+            away: reportFormation("4-2-1-2-1", [
+                [reportPlayer("7", "Keita Balde", "6,6", "AAE")],
+                [reportPlayer("20", "Ndockyt", "6,6", "ME"), reportPlayer("10", "Fruk", "6,6", "MO")],
+                [reportPlayer("8", "Petrovič", "6,6", "MC")],
+                [reportPlayer("21", "Lacoux", "7,0", "MD"), reportPlayer("26", "Dantas", "6,7", "CJR")],
+                [reportPlayer("24", "J. Silva", "7,8", "AI", true), reportPlayer("53", "Emirhan", "7,4", "CC"), reportPlayer("6", "Radeljić", "7,6", "CC"), reportPlayer("22", "Orec", "8,0", "AI")],
+                [reportPlayer("1", "Letica", "6,7", "GRP")]
+            ])
+        },
+        events: {
+            home: [goalEvent("29", "M. Livaja")],
+            away: [goalEvent("37", "J. Silva", { assist: "A. Orec" }), goalEvent("63", "A. Jurić", { assist: "A. Gojak" }), goalEvent("67", "A. Gojak", { assist: "J. Silva" }), goalEvent("82", "T. Ambrose", { assist: "A. Jurić" }), goalEvent("88", "A. Jurić", { assist: "S. Radeljić" })]
+        },
+        stats: reportStats([
+            ["Posse", "42%", "58%"],
+            ["Remates", "10", "24"],
+            ["Remates à Baliza", "2", "10"],
+            ["xG", "1,10", "2,49"],
+            ["PADPAD", "22,22", "15,00"],
+            ["Oportunidades Flagrantes", "2", "1"],
+            ["Cantos", "5", "12"],
+            ["Passes Completados", "82%", "87%"],
+            ["Cruzamentos Completados", "12%", "31%"],
+            ["Faltas", "12", "16"],
+            ["Cartões amarelos", "0", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "123", "126"],
+            ["Classificação Média", "6,4", "7,3"]
+        ])
+    },
 ];

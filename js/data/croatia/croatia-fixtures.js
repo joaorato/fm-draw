@@ -169,7 +169,7 @@ const croatiaFixtures = [
     createLeagueMatch("Abril", "HNL", "18 Abr", "NK Varaždin", "5-3", "HNK Vukovar"),
     createLeagueMatch("Abril", "HNL · Jornada 31", "22 Abr", "Dinamo Zagreb", "1-4", "NK Varaždin", { roundKey: "31", roundLabel: "Jornada 31", note: "Parte restante da jornada 31" }),
     createLeagueMatch("Abril", "HNL · Jornada 31", "22 Abr", "HNK Gorica", "4-1", "NK Lokomotiva", { roundKey: "31", roundLabel: "Jornada 31", note: "Parte restante da jornada 31", advanceRoundCounter: true }),
-    createLeagueMatch("Abril", "Hrvatski nogometni kup", "22 Abr", "Hajduk Split", "-", "HNK Rijeka", { roundKey: "cup-sf", roundLabel: "Taça da Croácia · Meia-final", note: "Meia-final da Taça da Croácia" }),
+    createLeagueMatch("Abril", "Hrvatski nogometni kup", "22 Abr", "Hajduk Split", "1-5", "HNK Rijeka", { roundKey: "cup-sf", roundLabel: "Taça da Croácia · Meia-final", note: "Meia-final da Taça da Croácia" }),
     createLeagueMatch("Abril", "Hrvatski nogometni kup", "22 Abr", "NK Slaven Belupo", "-", "HNK Vukovar", { roundKey: "cup-sf", roundLabel: "Taça da Croácia · Meia-final", note: "Meia-final da Taça da Croácia" }),
     createLeagueMatch("Abril", "HNL", "25 Abr", "HNK Gorica", "1-1", "HNK Vukovar"),
     createLeagueMatch("Abril", "HNL", "25 Abr", "Hajduk Split", "1-1", "Dinamo Zagreb"),
