@@ -191,6 +191,7 @@ const croatiaFixtures = [
     createLeagueMatch("Maio", "HNL", "16 Mai", "NK Osijek", "-", "NK Varaždin"),
     createLeagueMatch("Maio", "HNL", "16 Mai", "HNK Rijeka", "-", "HNK Vukovar"),
     createLeagueMatch("Maio", "HNL", "16 Mai", "NK Slaven Belupo", "-", "Hajduk Split"),
+    createLeagueMatch("Maio", "Hrvatski nogometni kup", "20 Mai", "HNK Rijeka", "-", "HNK Vukovar", { roundKey: "cup-final", roundLabel: "Taça da Croácia · Final", note: "Final da Taça da Croácia" }),
     createLeagueMatch("Maio", "HNL", "23 Mai", "Dinamo Zagreb", "-", "HNK Rijeka"),
     createLeagueMatch("Maio", "HNL", "23 Mai", "HNK Gorica", "-", "NK Slaven Belupo"),
     createLeagueMatch("Maio", "HNL", "23 Mai", "Hajduk Split", "-", "NK Osijek"),
