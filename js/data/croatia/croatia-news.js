@@ -47,7 +47,7 @@ const croatiaLivePages = [
                             "Já não é perceber se João Nabais tem experiência suficiente para estar neste nível.",
                             "É perceber até onde poderá chegar quando a tiver."
                         ],
-                        image: "assets/treinadores/nabais/6d22f190-a931-4889-863a-3dd0c37161d7.png",
+                        image: "assets/treinadores/nabais/nabais_noticia_dinamo.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "24% 32%",
