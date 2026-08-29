@@ -46,7 +46,7 @@ const croatiaLivePages = [
                             "Agora falta apenas uma coisa.",
                             "Levá-la para casa."
                         ],
-                        image: "assets/treinadores/goncalo/aea7115c-d0e8-425e-b7f2-d21828bf7cab.webp",
+                        image: "assets/treinadores/goncalo/zepjobes_taca.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "60% 36%",
@@ -99,7 +99,7 @@ const croatiaLivePages = [
                             "Francisco Pinto saiu com a temporada ainda mais pesada sobre os ombros.",
                             "E depois de uma noite de provocações, protestos, um bate-boca junto aos bancos e 90 minutos de enorme tensão, provavelmente não será esta meia-final que dará início a uma grande amizade entre os dois."
                         ],
-                        image: "assets/treinadores/hugo/ae794e4b-0758-4f9a-a25b-6ed462d37647.webp",
+                        image: "assets/treinadores/hugo/hugo_taca.webp",
                         visual: {
                             type: "photo",
                             cardPosition: "24% 32%",
