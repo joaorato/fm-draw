@@ -13,9 +13,9 @@ const coachProfiles = [
         descricao: "Sou José Empregos. No futebol, chamam-me Zép Jóbes — e não é por estética, é por impacto. Enquanto muitos seguem ideias, eu crio-as. Enquanto outros estudam tendências, eu pergunto-me quanto tempo vão demorar até copiarem as minhas. Comecei onde todos começam: em baixo. A diferença é que eu nunca achei que pertencesse lá. No Real de Massamá, percebi rapidamente que a formação tinha um pequeno problema: era demasiado pequena para o meu talento. Ultrapassei etapas cedo demais, subi depressa demais e deixei para trás treinadores que ainda hoje devem estar a tentar perceber o que aconteceu. Não era arrogância. Era apenas uma avaliação extremamente precisa das minhas próprias capacidades.\n\nDepois veio o estágio com Pep Guardiola. Oficialmente, fui lá para aprender. Na prática, gosto de pensar que houve uma troca de conhecimentos bastante desequilibrada. Guardiola viu em mim aquilo que o resto do futebol demorou a perceber: inevitabilidade. Foi então que apareceu o Aberdeen. Disseram que era cedo. Disseram que não tinha experiência. Disseram que o futebol escocês me ia pôr no meu lugar. Tinham razão numa coisa: encontrei o meu lugar. No pódio. Duas taças. Foi aí que nasceu o nome que ainda hoje me acompanha: “O Predador de Taças.” Porque quando chega o mata-mata, enquanto outros treinadores sentem pressão, eu sinto familiaridade. Uns preparam penáltis. Outros preparam discursos. Eu preparo espaço na vitrine.\n\nAgora estou na Croácia. Há quem diga que foi um passo atrás na carreira. Acho curioso. Dizem sempre que um campeonato é pequeno antes de eu chegar. Depois, se tudo correr normalmente, chamam-lhe revolução. Não vim para a Croácia aprender o campeonato. Vim ensinar o campeonato a lidar comigo. Eu não sigo tendências. Eu começo-as. Eu não me adapto ao jogo. O jogo adapta-se a mim. Não sou apenas um treinador. Sou o padrão que os outros tentam alcançar. Eu sou Zép Jóbes.",
         destaque: "\"O que gosto mais do que ganhar taças? Ganhar outra e explicar que não foi sorte.\"",
         assetFolder: "goncalo",
-        profilePhoto: "aea7115c-d0e8-425e-b7f2-d21828bf7cab.webp",
+        profilePhoto: "zepjobes_taca.webp",
         profilePhotoPositions: {
-            "aea7115c-d0e8-425e-b7f2-d21828bf7cab.webp": "64% center"
+            "zepjobes_taca.webp": "64% center"
         }
     },
     {
@@ -97,7 +97,7 @@ const coachAssetFiles = {
         "goncalo_profile4.webp",
         "zepjobsrijeka_profile.webp",
         "zeprijeka2_profile.webp",
-        "aea7115c-d0e8-425e-b7f2-d21828bf7cab.webp",
+        "zepjobes_taca.webp",
         "teste_goncalo.webp",
         "teste_goncalo2.webp",
         "teste_goncalo3.webp",
