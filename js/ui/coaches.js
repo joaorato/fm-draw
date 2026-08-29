@@ -83,6 +83,12 @@ function resolveCoachMedia(coach) {
 
     let cardFile = keywordCardFiles[0] || usableFiles[0] || null;
     let profileFiles = keywordProfileFiles;
+    if (coach.profilePhoto && usableFiles.includes(coach.profilePhoto)) {
+        profileFiles = [
+            coach.profilePhoto,
+            ...profileFiles.filter((file) => file !== coach.profilePhoto)
+        ];
+    }
 
     if (!profileFiles.length) {
         profileFiles = usableFiles.filter((file) => file !== cardFile);
@@ -100,6 +106,11 @@ function resolveCoachMedia(coach) {
 
 function getCoachStats(coach) {
     return coachStats[coach.id] || null;
+}
+
+function getCoachPhotoPosition(coach, photoPath) {
+    let file = photoPath.split("/").pop();
+    return coach.profilePhotoPositions?.[file] || "center";
 }
 
 function renderCoachStatsMarkup(coach) {
@@ -540,11 +551,12 @@ function renderCoachModal(coach) {
     let initials = coach.nome.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
     let mediaAssets = resolveCoachMedia(coach);
     let images = mediaAssets.profilePhotos;
+    let imagePositions = Object.fromEntries(images.map((image) => [image, getCoachPhotoPosition(coach, image)]));
     let media = images.length
         ? `
             <div class="coach-modal-gallery" data-photo-index="0">
                 ${images.length > 1 ? `<button class="coach-modal-photo-nav prev" type="button" aria-label="Foto anterior de ${coach.nome}">‹</button>` : ""}
-                <img src="${images[0]}" alt="${coach.nome}" class="coach-card-photo coach-modal-photo-main" draggable="false">
+                <img src="${images[0]}" alt="${coach.nome}" class="coach-card-photo coach-modal-photo-main" style="object-position: ${imagePositions[images[0]]};" draggable="false">
                 ${images.length > 1 ? `<button class="coach-modal-photo-nav next" type="button" aria-label="Foto seguinte de ${coach.nome}">›</button>` : ""}
             </div>
         `
@@ -553,6 +565,7 @@ function renderCoachModal(coach) {
     let mediaEl = document.getElementById("coachModalMedia");
     mediaEl.innerHTML = media;
     mediaEl.dataset.images = JSON.stringify(images);
+    mediaEl.dataset.imagePositions = JSON.stringify(imagePositions);
     document.getElementById("coachModalName").textContent = coach.nomePerfil || coach.nome;
     document.getElementById("coachModalRole").textContent = coach.cargo;
     document.getElementById("coachModalDescription").innerHTML = formatCoachDescription(coach.descricao);
@@ -741,10 +754,13 @@ function setupCoachModalGallery() {
     if (!image) return;
 
     let images = [];
+    let imagePositions = {};
     try {
         images = JSON.parse(mediaEl.dataset.images || "[]");
+        imagePositions = JSON.parse(mediaEl.dataset.imagePositions || "{}");
     } catch (_) {
         images = [];
+        imagePositions = {};
     }
     image.addEventListener("click", () => {
         openPhotoLightbox(image.src, image.alt);
@@ -758,6 +774,7 @@ function setupCoachModalGallery() {
             gallery.dataset.photoIndex = String(nextIndex);
         }
         image.src = images[nextIndex];
+        image.style.objectPosition = imagePositions[images[nextIndex]] || "center";
     }
 
     prevTrigger?.addEventListener("click", (event) => {
