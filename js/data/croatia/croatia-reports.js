@@ -8389,5 +8389,52 @@ const croatiaMatchReports = [
             ["Distância Percorrida", "124", "120"],
             ["Classificação Média", "6,8", "6,8"]
         ])
+    },
+    {
+        fixtureKey: "2025-05-20-hnk-rijeka-hnk-vukovar",
+        date: "Quarta-feira 20 de Maio de 2026",
+        stadium: "Opus Arena",
+        weather: "Calmo",
+        playerOfMatch: "Jonathan Silva",
+        rating: "8,78",
+        coaches: { home: "Zép Jóbes", away: "Hugo Macedo" },
+        formations: {
+            home: reportFormation("4-2-1-2-1", [
+                [reportPlayer("7", "Baldé", "8,0", "AAE", true)],
+                [reportPlayer("20", "Ndockyt", "7,4", "ME"), reportPlayer("10", "Fruk", "6,9", "MO")],
+                [reportPlayer("14", "Gojak", "6,7", "MC")],
+                [reportPlayer("21", "Lacoux", "7,2", "MD"), reportPlayer("17", "Ntcham", "6,9", "CJR")],
+                [reportPlayer("24", "J. Silva", "8,8", "AI"), reportPlayer("53", "Emirhan", "6,8", "CC"), reportPlayer("6", "Radeljić", "7,2", "CC"), reportPlayer("22", "Oreč", "7,0", "AI")],
+                [reportPlayer("1", "Letica", "7,2", "GRC")]
+            ]),
+            away: reportFormation("4-3-3 DM", [
+                [reportPlayer("21", "Puljić", "6,4", "AAE")],
+                [reportPlayer("10", "Gonzalez", "6,3", "AI"), reportPlayer("36", "Butić", "6,2", "AI")],
+                [reportPlayer("77", "Shabani", "6,5", "MC"), reportPlayer("43", "Čuić", "6,3", "CJA")],
+                [reportPlayer("13", "Čaić", "6,7", "MD")],
+                [reportPlayer("25", "Williams", "6,3", "AI"), reportPlayer("5", "Elez", "6,6", "CC"), reportPlayer("4", "Mitrović", "6,7", "DC"), reportPlayer("3", "Bosec", "6,2", "AI")],
+                [reportPlayer("1", "Bulat", "7,5", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("32", "K. Baldé", { assist: "J. Silva" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "54%", "46%"],
+            ["Remates", "23", "6"],
+            ["Remates à Baliza", "13", "1"],
+            ["xG", "2,58", "0,43"],
+            ["PADPAD", "17,83", "28,33"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "10", "4"],
+            ["Passes Completados", "92%", "88%"],
+            ["Cruzamentos Completados", "16%", "14%"],
+            ["Faltas", "18", "9"],
+            ["Cartões amarelos", "3", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "128", "122"],
+            ["Classificação Média", "7,3", "6,5"]
+        ])
     }
 ];
