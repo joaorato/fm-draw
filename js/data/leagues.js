@@ -36,7 +36,10 @@ const leagues = [
             isLeagueMatch: isCroatiaLeagueMatch
         },
         extraTeamLogos: croatiaCupTeamLogos,
-        tacas: [],
+        tacas: [
+            { tipo: "Vencedor da Taça", jogador: "Gonçalo", pontos: 5 },
+            { tipo: "Finalista da Taça", jogador: "Hugo", pontos: 2 }
+        ],
         liveCards: [
             { label: "Estado", value: "Liga em curso", meta: "Pronta para updates por sessão" },
             { label: "Última sessão", value: "Jornada 27", meta: "Resultados até 22 Mar inseridos" },
