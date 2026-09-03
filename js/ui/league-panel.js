@@ -116,6 +116,11 @@ function renderLeague(leagueId) {
     let league = leagues.find((l) => l.id === leagueId);
     let panel = document.getElementById("leaguePanel");
     let isLive = league.status === "live";
+    // Uma liga concluída com cobertura completa dos jogos (a Croácia tem fixtures
+    // e relatórios da época toda) mantém a coluna Form e os totais V/E/D
+    // clicáveis; uma sem isso (a Escócia) fica com números simples.
+    let hasMatchRecords = league.tabela.some((entry) => entry.resultGroups || entry.formDetails?.length);
+    let showForm = isLive || hasMatchRecords;
     let transferScrollTop = panel.querySelector(".league-transfers-scroll")?.scrollTop || 0;
     let calendarScrollTop = panel.querySelector(".league-calendar-scroll")?.scrollTop || 0;
 
@@ -127,13 +132,13 @@ function renderLeague(leagueId) {
         let emgMarkup = entry.emgPontos === null
             ? `<div class="standings-points-cell" data-col="14"><div class="standings-points neutral">--</div></div>`
             : `<div class="standings-points-cell" data-col="14"><div class="standings-points ${getPointsClass(entry.emgPontos)}">${formatPoints(entry.emgPontos)}</div></div>`;
-        let formMarkup = isLive
+        let formMarkup = showForm
             ? `<div class="standings-form-cell" data-col="15">${renderFormDots(entry.form, entry.formDetails)}</div>`
             : "";
         let infState = entry.inf === "↑" ? "up" : entry.inf === "↓" ? "down" : "";
 
         rows += `
-            <div class="standings-row ${isLive ? "live" : ""} ${entry.zone ? `zone-${entry.zone}` : ""}">
+            <div class="standings-row ${showForm ? "has-form" : ""} ${entry.zone ? `zone-${entry.zone}` : ""}">
                 <div class="standings-cell-center standings-pos" data-col="1">${entry.pos}</div>
                 <div class="standings-cell-center standings-inf ${infState}" data-col="2">${entry.inf}</div>
                 <div class="standings-team" data-col="3">
@@ -145,9 +150,9 @@ function renderLeague(leagueId) {
                 </div>
                 ${playerMarkup}
                 <div class="standings-cell-center" data-col="5">${entry.j}</div>
-                ${isLive ? renderResultRecordCell(entry, "V", entry.v, 6) : `<div class="standings-cell-center" data-col="6">${entry.v}</div>`}
-                ${isLive ? renderResultRecordCell(entry, "E", entry.e, 7) : `<div class="standings-cell-center" data-col="7">${entry.e}</div>`}
-                ${isLive ? renderResultRecordCell(entry, "D", entry.d, 8) : `<div class="standings-cell-center" data-col="8">${entry.d}</div>`}
+                ${showForm ? renderResultRecordCell(entry, "V", entry.v, 6) : `<div class="standings-cell-center" data-col="6">${entry.v}</div>`}
+                ${showForm ? renderResultRecordCell(entry, "E", entry.e, 7) : `<div class="standings-cell-center" data-col="7">${entry.e}</div>`}
+                ${showForm ? renderResultRecordCell(entry, "D", entry.d, 8) : `<div class="standings-cell-center" data-col="8">${entry.d}</div>`}
                 <div class="standings-cell-center" data-col="9">${entry.gm}</div>
                 <div class="standings-cell-center" data-col="10">${entry.gs}</div>
                 <div class="standings-cell-center" data-col="11">${entry.dg}</div>
@@ -222,7 +227,7 @@ function renderLeague(leagueId) {
             <div class="league-main-column">
                 <div class="league-table-wrap">
                     <div class="standings-standings">
-                        <div class="standings-row header ${isLive ? "live" : ""}">
+                        <div class="standings-row header ${showForm ? "has-form" : ""}">
                             <div data-col="1">Pos</div>
                             <div data-col="2">Inf</div>
                             <div data-col="3">Equipa</div>
@@ -237,7 +242,7 @@ function renderLeague(leagueId) {
                             <div data-col="12">Pts</div>
                             <div data-col="13">Prev.</div>
                             <div data-col="14">EMG</div>
-                            ${isLive ? `<div data-col="15">Form</div>` : ""}
+                            ${showForm ? `<div data-col="15">Form</div>` : ""}
                         </div>
                         ${rows}
                     </div>

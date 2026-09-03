@@ -4754,7 +4754,8 @@ button.league-fixture-score {
     isolation: isolate;
 }
 
-.standings-row.live {
+.standings-row.live,
+.standings-row.has-form {
     grid-template-columns: 32px 24px minmax(168px, 2.45fr) minmax(78px, 0.72fr) 28px 28px 28px 28px 34px 34px 38px 40px 38px 52px minmax(104px, 0.86fr);
 }
 
