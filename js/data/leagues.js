@@ -1,10 +1,10 @@
 const leagues = [
     {
         id: "croatia",
-        status: "live",
-        statusLabel: "Em curso",
+        status: "completed",
+        statusLabel: "Concluída",
         nome: "Liga Croata",
-        descricao: "Dashboard vivo da nova liga EMG na Croácia. A classificação, sessões e métricas vão sendo atualizadas após cada noite de jogos.",
+        descricao: "Classificação final da segunda época EMG, desta vez na Croácia, com o jogador EMG associado a cada clube e os pontos pela fórmula da época.",
         logo: "assets/logos/teams/croacia/supersport_hnl.webp",
         logoAlt: "SuperSport HNL",
         epoca: "Época 25/26",
@@ -41,9 +41,9 @@ const leagues = [
             { tipo: "Finalista da Taça", jogador: "Hugo", pontos: 2 }
         ],
         liveCards: [
-            { label: "Estado", value: "Liga em curso", meta: "Pronta para updates por sessão" },
-            { label: "Última sessão", value: "Jornada 27", meta: "Resultados até 22 Mar inseridos" },
-            { label: "Calendário", value: "36 jornadas", meta: "Fixture list carregada para a época completa" }
+            { label: "Estado", value: "Época concluída", meta: "36 jornadas disputadas" },
+            { label: "Campeão", value: "HNK Rijeka", meta: "82 pontos — treinador Gonçalo" },
+            { label: "Despromovido", value: "NK Lokomotiva", meta: "25 pontos — treinador Painatal" }
         ],
         livePages: croatiaLivePages,
         transfers: croatiaTransfers,
