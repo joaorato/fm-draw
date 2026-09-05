@@ -432,7 +432,7 @@ function renderWcTeamPick(stage) {
     stage.innerHTML = `
         <div class="wc-panel">
             <h3 class="wc-panel-title">${grupo.nome} &middot; ${player} escolhe</h3>
-            <p class="wc-panel-copy">Sem disputa possível: o grupo já é só dele.</p>
+            <p class="wc-panel-copy"></p>
             <div class="wc-team-cards">${cards}</div>
         </div>`;
 }
