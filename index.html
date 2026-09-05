@@ -34,7 +34,7 @@
             <button class="nav-logo-btn" id="homeTabBtn" onclick="setActiveTab('home')" aria-label="Home">
                 <img src="assets/logos/ligaEMG.webp" alt="Liga EMG" width="1536" height="1024">
             </button>
-            <button class="nav-btn" id="drawTabBtn" onclick="setActiveTab('draw')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Sorteio</button>
+            <button class="nav-btn" id="drawTabBtn" onclick="setActiveTab('draw')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Sorteios</button>
             <button class="nav-btn" id="coachesTabBtn" onclick="setActiveTab('coaches')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Treinadores</button>
             <button class="nav-btn" id="generalTabBtn" onclick="setActiveTab('general')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Classificação Geral</button>
             <button class="nav-btn" id="pastTabBtn" onclick="setActiveTab('past')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Ligas</button>
@@ -68,36 +68,67 @@
     <section class="view draw-view" id="drawView">
         <div class="remaining-sidebar left" id="remainingTeams"></div>
         <div class="remaining-sidebar right" id="remainingPlayers"></div>
-        <div class="page-panel" style="position:relative">
-            <button class="mute-btn" id="muteBtn" onclick="toggleMute()" aria-label="Silenciar música">
-                <svg class="mute-icon unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                </svg>
-                <svg class="mute-icon muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                    <line x1="23" y1="9" x2="17" y2="15"/>
-                    <line x1="17" y1="9" x2="23" y2="15"/>
-                </svg>
-            </button>
-            <div class="panel-head centered">
-                <div>
-                    <h2 class="panel-title">Sorteio Atual</h2>
+
+        <div class="draw-selector" id="drawSelector"></div>
+
+        <div class="draw-slot" id="croatiaDrawSlot">
+            <div class="page-panel" style="position:relative">
+                <button class="mute-btn" id="muteBtn" onclick="toggleMute()" aria-label="Silenciar música">
+                    <svg class="mute-icon unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                    </svg>
+                    <svg class="mute-icon muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                        <line x1="23" y1="9" x2="17" y2="15"/>
+                        <line x1="17" y1="9" x2="23" y2="15"/>
+                    </svg>
+                </button>
+                <div class="panel-head centered">
+                    <div>
+                        <h2 class="panel-title">Sorteio Atual</h2>
+                    </div>
                 </div>
-            </div>
 
-            <div class="draw-league-info">
-                <img class="draw-league-logo" src="assets/logos/teams/croacia/supersport_hnl.webp" alt="SuperSport HNL" width="360" height="113">
-                <span class="draw-league-name">SuperSport HNL</span>
-            </div>
+                <div class="draw-league-info">
+                    <img class="draw-league-logo" src="assets/logos/teams/croacia/supersport_hnl.webp" alt="SuperSport HNL" width="360" height="113">
+                    <span class="draw-league-name">SuperSport HNL</span>
+                </div>
 
-            <div class="draw-actions">
-                <button id="drawBtn" onclick="start()">Começar Sorteio</button>
-            </div>
+                <div class="draw-actions">
+                    <button id="drawBtn" onclick="start()">Começar Sorteio</button>
+                </div>
 
-            <div class="current" id="current"></div>
-            <div class="table" id="table"></div>
+                <div class="current" id="current"></div>
+                <div class="table" id="table"></div>
+            </div>
+        </div>
+
+        <div class="draw-slot" id="wcDrawSlot">
+            <div class="page-panel" style="position:relative">
+                <button class="mute-btn" id="wcMuteBtn" onclick="toggleMute()" aria-label="Silenciar música">
+                    <svg class="mute-icon unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                    </svg>
+                    <svg class="mute-icon muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                        <line x1="23" y1="9" x2="17" y2="15"/>
+                        <line x1="17" y1="9" x2="23" y2="15"/>
+                    </svg>
+                </button>
+                <div class="panel-head centered">
+                    <div>
+                        <h2 class="panel-title">Sorteio do Mundial 2026</h2>
+                        <p class="panel-copy">Cada um escolhe um grupo às escondidas. Os grupos repetidos vão a sorteio.</p>
+                    </div>
+                </div>
+
+                <div class="wc-board" id="wcBoard"></div>
+                <div class="wc-stage" id="wcStage"></div>
+            </div>
         </div>
     </section>
 
@@ -248,6 +279,8 @@
 <script src="js/data/croatia/croatia-standings.js"></script>
 <script src="js/data/croatia/croatia-transfers.js"></script>
 <script src="js/data/croatia/croatia-news.js"></script>
+<script src="js/data/worldcup/worldcup-groups.js"></script>
+<script src="js/data/worldcup/worldcup-draw.js"></script>
 <script src="js/data/leagues.js"></script>
 <script src="js/ui/shared.js"></script>
 <script src="js/ui/chrome.js"></script>
@@ -263,6 +296,8 @@
 <script src="js/ui/league-xi.js"></script>
 <script src="js/ui/league-panel.js"></script>
 <script src="js/ui/draw.js"></script>
+<script src="js/ui/draw-groups.js"></script>
+<script src="js/ui/draw-selector.js"></script>
 <script src="js/ui/share.js"></script>
 <script src="app.js"></script>
 </body>

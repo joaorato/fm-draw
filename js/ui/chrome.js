@@ -6,11 +6,12 @@ function getMusicElement() {
     return document.getElementById("bgmusic");
 }
 
+// Há um botão de som por sorteio, por isso isto anda por classe e não por id:
+// dois ids iguais não são válidos e só o primeiro responderia.
 function syncMuteButton() {
-    let btn = document.getElementById("muteBtn");
-    if (btn) {
+    document.querySelectorAll(".mute-btn").forEach((btn) => {
         btn.classList.toggle("is-muted", isMuted);
-    }
+    });
 }
 
 function applyMuteState() {
@@ -35,12 +36,37 @@ function restoreMuteState() {
     applyMuteState();
 }
 
-function tryPlayDrawMusic() {
-    if (DRAW_COMPLETED) return;
+// A faixa é uma por sorteio, não uma por aba: os dois sorteios vivem na mesma
+// aba e a escolha está no activeDrawId (js/ui/draw-selector.js). O <audio> é um
+// só, muda-se-lhe o src.
+//
+// Começa no que está escrito no index.html, para a primeira reprodução do
+// sorteio da Croácia não voltar a atribuir o mesmo src e reiniciar a faixa.
+let currentDrawTrack = "./assets/audio/ucl.mp3";
+
+function getDrawTrack(tab) {
+    return (tab || getTabFromHash()) === "draw" ? getActiveDraw().track : null;
+}
+
+function isDrawTabCompleted() {
+    return getActiveDraw().completed();
+}
+
+// O tab vem por argumento porque o setActiveTab chama isto antes do
+// history.pushState: nessa altura o location.hash ainda é o da aba anterior.
+function tryPlayDrawMusic(tab) {
+    let track = getDrawTrack(tab);
+    if (!track || isDrawTabCompleted()) return;
+
     let music = getMusicElement();
     if (!music) return;
 
-    music.volume = 0.5;
+    if (currentDrawTrack !== track) {
+        currentDrawTrack = track;
+        music.src = track;
+    }
+
+    music.volume = 0.13;
     music.muted = isMuted;
 
     let attempt = music.play();
@@ -63,7 +89,9 @@ function syncDrawMusic() {
 
     applyMuteState();
 
-    if (getTabFromHash() === "draw") {
+    // Trocar para um sorteio já concluído tem de parar a faixa do anterior, e
+    // não só deixar de tocar a nova.
+    if (getDrawTrack() && !isDrawTabCompleted()) {
         tryPlayDrawMusic();
     } else {
         music.pause();
@@ -73,7 +101,7 @@ function syncDrawMusic() {
 function bindMusicRecovery() {
     ["pointerdown", "touchstart", "keydown"].forEach((eventName) => {
         document.addEventListener(eventName, () => {
-            if (getTabFromHash() === "draw") {
+            if (getDrawTrack()) {
                 let music = getMusicElement();
                 if (music && music.paused && !isMuted) {
                     tryPlayDrawMusic();
@@ -83,13 +111,13 @@ function bindMusicRecovery() {
     });
 
     window.addEventListener("pageshow", () => {
-        if (getTabFromHash() === "draw") {
+        if (getDrawTrack()) {
             syncDrawMusic();
         }
     });
 
     document.addEventListener("visibilitychange", () => {
-        if (!document.hidden && getTabFromHash() === "draw") {
+        if (!document.hidden && getDrawTrack()) {
             syncDrawMusic();
         }
     });
@@ -100,7 +128,7 @@ function toggleMute() {
     applyMuteState();
     persistMuteState();
 
-    if (!isMuted && getTabFromHash() === "draw") {
+    if (!isMuted && getDrawTrack()) {
         tryPlayDrawMusic();
     }
 }
@@ -128,11 +156,9 @@ function setActiveTab(tab, pushState) {
     document.getElementById("pastTabBtn").classList.toggle("active", isPast);
 
     if (isDraw) {
-        if (DRAW_COMPLETED) {
-            showCompletedDraw();
-        } else {
-            tryPlayDrawMusic();
-        }
+        // O renderDrawSelector mostra o sorteio escolhido e manda-o desenhar-se.
+        renderDrawSelector();
+        tryPlayDrawMusic(tab);
     } else {
         let music = getMusicElement();
         if (music) {

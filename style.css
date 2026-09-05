@@ -1710,9 +1710,31 @@ body::after {
     width: min(1560px, calc(100vw - 48px));
 }
 
+/* O selector fica por cima dos painéis, por isso o espaço do topo é dele e o
+   painel só precisa da folga que o separa do selector. */
 #drawView .page-panel {
-    margin-top: 32px;
+    margin-top: 14px;
     max-width: 1000px;
+}
+
+/* O tabuleiro dos 12 grupos precisa da largura toda que o .page-panel dá. */
+#wcDrawSlot .page-panel {
+    max-width: none;
+}
+
+.draw-selector {
+    width: min(1080px, calc(100vw - 64px));
+    margin: 32px auto 0;
+    position: relative;
+    z-index: 30;
+}
+
+.draw-slot {
+    display: none;
+}
+
+.draw-slot.active {
+    display: block;
 }
 
 .panel-head {
@@ -7676,4 +7698,410 @@ button:disabled {
     height: 100%;
     object-fit: cover;
     object-position: center;
+}
+
+/* ---------- Sorteio do Mundial ---------- */
+
+.wc-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin: 22px auto 0;
+}
+
+.wc-group {
+    padding: 12px 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: rgba(var(--c-white), 0.03);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.wc-group.is-owned {
+    border-color: rgba(var(--c-green), 0.45);
+    box-shadow: 0 0 18px rgba(var(--c-green), 0.12);
+}
+
+.wc-group.is-conflict {
+    border-color: rgba(var(--c-gold), 0.55);
+    box-shadow: 0 0 22px rgba(var(--c-gold), 0.18);
+}
+
+.wc-group.is-picked {
+    border-color: rgba(var(--c-green), 0.3);
+}
+
+.wc-group.is-unused {
+    opacity: 0.32;
+}
+
+.wc-group-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(var(--c-glow), 0.12);
+}
+
+.wc-group-letter {
+    font-family: "Michroma", sans-serif;
+    font-size: 18px;
+    color: rgb(var(--c-glow));
+    letter-spacing: 1px;
+}
+
+.wc-group-owner {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+}
+
+.wc-group-owner.wc-group-unused {
+    color: var(--muted);
+    font-weight: 400;
+    font-style: italic;
+}
+
+.wc-group-teams {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.wc-team {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.wc-team.is-taken {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+/* As bandeiras são ícones quadrados de 48x48 com os cantos já arredondados, e
+   não bandeiras rectangulares. Renderizar quadrado é o que evita que o
+   object-fit corte o topo e a base de cada uma. */
+.wc-flag {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex: none;
+}
+
+.wc-group-picks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.wc-chip {
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--bg-deep);
+    background: rgb(var(--c-gold));
+}
+
+.wc-stage {
+    margin: 26px auto 0;
+    max-width: 860px;
+}
+
+.wc-panel {
+    padding: 20px 22px 24px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: rgba(var(--c-white), 0.02);
+    text-align: center;
+}
+
+.wc-panel-title {
+    margin: 0 0 8px;
+    font-family: "Michroma", sans-serif;
+    font-size: 17px;
+    letter-spacing: 1.2px;
+    color: var(--text);
+}
+
+.wc-panel-copy {
+    margin: 0 0 14px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.wc-warning {
+    margin: 0 0 14px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--red);
+    border: 1px solid rgba(var(--c-red), 0.4);
+    background: rgba(var(--c-red), 0.08);
+}
+
+.wc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.wc-select {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: rgba(var(--c-night-7), 0.9);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.wc-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.wc-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(var(--c-glow), 0.1);
+    background: rgba(var(--c-white), 0.03);
+    text-align: left;
+}
+
+.wc-row.is-driver {
+    border-color: rgba(var(--c-gold), 0.4);
+}
+
+.wc-row.is-disabled {
+    opacity: 0.5;
+}
+
+.wc-row-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.wc-row-tag {
+    margin-left: 6px;
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+}
+
+/* O campo é type="password", por isso o mascaramento não depende de CSS e não
+   pode falhar em silêncio. O -webkit-text-security é uma segunda camada, e as
+   regras abaixo tiram o olho de "mostrar palavra-passe" que o Edge e o Safari
+   põem dentro do campo — num ecrã partilhado esse botão estragava tudo. */
+.wc-pick-input {
+    width: 54px;
+    padding: 7px 0;
+    text-align: center;
+    font-family: inherit;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--text);
+    border-radius: 8px;
+    border: 1px solid rgba(var(--c-glow), 0.28);
+    background: rgba(var(--c-night-7), 0.9);
+    -webkit-text-security: disc;
+}
+
+.wc-pick-input::-ms-reveal,
+.wc-pick-input::-webkit-credentials-auto-fill-button,
+.wc-pick-input::-webkit-strong-password-auto-fill-button,
+.wc-pick-input::-webkit-caps-lock-indicator {
+    display: none !important;
+    visibility: hidden;
+    width: 0;
+    margin: 0;
+}
+
+.wc-pick-input:disabled {
+    opacity: 0.4;
+}
+
+.wc-seal-btn,
+.wc-fix-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(var(--c-gold), 0.4);
+    background: transparent;
+    color: var(--gold);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.wc-seal-btn:hover:not(:disabled),
+.wc-fix-btn:hover {
+    background: rgba(var(--c-gold), 0.12);
+}
+
+.wc-seal-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.wc-status {
+    min-width: 78px;
+    text-align: right;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+}
+
+.wc-status.is-filled {
+    color: rgb(var(--c-glow));
+}
+
+.wc-status.is-sealed {
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.wc-reveal-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.wc-reveal-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(var(--c-glow), 0.1);
+    background: rgba(var(--c-white), 0.03);
+    text-align: left;
+}
+
+.wc-reveal-letter {
+    font-family: "Michroma", sans-serif;
+    font-size: 20px;
+    color: rgb(var(--c-glow));
+}
+
+.wc-winner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 10px 0 6px;
+}
+
+.wc-winner-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+}
+
+.wc-winner-name {
+    font-family: "Cinzel", serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--gold);
+}
+
+.wc-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.wc-roulette {
+    margin-top: 8px;
+}
+
+.wc-team-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.wc-team-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(var(--c-glow), 0.2);
+    background: rgba(var(--c-white), 0.03);
+    color: var(--text);
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.wc-team-card:hover {
+    border-color: rgba(var(--c-gold), 0.6);
+    background: rgba(var(--c-gold), 0.08);
+    transform: translateY(-3px);
+}
+
+/* 48px é exactamente a resolução do ficheiro: não há upscale, e num stream a
+   1080p fica pixel a pixel. */
+.wc-team-flag {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.wc-team-card-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.wc-team-card-code {
+    font-size: 12px;
+    letter-spacing: 1.4px;
+    color: var(--muted);
+}
+
+.wc-result-table {
+    margin-top: 6px;
+}
+
+.wc-copy-out {
+    margin-top: 14px;
+}
+
+.wc-copy-text {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: rgba(var(--c-night-7), 0.9);
+    color: var(--text);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px;
 }
