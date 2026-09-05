@@ -43,8 +43,11 @@ function closeMainLeagueMenu() {
     menu.querySelector(".league-main-select")?.setAttribute("aria-expanded", "false");
 }
 
+// Escopado ao #leagueSelector: o selector de sorteios reutiliza estas classes e
+// aparece antes deste no documento, por isso um querySelector solto apanhava o
+// dropdown errado.
 function toggleMainLeagueMenu() {
-    let menu = document.querySelector(".league-main-select-wrap");
+    let menu = document.querySelector("#leagueSelector .league-main-select-wrap");
     if (!menu) return;
     let willOpen = !menu.classList.contains("open");
     closeMainLeagueMenu();
