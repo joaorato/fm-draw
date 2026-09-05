@@ -52,6 +52,9 @@ const REGRAS = [
     { teste: (rel) => rel === "logos/ligaEMG.png", largura: 1600 },              // hero ~796
     { teste: (rel) => rel.startsWith("logos/teams/"), largura: 360 },            // sorteio 180
     { teste: (rel) => rel.startsWith("social/"), largura: 200 },                 // ~95
+    // Antes da regra geral das bandeiras: as do Mundial são ícones quadrados e
+    // aparecem a 48 nos cards de escolha de seleção e a 22 na lista dos grupos.
+    { teste: (rel) => rel.startsWith("flags/mundial/"), largura: 96 },           // card 48
     { teste: (rel) => rel.startsWith("flags/"), largura: 150 }                   // 72x46
 ];
 
