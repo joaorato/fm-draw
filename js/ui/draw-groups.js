@@ -125,21 +125,6 @@ function wcRowsUnlocked() {
 /* ---------- render ---------- */
 
 function renderWorldCupDraw() {
-    // Uma vez completo, o localStorage de quem correu a cerimónia é lixo: pode
-    // ter uma ronda a meio ou um grupo de uma escolha que depois foi trocada à
-    // mão (como o C, por acordo). Carregá-lo aqui deixava esse resto a sujar
-    // wcGroupOwners por cima do que applyWorldCupResultsToBoard escreve a seguir.
-    if (WORLDCUP_DRAW_COMPLETED) {
-        if (!wcStateLoaded) {
-            wcStateLoaded = true;
-            clearWorldCupState();
-        }
-        applyWorldCupResultsToBoard();
-        renderWcBoard();
-        renderWcCompleted();
-        return;
-    }
-
     if (!wcStateLoaded) {
         wcStateLoaded = true;
         let saved = readWorldCupState();
@@ -152,18 +137,23 @@ function renderWorldCupDraw() {
         }
     }
 
+    if (WORLDCUP_DRAW_COMPLETED) {
+        applyWorldCupResultsToBoard();
+        renderWcBoard();
+        renderWcCompleted();
+        return;
+    }
+
     renderWcBoard();
     renderWcStage();
 }
 
 // Depois do sorteio feito, worldCupDrawResults é a única fonte de verdade;
-// wcGroupOwners e wcTeamPicks só existem para a cerimónia ao vivo. Repõe-nos
-// de raiz a cada render, para não deixar nenhuma chave antiga (de uma ronda
-// ou de um estado guardado) sobreviver por cima dos dados finais.
+// wcGroupOwners e wcTeamPicks só existem para a cerimónia ao vivo. Sem isto o
+// wcBoard fica sempre vazio num carregamento novo da página, porque nunca
+// passou pela cerimónia que os preenche.
 function applyWorldCupResultsToBoard() {
     wcPhase = "done";
-    wcGroupOwners = {};
-    wcTeamPicks = {};
     worldCupDrawResults.forEach((entry) => {
         wcGroupOwners[entry.grupo] = entry.jogador;
         wcTeamPicks[entry.jogador] = entry.equipa;
