@@ -9,7 +9,7 @@ const draws = [
     {
         id: "croatia",
         nome: "Liga Croata",
-        statusLabel: "2025/26",
+        statusLabel: () => "2025/26",
         slot: "croatiaDrawSlot",
         track: "./assets/audio/ucl.mp3",
         completed: () => DRAW_COMPLETED,
@@ -18,7 +18,7 @@ const draws = [
     {
         id: "mundial",
         nome: "Mundial 2026",
-        statusLabel: "por sortear",
+        statusLabel: () => WORLDCUP_DRAW_COMPLETED ? "sorteado" : "por sortear",
         slot: "wcDrawSlot",
         track: "./assets/audio/mundial.mp3",
         completed: () => WORLDCUP_DRAW_COMPLETED,
@@ -48,14 +48,14 @@ function renderDrawSelector() {
             onclick="selectDraw('${draw.id}')"
             aria-pressed="${draw.id === active.id ? "true" : "false"}"
         >
-            ${draw.nome} — ${draw.statusLabel}
+            ${draw.nome} — ${draw.statusLabel()}
         </button>
     `).join("");
 
     selector.innerHTML = `
         <div class="league-main-select-wrap">
             <button class="league-main-select" type="button" onclick="toggleDrawMenu()" aria-expanded="false" aria-label="Escolher sorteio">
-                ${active.nome} — ${active.statusLabel}
+                ${active.nome} — ${active.statusLabel()}
             </button>
             <div class="league-main-menu">
                 ${options}

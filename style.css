@@ -7786,6 +7786,15 @@ button:disabled {
     font-weight: 600;
 }
 
+/* Só aparece quando um grupo tem mais de um dono - dois jogadores no mesmo
+   grupo, cada um com a sua equipa. */
+.wc-team-owner {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+}
+
 /* As bandeiras são ícones quadrados de 48x48 com os cantos já arredondados, e
    não bandeiras rectangulares. Renderizar quadrado é o que evita que o
    object-fit corte o topo e a base de cada uma. */

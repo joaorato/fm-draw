@@ -138,6 +138,7 @@ function renderWorldCupDraw() {
     }
 
     if (WORLDCUP_DRAW_COMPLETED) {
+        applyWorldCupResultsToBoard();
         renderWcBoard();
         renderWcCompleted();
         return;
@@ -145,6 +146,18 @@ function renderWorldCupDraw() {
 
     renderWcBoard();
     renderWcStage();
+}
+
+// Depois do sorteio feito, worldCupDrawResults é a única fonte de verdade;
+// wcGroupOwners e wcTeamPicks só existem para a cerimónia ao vivo. Sem isto o
+// wcBoard fica sempre vazio num carregamento novo da página, porque nunca
+// passou pela cerimónia que os preenche.
+function applyWorldCupResultsToBoard() {
+    wcPhase = "done";
+    worldCupDrawResults.forEach((entry) => {
+        wcGroupOwners[entry.grupo] = entry.jogador;
+        wcTeamPicks[entry.jogador] = entry.equipa;
+    });
 }
 
 function wcGroupStateClass(id) {
@@ -165,7 +178,14 @@ function renderWcBoard() {
     let showPicks = wcPhase === "reveal" || wcPhase === "conflicts";
 
     board.innerHTML = worldCupGroups.map((grupo) => {
-        let owner = wcGroupOwners[grupo.id];
+        // wcGroupOwners é um grupo -> um jogador: certo durante a cerimónia, onde
+        // um conflito acaba sempre num único vencedor sorteado. Depois de
+        // completo, worldCupDrawResults é que manda, e nem sempre respeita isso -
+        // Cardoso e Gonçalo saíram ambos no grupo C e resolveram por acordo entre
+        // eles, um por cada equipa, sem passar pela roleta.
+        let owners = WORLDCUP_DRAW_COMPLETED
+            ? worldCupDrawResults.filter((entry) => entry.grupo === grupo.id).map((entry) => entry.jogador)
+            : (wcGroupOwners[grupo.id] ? [wcGroupOwners[grupo.id]] : []);
         let pickers = showPicks
             ? Object.keys(wcRoundPicks).filter((player) => wcRoundPicks[player] === grupo.id)
             : [];
@@ -173,9 +193,13 @@ function renderWcBoard() {
         let teams = grupo.equipas.map((equipa) => {
             let chosenBy = Object.keys(wcTeamPicks).find((player) => wcTeamPicks[player] === equipa.nome);
             let taken = chosenBy ? " is-taken" : "";
+            // Só precisa de dizer o nome quando há mais de um dono no grupo -
+            // nos outros onze grupos o cabeçalho já diz de quem é a equipa dourada.
+            let ownerTag = chosenBy && owners.length > 1 ? `<span class="wc-team-owner">${chosenBy}</span>` : "";
             return `<li class="wc-team${taken}">
                 <img class="wc-flag" src="${escapeAttribute(equipa.bandeira)}" alt="${escapeAttribute(equipa.nome)}" width="22" height="22">
                 <span class="wc-team-name">${equipa.nome}</span>
+                ${ownerTag}
             </li>`;
         }).join("");
 
@@ -183,8 +207,8 @@ function renderWcBoard() {
             ? `<div class="wc-group-picks">${pickers.map((player) => `<span class="wc-chip">${player}</span>`).join("")}</div>`
             : "";
 
-        let ownerLine = owner
-            ? `<span class="wc-group-owner">${owner}</span>`
+        let ownerLine = owners.length
+            ? `<span class="wc-group-owner">${owners.join(" & ")}</span>`
             : (wcPhase === "done" ? `<span class="wc-group-owner wc-group-unused">não utilizado</span>` : "");
 
         return `<article class="wc-group ${wcGroupStateClass(grupo.id)}" data-group="${grupo.id}">
