@@ -48,7 +48,6 @@ function renderWorldCupPlayers() {
         <section class="league-wc-card">
             <div class="league-wc-head">
                 <strong>Seleções EMG</strong>
-                <span>Só o pódio pontua</span>
             </div>
             <div class="league-wc-players">${cards}</div>
         </section>
