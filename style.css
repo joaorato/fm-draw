@@ -1980,6 +1980,443 @@ body::after {
     grid-column: auto;
 }
 
+.league-lower-grid.cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Mundial: vista de torneio (js/ui/league-tournament.js) */
+.league-wc {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 18px;
+    min-width: 0;
+}
+
+.league-wc-card {
+    min-width: 0;
+    border-radius: 20px;
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
+    background: linear-gradient(180deg, rgba(var(--c-white), 0.05), rgba(var(--c-white), 0.02));
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.04);
+}
+
+.league-wc-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid rgba(var(--c-glow-b), 0.1);
+}
+
+.league-wc-head strong {
+    color: #f4fbff;
+    font-family: "Michroma", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.league-wc-head span {
+    color: rgba(205, 228, 255, 0.58);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+.league-wc-flag {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(var(--c-glow), 0.16));
+}
+
+.league-wc-flag.empty {
+    border-radius: 50%;
+    border: 1px dashed rgba(var(--c-glow-c), 0.22);
+    filter: none;
+}
+
+.league-wc-coach {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: rgba(var(--c-pale), 0.9);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.league-wc-coach:hover {
+    text-decoration: underline;
+}
+
+/* seleções dos jogadores */
+.league-wc-players {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+    padding: 14px;
+}
+
+.league-wc-player {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(var(--c-panel-blue), 0.52);
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.04);
+}
+
+.league-wc-player .league-wc-flag {
+    width: 38px;
+    height: 38px;
+}
+
+.league-wc-player-copy {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+    flex: 1;
+}
+
+.league-wc-player-team {
+    color: #f4fbff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.league-wc-player-status {
+    color: rgba(var(--c-ice-5), 0.72);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.league-wc-player.is-out {
+    opacity: 0.5;
+}
+
+.league-wc-player.is-out .league-wc-flag {
+    filter: grayscale(1);
+}
+
+.league-wc-player.podium-campeao {
+    border-color: rgba(var(--c-gold), 0.5);
+    background: linear-gradient(180deg, rgba(var(--c-gold), 0.14), rgba(var(--c-panel-blue), 0.52));
+}
+
+.league-wc-player.podium-vice,
+.league-wc-player.podium-terceiro {
+    border-color: rgba(var(--c-glow), 0.4);
+}
+
+.league-wc-player-points {
+    font-size: 18px;
+    font-weight: 800;
+    color: rgb(var(--c-green));
+}
+
+/* tabelas dos grupos */
+.league-wc-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 14px;
+    padding: 14px;
+}
+
+.league-wc-group {
+    min-width: 0;
+    display: grid;
+    gap: 5px;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(var(--c-night-7), 0.5);
+    border: 1px solid rgba(var(--c-glow-c), 0.08);
+}
+
+.league-wc-group-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 4px 4px;
+}
+
+.league-wc-group-head strong {
+    color: #f4fbff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.league-wc-group-head span {
+    color: rgba(205, 228, 255, 0.5);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.league-wc-group.is-complete .league-wc-group-head span {
+    color: rgb(var(--c-green));
+}
+
+.league-wc-row,
+.league-wc-third {
+    position: relative;
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr) repeat(4, 24px) 34px 32px;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 9px 7px 11px;
+    border-radius: 11px;
+    background: rgba(var(--c-panel-blue), 0.4);
+    border: 1px solid rgba(var(--c-glow-c), 0.06);
+    font-size: 12.5px;
+    font-weight: 600;
+    text-align: center;
+    overflow: hidden;
+}
+
+.league-wc-row::before,
+.league-wc-third::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: transparent;
+}
+
+.league-wc-row.header,
+.league-wc-third.header {
+    background: none;
+    border-color: transparent;
+    padding-block: 2px;
+    color: rgba(205, 228, 255, 0.5);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+}
+
+.league-wc-row.zone-direct::before,
+.league-wc-row.zone-third-in::before,
+.league-wc-third.is-in::before {
+    background: linear-gradient(180deg, #5ef2ff, #1fbbff);
+}
+
+.league-wc-row.zone-third::before {
+    background: linear-gradient(180deg, #ffb347, #ff8b2b);
+}
+
+.league-wc-row.is-human,
+.league-wc-third.is-human {
+    background: rgba(var(--c-glow), 0.12);
+    border-color: rgba(var(--c-glow), 0.26);
+}
+
+.league-wc-team {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    text-align: left;
+}
+
+.league-wc-team-stack {
+    display: grid;
+    min-width: 0;
+}
+
+.league-wc-team-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #f4fbff;
+    font-weight: 700;
+}
+
+.league-wc-row .league-wc-flag,
+.league-wc-third .league-wc-flag {
+    width: 22px;
+    height: 22px;
+}
+
+/* melhores terceiros */
+.league-wc-thirds {
+    display: grid;
+    gap: 5px;
+    padding: 14px;
+}
+
+.league-wc-third {
+    grid-template-columns: 22px minmax(0, 1.6fr) 70px repeat(3, 40px) 40px 84px;
+}
+
+.league-wc-third.cut-line {
+    margin-bottom: 6px;
+}
+
+.league-wc-third-state {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: rgba(205, 228, 255, 0.5);
+}
+
+.league-wc-third-state.in {
+    color: rgb(var(--c-green));
+}
+
+.league-wc-third-state.out {
+    color: rgb(var(--c-red));
+}
+
+/* quadro a eliminar */
+.league-wc-bracket-scroll {
+    overflow-x: auto;
+    padding: 14px;
+}
+
+.league-wc-bracket {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 196px;
+    gap: 14px;
+    width: max-content;
+    margin-inline: auto;
+}
+
+.league-wc-bracket-col {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 10px;
+}
+
+.league-wc-bracket-title {
+    color: rgba(205, 228, 255, 0.58);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* A altura fixa é o que alinha: com os jogos distribuídos em partes iguais,
+   cada jogo de uma coluna fica a meio dos dois que o alimentam. */
+.league-wc-bracket-matches {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 6px;
+    height: 780px;
+}
+
+.league-wc-match {
+    display: grid;
+    gap: 3px;
+    width: 100%;
+    padding: 6px 8px 7px;
+    border-radius: 12px;
+    background: rgba(var(--c-panel-blue), 0.52);
+    border: 1px solid rgba(var(--c-glow-c), 0.1);
+    color: inherit;
+    font: inherit;
+    text-align: left;
+}
+
+.league-wc-match.is-open {
+    border-style: dashed;
+    background: rgba(var(--c-panel-blue), 0.28);
+}
+
+.league-wc-match.is-clickable {
+    cursor: pointer;
+}
+
+.league-wc-match.is-clickable:hover {
+    border-color: rgba(var(--c-glow), 0.5);
+}
+
+.league-wc-match-meta {
+    color: rgba(205, 228, 255, 0.5);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.league-wc-match-side {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 2px 4px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.league-wc-match-side .league-wc-flag {
+    width: 18px;
+    height: 18px;
+}
+
+.league-wc-match-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.league-wc-match-side.pending {
+    color: rgba(205, 228, 255, 0.5);
+    font-weight: 500;
+}
+
+.league-wc-match-side.winner {
+    background: rgba(var(--c-glow), 0.14);
+    color: #f4fbff;
+    font-weight: 800;
+}
+
+.league-wc-match-side.is-human .league-wc-match-name {
+    color: rgb(var(--c-pale));
+}
+
+.league-wc-match-coach {
+    flex: 0 0 auto;
+    color: rgba(var(--c-pale), 0.7);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.league-wc-match-score {
+    min-width: 12px;
+    text-align: right;
+}
+
+.league-wc-third-place {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    width: 196px;
+    margin: 0 auto 16px;
+}
+
 .league-side-card {
     position: relative;
     overflow: hidden;
@@ -7233,7 +7670,8 @@ button:disabled {
     .coach-trophy-cabinet:not(.coach-palmares-trophies-panel .coach-trophy-cabinet) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .coach-insight-grid--narrativa { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .league-season-layout { grid-template-columns: 1fr; }
-    .league-lower-grid { grid-template-columns: 1fr; }
+    .league-lower-grid,
+    .league-lower-grid.cols-2 { grid-template-columns: 1fr; }
     .league-awards-grid { grid-template-columns: 1fr; }
     .league-side-card { height: auto; min-height: 0; }
     .league-calendar-card { height: 560px; max-height: 560px; }

@@ -170,6 +170,8 @@ function closeLeagueXi() {
 
 function renderLeagueXiTrigger(league) {
     if (!league.equipaJornada) return "";
+    // Sem nenhuma jornada com onzes detalhados o botão não abriria nada.
+    if (!getFeasibleLeagueXiRounds(league, league.equipaJornada).length) return "";
     return `
         <button class="league-chip league-xi-trigger" type="button" onclick="openLeagueXi('${league.id}')">
             Team of the Week

@@ -1,17 +1,19 @@
 function renderLeagueLowerPanel(league) {
-    let content = [
+    let cards = [
         renderLeagueLiveCards(league),
         renderLeagueLowerTabs(league),
         renderLeagueAwards(league),
         renderLeagueTeamOfYear(league),
         renderLeagueCalendar(league)
-    ].filter(Boolean).join("");
+    ].filter(Boolean);
 
-    if (!content) return "";
+    if (!cards.length) return "";
 
+    // Uma liga tem três cartões cá em baixo; o Mundial tem dois (não tem notícias
+    // nem transferências), e sobrava uma coluna vazia.
     return `
-        <div class="league-lower-grid">
-            ${content}
+        <div class="league-lower-grid ${cards.length < 3 ? `cols-${cards.length}` : ""}">
+            ${cards.join("")}
         </div>
     `;
 }
@@ -115,6 +117,7 @@ function setupLeagueSideStats(scope = document) {
 function renderLeague(leagueId) {
     let league = leagues.find((l) => l.id === leagueId);
     let panel = document.getElementById("leaguePanel");
+    if (league.torneio) return renderTournament(league, panel);
     let isLive = league.status === "live";
     // Uma liga concluída com cobertura completa dos jogos (a Croácia tem fixtures
     // e relatórios da época toda) mantém a coluna Form e os totais V/E/D
