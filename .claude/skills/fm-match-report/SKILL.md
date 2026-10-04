@@ -1,6 +1,6 @@
 ---
 name: fm-match-report
-description: Transcreve uma captura do ecrã "Relatório no final do jogo" do Football Manager para um relatório de jogo do site da Liga EMG (Liga Croata ou Mundial 2026). Usa quando o utilizador manda um print de um jogo do FM, quando pede para acrescentar ou corrigir um relatório, ou quando fala de golos, assistências e marcadores que não batem certo com o save.
+description: Transcreve uma captura do ecrã "Relatório no final do jogo" do Football Manager para um relatório de jogo de uma competição do site da Liga EMG. Usa quando o utilizador manda um print de um jogo do FM, quando pede para acrescentar ou corrigir um relatório, ou quando fala de golos, assistências e marcadores que não batem certo com o save.
 ---
 
 # Relatório de jogo do FM para os dados do site
@@ -18,18 +18,17 @@ node scripts/validate_goals.js
 
 ## Primeiro: que competição é
 
-Vê as equipas do print e **lê a referência dessa competição antes de transcrever**. Ela
-diz quem é o treinador de cada equipa dos humanos, como se escrevem os nomes das equipas,
-e o que acontece num jogo que o `report_build.js` não acha:
-
-- clubes croatas (Dinamo Zagreb, Hajduk Split, HNK Rijeka...): `references/croatia.md`
-- seleções (Brasil, Marrocos, Alemanha...): `references/worldcup.md`
+Vê as equipas do print, acha a liga a que pertencem (o `id` em `js/data/leagues.js`) e
+**lê `references/<id>.md` antes de transcrever**. `ls references/` mostra as que existem.
+Ela diz quem é o treinador de cada equipa dos humanos, como se escrevem os nomes das
+equipas, e o que acontece num jogo que o `report_build.js` não acha. Se a liga do print
+não tiver referência, pára e diz ao utilizador em vez de adivinhar essas regras.
 
 Os relatórios de cada competição estão num ficheiro só e o `--write` escolhe-o pela liga a
 que o jogo pertence (`ficheiros.relatorios` em `leagues.js`), tanto a substituir um
 relatório que já existe como a acrescentar um novo. Não há ficheiro para escolher nem
-`<script>` para juntar. Uma competição nova precisa de uma referência nova e do seu
-`ficheiros` em `leagues.js`.
+`<script>` para juntar. Uma competição nova precisa só de `references/<id>.md` e do seu
+`ficheiros` em `leagues.js`: esta skill não muda.
 
 **Não vás procurar o jogo aos dados.** Nem o jogo, nem a chave, nem o relatório
 que já lá está: o `report_build.js` acha o jogo pela data e pelas equipas, e o

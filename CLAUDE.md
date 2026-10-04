@@ -162,7 +162,8 @@ knows where to write a league's result and report. A league with reports declare
 the list of teams (name, flag as `logo`, `jogador`) so `getLeagueTeamEntry` can find them.
 
 Adding a league means adding its data file(s), loading them before `leagues.js`, then pushing a new
-object into `leagues`.
+object into `leagues`. If it will have match reports, also declare its `ficheiros` and add
+`.claude/skills/fm-match-report/references/<id>.md` (the league `id`); the skill itself does not change.
 
 `activeLeagueId` in `js/ui/league-selector.js` starts on the first league with `status === "live"`,
 else the first league. While the World Cup is live, the Ligas tab opens on it.
