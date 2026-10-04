@@ -1,6 +1,6 @@
 ---
 name: fm-match-report
-description: Transcreve uma captura do ecrã "Relatório no final do jogo" do Football Manager para um relatório de jogo do site da Liga EMG. Usa quando o utilizador manda um print de um jogo do FM, quando pede para acrescentar ou corrigir um relatório, ou quando fala de golos, assistências e marcadores que não batem certo com o save.
+description: Transcreve uma captura do ecrã "Relatório no final do jogo" do Football Manager para um relatório de jogo do site da Liga EMG (Liga Croata ou Mundial 2026). Usa quando o utilizador manda um print de um jogo do FM, quando pede para acrescentar ou corrigir um relatório, ou quando fala de golos, assistências e marcadores que não batem certo com o save.
 ---
 
 # Relatório de jogo do FM para os dados do site
@@ -16,15 +16,20 @@ node scripts/validate_goals.js
 **Não commites.** Deixa por commitar para o utilizador ver o `git diff` e decidir.
 **Não abras o browser** sem te pedirem: quem confere a página é ele.
 
-Os relatórios de cada competição estão num ficheiro só (`js/data/croatia/croatia-reports.js`,
-`js/data/worldcup/worldcup-reports.js`) e o `--write` escolhe-o pela liga a que o jogo
-pertence (`ficheiros.relatorios` em `leagues.js`), tanto a substituir um relatório que já
-existe como a acrescentar um novo. Não há ficheiro para escolher nem `<script>` para juntar.
+## Primeiro: que competição é
 
-**Mundial:** o treinador de cada seleção é o jogador EMG dono dela (ver `worldcup-draw.js`),
-e os nomes das equipas no JSON são os portugueses de `worldcup-groups.js` ("Países Baixos",
-"Costa do Marfim"). Um jogo do quadro a eliminar que não exista em `worldcup-fixtures.js`
-tem de lá ser acrescentado antes, com `matchNumber`, ou o `report_build.js` não o acha.
+Vê as equipas do print e **lê a referência dessa competição antes de transcrever**. Ela
+diz quem é o treinador de cada equipa dos humanos, como se escrevem os nomes das equipas,
+e o que acontece num jogo que o `report_build.js` não acha:
+
+- clubes croatas (Dinamo Zagreb, Hajduk Split, HNK Rijeka...): `references/croatia.md`
+- seleções (Brasil, Marrocos, Alemanha...): `references/worldcup.md`
+
+Os relatórios de cada competição estão num ficheiro só e o `--write` escolhe-o pela liga a
+que o jogo pertence (`ficheiros.relatorios` em `leagues.js`), tanto a substituir um
+relatório que já existe como a acrescentar um novo. Não há ficheiro para escolher nem
+`<script>` para juntar. Uma competição nova precisa de uma referência nova e do seu
+`ficheiros` em `leagues.js`.
 
 **Não vás procurar o jogo aos dados.** Nem o jogo, nem a chave, nem o relatório
 que já lá está: o `report_build.js` acha o jogo pela data e pelas equipas, e o
@@ -43,11 +48,11 @@ um agente novo (subagent_type `general-purpose`, sem contexto desta conversa)
 com a pasta de recortes desse jogo e a instrução de seguir esta skill do
 início. Cada agente escreve só o seu JSON e pára aí — não corre o `--write`.
 
-O `--write` não paraleliza: lê o `croatia-reports.js` inteiro e escreve-o de
+O `--write` não paraleliza: lê o ficheiro de relatórios da liga inteiro e escreve-o de
 volta, por isso duas escritas ao mesmo tempo apagam-se uma à outra. Aplica os
 JSONs um de cada vez, tu próprio (o agente que orquestra, não os que
 transcreveram), correndo o `report_lint.js` de cada um antes de passar ao
-seguinte. O `validate_goals.js` corre uma vez só, no fim, sobre a época toda —
+seguinte. O `validate_goals.js` corre uma vez só, no fim, sobre a competição toda —
 não faz sentido por jogo.
 
 ## Que recortes ler
@@ -63,7 +68,7 @@ também.
 **Não faças ampliações por tua conta antes de escrever.** Nem para conferir
 números de camisola, nem para caçar diacríticos. Escreve o que lês, corre o
 `report_build.js --write` e depois o `report_lint.js`: ele compara cada número e
-cada nome com o resto da época e diz-te quais é que merecem uma segunda vista.
+cada nome com o resto da competição e diz-te quais é que merecem uma segunda vista.
 Ampliar à cautela custa mais do que o relatório todo e responde pior — o print
 não sabe o que os outros jogos já dizem daquele jogador, e o lint sabe.
 
@@ -72,6 +77,8 @@ JSON vai completo à mesma, porque o `--write` reescreve o relatório todo, mas
 tudo o que ele leva sai do print e não do que estava gravado.
 
 ## O JSON
+
+Exemplo da Liga Croata (as equipas e os treinadores de cada competição estão nas referências):
 
 ```json
 {
@@ -122,9 +129,9 @@ escreve o que vês e deixa o `report_lint.js` dizer que número aquele jogador u
 nos outros relatórios. Amplia só o que ele apontar, e se continuar duvidoso
 pergunta em vez de escolher.
 
-**O treinador pode ser o adjunto.** Nos oito clubes dos humanos escreve-se sempre
-o humano, mesmo quando o cabeçalho mostra outro nome. Dinamo e Hajduk não têm
-humano e levam o que o FM mostrar.
+**O treinador pode ser o adjunto.** Nas equipas dos humanos escreve-se sempre o
+humano, mesmo quando o cabeçalho mostra outro nome; as outras levam o que o FM
+mostrar. Quais são as equipas dos humanos está na referência da competição.
 
 **A forma lê-se no campo, o nome pergunta-se.** O cartão diz sempre "(PI)": o
 nome não está neste ecrã e não vale a pena ampliar à procura dele. A linha antes
@@ -132,18 +139,18 @@ do guarda-redes são os defesas e é o primeiro número; as bandas a seguir dão
 resto, e a mesma forma aceita mais do que um nome — 4-3-3 DM e 4-1-2-3
 desenham-se igual. Descreve ao utilizador as linhas que leste e pergunta-lhe o
 nome, a não ser que ele já to tenha dado no pedido. **Não o vás buscar aos
-relatórios antigos nem à contagem do que a época já usa:** 35 estão errados, e um
-nome errado muitas vezes continua a ser um nome errado.
+relatórios antigos nem à contagem do que a competição já usa:** há nomes de
+formação errados nos dados, e um nome errado muitas vezes continua a ser um nome errado.
 
 **Cartões e autogolos vivem na lista dos golos.** O autogolo escreve-se do lado
 que beneficia, embora o jogador seja da outra equipa.
 
 ## A grafia é a do print
 
-Quando o print escreve um nome de uma maneira e o resto da época o escreve de
+Quando o print escreve um nome de uma maneira e o resto da competição o escreve de
 outra, manda o print. Não dobres o relatório novo para condizer com os antigos:
 escreve-o como está no ecrã e, se o `report_lint.js` apontar a divergência,
-corrige a época toda de uma vez. O mesmo vale para um número de camisola que o
+corrige a competição toda de uma vez. O mesmo vale para um número de camisola que o
 utilizador confirme — muda em todos os relatórios, não só neste.
 
 ## O `goal: true`
