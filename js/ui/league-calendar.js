@@ -4,7 +4,9 @@ function getFixtureDateSortValue(fixture) {
     let [dayRaw, monthRaw] = String(fixture.date || "").trim().split(/\s+/);
     let day = Number.parseInt(dayRaw, 10) || 0;
     let month = Number.parseInt(fixtureMonthNumbers[monthRaw], 10) || 0;
-    let year = month >= 7 ? 2025 : 2026;
+    // A época croata vai de Agosto de 2025 a Maio de 2026; um jogo de outro
+    // calendário (o Mundial) diz o seu ano em `year`.
+    let year = fixture.year || (month >= 7 ? 2025 : 2026);
     return Date.UTC(year, Math.max(0, month - 1), day);
 }
 

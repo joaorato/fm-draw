@@ -30,8 +30,10 @@ function createFixtureKey(date, home, away, year = "2025") {
     return `${year}-${month}-${day}-${slugifyFixturePart(home)}-${slugifyFixturePart(away)}`;
 }
 
+// `options.year` põe o ano na chave e guarda-o no jogo. Sem ele fica o 2025 de
+// sempre, que é o que as chaves da Croácia (mesmo as de 2026) já usam.
 function createLeagueMatch(month, competition, date, home, score, away, options = {}) {
-    let fixtureKey = createFixtureKey(date, home, away);
+    let fixtureKey = createFixtureKey(date, home, away, options.year ? String(options.year) : undefined);
     if (score.trim() === "-") {
         return { fixtureKey, month, competition, date, home, away, homeGoals: null, awayGoals: null, ...options };
     }

@@ -13,6 +13,9 @@ const leagues = [
         fixtures: croatiaFixtures,
         fixtureMonths: croatiaFixtureMonths,
         fixtureGroupBy: "round",
+        // Onde o scripts/report_build.js escreve (caminhos relativos a js/data/):
+        // o placar no ficheiro dos jogos e o relatório no dos relatórios.
+        ficheiros: { fixtures: "croatia/croatia-fixtures.js", relatorios: "croatia/croatia-reports.js" },
         // Declarar isto é o que dá o gráfico de evolução a uma liga. Só faz
         // sentido onde a lista de jogos cobre a liga toda: a Escócia não declara
         // porque só lá estão os jogos entre as 8 equipas dos humanos.
@@ -86,6 +89,8 @@ const leagues = [
         scores: scotlandSeasonScores,
         fixtures: scotlandFixtures,
         fixtureMonths: scotlandFixtureMonths,
+        // A Escócia não tem relatórios, só o placar dos jogos.
+        ficheiros: { fixtures: "scotland.js" },
         merits: scotlandLeagueMerits,
         sideStats: scotlandSideStats,
         tacas: [

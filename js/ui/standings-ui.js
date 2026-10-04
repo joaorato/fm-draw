@@ -1,6 +1,11 @@
 // Numa liga em curso isto é uma projeção: a mesma conta, feita sobre a
 // classificação de hoje em vez da final.
+//
+// Um torneio (`torneio: true`, o Mundial) não tem tabela de liga: os pontos vêm
+// todos de `tacas`, e calcPositionBonuses daria campeão e último a quem calhasse
+// ficar nas pontas da lista de equipas.
 function calcBonuses(league) {
+    if (league.torneio) return calcCupBonuses(league.tacas);
     return [...calcCupBonuses(league.tacas), ...calcPositionBonuses(league.tabela)];
 }
 

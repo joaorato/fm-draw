@@ -50,3 +50,17 @@ function compactReport(fixtureKey, date, stadium, weather, playerOfMatch, rating
     };
 }
 
+// Liga cada relatório ao jogo com o mesmo `fixtureKey`. Um relatório cuja chave
+// não bate certo com nenhum jogo fica de fora sem dar erro, por isso depois de
+// acrescentar relatórios confirma-se que o jogo tem `fixture.report`.
+function linkReportsToFixtures(fixtures, reports) {
+    let byFixtureKey = new Map(reports.map((report) => [report.fixtureKey, report]));
+
+    fixtures.forEach((fixture) => {
+        fixture.report = byFixtureKey.get(fixture.fixtureKey) || null;
+        if (fixture.report) {
+            fixture.report.id = fixture.report.fixtureKey;
+            fixture.report.fixture = fixture;
+        }
+    });
+}

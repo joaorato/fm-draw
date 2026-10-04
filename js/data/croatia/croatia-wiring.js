@@ -1,14 +1,6 @@
-const croatiaMatchReportsByFixtureKey = new Map(croatiaMatchReports.map((report) => [report.fixtureKey, report]));
-
 assignLeagueFixtureRounds(croatiaFixtures, { teamNames: croatiaSeedTable.map((entry) => entry.equipa) });
 
-croatiaFixtures.forEach((fixture) => {
-    fixture.report = croatiaMatchReportsByFixtureKey.get(fixture.fixtureKey) || null;
-    if (fixture.report) {
-        fixture.report.id = fixture.report.fixtureKey;
-        fixture.report.fixture = fixture;
-    }
-});
+linkReportsToFixtures(croatiaFixtures, croatiaMatchReports);
 
 function getCroatiaFixtureDateLabel(fixture) {
     let day = String(fixture?.date || "").match(/\d+/)?.[0] || "";
