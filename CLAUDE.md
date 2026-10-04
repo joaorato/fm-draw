@@ -28,8 +28,8 @@ the page.
 - `index.html` - page structure, tab sections, modal/lightbox shells and the ordered script list.
 - `app.js` - bootstrap only, and must stay last.
 - `style.css` - all visual styling.
-- `js/data/` - data layer, grouped into `core/` (league-agnostic) and one folder per season
-  (`croatia/`), with `scotland.js` and `leagues.js` at the top level.
+- `js/data/` - data layer, grouped into `core/` (league-agnostic) and one folder per competition
+  (`croatia/`, `worldcup/`), with `scotland.js` and `leagues.js` at the top level.
 - `js/ui/` - UI layer, one script per area.
 - `assets/` - **generated** from `assets-src/` by `scripts/build_assets.js`. See Assets.
 - `assets-src/` - the originals, gitignored. Not deployed, not committed.
@@ -57,15 +57,18 @@ Order in `index.html`:
 2. `js/data/scotland.js`
 3. `js/data/croatia/` - `croatia-table.js`, `croatia-fixtures.js`, `croatia-reports.js`,
    `croatia-wiring.js`, `croatia-standings.js`, `croatia-transfers.js`, `croatia-news.js`
-4. `js/data/leagues.js`
-5. `js/ui/` - `shared.js`, `chrome.js`, `coaches.js`, `standings-ui.js`, `league-selector.js`,
+4. `js/data/worldcup/` - `worldcup-groups.js`, `worldcup-draw.js`, `worldcup-table.js`,
+   `worldcup-fixtures.js`, `worldcup-reports.js`, `worldcup-standings.js`
+5. `js/data/leagues.js`
+6. `js/ui/` - `shared.js`, `chrome.js`, `coaches.js`, `standings-ui.js`, `league-selector.js`,
    `match-report.js`, `league-live.js`, `league-transfers.js`, `league-stats.js`,
-   `league-calendar.js`, `league-race.js`, `league-xi.js`, `league-panel.js`, `draw.js`, `share.js`
-6. `app.js`
+   `league-calendar.js`, `league-race.js`, `league-xi.js`, `league-tournament.js`,
+   `league-panel.js`, `draw.js`, `draw-groups.js`, `draw-selector.js`, `share.js`
+7. `app.js`
 
-Within `js/data/croatia/`, the order matters: fixtures need the table's config, wiring needs the
-reports, standings needs the wiring. A new data file goes before the file that consumes it. A new
-`js/ui/` file can go anywhere in the `js/ui/` block.
+Within `js/data/croatia/` and `js/data/worldcup/`, the order matters: fixtures need the table's
+config, standings (and Croatia's wiring) need the reports. A new data file goes before the file that
+consumes it. A new `js/ui/` file can go anywhere in the `js/ui/` block.
 
 ## Data Files
 
@@ -86,6 +89,12 @@ reports, standings needs the wiring. A new data file goes before the file that c
 | `js/data/croatia/croatia-standings.js` | Computes `croatiaCurrentTable` and `croatiaSeasonScores` from the fixtures |
 | `js/data/croatia/croatia-transfers.js` | Croatia transfers and extra club logos |
 | `js/data/croatia/croatia-news.js` | Croatia live/news carousel and articles |
+| `js/data/worldcup/worldcup-groups.js` | The 12 World Cup groups and their 48 teams, in FIFA draw order |
+| `js/data/worldcup/worldcup-draw.js` | Result of the EMG draw: which player owns which nation |
+| `js/data/worldcup/worldcup-table.js` | World Cup config: `worldCupEquipas`, `worldCupRegras`, `worldCupClassificacaoFM`, `worldCupPremios` (10/5/2), `worldCupRondas`, `worldCupBracket` (FIFA match numbers 73-104) |
+| `js/data/worldcup/worldcup-fixtures.js` | The 72 group fixtures (real 2026 schedule) plus the knockout fixtures as they become known |
+| `js/data/worldcup/worldcup-reports.js` | Every World Cup match report. Written by `scripts/report_build.js` |
+| `js/data/worldcup/worldcup-standings.js` | Derived: group tables, best third-placed teams, podium, `worldCupTacas`, `getWorldCupTeamStatus` |
 | `js/data/leagues.js` | The `leagues` array consumed by the whole UI layer |
 
 ## UI Files
@@ -107,7 +116,10 @@ else.
 | `js/ui/league-calendar.js` | Fixture grouping, round select, calendar | `activeLeagueCalendarRound` |
 | `js/ui/league-race.js` | Evolução da classificação: the animated position chart and its overlay | `raceLeagueId`, `raceFrameIndex`, `racePinned`, `racePlaying`, `raceAutoTimer`, `raceHistoryCache`, `raceSeriesByLeague` |
 | `js/ui/league-xi.js` | Team of the Week / Team of the Weak overlay | `activeLeagueXiRound`, `activeLeagueXiDirection` |
+| `js/ui/league-tournament.js` | The tournament view (World Cup): player strip, 12 groups, best thirds, knockout bracket. `renderLeague` hands a `torneio` league over to it | - |
 | `js/ui/league-panel.js` | Lower panel, side stats, `renderLeague` | - |
+| `js/ui/draw-groups.js` | The World Cup group draw ceremony | `wc*` state, saved in `localStorage` |
+| `js/ui/draw-selector.js` | Picker between the draws in the Sorteios tab | `activeDrawId` |
 | `js/ui/draw.js` | Roulette maths and the draw ceremony | `shuffledTeams`, `shuffledPlayers`, `remainingTeams`, `remainingPlayers`, `currentRound`, `resultados`, `DRAW_COMPLETED`, `FINAL_RESULTS` |
 | `js/ui/share.js` | Discord share, on-demand `html2canvas`, fullscreen | `html2canvasLoader` |
 
@@ -140,13 +152,20 @@ A league object in `js/data/leagues.js` contains:
 - Required: `id`, `status` (`"live"` or `"completed"`), `statusLabel`, `nome`, `descricao`, `logo`,
   `logoAlt`, `epoca`, `formula`, `scores`, `fixtures`, `fixtureMonths`, `tabela`
 - Optional: `fixtureGroupBy`, `liveCards`, `livePages`, `transfers`, `merits`, `sideStats`, `tacas`,
-  `extraTeamLogos`, `evolucao`, `golos`, `equipaJornada`
+  `extraTeamLogos`, `evolucao`, `golos`, `equipaJornada`, `ficheiros`, `torneio`
+
+`ficheiros: { fixtures, relatorios }` are paths under `js/data/` and are how `scripts/report_build.js`
+knows where to write a league's result and report. A league with reports declares both.
+
+`torneio: true` marks a competition with no league table (the World Cup). `renderLeague` hands it to
+`renderTournament`, `calcBonuses` returns only `tacas` for it, `scores` is `[]`, and `tabela` is just
+the list of teams (name, flag as `logo`, `jogador`) so `getLeagueTeamEntry` can find them.
 
 Adding a league means adding its data file(s), loading them before `leagues.js`, then pushing a new
 object into `leagues`.
 
-`activeLeagueId` in `js/ui/league-selector.js` is hardcoded to `"croatia"` rather than derived from
-`leagues`. It is correct today and will be wrong the session a new league goes live.
+`activeLeagueId` in `js/ui/league-selector.js` starts on the first league with `status === "live"`,
+else the first league. While the World Cup is live, the Ligas tab opens on it.
 
 ## Common Update Paths
 
@@ -164,6 +183,15 @@ For a new Croatia session:
   `node scripts/validate_goals.js` afterwards.
 - A new image: drop the original into `assets-src/` and run `node scripts/build_assets.js`. See
   Assets.
+
+For a new World Cup session:
+
+- Group results: transcribe each match with the `fm-match-report` skill; `report_build.js --write`
+  writes the report and the score. Standings, thirds and the podium follow on their own.
+- Knockout fixtures: add them to `js/data/worldcup/worldcup-fixtures.js` once both teams are known,
+  with `matchNumber` (73-104), `roundKey` and `roundLabel`. See the header comment in that file.
+- Nothing else: the 10/5/2 points appear in Classificação Geral by themselves once the final and the
+  third-place match have a winner.
 
 ## Croatia Standings
 
@@ -323,10 +351,36 @@ reports to fill any shape isn't offered in the jornada selector at all; there is
 feature and the (Scotland-only, hand-authored) Team of the Year card - one pitch renderer, two very
 different sources of players.
 
+## Mundial 2026
+
+A tournament, not a league: `torneio: true` in `leagues.js`, drawn by `js/ui/league-tournament.js`.
+Everything shown is derived from `worldCupFixtures`; nothing is typed twice.
+
+- **Points.** Winner of the final +10, loser of the final +5, winner of the third-place match +2,
+  and nothing else. `getWorldCupPodium()` reads them off the fixtures, `worldCupTacas` turns them
+  into `{ tipo, jogador, pontos }` for `calcCupBonuses`, and `status` flips to `"completed"` when the
+  final and the third-place match have a winner. Until then the World Cup adds 0, and because the
+  league is `"live"` Classificação Geral shows its Projeção tab with a column of zeros for it.
+- **Fixtures.** The 72 group matches carry the real 2026 dates and `year: 2026`, so keys look like
+  `2026-06-13-brasil-marrocos`. If the FM save has another date for a match, fix the date before
+  writing its report. A knockout match is added only when both teams are known, with `matchNumber`
+  from `worldCupBracket`; a match decided on penalties carries `displayScore` and `winner`.
+- **Group tables** use `worldCupRegras` (head-to-head first, as FIFA does in 2026). Fair play and the
+  FIFA ranking, the last two FIFA criteria, are not in the data, so a tie that reaches them falls to
+  alphabetical order. When that happens, paste FM's table for the group into
+  `worldCupClassificacaoFM`.
+- **Best thirds** are ranked on points, goal difference and goals scored, and only count as qualified
+  once all 12 groups are finished. Which third plays which group winner comes from FIFA's table and
+  is not encoded: the bracket resolves group winners and runners-up by itself, and a third-placed
+  slot shows its allowed groups until the fixture is added.
+- **Match reports** use the same pipeline as Croatia. Team names in the transcription JSON are the
+  Portuguese names in `worldcup-groups.js`.
+
 ## Match Reports
 
 Reports are matched to fixtures by `fixtureKey`, built with `createFixtureKey()` from
-`fixtures-core.js`. **A report whose `fixtureKey` matches no fixture is silently dropped** - after
+`fixtures-core.js` (year 2025 unless the fixture passes `year`, as the World Cup does), and linked
+by `linkReportsToFixtures()` in `report-core.js`. **A report whose `fixtureKey` matches no fixture is silently dropped** - after
 adding reports, check the target fixture has `fixture.report`.
 
 Build report content with the helpers from `report-core.js`: `compactReport()`, `reportPlayer()`,

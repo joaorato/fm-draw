@@ -16,9 +16,15 @@ node scripts/validate_goals.js
 **Não commites.** Deixa por commitar para o utilizador ver o `git diff` e decidir.
 **Não abras o browser** sem te pedirem: quem confere a página é ele.
 
-Os relatórios estão todos no `js/data/croatia/croatia-reports.js` e é lá que o `--write`
-escreve, tanto a substituir um que já existe como a acrescentar um novo. Não há
-ficheiro para escolher nem `<script>` para juntar.
+Os relatórios de cada competição estão num ficheiro só (`js/data/croatia/croatia-reports.js`,
+`js/data/worldcup/worldcup-reports.js`) e o `--write` escolhe-o pela liga a que o jogo
+pertence (`ficheiros.relatorios` em `leagues.js`), tanto a substituir um relatório que já
+existe como a acrescentar um novo. Não há ficheiro para escolher nem `<script>` para juntar.
+
+**Mundial:** o treinador de cada seleção é o jogador EMG dono dela (ver `worldcup-draw.js`),
+e os nomes das equipas no JSON são os portugueses de `worldcup-groups.js` ("Países Baixos",
+"Costa do Marfim"). Um jogo do quadro a eliminar que não exista em `worldcup-fixtures.js`
+tem de lá ser acrescentado antes, com `matchNumber`, ou o `report_build.js` não o acha.
 
 **Não vás procurar o jogo aos dados.** Nem o jogo, nem a chave, nem o relatório
 que já lá está: o `report_build.js` acha o jogo pela data e pelas equipas, e o
