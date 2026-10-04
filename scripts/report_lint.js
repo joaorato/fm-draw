@@ -337,7 +337,7 @@ function main() {
                 return;
             }
 
-            console.log(`\n${fixture.fixtureKey}  (J${fixture.round}  ${fixture.home} `
+            console.log(`\n${fixture.fixtureKey}  (${typeof fixture.round === "number" ? `J${fixture.round}` : fixture.round}  ${fixture.home} `
                 + `${fixture.homeGoals}-${fixture.awayGoals} ${fixture.away})`);
             erros.forEach((linha) => console.log(`  ERRO  ${linha}`));
             avisos.forEach((linha) => console.log(`  AVISO ${linha}`));

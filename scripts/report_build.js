@@ -442,7 +442,9 @@ function escrever(t, fixtureKey, ficheiroPadrao, destinoPedido) {
     let fecho = texto.lastIndexOf("\n];");
     if (fecho < 0) throw new Error(`não encontrei o fim do array em ${destino}`);
     let antes = texto.slice(0, fecho);
-    let virgula = antes.trimEnd().endsWith(",") ? "" : ",";
+    // Num array ainda vazio ("= [") o primeiro bloco não leva vírgula atrás:
+    // `[,` seria um buraco no array e o wiring cairia ao ler `undefined.fixtureKey`.
+    let virgula = /[,\[]$/.test(antes.trimEnd()) ? "" : ",";
     fs.writeFileSync(caminho, antes + virgula + "\n" + bloco + texto.slice(fecho));
     return { ficheiro: destino, novo: true };
 }

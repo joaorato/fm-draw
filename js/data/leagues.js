@@ -117,5 +117,36 @@ const leagues = [
             let emgEntry = scotlandSeasonScores.find((score) => score.equipa === entry.equipa);
             return { ...entry, emgPontos: emgEntry ? emgEntry.pontos : null };
         })
+    },
+    {
+        id: "mundial",
+        // Um torneio não tem tabela de liga: os pontos vêm só do pódio, e
+        // `torneio` é o que diz ao resto do site para não a procurar.
+        torneio: true,
+        status: worldCupConcluido ? "completed" : "live",
+        statusLabel: worldCupConcluido ? "Concluído" : "Em curso",
+        nome: "Mundial 2026",
+        descricao: "O Mundial 2026 jogado no FM, com uma seleção para cada jogador EMG. Só o pódio pontua: campeão +10, vice-campeão +5 e vencedor do jogo do 3.º lugar +2.",
+        logo: "assets/logos/ligaEMG.webp",
+        logoAlt: "Mundial 2026",
+        epoca: "Mundial 2026",
+        formula: "Campeão +10 · Vice +5 · 3.º lugar +2",
+        scores: [],
+        fixtures: worldCupFixtures,
+        fixtureMonths: worldCupFixtureMonths,
+        fixtureGroupBy: "round",
+        ficheiros: { fixtures: "worldcup/worldcup-fixtures.js", relatorios: "worldcup/worldcup-reports.js" },
+        // Todos os jogos do torneio contam para golos e assistências, ao
+        // contrário da Croácia, onde a Taça fica de fora.
+        golos: {
+            isLeagueMatch: isWorldCupMatch
+        },
+        equipaJornada: {
+            isLeagueMatch: isWorldCupMatch
+        },
+        tacas: worldCupTacas,
+        // As 48 seleções: é por aqui que o calendário e a ficha de jogo acham a
+        // bandeira e o jogador de cada uma (getLeagueTeamEntry).
+        tabela: worldCupEquipas
     }
 ];
