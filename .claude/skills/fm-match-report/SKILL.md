@@ -152,6 +152,32 @@ escreve-o como está no ecrã e, se o `report_lint.js` apontar a divergência,
 corrige a competição toda de uma vez. O mesmo vale para um número de camisola que o
 utilizador confirme — muda em todos os relatórios, não só neste.
 
+**Um jogador, uma grafia.** O mesmo ecrã escreve o mesmo jogador de várias maneiras: "Edmilson
+Jr." no campo e "Edmilson Junior" nos eventos, "Inao.C" e "C. Inao Oulaï", "Aramba..." cortado
+e "Arambarri" inteiro. Os rankings contam cada grafia como um jogador, por isso o relatório
+leva uma só, igual no campo e nos eventos e igual a todos os relatórios da mesma equipa. Vale
+a mais completa que apareça em algum lado do ecrã (a de um evento, ou a de um nome que o
+campo mostre inteiro). Um marcador obriga a isto, porque o `report_build.js` recusa uma bola
+no campo cujo evento tenha outro nome. Um assistente não obriga a nada, por isso confere-os à
+mão antes de escreveres: percorre cada nome dos eventos e vê se é um dos onze com outra
+grafia. O `report_build.js` e o `report_lint.js` avisam "parece ser ... do onze (n.º, posição)" quando as
+grafias se parecem, e o `report_build.js` avisa também quando se parecem com uma de outro
+relatório da equipa.
+
+**Um aviso destes não prova que seja o mesmo jogador, e nunca se uniformiza só por causa dele.**
+Duas pessoas da mesma seleção partilham apelido ("Lopes Cabral" e "Jovane Cabral"). Numa
+seleção que não conheces não há como saber só pelo nome. Confere o que o ecrã mostra: o número
+e a posição do jogador do onze, o minuto do evento e a lógica do jogo (um assistente que
+também tem bola no campo noutro golo, um suplente que não pode estar no onze). Se continuares
+sem certeza, não uniformizes: pergunta ao utilizador com os dois nomes, o número e a posição.
+As grafias que não se parecem nada ("Feras" e "F. Al-Brikan", "Jovane" e "J. Cabral") nenhum
+aviso apanha: só se vê ao ler os eventos contra o onze. Quando uma for confirmada,
+uniformiza a competição toda de uma vez.
+
+**O código de posição que o FM mostra como `AlI` escreve-se `AlI`**: A maiúsculo, L
+minúsculo, I maiúsculo, confirmado pelo utilizador. Nunca `AII` nem `All`: a fonte do FM
+desenha as três quase iguais, e já houve relatórios com as três.
+
 ## O `goal: true`
 
 Lê-se do campo, **nunca se deduz do evento que acabaste de escrever**. Não aparece

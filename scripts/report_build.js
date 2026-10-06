@@ -43,6 +43,7 @@
 const fs = require("fs");
 const path = require("path");
 const { loadLeagueData } = require("./load-league-data");
+const { parecemMesmoJogador } = require("./report_names");
 
 const MESES = { Janeiro: "Jan", Fevereiro: "Fev", Março: "Mar", Abril: "Abr", Maio: "Mai",
     Junho: "Jun", Julho: "Jul", Agosto: "Ago", Setembro: "Set", Outubro: "Out",
@@ -238,9 +239,33 @@ function validar(t, dados, fixture) {
             let squad = squads.get(equipa);
             [...marcadores, ...assistentes].forEach((quem) => {
                 if (jogadores.some((j) => mesmoJogador(j.name, quem))) return;
+                // O mesmo jogador do onze escrito de outra maneira no evento: o campo diz
+                // "Edmilson Jr.", o evento "Edmilson Junior". Conta como dois nos rankings.
+                let parecido = jogadores.find((j) => parecemMesmoJogador(j.name, quem));
+                if (parecido) {
+                    avisos.push(`${equipa}: "${quem}" parece ser "${parecido.name}" do onze`
+                        + ` (n.º ${parecido.number ?? "?"}, ${parecido.pos ?? "?"})`
+                        + ` - se for o mesmo jogador, escreve o mesmo nome no campo e no evento`);
+                    return;
+                }
                 let conhecido = squad
                     && (squad.byName.has(nameKey(quem)) || squad.bySurname.has(surnameKey(quem)));
                 if (!conhecido) avisos.push(`${equipa}: "${quem}" não é titular nem aparece noutro relatório`);
+            });
+        }
+
+        // O mesmo jogador com outra grafia num relatório anterior: "Feras" num jogo e
+        // "F. Al-Brikan" no seguinte. Passa pela auditoria de números como dois jogadores.
+        let plantel = squads?.get(equipa);
+        if (plantel) {
+            jogadores.forEach((j) => {
+                plantel.byName.forEach((nome) => {
+                    if (nameKey(nome) === nameKey(j.name) || surnameKey(nome) === surnameKey(j.name)) return;
+                    if (parecemMesmoJogador(j.name, nome)) {
+                        avisos.push(`${equipa}: "${j.name}" parece ser o mesmo jogador que "${nome}"`
+                            + ` de outro relatório - uniformiza a grafia`);
+                    }
+                });
             });
         }
 

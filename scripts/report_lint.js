@@ -17,6 +17,7 @@ const fs = require("fs");
 const path = require("path");
 const vm = require("vm");
 const { loadLeagueData } = require("./load-league-data");
+const { parecemMesmoJogador } = require("./report_names");
 
 // js/ui/match-report.js só declara funções, por isso corre fora do browser sem
 // mais nada à volta. Carrega-se para poder comparar o que a ficha do site mostra
@@ -189,6 +190,29 @@ function checkFixture(league, fixture, helpers, reference, renderer) {
                 structured: !!parsed.structured
             });
         });
+
+        // --- o mesmo jogador escrito de duas maneiras no mesmo relatório ---
+        //
+        // O campo diz "Edmilson Jr.", o evento "Edmilson Junior". O marcador exige
+        // o mesmo nome nos dois sítios, o assistente não, e é por aí que passa.
+        if (players) {
+            let avisado = new Set();
+            (report.events?.[side] || []).forEach((event) => {
+                let parsed = readGoalEvent(event);
+                if (!parsed.structured) return;
+                [parsed.scorer, parsed.assist, parsed.player].filter(Boolean).forEach((quem) => {
+                    if (players.some((p) => nameKey(p.name) === nameKey(quem)
+                        || surnameKey(p.name) === surnameKey(quem))) return;
+                    let parecido = players.find((p) => parecemMesmoJogador(p.name, quem));
+                    if (parecido && !avisado.has(quem)) {
+                        avisado.add(quem);
+                        avisos.push(`${team}: "${quem}" no evento parece ser "${parecido.name}" do onze`
+                            + ` (n.º ${parecido.number ?? "?"}, ${parecido.pos ?? "?"})`
+                            + ` - se for o mesmo jogador, escreve o mesmo nome no campo e no evento`);
+                    }
+                });
+            });
+        }
 
         // --- ordem do evento contra as bolas da ficha ---
         //
