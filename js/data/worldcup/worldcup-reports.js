@@ -373,7 +373,7 @@ const worldCupMatchReports = [
         weather: "Calmo",
         playerOfMatch: "Joshua Kimmich",
         rating: "8,33",
-        coaches: { home: "D. Advocaat", away: "João Pedro Rato" },
+        coaches: { home: "D. Advocaat", away: "H. Maus" },
         formations: {
             home: reportFormation("4-2-3-1", [
                 [reportPlayer("11", "Živković", "5,7", "AAE")],
@@ -547,6 +547,190 @@ const worldCupMatchReports = [
             ["Cartões vermelhos", "0", "0"],
             ["Distância Percorrida", "131", "122"],
             ["Classificação Média", "7,1", "6,7"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-15-egito-belgica",
+        date: "Segunda-feira 15 de Junho de 2026",
+        stadium: "Seattle Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Afsha",
+        rating: "7,38",
+        coaches: { home: "H. Hassan", away: "R. Garcia" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("7", "Marmoush", "7,3", "AAE", true)],
+                [reportPlayer("10", "Zizo", "6,9", "Ex"), reportPlayer("20", "Afsha", "7,4", "MO"), reportPlayer("11", "M.Salah", "6,6", "AI")],
+                [reportPlayer("5", "Morsy", "6,7", "CJR"), reportPlayer("15", "H.Fathy", "6,4", "MD")],
+                [reportPlayer("3", "Fatouh", "7,2", "AI"), reportPlayer("19", "El Wensh", "7,0", "CP"), reportPlayer("18", "Hegazi", "7,2", "DC"), reportPlayer("25", "El Eraki", "6,5", "DL")],
+                [reportPlayer("1", "Shoubir", "6,9", "GR")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("16", "De Ketelaere", "6,5", "F9")],
+                [reportPlayer("9", "Doku", "6,6", "Ex"), reportPlayer("6", "Saelemaek...", "6,9", "Ex")],
+                [reportPlayer("8", "Tielemans", "6,6", "CJA"), reportPlayer("7", "De Bruyne", "6,5", "MC")],
+                [reportPlayer("18", "Onana", "6,6", "Pi")],
+                [reportPlayer("12", "De Cuyper", "6,9", "AII"), reportPlayer("4", "Theate", "7,4", "CC", true), reportPlayer("5", "De Winter", "6,9", "CC"), reportPlayer("21", "Castagne", "6,8", "AI")],
+                [reportPlayer("1", "Courtois", "6,4", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("43", "O. Marmoush", { assist: "Afsha" })],
+            away: [goalEvent("1", "A. Theate", { assist: "M. De Cuyper" })]
+        },
+        stats: reportStats([
+            ["Posse", "53%", "47%"],
+            ["Remates", "12", "21"],
+            ["Remates à Baliza", "4", "7"],
+            ["xG", "2,37", "2,14"],
+            ["PADPAD", "30,83", "23,57"],
+            ["Oportunidades Flagrantes", "2", "1"],
+            ["Cantos", "8", "11"],
+            ["Passes Completados", "89%", "91%"],
+            ["Cruzamentos Completados", "34%", "26%"],
+            ["Faltas", "16", "13"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "119", "126"],
+            ["Classificação Média", "6,9", "6,7"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-15-nova-zelandia-irao",
+        date: "Segunda-feira 15 de Junho de 2026",
+        stadium: "Los Angeles Stadium",
+        weather: "Tempestuoso",
+        playerOfMatch: "Max Crocombe",
+        rating: "7,80",
+        coaches: { home: "D. Bazeley", away: "A. Ghalenoei" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Wood", "6,5", "AR")],
+                [reportPlayer("11", "Just", "6,8", "AA"), reportPlayer("8", "Singh", "7,4", "CL", true), reportPlayer("18", "Randall", "6,3", "AA")],
+                [reportPlayer("17", "Stamenić", "6,8", "Pi"), reportPlayer("16", "Bell", "6,8", "MD")],
+                [reportPlayer("13", "Cacace", "7,4", "AC"), reportPlayer("25", "Tuiloma", "6,7", "CC"), reportPlayer("4", "Bindon", "7,0", "CC"), reportPlayer("2", "Kirwan", "6,9", "DL")],
+                [reportPlayer("1", "Crocombe", "7,8", "GRP")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("22", "Taremi", "6,4", "AvR")],
+                [reportPlayer("15", "Allahyar", "6,2", "AA"), reportPlayer("18", "Jahanbakh...", "6,4", "EAI")],
+                [reportPlayer("16", "Omidnor", "6,8", "MC"), reportPlayer("7", "Khodaband...", "6,7", "MC")],
+                [reportPlayer("6", "Saeid", "6,8", "CJR")],
+                [reportPlayer("19", "Goudi", "6,5", "AI"), reportPlayer("17", "Kanani", "6,7", "DC"), reportPlayer("4", "Roozbeh", "6,4", "CC"), reportPlayer("20", "Moharrami", "7,0", "AI")],
+                [reportPlayer("13", "Beyranvand", "6,5", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("17", "S. Singh", { assist: "E. Just" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "44%", "56%"],
+            ["Remates", "4", "14"],
+            ["Remates à Baliza", "3", "8"],
+            ["xG", "0,22", "0,76"],
+            ["PADPAD", "19,11", "11,69"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "3", "12"],
+            ["Passes Completados", "86%", "91%"],
+            ["Cruzamentos Completados", "10%", "10%"],
+            ["Faltas", "6", "8"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "119", "122"],
+            ["Classificação Média", "6,9", "6,6"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-15-espanha-cabo-verde",
+        date: "Segunda-feira 15 de Junho de 2026",
+        stadium: "Atlanta Stadium",
+        weather: "Tempestuoso",
+        playerOfMatch: "Bruno Varela",
+        rating: "8,43",
+        coaches: { home: "Gamy Chambelito", away: "Bubista" },
+        formations: {
+            home: reportFormation("4-2-2-2 Wide", [
+                [reportPlayer("10", "Oyarzábal", "6,5", "AAE"), reportPlayer("12", "Ferran", "6,4", "F9")],
+                [reportPlayer("25", "Fabián", "6,4", "EAI"), reportPlayer("19", "Lamine Ya...", "7,8", "AA")],
+                [reportPlayer("4", "Rodri", "7,3", "CJR", true), reportPlayer("20", "Olmo", "6,6", "MD")],
+                [reportPlayer("22", "Cucurella", "6,8", "AI"), reportPlayer("23", "Pau", "6,7", "CC"), reportPlayer("5", "Cubarsí", "7,1", "CC"), reportPlayer("16", "M. Llorente", "7,3", "AI")],
+                [reportPlayer("13", "J. García", "6,6", "GR")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("10", "Da Costa", "6,1", "AvR")],
+                [reportPlayer("8", "Jovane", "6,7", "AA"), reportPlayer("15", "Andrade", "6,6", "AA", true)],
+                [reportPlayer("16", "João Paulo", "6,9", "MC"), reportPlayer("22", "Duarte", "6,6", "ME")],
+                [reportPlayer("7", "Kevin L.", "6,6", "MD")],
+                [reportPlayer("3", "Lopes Cabr...", "6,0", "LI"), reportPlayer("21", "Moreira", "6,2", "CC"), reportPlayer("5", "Costa", "6,6", "CC"), reportPlayer("2", "Wagner P.", "5,9", "AI")],
+                [reportPlayer("1", "Bruno Varela", "8,4", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("22", "Rodri", { assist: "Lamine Yamal" }), goalEvent("90+2", "A. Grimaldo", { penalty: true }), goalEvent("90+6", "Á. Baena", { assist: "S. Aghehowa" })],
+            away: [goalEvent("38", "L. Andrade", { assist: "J. Cabral" })]
+        },
+        stats: reportStats([
+            ["Posse", "55%", "45%"],
+            ["Remates", "34", "9"],
+            ["Remates à Baliza", "21", "6"],
+            ["xG", "4,41", "0,37"],
+            ["PADPAD", "22,00", "41,50"],
+            ["Oportunidades Flagrantes", "3", "0"],
+            ["Cantos", "18", "5"],
+            ["Passes Completados", "90%", "86%"],
+            ["Cruzamentos Completados", "44%", "6%"],
+            ["Faltas", "12", "12"],
+            ["Cartões amarelos", "3", "2"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "129", "121"],
+            ["Classificação Média", "6,9", "6,6"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-15-arabia-saudita-uruguai",
+        date: "Segunda-feira 15 de Junho de 2026",
+        stadium: "Miami Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Mauro Arambarri",
+        rating: "9,26",
+        coaches: { home: "G. Donis", away: "M. Bielsa" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Feras", "6,5", "AvR")],
+                [reportPlayer("6", "Salem", "6,2", "AI"), reportPlayer("8", "Musab", "6,4", "CJA"), reportPlayer("18", "Abdulrahm...", "6,3", "Ex")],
+                [reportPlayer("3", "Nasser D.", "6,6", "MD"), reportPlayer("7", "Kanno", "6,6", "MD")],
+                [reportPlayer("17", "Moteb", "6,3", "AI"), reportPlayer("21", "Kadish", "6,3", "DC"), reportPlayer("4", "Al Tambakti", "6,5", "CC"), reportPlayer("12", "Saud", "6,1", "AC")],
+                [reportPlayer("1", "Nawaf", "6,8", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("9", "D. Núñez", "8,4", "AC", true)],
+                [reportPlayer("10", "Torres", "7,7", "Ex"), reportPlayer("15", "Zalazar", "7,3", "Ex")],
+                [reportPlayer("18", "M. Aramba...", "9,3", "CJA"), reportPlayer("12", "Valverde", "8,7", "ME", true)],
+                [reportPlayer("7", "Bentancur", "7,0", "Pi")],
+                [reportPlayer("3", "M. Araújo", "6,9", "AC"), reportPlayer("4", "J.M. Giméne...", "7,0", "DC"), reportPlayer("17", "R. Araújo", "7,6", "CP"), reportPlayer("23", "Mouriño", "6,9", "AII")],
+                [reportPlayer("1", "Rochet", "7,3", "GR")]
+            ])
+        },
+        events: {
+            home: [],
+            away: [goalEvent("18", "D. Núñez", { assist: "M. Arambarri" }), goalEvent("30", "F. Valverde", { assist: "M. Arambarri" }), goalEvent("45", "D. Núñez", { assist: "F. Torres" }), goalEvent("60", "F. Valverde", { assist: "R. Zalazar" })]
+        },
+        stats: reportStats([
+            ["Posse", "50%", "50%"],
+            ["Remates", "11", "16"],
+            ["Remates à Baliza", "4", "10"],
+            ["xG", "1,04", "2,82"],
+            ["PADPAD", "21,89", "21,74"],
+            ["Oportunidades Flagrantes", "1", "3"],
+            ["Cantos", "6", "6"],
+            ["Passes Completados", "91%", "89%"],
+            ["Cruzamentos Completados", "14%", "21%"],
+            ["Faltas", "9", "11"],
+            ["Cartões amarelos", "0", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "122", "120"],
+            ["Classificação Média", "6,4", "7,6"]
         ])
     }
 ];

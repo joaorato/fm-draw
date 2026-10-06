@@ -10,22 +10,14 @@ Lê isto quando as equipas do print são seleções (Brasil, Marrocos, Alemanha.
 
 ## Treinadores
 
-Das 48 seleções, oito têm um humano, o dono da seleção no sorteio. Escreve sempre o humano
-nessas, mesmo quando o cabeçalho mostra o selecionador:
+Aqui, ao contrário da Liga Croata, escreve-se sempre o nome do treinador que o cabeçalho do
+print mostra, também nas seleções dos humanos ("H. Maus" na Alemanha, "Zép Jóbes" no Brasil,
+"Gamy Chambelito" em Espanha). Não troques pelo nome do dono da seleção.
 
-| Seleção | Treinador |
-|---|---|
-| Brasil | Gonçalo |
-| Marrocos | Cardoso |
-| Alemanha | Rato |
-| Estados Unidos | Nabais |
-| Espanha | Gamy |
-| França | Hugo |
-| Portugal | Painatal |
-| Inglaterra | Chico |
-
-As outras 40 levam o que o FM mostrar. A fonte de verdade é `worldCupDrawResults` em
-`worldcup-draw.js`; se a tabela acima e o ficheiro discordarem, vale o ficheiro.
+Oito seleções têm um humano, o dono no sorteio: Brasil (Gonçalo), Marrocos (Cardoso, que
+desistiu), Alemanha (Rato), Estados Unidos (Nabais), Espanha (Gamy), França (Hugo), Portugal
+(Painatal) e Inglaterra (Chico). A fonte de verdade é `worldCupDrawResults` em
+`worldcup-draw.js`.
 
 ## Nomes das equipas
 
