@@ -732,5 +732,188 @@ const worldCupMatchReports = [
             ["Distância Percorrida", "122", "120"],
             ["Classificação Média", "6,4", "7,6"]
         ])
+    },
+    {
+        fixtureKey: "2026-06-16-senegal-franca",
+        date: "Terça-feira 16 de Junho de 2026",
+        stadium: "New York New Jersey Stadium",
+        weather: "Tempestuoso",
+        playerOfMatch: "Kylian Mbappé",
+        rating: "8,39",
+        coaches: { home: "P. Thiaw", away: "Hugo Le Macedo" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("11", "N. Jackson", "6,8", "AAE", true)],
+                [reportPlayer("10", "Mané", "6,5", "AI"), reportPlayer("9", "Dia", "7,2", "SA"), reportPlayer("8", "Sarr", "6,0", "Ex")],
+                [reportPlayer("14", "Gueye", "6,9", "MD"), reportPlayer("6", "P.M. Sarr", "6,4", "MD")],
+                [reportPlayer("21", "Diouf", "6,5", "AI"), reportPlayer("5", "Niakhaté", "6,4", "CC"), reportPlayer("4", "Koulibaly", "6,6", "CC"), reportPlayer("20", "Mendy", "6,6", "LI")],
+                [reportPlayer("16", "E.Mendy", "7,1", "GRC")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("10", "Mbappe", "8,4", "AAE", true)],
+                [reportPlayer("7", "O. Dembélé", "6,6", "Ex"), reportPlayer("8", "Cherki", "6,5", "MO"), reportPlayer("6", "Olise", "6,6", "AA")],
+                [reportPlayer("3", "Camavinga", "6,8", "MC")],
+                [reportPlayer("12", "Tchouaméni", "6,8", "MD")],
+                [reportPlayer("22", "Théo", "7,4", "DL"), reportPlayer("5", "Upamecano", "6,7", "CC"), reportPlayer("14", "Saliba", "6,9", "CC"), reportPlayer("4", "Koundé", "6,3", "DL")],
+                [reportPlayer("1", "Chevalier", "7,0", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("4", "N. Jackson", { assist: "B. Dia" })],
+            away: [goalEvent("86", "K. Mbappé", { assist: "D. Doué" })]
+        },
+        stats: reportStats([
+            ["Posse", "42%", "58%"],
+            ["Remates", "4", "16"],
+            ["Remates à Baliza", "4", "5"],
+            ["xG", "0,70", "2,58"],
+            ["PADPAD", "30,17", "17,95"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "4", "9"],
+            ["Passes Completados", "84%", "92%"],
+            ["Cruzamentos Completados", "8%", "22%"],
+            ["Faltas", "8", "10"],
+            ["Cartões amarelos", "0", "2"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "119", "124"],
+            ["Classificação Média", "6,6", "6,9"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-16-noruega-iraque",
+        date: "Terça-feira 16 de Junho de 2026",
+        stadium: "Boston Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Erling Haaland",
+        rating: "10,00",
+        coaches: { home: "S. Solbakken", away: "G. Arnold" },
+        formations: {
+            home: reportFormation("4-3-3", [
+                [reportPlayer("10", "Haaland", "10,0", "AA", true)],
+                [reportPlayer("16", "Schjelderup", "7,4", "EAI", true), reportPlayer("12", "Nusa", "8,2", "Ex")],
+                [reportPlayer("21", "Aursnes", "7,9", "MC"), reportPlayer("8", "Ødegaard", "7,0", "MC")],
+                [reportPlayer("6", "Berg", "6,8", "MD")],
+                [reportPlayer("23", "Wolfe", "6,8", "AI"), reportPlayer("25", "Heggem", "6,9", "DC"), reportPlayer("4", "Ajer", "7,0", "CC"), reportPlayer("17", "Ryerson", "7,7", "AI")],
+                [reportPlayer("1", "Nyland", "7,7", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("21", "Mohannad ...", "6,4", "AA")],
+                [reportPlayer("12", "Bashar R.", "5,9", "AA"), reportPlayer("7", "Qasem", "6,8", "CJA", true), reportPlayer("10", "I.Bayesh", "5,9", "Ex")],
+                [reportPlayer("8", "Amjad Att...", "5,9", "MAA"), reportPlayer("23", "Iqbal", "6,2", "CJR")],
+                [reportPlayer("4", "Ali Adnan", "6,0", "DL"), reportPlayer("18", "Ali Faez", "6,1", "DC"), reportPlayer("5", "S.Natiq", "6,4", "CP"), reportPlayer("25", "Ali", "5,6", "DL")],
+                [reportPlayer("1", "Jalal Hassan", "5,9", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("2", "E. Haaland", { assist: "A. Nusa" }), goalEvent("44", "A. Schjelderup", { assist: "F. Aursnes" }), goalEvent("52", "E. Haaland", { assist: "F. Aursnes" }), goalEvent("58", "E. Haaland", { assist: "A. Nusa" }), goalEvent("64", "E. Haaland", { assist: "M. Ødegaard" }), goalEvent("90+1", "E. Haaland", { assist: "J. Hauge" })],
+            away: [goalEvent("10", "A. Qasem", { assist: "Saad Natiq" }), sendOffEvent("85", "H. Ali")]
+        },
+        stats: reportStats([
+            ["Posse", "52%", "48%"],
+            ["Remates", "20", "3"],
+            ["Remates à Baliza", "10", "2"],
+            ["xG", "2,40", "0,89"],
+            ["PADPAD", "15,52", "41,89"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "8", "1"],
+            ["Passes Completados", "91%", "89%"],
+            ["Cruzamentos Completados", "40%", "16%"],
+            ["Faltas", "13", "10"],
+            ["Cartões amarelos", "2", "4"],
+            ["Cartões vermelhos", "0", "1"],
+            ["Distância Percorrida", "115", "110"],
+            ["Classificação Média", "7,5", "6,1"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-16-argentina-argelia",
+        date: "Terça-feira 16 de Junho de 2026",
+        stadium: "Kansas City Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Lionel Messi",
+        rating: "7,51",
+        coaches: { home: "L. Scaloni", away: "V. Petkovic" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("12", "Lautaro", "6,2", "AAE")],
+                [reportPlayer("16", "J. Álvarez", "6,4", "AA"), reportPlayer("7", "Nico Paz", "7,1", "CL", true), reportPlayer("10", "Messi", "7,5", "Ex", true)],
+                [reportPlayer("8", "Enzo", "6,8", "CJR"), reportPlayer("17", "Mac Allister", "7,1", "MAA")],
+                [reportPlayer("19", "Martínez", "6,6", "LI"), reportPlayer("4", "Otamendi", "6,7", "CC"), reportPlayer("5", "Romero", "7,0", "CC"), reportPlayer("2", "Molina", "6,9", "AII")],
+                [reportPlayer("14", "Martínez", "6,3", "GRC")]
+            ]),
+            away: reportFormation("3-4-1-2", [
+                [reportPlayer("9", "Amoura", "6,4", "AA"), reportPlayer("11", "Gouiri", "7,2", "AAE", true)],
+                [reportPlayer("10", "Maza", "6,4", "MO")],
+                [reportPlayer("3", "Aït-Nouri", "6,5", "AI"), reportPlayer("15", "Zerrouki", "6,6", "MD"), reportPlayer("6", "Bennacer", "7,3", "CJR", true), reportPlayer("2", "Belghali", "6,9", "AI")],
+                [reportPlayer("12", "Bensebaini", "6,3", "CC"), reportPlayer("18", "Tougai", "6,8", "CC"), reportPlayer("22", "Chergui", "6,5", "CC")],
+                [reportPlayer("1", "Luca", "6,4", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("50", "L. Messi", { penalty: true }), goalEvent("59", "N. Paz", { assist: "A. Mac Allister" })],
+            away: [goalEvent("25", "I. Bennacer", { assist: "R. Aït-Nouri" }), goalEvent("86", "A. Gouiri", { assist: "A. Zorgane" })]
+        },
+        stats: reportStats([
+            ["Posse", "62%", "38%"],
+            ["Remates", "15", "11"],
+            ["Remates à Baliza", "6", "4"],
+            ["xG", "1,80", "0,85"],
+            ["PADPAD", "26,50", "47,27"],
+            ["Oportunidades Flagrantes", "2", "0"],
+            ["Cantos", "3", "7"],
+            ["Passes Completados", "94%", "90%"],
+            ["Cruzamentos Completados", "16%", "18%"],
+            ["Faltas", "7", "12"],
+            ["Cartões amarelos", "1", "3"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "121", "121"],
+            ["Classificação Média", "6,8", "6,7"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-16-austria-jordania",
+        date: "Terça-feira 16 de Junho de 2026",
+        stadium: "San Francisco Bay Area Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Marco Friedl",
+        rating: "7,88",
+        coaches: { home: "R. Rangnick", away: "J. Sellami" },
+        formations: {
+            home: reportFormation("4-2-2-2 Wide", [
+                [reportPlayer("11", "Gregoritsch", "6,5", "AR"), reportPlayer("24", "Arnautović", "7,5", "AvR", true)],
+                [reportPlayer("14", "Baumgartn...", "6,6", "AA"), reportPlayer("18", "Wimmer", "7,0", "Ex")],
+                [reportPlayer("6", "Xaver", "7,1", "MD"), reportPlayer("8", "Sabitzer", "7,2", "MAA")],
+                [reportPlayer("7", "Alaba", "6,6", "AII"), reportPlayer("5", "Friedl", "7,9", "CC", true), reportPlayer("4", "Danso", "6,8", "CC"), reportPlayer("2", "Laimer", "6,7", "DL")],
+                [reportPlayer("1", "Schlager", "6,5", "GR")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("9", "Bany", "7,2", "AvR", true)],
+                [reportPlayer("7", "M.Semreen", "6,0", "AA"), reportPlayer("6", "Al-Tamari", "6,2", "EAI")],
+                [reportPlayer("26", "Sisa", "6,0", "MO"), reportPlayer("24", "A.Jamous", "6,7", "MC")],
+                [reportPlayer("19", "Nizar", "6,8", "Pi")],
+                [reportPlayer("25", "Assaf", "6,5", "AII"), reportPlayer("12", "Nasib", "6,8", "CP"), reportPlayer("4", "Y.Abualjazar", "6,5", "CP"), reportPlayer("2", "Ehsan", "5,8", "AI")],
+                [reportPlayer("14", "Yazeed", "6,9", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("25", "M. Arnautović", { assist: "M. Sabitzer" }), goalEvent("64", "M. Friedl", { assist: "N. Seiwald" })],
+            away: [goalEvent("24", "T. Bany")]
+        },
+        stats: reportStats([
+            ["Posse", "65%", "35%"],
+            ["Remates", "28", "3"],
+            ["Remates à Baliza", "12", "2"],
+            ["xG", "1,97", "0,23"],
+            ["PADPAD", "14,67", "35,90"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "17", "2"],
+            ["Passes Completados", "90%", "78%"],
+            ["Cruzamentos Completados", "18%", "0%"],
+            ["Faltas", "14", "13"],
+            ["Cartões amarelos", "1", "3"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "118", "112"],
+            ["Classificação Média", "6,9", "6,5"]
+        ])
     }
 ];
