@@ -157,7 +157,10 @@ function checkFixture(league, fixture, helpers, reference, renderer) {
             lidos[side]++;
             if (parsed.ownGoal) return;
 
-            let { reading, readings } = splitScorerAndAssist(parsed.name, squads.get(team));
+            // Um evento estruturado já traz o marcador por extenso: não há o que partir.
+            let { reading, readings } = parsed.structured
+                ? { reading: { scorer: parsed.scorer, assist: null }, readings: [] }
+                : splitScorerAndAssist(parsed.name, squads.get(team));
             if (!reading) {
                 erros.push(readings.length
                     ? `evento ambíguo em ${team}: "${event}" pode ler-se `

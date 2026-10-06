@@ -183,5 +183,187 @@ const worldCupMatchReports = [
             ["Distância Percorrida", "127", "125"],
             ["Classificação Média", "7,0", "6,6"]
         ])
+    },
+    {
+        fixtureKey: "2026-06-13-qatar-suica",
+        date: "Sábado 13 de Junho de 2026",
+        stadium: "San Francisco Bay Area Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Dan Ndoye",
+        rating: "9,40",
+        coaches: { home: "J. Lopetegui", away: "Murat Yakin" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("11", "Moez", "6,2", "AAE")],
+                [reportPlayer("10", "Afif", "6,3", "AI"), reportPlayer("25", "Asad", "6,4", "CJA"), reportPlayer("12", "Edmilson Jr.", "6,4", "AA")],
+                [reportPlayer("7", "K.Boudiaf", "6,7", "CJR"), reportPlayer("6", "Guilherme", "6,4", "MD")],
+                [reportPlayer("23", "Homam", "6,6", "AI"), reportPlayer("5", "Khoukhi", "6,8", "CC"), reportPlayer("4", "Tarek", "6,8", "CC"), reportPlayer("20", "A.Yousef", "6,5", "AII")],
+                [reportPlayer("1", "Barsham", "7,2", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("11", "Okafor", "8,4", "AvR", true)],
+                [reportPlayer("17", "Vargas", "6,6", "Ex"), reportPlayer("8", "Ndoye", "9,4", "Ex")],
+                [reportPlayer("6", "Xhaka", "7,8", "CJA"), reportPlayer("16", "Manzambi", "7,7", "MO")],
+                [reportPlayer("7", "Zakaria", "7,0", "MD")],
+                [reportPlayer("19", "Muheim", "6,8", "AC"), reportPlayer("5", "Rodríguez", "7,1", "CC"), reportPlayer("4", "Akanji", "7,1", "CC"), reportPlayer("12", "Elvedi", "6,9", "LI")],
+                [reportPlayer("1", "Kobel", "7,2", "GR")]
+            ])
+        },
+        events: {
+            home: [],
+            away: [goalEvent("23", "N. Okafor", { assist: "D. Ndoye" }), goalEvent("83", "J. Monteiro", { assist: "D. Ndoye" }), goalEvent("90+4", "N. Okafor")]
+        },
+        stats: reportStats([
+            ["Posse", "58%", "42%"],
+            ["Remates", "8", "29"],
+            ["Remates à Baliza", "3", "13"],
+            ["xG", "0,62", "4,28"],
+            ["PADPAD", "17,00", "13,51"],
+            ["Oportunidades Flagrantes", "0", "3"],
+            ["Cantos", "7", "14"],
+            ["Passes Completados", "90%", "86%"],
+            ["Cruzamentos Completados", "26%", "28%"],
+            ["Faltas", "8", "7"],
+            ["Cartões amarelos", "1", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "122", "125"],
+            ["Classificação Média", "6,6", "7,4"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-13-australia-turquia",
+        date: "Sábado 13 de Junho de 2026",
+        stadium: "BC Place Vancouver",
+        weather: "Brisa",
+        playerOfMatch: "Kenan Yıldız",
+        rating: "7,66",
+        coaches: { home: "T. Popovic", away: "V. Montella" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("20", "Sapsford", "6,5", "AAE")],
+                [reportPlayer("12", "McGree", "6,4", "AA"), reportPlayer("24", "Robertson", "7,1", "SA"), reportPlayer("10", "Volpato", "6,5", "AA")],
+                [reportPlayer("8", "Irvine", "6,5", "MAA"), reportPlayer("6", "Devlin", "6,8", "MD")],
+                [reportPlayer("3", "Bos", "7,0", "DL"), reportPlayer("5", "Burgess", "6,9", "CC"), reportPlayer("4", "Circati", "6,5", "CC"), reportPlayer("17", "Thomas Jo...", "6,1", "LI")],
+                [reportPlayer("1", "Izzo", "7,3", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("12", "Barış Alper Yılmaz", "7,2", "AAE", true)],
+                [reportPlayer("11", "Kenan Yıldız", "7,7", "EAI"), reportPlayer("15", "Arda Güler", "6,2", "CL"), reportPlayer("16", "Yunus", "6,2", "AA")],
+                [reportPlayer("10", "Hakan Çalh...", "7,0", "CJR"), reportPlayer("8", "Orkun", "6,8", "CJA")],
+                [reportPlayer("7", "F.Kadıoğlu", "6,7", "DL"), reportPlayer("5", "Abdülkerim", "6,9", "CC"), reportPlayer("24", "Kaan", "6,7", "CC"), reportPlayer("20", "Zeki Çelik", "6,7", "DL")],
+                [reportPlayer("1", "Uğurcan", "7,3", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("85", "M. Touré", { assist: "A. Robertson" })],
+            away: [goalEvent("3", "Barış Alper Yılmaz", { assist: "Kenan Yıldız" })]
+        },
+        stats: reportStats([
+            ["Posse", "46%", "54%"],
+            ["Remates", "11", "18"],
+            ["Remates à Baliza", "7", "10"],
+            ["xG", "1,42", "1,27"],
+            ["PADPAD", "20,89", "15,76"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "8", "11"],
+            ["Passes Completados", "87%", "89%"],
+            ["Cruzamentos Completados", "19%", "8%"],
+            ["Faltas", "7", "8"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "121", "122"],
+            ["Classificação Média", "6,7", "6,8"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-13-escocia-haiti",
+        date: "Sábado 13 de Junho de 2026",
+        stadium: "Boston Stadium",
+        weather: "Vento Forte",
+        playerOfMatch: "Scott McTominay",
+        rating: "9,25",
+        coaches: { home: "S. Clarke", away: "S. Migné" },
+        formations: {
+            home: reportFormation("3-4-2-1", [
+                [reportPlayer("10", "Adams", "7,1", "AAE")],
+                [reportPlayer("15", "Gauld", "7,4", "CJA", true), reportPlayer("6", "McTominay", "9,3", "SA", true)],
+                [reportPlayer("12", "Hickey", "8,4", "AI", true), reportPlayer("17", "Gilmour", "7,3", "CJR"), reportPlayer("19", "Ferguson", "6,8", "MD"), reportPlayer("26", "Patterson", "8,2", "AI")],
+                [reportPlayer("3", "Robertson", "7,4", "CA"), reportPlayer("4", "McKenna", "7,6", "CC"), reportPlayer("24", "Welsh", "7,6", "CC")],
+                [reportPlayer("14", "Gunn", "7,5", "GR")]
+            ]),
+            away: reportFormation("3-4-1-2", [
+                [reportPlayer("10", "Isidor", "6,0", "AA"), reportPlayer("9", "Édouard", "6,1", "AvR")],
+                [reportPlayer("7", "Bellegarde", "5,9", "ME")],
+                [reportPlayer("3", "Expérience", "6,7", "AI"), reportPlayer("26", "Leverton", "6,6", "MD"), reportPlayer("8", "Danley", "6,6", "MD"), reportPlayer("15", "Arcus", "5,7", "AI")],
+                [reportPlayer("5", "Delcroix", "6,4", "CC"), reportPlayer("18", "Duverne", "5,9", "CC"), reportPlayer("4", "Adé", "6,3", "DC")],
+                [reportPlayer("1", "Placide", "6,3", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("16", "S. McTominay", { assist: "N. Patterson" }), goalEvent("44", "S. McTominay", { assist: "B. Gilmour" }), goalEvent("45", "A. Hickey", { assist: "S. McTominay" }), goalEvent("48", "R. Gauld", { assist: "A. Hickey" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "51%", "49%"],
+            ["Remates", "22", "6"],
+            ["Remates à Baliza", "10", "1"],
+            ["xG", "2,71", "0,29"],
+            ["PADPAD", "19,45", "21,24"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "5", "6"],
+            ["Passes Completados", "88%", "85%"],
+            ["Cruzamentos Completados", "35%", "5%"],
+            ["Faltas", "5", "19"],
+            ["Cartões amarelos", "1", "5"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "127", "125"],
+            ["Classificação Média", "7,6", "6,2"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-13-marrocos-brasil",
+        date: "Sábado 13 de Junho de 2026",
+        stadium: "New York New Jersey Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Bruno Guimarães",
+        rating: "8,23",
+        coaches: { home: "R. Benmahmoud", away: "Zép Jóbes" },
+        formations: {
+            home: reportFormation("4-3-3", [
+                [reportPlayer("12", "En-Nesyri", "6,2", "AC")],
+                [reportPlayer("7", "Ez Abde", "6,0", "EAI"), reportPlayer("6", "Saibari", "6,6", "AI")],
+                [reportPlayer("10", "Adli", "6,6", "MC"), reportPlayer("20", "Amrabat", "6,8", "MCA")],
+                [reportPlayer("17", "Targhalline", "6,5", "MD")],
+                [reportPlayer("15", "Mazraoui", "6,0", "AI"), reportPlayer("4", "N. Aguerd", "6,2", "CC"), reportPlayer("21", "Abqar", "6,5", "DC"), reportPlayer("2", "Hakimi", "6,3", "AI")],
+                [reportPlayer("13", "Bono", "6,2", "GRP")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("18", "Joelinton", "6,7", "AR")],
+                [reportPlayer("7", "Vinícius Júnior", "7,5", "AA", true), reportPlayer("10", "Cunha", "7,8", "MO", true), reportPlayer("11", "Raphinha", "7,6", "AA", true)],
+                [reportPlayer("26", "João Gomes", "7,3", "Pi"), reportPlayer("8", "Bruno G.", "8,2", "CJR")],
+                [reportPlayer("5", "Carlos", "6,8", "AI"), reportPlayer("4", "Gabriel", "7,0", "CC"), reportPlayer("3", "Marquinhos", "6,7", "CC"), reportPlayer("2", "Wesley", "6,9", "AI")],
+                [reportPlayer("12", "Ederson M.", "7,1", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("67", "A. El Kaabi", { assist: "I. Saibari" })],
+            away: [goalEvent("15", "Raphinha", { assist: "Bruno Guimarães" }), goalEvent("41", "Matheus Cunha", { assist: "João Gomes" }), goalEvent("52", "Vinícius Júnior"), goalEvent("55", "N. Mazraoui", { ownGoal: true }), goalEvent("72", "G. Martinelli", { assist: "Bruno Guimarães" })]
+        },
+        stats: reportStats([
+            ["Posse", "51%", "49%"],
+            ["Remates", "8", "17"],
+            ["Remates à Baliza", "4", "8"],
+            ["xG", "1,27", "1,81"],
+            ["PADPAD", "20,44", "20,29"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "3", "9"],
+            ["Passes Completados", "87%", "88%"],
+            ["Cruzamentos Completados", "8%", "20%"],
+            ["Faltas", "10", "15"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "115", "122"],
+            ["Classificação Média", "6,4", "7,2"]
+        ])
     }
 ];
