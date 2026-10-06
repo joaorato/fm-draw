@@ -16,10 +16,10 @@
 // Um resultado só se escreve à mão num jogo sem relatório: com relatório, o
 // scripts/report_build.js --write põe lá o placar.
 const worldCupFixtures = [
-    createLeagueMatch("Junho", "Mundial · Grupo A", "11 Jun", "México", "-", "África do Sul", { year: 2026, grupo: "A", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
-    createLeagueMatch("Junho", "Mundial · Grupo A", "11 Jun", "Coreia do Sul", "-", "Chéquia", { year: 2026, grupo: "A", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
-    createLeagueMatch("Junho", "Mundial · Grupo B", "12 Jun", "Canadá", "-", "Bósnia e Herzegovina", { year: 2026, grupo: "B", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
-    createLeagueMatch("Junho", "Mundial · Grupo D", "12 Jun", "Estados Unidos", "-", "Paraguai", { year: 2026, grupo: "D", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
+    createLeagueMatch("Junho", "Mundial · Grupo A", "11 Jun", "México", "0-2", "África do Sul", { year: 2026, grupo: "A", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
+    createLeagueMatch("Junho", "Mundial · Grupo A", "11 Jun", "Chéquia", "1-0", "Coreia do Sul", { year: 2026, grupo: "A", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
+    createLeagueMatch("Junho", "Mundial · Grupo B", "12 Jun", "Canadá", "4-0", "Bósnia e Herzegovina", { year: 2026, grupo: "B", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
+    createLeagueMatch("Junho", "Mundial · Grupo D", "12 Jun", "Estados Unidos", "0-0", "Paraguai", { year: 2026, grupo: "D", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
     createLeagueMatch("Junho", "Mundial · Grupo B", "13 Jun", "Qatar", "-", "Suíça", { year: 2026, grupo: "B", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
     createLeagueMatch("Junho", "Mundial · Grupo C", "13 Jun", "Brasil", "-", "Marrocos", { year: 2026, grupo: "C", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
     createLeagueMatch("Junho", "Mundial · Grupo C", "13 Jun", "Haiti", "-", "Escócia", { year: 2026, grupo: "C", roundKey: "g1", roundLabel: "Mundial · Fase de Grupos · Jornada 1" }),
