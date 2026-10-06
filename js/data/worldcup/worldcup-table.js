@@ -9,7 +9,8 @@ const worldCupEquipas = worldCupGroups.flatMap((grupo) => grupo.equipas.map((equ
     codigo: equipa.codigo,
     logo: equipa.bandeira,
     grupo: grupo.id,
-    jogador: worldCupDrawResults.find((resultado) => resultado.equipa === equipa.nome)?.jogador || null
+    jogador: worldCupDrawResults
+        .find((resultado) => resultado.equipa === equipa.nome && !worldCupDesistentes.includes(resultado.jogador))?.jogador || null
 })));
 
 function getWorldCupTeamEntry(teamName) {

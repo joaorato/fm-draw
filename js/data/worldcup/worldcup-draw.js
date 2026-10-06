@@ -14,3 +14,8 @@ const worldCupDrawResults = [
     { jogador: "Painatal", grupo: "K", equipa: "Portugal", codigo: "POR", bandeira: "assets/flags/mundial/por.webp" },
     { jogador: "Chico", grupo: "L", equipa: "Inglaterra", codigo: "ENG", bandeira: "assets/flags/mundial/eng.webp" }
 ];
+
+// Jogadores que saíram no sorteio mas não vão jogar o Mundial. O sorteio fica
+// como foi (a aba Sorteios continua a mostrá-lo); só a aba Ligas os ignora, e a
+// seleção deles passa a jogar sem dono.
+const worldCupDesistentes = ["Cardoso"];
