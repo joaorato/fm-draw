@@ -82,10 +82,10 @@ const worldCupFixtures = [
     createLeagueMatch("Junho", "Mundial · Grupo H", "26 Jun", "Uruguai", "1-2", "Espanha", { year: 2026, grupo: "H", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
     createLeagueMatch("Junho", "Mundial · Grupo I", "26 Jun", "França", "5-1", "Noruega", { year: 2026, grupo: "I", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
     createLeagueMatch("Junho", "Mundial · Grupo I", "26 Jun", "Iraque", "0-1", "Senegal", { year: 2026, grupo: "I", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
-    createLeagueMatch("Junho", "Mundial · Grupo J", "27 Jun", "Argélia", "-", "Áustria", { year: 2026, grupo: "J", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
-    createLeagueMatch("Junho", "Mundial · Grupo J", "27 Jun", "Jordânia", "-", "Argentina", { year: 2026, grupo: "J", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
-    createLeagueMatch("Junho", "Mundial · Grupo K", "27 Jun", "Colômbia", "-", "Portugal", { year: 2026, grupo: "K", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
-    createLeagueMatch("Junho", "Mundial · Grupo K", "27 Jun", "RD Congo", "-", "Uzbequistão", { year: 2026, grupo: "K", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
-    createLeagueMatch("Junho", "Mundial · Grupo L", "27 Jun", "Panamá", "-", "Inglaterra", { year: 2026, grupo: "L", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
-    createLeagueMatch("Junho", "Mundial · Grupo L", "27 Jun", "Croácia", "-", "Gana", { year: 2026, grupo: "L", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" })
+    createLeagueMatch("Junho", "Mundial · Grupo J", "27 Jun", "Argélia", "3-1", "Áustria", { year: 2026, grupo: "J", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
+    createLeagueMatch("Junho", "Mundial · Grupo J", "27 Jun", "Jordânia", "2-2", "Argentina", { year: 2026, grupo: "J", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
+    createLeagueMatch("Junho", "Mundial · Grupo K", "27 Jun", "Portugal", "3-2", "Colômbia", { year: 2026, grupo: "K", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
+    createLeagueMatch("Junho", "Mundial · Grupo K", "27 Jun", "Uzbequistão", "0-1", "RD Congo", { year: 2026, grupo: "K", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
+    createLeagueMatch("Junho", "Mundial · Grupo L", "27 Jun", "Panamá", "1-3", "Inglaterra", { year: 2026, grupo: "L", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
+    createLeagueMatch("Junho", "Mundial · Grupo L", "27 Jun", "Croácia", "2-2", "Gana", { year: 2026, grupo: "L", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" })
 ];
