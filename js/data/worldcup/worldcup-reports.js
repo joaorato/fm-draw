@@ -936,7 +936,7 @@ const worldCupMatchReports = [
                 [reportPlayer("9", "G. Ramos", "7,1", "AR")],
                 [reportPlayer("10", "Rafa Leão", "7,0", "AA"), reportPlayer("8", "Bruno Fernandes", "7,8", "ME", true), reportPlayer("16", "Bernardo", "7,4", "EAI")],
                 [reportPlayer("19", "João Neves", "7,6", "CJR"), reportPlayer("15", "Vitinha", "6,6", "CJA")],
-                [reportPlayer("5", "N. Mendes", "7,2", "AI"), reportPlayer("4", "Rúben Dias", "7,1", "CC", true), reportPlayer("24", "Tomás A.", "7,0", "CC"), reportPlayer("3", "João Canc...", "7,0", "AI")],
+                [reportPlayer("5", "N. Mendes", "7,2", "AI"), reportPlayer("4", "Rúben Dias", "7,1", "CC", true), reportPlayer("24", "Tomás Araújo", "7,0", "CC"), reportPlayer("3", "João Cancelo", "7,0", "AI")],
                 [reportPlayer("1", "D. Costa", "6,7", "GRC")]
             ])
         },
@@ -2010,6 +2010,190 @@ const worldCupMatchReports = [
             ["Cartões vermelhos", "0", "0"],
             ["Distância Percorrida", "126", "128"],
             ["Classificação Média", "6,5", "7,2"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-23-uzbequistao-portugal",
+        date: "Terça-feira 23 de Junho de 2026",
+        stadium: "Houston Stadium",
+        weather: "Brisa",
+        playerOfMatch: "João Cancelo",
+        rating: "8,51",
+        coaches: { home: "F. Cannavaro", away: "Painas Natal" },
+        formations: {
+            home: reportFormation("3-4-2-1", [
+                [reportPlayer("10", "Shomurodov", "6,6", "AvR")],
+                [reportPlayer("11", "Fayzullayev", "6,2", "Ex"), reportPlayer("12", "O. O'runov", "6,0", "Ex")],
+                [reportPlayer("16", "Nasrullayev", "7,1", "AC"), reportPlayer("23", "Bo'riev", "6,7", "MD"), reportPlayer("9", "Hamrobekov", "6,1", "MAA"), reportPlayer("3", "Alijonov", "6,1", "AP")],
+                [reportPlayer("25", "G'ofurov", "6,3", "CC"), reportPlayer("5", "Aliqulov", "6,3", "DC"), reportPlayer("4", "Khusanov", "6,6", "CC")],
+                [reportPlayer("13", "Yusupov", "7,1", "GRP")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "G. Ramos", "6,5", "AR")],
+                [reportPlayer("10", "Rafa Leão", "6,4", "AA"), reportPlayer("8", "Bruno Fernandes", "6,7", "ME"), reportPlayer("16", "Bernardo", "6,7", "EAI")],
+                [reportPlayer("19", "João Neves", "7,3", "CJR"), reportPlayer("15", "Vitinha", "7,4", "CJA")],
+                [reportPlayer("5", "N. Mendes", "7,5", "AI"), reportPlayer("4", "Rúben Dias", "7,3", "CC"), reportPlayer("24", "Tomás Araújo", "7,8", "CC"), reportPlayer("3", "João Cancelo", "8,5", "AI", true)],
+                [reportPlayer("1", "D. Costa", "7,3", "GRC")]
+            ])
+        },
+        events: {
+            home: [],
+            away: [goalEvent("21", "João Cancelo", { assist: "Tomás Araújo" }), goalEvent("90+5", "João Félix", { assist: "Francisco Conceição" })]
+        },
+        stats: reportStats([
+            ["Posse", "22%", "78%"],
+            ["Remates", "5", "23"],
+            ["Remates à Baliza", "0", "9"],
+            ["xG", "0,57", "2,12"],
+            ["PADPAD", "28,52", "11,29"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "1", "11"],
+            ["Passes Completados", "80%", "92%"],
+            ["Cruzamentos Completados", "18%", "23%"],
+            ["Faltas", "11", "8"],
+            ["Cartões amarelos", "3", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "120", "124"],
+            ["Classificação Média", "6,4", "7,3"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-23-rd-congo-colombia",
+        date: "Terça-feira 23 de Junho de 2026",
+        stadium: "Estadio Guadalajara",
+        weather: "Tempestuoso",
+        playerOfMatch: "Luis Díaz",
+        rating: "8,63",
+        coaches: { home: "S. Desabre", away: "N. Lorenzo" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("10", "Banza", "6,2", "AR")],
+                [reportPlayer("7", "Wissa", "6,8", "AA"), reportPlayer("23", "Stroeykens", "6,2", "CJA"), reportPlayer("12", "T. Bongonda", "6,2", "AI")],
+                [reportPlayer("6", "Sadiki", "7,2", "MAA", true), reportPlayer("22", "Pickel", "6,9", "MD")],
+                [reportPlayer("3", "Masuaku", "6,4", "AC"), reportPlayer("5", "Mbemba", "6,4", "CC"), reportPlayer("17", "Tuanzebe", "6,2", "CC"), reportPlayer("2", "Wan-Bissa...", "6,5", "DL")],
+                [reportPlayer("14", "Bertaud", "7,1", "GR")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("12", "Suárez", "7,2", "AAE", true)],
+                [reportPlayer("7", "Luis Díaz", "8,6", "EAI", true), reportPlayer("10", "J. Rodríguez", "6,6", "Ex")],
+                [reportPlayer("26", "Richard Ríos", "8,0", "MC"), reportPlayer("24", "Puerta", "6,9", "ME")],
+                [reportPlayer("6", "Barrios", "6,7", "MD")],
+                [reportPlayer("3", "J. Mojica", "6,8", "AI"), reportPlayer("5", "Lucumi", "6,9", "CC"), reportPlayer("4", "Sánchez", "6,8", "CC"), reportPlayer("15", "Muñoz", "6,9", "AlI")],
+                [reportPlayer("14", "Mier", "6,2", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("49", "N. Sadiki", { assist: "Y. Wissa" }), goalEvent("56", "Silas", { penalty: true })],
+            away: [goalEvent("39", "L. Suárez", { penalty: true }), goalEvent("44", "L. Díaz", { assist: "R. Ríos" }), goalEvent("45", "L. Díaz", { assist: "R. Ríos" })]
+        },
+        stats: reportStats([
+            ["Posse", "40%", "60%"],
+            ["Remates", "5", "16"],
+            ["Remates à Baliza", "4", "9"],
+            ["xG", "1,23", "1,87"],
+            ["PADPAD", "41,33", "11,46"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "2", "7"],
+            ["Passes Completados", "86%", "91%"],
+            ["Cruzamentos Completados", "7%", "45%"],
+            ["Faltas", "16", "11"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "119", "122"],
+            ["Classificação Média", "6,6", "7,0"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-23-inglaterra-gana",
+        date: "Terça-feira 23 de Junho de 2026",
+        stadium: "Boston Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Anthony Gordon",
+        rating: "8,38",
+        coaches: { home: "Francisco Pinto", away: "Carlos Queiroz" },
+        formations: {
+            home: reportFormation("4-3-3", [
+                [reportPlayer("12", "Kane", "6,6", "AvR")],
+                [reportPlayer("17", "Rogers", "6,1", "AI"), reportPlayer("11", "Saka", "6,5", "AA")],
+                [reportPlayer("6", "Foden", "7,9", "CJA", true), reportPlayer("22", "Bellingham", "6,9", "MO")],
+                [reportPlayer("8", "Rice", "6,6", "CJR")],
+                [reportPlayer("3", "Hall", "6,9", "AI"), reportPlayer("19", "Colwill", "7,7", "CC"), reportPlayer("5", "Guéhi", "7,3", "CC"), reportPlayer("4", "James", "7,4", "AlI")],
+                [reportPlayer("1", "Pickford", "7,2", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("9", "Williams", "5,9", "AAE")],
+                [reportPlayer("10", "Semenyo", "7,0", "EAI"), reportPlayer("11", "Kudus", "5,9", "Ex")],
+                [reportPlayer("12", "Ibrahim", "6,8", "MC"), reportPlayer("6", "Yirenkyi", "6,3", "MC")],
+                [reportPlayer("8", "T. Partey", "6,4", "CJR")],
+                [reportPlayer("20", "Mensah", "6,8", "AI"), reportPlayer("4", "Salisu", "7,0", "CP"), reportPlayer("18", "Aidoo Jr", "6,4", "CP"), reportPlayer("5", "Seidu", "6,4", "AI")],
+                [reportPlayer("1", "Ati-Zigi", "6,5", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("68", "A. Gordon", { assist: "L. Colwill" }), goalEvent("71", "P. Foden", { assist: "A. Gordon" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "59%", "41%"],
+            ["Remates", "18", "5"],
+            ["Remates à Baliza", "7", "2"],
+            ["xG", "2,45", "0,62"],
+            ["PADPAD", "14,26", "23,40"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "14", "3"],
+            ["Passes Completados", "88%", "83%"],
+            ["Cruzamentos Completados", "18%", "7%"],
+            ["Faltas", "11", "12"],
+            ["Cartões amarelos", "1", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "132", "122"],
+            ["Classificação Média", "7,1", "6,5"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-23-panama-croacia",
+        date: "Terça-feira 23 de Junho de 2026",
+        stadium: "Toronto Stadium",
+        weather: "Tempestuoso",
+        playerOfMatch: "Petar Musa",
+        rating: "8,38",
+        coaches: { home: "T. Christiansen", away: "Z. Dalić" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("10", "Fajardo", "6,7", "AR", true)],
+                [reportPlayer("11", "Díaz", "6,7", "AA"), reportPlayer("15", "Barahona", "6,0", "CL"), reportPlayer("6", "Carrasquilla", "6,0", "Ex")],
+                [reportPlayer("26", "Godoy", "6,7", "MAA"), reportPlayer("7", "Ayarza", "6,5", "Pi")],
+                [reportPlayer("3", "Davis", "6,4", "AC"), reportPlayer("4", "Andrade", "6,5", "CP"), reportPlayer("5", "Machado", "6,2", "CC"), reportPlayer("17", "Anderson", "7,4", "AlI")],
+                [reportPlayer("1", "Mejía", "6,7", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("11", "Budimir", "6,7", "AR")],
+                [reportPlayer("6", "Perišić", "6,6", "AA"), reportPlayer("12", "Kramarić", "8,1", "AI", true)],
+                [reportPlayer("18", "Pašalić", "6,7", "MO"), reportPlayer("10", "Kovačić", "7,8", "MC")],
+                [reportPlayer("14", "Modrić", "7,2", "CJR")],
+                [reportPlayer("16", "Gvardiol", "7,1", "AlI"), reportPlayer("2", "Ćaleta-Car", "6,6", "CC"), reportPlayer("4", "L. Vušković", "6,7", "CC"), reportPlayer("17", "Stanišić", "7,6", "AI")],
+                [reportPlayer("13", "Livaković", "6,7", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("69", "J. Fajardo", { assist: "I. Anderson" })],
+            away: [goalEvent("5", "A. Kramarić", { penalty: true }), goalEvent("45+2", "A. Kramarić", { assist: "J. Stanišić" }), goalEvent("64", "P. Musa", { assist: "L. Modrić" }), goalEvent("90+2", "P. Musa", { assist: "M. Kovačić" })]
+        },
+        stats: reportStats([
+            ["Posse", "49%", "51%"],
+            ["Remates", "3", "14"],
+            ["Remates à Baliza", "2", "10"],
+            ["xG", "0,68", "1,91"],
+            ["PADPAD", "56,67", "32,39"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "5", "7"],
+            ["Passes Completados", "92%", "93%"],
+            ["Cruzamentos Completados", "18%", "25%"],
+            ["Faltas", "11", "5"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "125", "125"],
+            ["Classificação Média", "6,5", "7,1"]
         ])
     }
 ];
