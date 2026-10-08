@@ -87,5 +87,21 @@ const worldCupFixtures = [
     createLeagueMatch("Junho", "Mundial · Grupo K", "27 Jun", "Portugal", "3-2", "Colômbia", { year: 2026, grupo: "K", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
     createLeagueMatch("Junho", "Mundial · Grupo K", "27 Jun", "Uzbequistão", "0-1", "RD Congo", { year: 2026, grupo: "K", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
     createLeagueMatch("Junho", "Mundial · Grupo L", "27 Jun", "Panamá", "1-3", "Inglaterra", { year: 2026, grupo: "L", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
-    createLeagueMatch("Junho", "Mundial · Grupo L", "27 Jun", "Croácia", "2-2", "Gana", { year: 2026, grupo: "L", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" })
+    createLeagueMatch("Junho", "Mundial · Grupo L", "27 Jun", "Croácia", "2-2", "Gana", { year: 2026, grupo: "L", roundKey: "g3", roundLabel: "Mundial · Fase de Grupos · Jornada 3" }),
+    createLeagueMatch("Junho", "Mundial · Dezasseis-avos de final", "28 Jun", "Chéquia", "-", "Canadá", { year: 2026, matchNumber: 73, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Junho", "Mundial · Dezasseis-avos de final", "29 Jun", "Alemanha", "-", "México", { year: 2026, matchNumber: 74, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Junho", "Mundial · Dezasseis-avos de final", "29 Jun", "Suécia", "-", "Escócia", { year: 2026, matchNumber: 75, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Junho", "Mundial · Dezasseis-avos de final", "29 Jun", "Brasil", "-", "Países Baixos", { year: 2026, matchNumber: 76, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Junho", "Mundial · Dezasseis-avos de final", "30 Jun", "França", "-", "Nova Zelândia", { year: 2026, matchNumber: 77, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Junho", "Mundial · Dezasseis-avos de final", "30 Jun", "Equador", "-", "Senegal", { year: 2026, matchNumber: 78, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Junho", "Mundial · Dezasseis-avos de final", "30 Jun", "África do Sul", "-", "Costa do Marfim", { year: 2026, matchNumber: 79, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "1 Jul", "Croácia", "-", "RD Congo", { year: 2026, matchNumber: 80, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "1 Jul", "Austrália", "-", "Bósnia e Herzegovina", { year: 2026, matchNumber: 81, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "1 Jul", "Bélgica", "-", "Cabo Verde", { year: 2026, matchNumber: 82, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "2 Jul", "Colômbia", "-", "Inglaterra", { year: 2026, matchNumber: 83, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "2 Jul", "Espanha", "-", "Áustria", { year: 2026, matchNumber: 84, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "2 Jul", "Suíça", "-", "Noruega", { year: 2026, matchNumber: 85, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Argélia", "-", "Uruguai", { year: 2026, matchNumber: 86, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Portugal", "-", "Gana", { year: 2026, matchNumber: 87, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Turquia", "-", "Egito", { year: 2026, matchNumber: 88, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" })
 ];
