@@ -4111,5 +4111,97 @@ const worldCupMatchReports = [
             ["Distância Percorrida", "126", "124"],
             ["Classificação Média", "7,0", "6,7"]
         ])
+    },
+    {
+        fixtureKey: "2026-07-05-brasil-equador",
+        date: "Domingo 5 de Julho de 2026",
+        stadium: "New York New Jersey Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Bremer",
+        rating: "7,52",
+        coaches: { home: "Zép Jóbes", away: "S. Beccacece" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("21", "Endrick", "6,5", "AAE")],
+                [reportPlayer("17", "G. Martinelli", "6,7", "AA"), reportPlayer("10", "Matheus Cunha", "6,7", "ME"), reportPlayer("11", "Raphinha", "6,8", "AA")],
+                [reportPlayer("26", "João Gomes", "6,8", "MD"), reportPlayer("8", "Bruno Guimarães", "6,8", "CJR")],
+                [reportPlayer("5", "Carlos Augusto", "6,8", "AI"), reportPlayer("4", "Gabriel", "7,2", "CC"), reportPlayer("23", "Bremer", "7,5", "CC", true), reportPlayer("24", "Vanderson", "7,1", "AI")],
+                [reportPlayer("1", "Alisson", "7,2", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("13", "Valencia", "6,2", "AR")],
+                [reportPlayer("26", "Julio", "6,3", "Ex"), reportPlayer("11", "Sarmiento", "6,0", "Ex")],
+                [reportPlayer("6", "Caicedo", "6,4", "MC"), reportPlayer("16", "Alcívar", "6,7", "MC")],
+                [reportPlayer("7", "Gruezo", "6,4", "CJR")],
+                [reportPlayer("5", "Hincapié", "6,9", "AI"), reportPlayer("4", "Pacho", "6,6", "CC"), reportPlayer("14", "Arboleda", "6,6", "DC"), reportPlayer("23", "Preciado", "6,4", "AI")],
+                [reportPlayer("22", "Domínguez", "6,9", "GRP")]
+            ])
+        },
+        events: {
+            home: [goalEvent("6", "Bremer", { assist: "Raphinha" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "40%", "60%"],
+            ["Remates", "13", "5"],
+            ["Remates à Baliza", "8", "1"],
+            ["xG", "1,32", "0,38"],
+            ["PADPAD", "21,22", "25,64"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "9", "1"],
+            ["Passes Completados", "89%", "91%"],
+            ["Cruzamentos Completados", "22%", "50%"],
+            ["Faltas", "16", "20"],
+            ["Cartões amarelos", "2", "4"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "118", "110"],
+            ["Classificação Média", "6,9", "6,5"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-05-africa-do-sul-croacia",
+        date: "Domingo 5 de Julho de 2026",
+        stadium: "Mexico City Stadium",
+        weather: "Calmo",
+        playerOfMatch: "Ivan Perišić",
+        rating: "7,63",
+        coaches: { home: "H. Broos", away: "Z. Dalić" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Foster", "6,8", "AvR", true)],
+                [reportPlayer("22", "Appollis", "7,2", "Ex"), reportPlayer("18", "Adams", "6,0", "ME"), reportPlayer("8", "Rayners", "7,0", "Ex")],
+                [reportPlayer("15", "Mokoena", "6,5", "CJR"), reportPlayer("25", "Mvala", "6,7", "Pi")],
+                [reportPlayer("3", "Modiba", "6,3", "AI"), reportPlayer("5", "Mbokazi", "6,4", "CC"), reportPlayer("24", "Ngezana", "6,3", "CC"), reportPlayer("2", "Mudau", "7,0", "AlI")],
+                [reportPlayer("1", "Williams", "6,5", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("11", "Budimir", "6,4", "AR")],
+                [reportPlayer("6", "Perišić", "7,6", "AA", true), reportPlayer("12", "Kramarić", "6,4", "AI")],
+                [reportPlayer("18", "Pašalić", "7,2", "MO", true), reportPlayer("10", "Kovačić", "6,8", "MC")],
+                [reportPlayer("14", "Modrić", "7,1", "CJR")],
+                [reportPlayer("16", "Gvardiol", "6,4", "AlI"), reportPlayer("2", "Ćaleta-Car", "7,1", "CC"), reportPlayer("4", "L. Vušković", "6,8", "CC"), reportPlayer("17", "Stanišić", "6,9", "AI")],
+                [reportPlayer("13", "Livaković", "6,7", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("45+1", "L. Foster", { assist: "I. Rayners" })],
+            away: [goalEvent("8", "I. Perišić", { assist: "L. Modrić" }), goalEvent("56", "M. Pašalić", { assist: "I. Perišić" })]
+        },
+        stats: reportStats([
+            ["Posse", "46%", "54%"],
+            ["Remates", "12", "9"],
+            ["Remates à Baliza", "5", "5"],
+            ["xG", "1,40", "1,21"],
+            ["PADPAD", "24,18", "26,15"],
+            ["Oportunidades Flagrantes", "2", "0"],
+            ["Cantos", "9", "5"],
+            ["Passes Completados", "87%", "89%"],
+            ["Cruzamentos Completados", "15%", "21%"],
+            ["Faltas", "9", "11"],
+            ["Cartões amarelos", "0", "2"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "120", "115"],
+            ["Classificação Média", "6,6", "6,8"]
+        ])
     }
 ];
