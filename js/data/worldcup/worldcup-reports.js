@@ -3289,5 +3289,50 @@ const worldCupMatchReports = [
             ["Distância Percorrida", "112", "119"],
             ["Classificação Média", "6,7", "7,2"]
         ])
+    },
+    {
+        fixtureKey: "2026-06-28-chequia-canada",
+        date: "Domingo 28 de Junho de 2026",
+        stadium: "Los Angeles Stadium",
+        weather: "Calmo",
+        playerOfMatch: "Tajon Buchanan",
+        rating: "8,02",
+        coaches: { home: "M. Koubek", away: "J. Marsch" },
+        formations: {
+            home: reportFormation("3-4-2-1", [
+                [reportPlayer("14", "Schick", "6,2", "AR")],
+                [reportPlayer("25", "Hložek", "6,5", "ME"), reportPlayer("11", "Šulc", "6,1", "SA")],
+                [reportPlayer("3", "Spáčil", "6,5", "AI"), reportPlayer("7", "Sadílek", "6,5", "CJR"), reportPlayer("6", "Král", "6,7", "MD"), reportPlayer("5", "Coufal", "6,4", "AI")],
+                [reportPlayer("17", "Krejčí", "6,6", "CC"), reportPlayer("4", "Holeš", "6,7", "CC"), reportPlayer("19", "Hranáč", "7,0", "CP")],
+                [reportPlayer("15", "Staněk", "6,8", "GRP")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("10", "J. David", "6,9", "AAE", true)],
+                [reportPlayer("11", "Oluwaseyi", "6,5", "AI"), reportPlayer("22", "Flores", "7,0", "MO"), reportPlayer("7", "Buchanan", "8,0", "Ex", true)],
+                [reportPlayer("26", "Koné", "6,5", "MD"), reportPlayer("6", "Eustáquio", "7,2", "CJR")],
+                [reportPlayer("19", "Davies", "6,2", "AI"), reportPlayer("5", "Cornelius", "7,4", "CC"), reportPlayer("4", "Bombito", "7,1", "CC"), reportPlayer("2", "Johnston", "6,6", "DL")],
+                [reportPlayer("1", "St. Clair", "6,6", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("90+2", "J. Kuchta")],
+            away: [goalEvent("23", "T. Buchanan", { assist: "S. Eustáquio" }), goalEvent("80", "J. David", { penalty: true })]
+        },
+        stats: reportStats([
+            ["Posse", "56%", "44%"],
+            ["Remates", "12", "21"],
+            ["Remates à Baliza", "6", "11"],
+            ["xG", "1,52", "2,82"],
+            ["PADPAD", "17,75", "15,31"],
+            ["Oportunidades Flagrantes", "2", "3"],
+            ["Cantos", "6", "9"],
+            ["Passes Completados", "84%", "83%"],
+            ["Cruzamentos Completados", "16%", "15%"],
+            ["Faltas", "14", "12"],
+            ["Cartões amarelos", "3", "2"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "124", "126"],
+            ["Classificação Média", "6,6", "6,9"]
+        ])
     }
 ];

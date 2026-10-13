@@ -36,7 +36,12 @@ const worldCupRegrasTerceiros = {
 // ["Equipa", pontos], e ela passa a mandar na ordem e avisa na consola de cada
 // ponto que não bata certo. Depois de conferido, pode voltar a vazio.
 //   { C: [["Brasil", 7], ["Marrocos", 6], ...] }
-const worldCupClassificacaoFM = {};
+const worldCupClassificacaoFM = {
+    // Espanha e Uruguai empatam a 6 pontos e a Espanha ganhou o confronto directo,
+    // mas o FM pôs o Uruguai em 1.º (diferença de golos). É o FM que decide quem
+    // joga com quem nos dezasseis-avos.
+    H: [["Uruguai", 6], ["Espanha", 6], ["Cabo Verde", 3], ["Arábia Saudita", 3]]
+};
 
 // O que vale cada lugar do pódio. Só estes três lugares pontuam.
 const worldCupPremios = {
