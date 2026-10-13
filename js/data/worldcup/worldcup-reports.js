@@ -4021,5 +4021,95 @@ const worldCupMatchReports = [
             ["Distância Percorrida", "134", "141"],
             ["Classificação Média", "7,0", "6,7"]
         ])
+    },
+    {
+        fixtureKey: "2026-07-04-canada-suecia",
+        date: "Sábado 4 de Julho de 2026",
+        stadium: "Houston Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Dejan Kulusevski",
+        rating: "9,22",
+        coaches: { home: "J. Marsch", away: "G. Potter" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("10", "J. David", "6,2", "AAE")],
+                [reportPlayer("11", "Oluwaseyi", "6,1", "AI"), reportPlayer("22", "Flores", "6,4", "MO"), reportPlayer("7", "Buchanan", "6,3", "Ex")],
+                [reportPlayer("26", "Koné", "6,5", "MD"), reportPlayer("6", "Eustáquio", "6,3", "CJR")],
+                [reportPlayer("19", "Davies", "6,8", "AI"), reportPlayer("5", "Cornelius", "6,2", "CC"), reportPlayer("4", "Bombito", "6,5", "CC"), reportPlayer("2", "Johnston", "6,5", "DL")],
+                [reportPlayer("1", "St. Clair", "6,5", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("12", "Gyökeres", "8,0", "AAE")],
+                [reportPlayer("11", "Isak", "8,8", "AA", true), reportPlayer("10", "Kulusevski", "9,2", "CJA", true), reportPlayer("17", "Elanga", "7,7", "Ex")],
+                [reportPlayer("7", "Karlström", "7,0", "MD"), reportPlayer("16", "Ayari", "6,8", "MAA")],
+                [reportPlayer("3", "Svensson", "6,9", "AlI"), reportPlayer("5", "Starfelt", "7,8", "CP"), reportPlayer("19", "Lindelöf", "6,8", "CC"), reportPlayer("4", "Hien", "7,0", "LI")],
+                [reportPlayer("1", "Widell Zett...", "6,7", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("81", "T. Corbeanu")],
+            away: [goalEvent("14", "D. Kulusevski", { assist: "V. Gyökeres" }), goalEvent("29", "D. Kulusevski", { assist: "A. Isak" }), goalEvent("45+2", "A. Isak", { assist: "V. Gyökeres" }), goalEvent("55", "A. Isak", { assist: "D. Kulusevski" })]
+        },
+        stats: reportStats([
+            ["Posse", "36%", "64%"],
+            ["Remates", "8", "13"],
+            ["Remates à Baliza", "2", "9"],
+            ["xG", "0,95", "1,18"],
+            ["PADPAD", "18,68", "19,90"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "2", "2"],
+            ["Passes Completados", "86%", "94%"],
+            ["Cruzamentos Completados", "16%", "31%"],
+            ["Faltas", "11", "6"],
+            ["Cartões amarelos", "0", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "125", "125"],
+            ["Classificação Média", "6,4", "7,5"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-04-alemanha-franca",
+        date: "Sábado 4 de Julho de 2026",
+        stadium: "Philadelphia Stadium",
+        weather: "Calmo",
+        playerOfMatch: "Jamal Musiala",
+        rating: "8,14",
+        coaches: { home: "H. Maus", away: "Hugo Le Macedo" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Woltemade", "6,6", "AvR")],
+                [reportPlayer("10", "Musiala", "8,1", "EAI"), reportPlayer("17", "Wirtz", "6,2", "CL"), reportPlayer("19", "Sané", "7,3", "AA")],
+                [reportPlayer("25", "Stach", "6,9", "MD"), reportPlayer("23", "F. Nmecha", "6,9", "CJA")],
+                [reportPlayer("22", "Raum", "6,9", "AI"), reportPlayer("5", "N. Schlotte...", "6,9", "CC"), reportPlayer("4", "Tah", "6,8", "CC"), reportPlayer("6", "Kimmich", "7,5", "AC", true)],
+                [reportPlayer("12", "Ter Stegen", "6,6", "GRC")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("7", "O. Dembélé", "6,4", "AAE")],
+                [reportPlayer("10", "Mbappé", "6,8", "AI"), reportPlayer("6", "Olise", "6,4", "CL"), reportPlayer("9", "Doué", "7,0", "AA")],
+                [reportPlayer("19", "Koné", "6,9", "MAA"), reportPlayer("12", "Tchouaméni", "6,5", "MD")],
+                [reportPlayer("22", "Hernández", "6,8", "DL"), reportPlayer("14", "Saliba", "6,8", "CC"), reportPlayer("5", "Upamecano", "6,3", "CC"), reportPlayer("24", "Kalulu", "6,6", "DL")],
+                [reportPlayer("16", "Maignan", "7,0", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("12", "J. Kimmich", { assist: "L. Sané" }), goalEvent("67", "P. Groß", { assist: "J. Musiala" })],
+            away: [goalEvent("80", "M. Thuram", { assist: "W. Zaïre-Emery" })]
+        },
+        stats: reportStats([
+            ["Posse", "58%", "42%"],
+            ["Remates", "22", "15"],
+            ["Remates à Baliza", "11", "4"],
+            ["xG", "1,69", "2,52"],
+            ["PADPAD", "15,70", "23,59"],
+            ["Oportunidades Flagrantes", "2", "4"],
+            ["Cantos", "9", "5"],
+            ["Passes Completados", "91%", "89%"],
+            ["Cruzamentos Completados", "15%", "19%"],
+            ["Faltas", "7", "10"],
+            ["Cartões amarelos", "0", "2"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "126", "124"],
+            ["Classificação Média", "7,0", "6,7"]
+        ])
     }
 ];

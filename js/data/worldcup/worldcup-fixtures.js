@@ -103,5 +103,7 @@ const worldCupFixtures = [
     createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "2 Jul", "Noruega", "1-1", "Suíça", { year: 2026, matchNumber: 85, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final", displayScore: "p 1-1", winner: "away", note: "Suíça vence nos penáltis" }),
     createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Argélia", "2-1", "Espanha", { year: 2026, matchNumber: 86, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
     createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Gana", "0-1", "Portugal", { year: 2026, matchNumber: 87, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
-    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Turquia", "2-3", "Egito", { year: 2026, matchNumber: 88, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" })
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Turquia", "2-3", "Egito", { year: 2026, matchNumber: 88, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Oitavos de final", "4 Jul", "Canadá", "1-4", "Suécia", { year: 2026, matchNumber: 90, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
+    createLeagueMatch("Julho", "Mundial · Oitavos de final", "4 Jul", "Alemanha", "2-1", "França", { year: 2026, matchNumber: 89, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" })
 ];
