@@ -43,6 +43,10 @@ function createLeagueMatch(month, competition, date, home, score, away, options 
 }
 
 function getFixtureScoreLabel(fixture) {
+    // O "p" dos penáltis fica do lado de quem passou, como no FM: "p 1-1" se
+    // ganhou a casa, "1-1 p" se ganhou a visitante. Os dados escrevem sempre "p 1-1".
+    let penalties = /^p\s+(.+)$/.exec(fixture.displayScore || "");
+    if (penalties) return fixture.winner === "away" ? `${penalties[1]} p` : fixture.displayScore;
     if (fixture.displayScore) return fixture.displayScore;
     let hasResult = Number.isFinite(fixture.homeGoals) && Number.isFinite(fixture.awayGoals);
     if (hasResult) return `${fixture.homeGoals}-${fixture.awayGoals}`;

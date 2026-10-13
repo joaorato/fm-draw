@@ -4414,7 +4414,7 @@ body::after {
 
 .league-fixture-match {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(44px, auto) minmax(0, 1fr);
     align-items: center;
     gap: 7px;
 }
@@ -4488,7 +4488,7 @@ body::after {
 .league-fixture-score {
     min-width: 44px;
     justify-self: center;
-    padding: 6px 5px;
+    padding: 6px 8px;
     border-radius: 12px;
     border: 1px solid rgba(var(--c-glow-b), 0.16);
     background:
@@ -4498,6 +4498,7 @@ body::after {
     font-family: "Michroma", sans-serif;
     font-size: 10px;
     text-align: center;
+    white-space: nowrap;
     box-shadow:
         inset 0 1px 0 rgba(var(--c-white), 0.08),
         0 0 16px rgba(72, 178, 255, 0.08);
@@ -7947,7 +7948,7 @@ button:disabled {
     .coach-insight-card { min-height: 96px; }
     .league-toty-card { height: 430px; }
     .league-toty-pitch { min-height: 0; }
-    .league-fixture-match { grid-template-columns: 1fr 52px 1fr; }
+    .league-fixture-match { grid-template-columns: 1fr minmax(52px, auto) 1fr; }
     .league-match-club { font-size: 10.5px; }
     .league-race-modal { padding: 10px; }
     .league-race-dialog { padding: 18px 14px 16px; border-radius: 20px; }
