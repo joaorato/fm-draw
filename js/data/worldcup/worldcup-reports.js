@@ -249,7 +249,7 @@ const worldCupMatchReports = [
             away: reportFormation("4-2-3-1", [
                 [reportPlayer("12", "Barış Alper Yılmaz", "7,2", "AAE", true)],
                 [reportPlayer("11", "Kenan Yıldız", "7,7", "EAI"), reportPlayer("15", "Arda Güler", "6,2", "CL"), reportPlayer("16", "Yunus", "6,2", "AA")],
-                [reportPlayer("10", "Hakan Çalh...", "7,0", "CJR"), reportPlayer("8", "Orkun Kökçü", "6,8", "CJA")],
+                [reportPlayer("10", "Hakan Çalhanoğlu", "7,0", "CJR"), reportPlayer("8", "Orkun Kökçü", "6,8", "CJA")],
                 [reportPlayer("7", "F.Kadıoğlu", "6,7", "DL"), reportPlayer("5", "Abdülkerim", "6,9", "CC"), reportPlayer("24", "Kaan", "6,7", "CC"), reportPlayer("20", "Zeki Çelik", "6,7", "DL")],
                 [reportPlayer("1", "Uğurcan", "7,3", "GR")]
             ])
@@ -1429,7 +1429,7 @@ const worldCupMatchReports = [
             home: reportFormation("4-2-3-1", [
                 [reportPlayer("12", "Barış Alper Yılmaz", "6,4", "AAE")],
                 [reportPlayer("11", "Kenan Yıldız", "6,3", "EAI"), reportPlayer("15", "Arda Güler", "6,2", "CL"), reportPlayer("16", "Yunus", "6,6", "AA")],
-                [reportPlayer("10", "Hakan Çalh...", "7,1", "CJR"), reportPlayer("8", "Orkun Kökçü", "6,7", "CJA")],
+                [reportPlayer("10", "Hakan Çalhanoğlu", "7,1", "CJR"), reportPlayer("8", "Orkun Kökçü", "6,7", "CJA")],
                 [reportPlayer("7", "F.Kadıoğlu", "6,5", "DL"), reportPlayer("5", "Abdülkerim", "6,9", "CC"), reportPlayer("24", "Kaan", "6,8", "CC"), reportPlayer("20", "Zeki Çelik", "6,6", "DL")],
                 [reportPlayer("1", "Uğurcan", "6,4", "GR")]
             ]),
@@ -2487,7 +2487,7 @@ const worldCupMatchReports = [
             away: reportFormation("4-2-3-1", [
                 [reportPlayer("9", "Enes Ünal", "6,4", "AAE")],
                 [reportPlayer("11", "Kenan Yıldız", "6,8", "EAI"), reportPlayer("15", "Arda Güler", "6,7", "CL"), reportPlayer("12", "Barış Alper Yılmaz", "7,3", "AA")],
-                [reportPlayer("10", "Hakan Çalh...", "7,2", "CJR"), reportPlayer("8", "Orkun Kökçü", "7,4", "CJA", true)],
+                [reportPlayer("10", "Hakan Çalhanoğlu", "7,2", "CJR"), reportPlayer("8", "Orkun Kökçü", "7,4", "CJA", true)],
                 [reportPlayer("7", "F.Kadıoğlu", "6,7", "DL"), reportPlayer("5", "Abdülkerim", "6,9", "CC"), reportPlayer("24", "Kaan", "6,6", "CC"), reportPlayer("20", "Zeki Çelik", "6,5", "DL")],
                 [reportPlayer("1", "Uğurcan", "6,7", "GR")]
             ])
@@ -3884,6 +3884,142 @@ const worldCupMatchReports = [
             ["Cartões vermelhos", "0", "0"],
             ["Distância Percorrida", "173", "173"],
             ["Classificação Média", "6,9", "6,9"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-03-turquia-egito",
+        date: "Sexta-feira 3 de Julho de 2026",
+        stadium: "Dallas Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Mohamed Salah",
+        rating: "9,49",
+        coaches: { home: "V. Montella", away: "H. Hassan" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("12", "Barış Alper Yılmaz", "6,6", "AAE")],
+                [reportPlayer("11", "Kenan Yıldız", "6,7", "EAI"), reportPlayer("15", "Arda Güler", "6,6", "CL"), reportPlayer("16", "Yunus", "6,3", "AA")],
+                [reportPlayer("10", "Hakan Çalhanoğlu", "7,2", "CJR"), reportPlayer("8", "Orkun Kökçü", "7,4", "CJA")],
+                [reportPlayer("7", "F.Kadıoğlu", "6,7", "DL"), reportPlayer("5", "Abdülkerim", "6,5", "CC"), reportPlayer("24", "Kaan", "6,7", "CC"), reportPlayer("20", "Zeki Çelik", "6,6", "DL")],
+                [reportPlayer("1", "Uğurcan", "6,7", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("7", "Marmoush", "6,3", "AAE")],
+                [reportPlayer("10", "Zizo", "7,6", "Ex"), reportPlayer("20", "Afsha", "8,5", "MO", true), reportPlayer("11", "M. Salah", "9,5", "AI", true)],
+                [reportPlayer("5", "Morsy", "6,6", "CJR"), reportPlayer("15", "H. Fathy", "7,0", "MD")],
+                [reportPlayer("3", "Fatouh", "6,9", "AI"), reportPlayer("4", "Abdelmon...", "7,5", "CC"), reportPlayer("18", "Hegazy", "6,5", "DC"), reportPlayer("2", "Hany", "6,9", "DL")],
+                [reportPlayer("1", "Oufa Shobeir", "6,5", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("72", "Eren Dinkçi"), goalEvent("90+3", "Atakan Karazor", { assist: "Hakan Çalhanoğlu" })],
+            away: [goalEvent("34", "M. Salah", { assist: "Afsha" }), goalEvent("40", "M. Salah", { assist: "Zizo" }), goalEvent("90+1", "Afsha", { assist: "M. Ateya" })]
+        },
+        stats: reportStats([
+            ["Posse", "52%", "48%"],
+            ["Remates", "14", "17"],
+            ["Remates à Baliza", "5", "8"],
+            ["xG", "2,03", "2,02"],
+            ["PADPAD", "34,62", "17,27"],
+            ["Oportunidades Flagrantes", "2", "1"],
+            ["Cantos", "5", "7"],
+            ["Passes Completados", "90%", "90%"],
+            ["Cruzamentos Completados", "30%", "14%"],
+            ["Faltas", "8", "11"],
+            ["Cartões amarelos", "1", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "123", "122"],
+            ["Classificação Média", "6,7", "7,2"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-03-gana-portugal",
+        date: "Sexta-feira 3 de Julho de 2026",
+        stadium: "Kansas City Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Rafael Leão",
+        rating: "8,06",
+        coaches: { home: "Carlos Queiroz", away: "Painas Natal" },
+        formations: {
+            home: reportFormation("4-3-3", [
+                [reportPlayer("9", "Williams", "6,1", "AAE")],
+                [reportPlayer("10", "Semenyo", "6,7", "EAI"), reportPlayer("11", "Kudus", "6,0", "Ex")],
+                [reportPlayer("12", "Ibrahim", "6,5", "MC"), reportPlayer("6", "Yirenkyi", "6,7", "MC")],
+                [reportPlayer("8", "T. Partey", "6,3", "CJR")],
+                [reportPlayer("20", "Mensah", "6,4", "AI"), reportPlayer("4", "Salisu", "6,7", "CP"), reportPlayer("18", "Aidoo Jr", "6,5", "CP"), reportPlayer("5", "Seidu", "7,0", "AI")],
+                [reportPlayer("1", "Ati-Zigi", "6,5", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "G. Ramos", "6,3", "AR")],
+                [reportPlayer("10", "Rafael Leão", "8,1", "AA", true), reportPlayer("8", "Bruno Fernandes", "6,3", "CL"), reportPlayer("16", "Bernardo", "6,3", "AI")],
+                [reportPlayer("19", "João Neves", "6,8", "MD"), reportPlayer("15", "Vitinha", "6,6", "CJA")],
+                [reportPlayer("5", "Nuno Mendes", "7,1", "AI"), reportPlayer("4", "Rúben Dias", "7,4", "CP"), reportPlayer("24", "Tomás Araújo", "7,4", "CC"), reportPlayer("3", "João Cancelo", "6,7", "AI")],
+                [reportPlayer("1", "Diogo Costa", "7,8", "GRC")]
+            ])
+        },
+        events: {
+            home: [],
+            away: [goalEvent("90+2", "Rafael Leão", { assist: "Francisco Trincão" })]
+        },
+        stats: reportStats([
+            ["Posse", "48%", "52%"],
+            ["Remates", "9", "24"],
+            ["Remates à Baliza", "6", "6"],
+            ["xG", "0,50", "2,03"],
+            ["PADPAD", "22,20", "23,21"],
+            ["Oportunidades Flagrantes", "0", "1"],
+            ["Cantos", "9", "9"],
+            ["Passes Completados", "88%", "88%"],
+            ["Cruzamentos Completados", "12%", "38%"],
+            ["Faltas", "15", "10"],
+            ["Cartões amarelos", "3", "3"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "112", "115"],
+            ["Classificação Média", "6,5", "7,0"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-03-argelia-espanha",
+        date: "Sexta-feira 3 de Julho de 2026",
+        stadium: "Miami Stadium",
+        weather: "Tempestuoso",
+        playerOfMatch: "Mohamed Amoura",
+        rating: "8,45",
+        coaches: { home: "V. Petkovic", away: "Gamy Chambelito" },
+        formations: {
+            home: reportFormation("3-4-1-2", [
+                [reportPlayer("11", "Gouiri", "6,8", "AA"), reportPlayer("9", "Amoura", "8,5", "AAE")],
+                [reportPlayer("10", "Maza", "6,4", "MO")],
+                [reportPlayer("3", "Aït-Nouri", "7,1", "AI", true), reportPlayer("15", "Zerrouki", "7,4", "MD", true), reportPlayer("6", "Bennacer", "7,1", "CJR"), reportPlayer("2", "Belghali", "6,3", "AI")],
+                [reportPlayer("12", "Bensebaini", "6,7", "CC"), reportPlayer("18", "Tougai", "6,6", "CC"), reportPlayer("22", "Chergui", "7,0", "CC")],
+                [reportPlayer("1", "Zidane", "6,9", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("10", "Oyarzábal", "6,6", "AAE"), reportPlayer("12", "Torres", "6,3", "AA"), reportPlayer("19", "Lamine Yamal", "6,1", "AAE")],
+                [reportPlayer("25", "Fabián", "6,7", "MO", true), reportPlayer("8", "Pedri", "6,4", "MO")],
+                [reportPlayer("4", "Rodri", "6,5", "Pi")],
+                [reportPlayer("22", "Cucurella", "7,4", "AI"), reportPlayer("6", "Le Normand", "6,5", "CP"), reportPlayer("5", "Cubarsí", "6,5", "CP"), reportPlayer("16", "M. Llorente", "6,8", "AI")],
+                [reportPlayer("13", "Joan García", "8,2", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("53", "R. Aït-Nouri", { assist: "M. Amoura" }), goalEvent("61", "R. Zerrouki", { assist: "I. Bennacer" })],
+            away: [goalEvent("2", "Fabián", { assist: "M. Cucurella" })]
+        },
+        stats: reportStats([
+            ["Posse", "57%", "43%"],
+            ["Remates", "19", "13"],
+            ["Remates à Baliza", "12", "4"],
+            ["xG", "2,56", "1,11"],
+            ["PADPAD", "15,05", "40,20"],
+            ["Oportunidades Flagrantes", "3", "0"],
+            ["Cantos", "14", "6"],
+            ["Passes Completados", "90%", "84%"],
+            ["Cruzamentos Completados", "13%", "38%"],
+            ["Faltas", "9", "9"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "134", "141"],
+            ["Classificação Média", "7,0", "6,7"]
         ])
     }
 ];

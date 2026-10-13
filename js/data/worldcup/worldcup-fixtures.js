@@ -101,7 +101,7 @@ const worldCupFixtures = [
     createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "2 Jul", "Inglaterra", "2-1", "Colômbia", { year: 2026, matchNumber: 83, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
     createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "2 Jul", "Áustria", "0-3", "Uruguai", { year: 2026, matchNumber: 84, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
     createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "2 Jul", "Noruega", "1-1", "Suíça", { year: 2026, matchNumber: 85, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final", displayScore: "p 1-1", winner: "away", note: "Suíça vence nos penáltis" }),
-    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Argélia", "-", "Espanha", { year: 2026, matchNumber: 86, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
-    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Gana", "-", "Portugal", { year: 2026, matchNumber: 87, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
-    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Turquia", "-", "Egito", { year: 2026, matchNumber: 88, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" })
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Argélia", "2-1", "Espanha", { year: 2026, matchNumber: 86, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Gana", "0-1", "Portugal", { year: 2026, matchNumber: 87, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" }),
+    createLeagueMatch("Julho", "Mundial · Dezasseis-avos de final", "3 Jul", "Turquia", "2-3", "Egito", { year: 2026, matchNumber: 88, roundKey: "r32", roundLabel: "Mundial · Dezasseis-avos de final" })
 ];
