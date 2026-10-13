@@ -3470,5 +3470,143 @@ const worldCupMatchReports = [
             ["Distância Percorrida", "128", "123"],
             ["Classificação Média", "7,1", "6,6"]
         ])
+    },
+    {
+        fixtureKey: "2026-06-30-equador-senegal",
+        date: "Terça-feira 30 de Junho de 2026",
+        stadium: "Dallas Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Piero Hincapié",
+        rating: "7,68",
+        coaches: { home: "S. Beccacece", away: "P. Thiaw" },
+        formations: {
+            home: reportFormation("4-3-3", [
+                [reportPlayer("13", "Valencia", "6,1", "AC")],
+                [reportPlayer("26", "Julio", "6,2", "Ex"), reportPlayer("11", "Sarmiento", "7,3", "Ex", true)],
+                [reportPlayer("6", "Caicedo", "7,5", "MC"), reportPlayer("16", "Alcívar", "7,2", "MC")],
+                [reportPlayer("7", "Gruezo", "7,1", "CJR")],
+                [reportPlayer("5", "Hincapié", "7,7", "AI"), reportPlayer("4", "Pacho", "6,5", "CC"), reportPlayer("14", "Arboleda", "6,7", "DC"), reportPlayer("23", "Preciado", "6,9", "AI", true)],
+                [reportPlayer("22", "Domínguez", "6,5", "GRP")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("11", "N. Jackson", "5,9", "AAE")],
+                [reportPlayer("10", "Mané", "6,0", "AI"), reportPlayer("9", "Dia", "6,3", "SA"), reportPlayer("7", "N'Diaye", "6,4", "EAI")],
+                [reportPlayer("14", "Guèye", "6,6", "MD"), reportPlayer("6", "P.M. Sarr", "6,7", "MD")],
+                [reportPlayer("18", "Jakobs", "6,4", "AI"), reportPlayer("5", "Niakhaté", "6,9", "CC", true), reportPlayer("4", "Koulibaly", "6,9", "CC"), reportPlayer("3", "Sabaly", "6,7", "DL")],
+                [reportPlayer("16", "E. Mendy", "6,3", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("12", "Á. Preciado", { assist: "J. Alcívar" }), goalEvent("14", "J. Sarmiento", { assist: "M. Caicedo" })],
+            away: [goalEvent("44", "M. Niakhaté", { penalty: true }), sendOffEvent("71", "N. Jackson")]
+        },
+        stats: reportStats([
+            ["Posse", "53%", "47%"],
+            ["Remates", "9", "3"],
+            ["Remates à Baliza", "6", "2"],
+            ["xG", "1,64", "0,80"],
+            ["PADPAD", "17,66", "103,25"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "7", "2"],
+            ["Passes Completados", "93%", "92%"],
+            ["Cruzamentos Completados", "13%", "0%"],
+            ["Faltas", "12", "8"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "1"],
+            ["Distância Percorrida", "116", "112"],
+            ["Classificação Média", "6,8", "6,5"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-30-franca-nova-zelandia",
+        date: "Terça-feira 30 de Junho de 2026",
+        stadium: "New York New Jersey Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Désiré Doué",
+        rating: "9,53",
+        coaches: { home: "Hugo Le Macedo", away: "D. Bazeley" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("15", "M. Thuram", "8,5", "AAE", true)],
+                [reportPlayer("11", "Barcola", "6,8", "Ex"), reportPlayer("8", "Cherki", "6,8", "MO"), reportPlayer("9", "Doué", "9,5", "AA")],
+                [reportPlayer("3", "Camavinga", "6,8", "MC")],
+                [reportPlayer("12", "Tchouaméni", "7,1", "MD")],
+                [reportPlayer("26", "Digne", "6,7", "DL"), reportPlayer("21", "Hernández", "6,5", "CC"), reportPlayer("5", "Upamecano", "6,8", "CC"), reportPlayer("4", "Koundé", "6,9", "DL")],
+                [reportPlayer("1", "Chevalier", "6,8", "GR")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Wood", "8,3", "AR")],
+                [reportPlayer("10", "McCowatt", "6,9", "Ex"), reportPlayer("8", "Singh", "8,4", "CL", true), reportPlayer("11", "Just", "7,1", "AA", true)],
+                [reportPlayer("17", "Stamenić", "6,6", "Pi"), reportPlayer("12", "Rufer", "6,6", "MD")],
+                [reportPlayer("13", "Cacace", "6,2", "AC"), reportPlayer("25", "Tuiloma", "6,4", "CC"), reportPlayer("4", "Bindon", "6,8", "CC"), reportPlayer("2", "Kirwan", "6,5", "DL")],
+                [reportPlayer("1", "Crocombe", "7,3", "GRP")]
+            ])
+        },
+        events: {
+            home: [goalEvent("8", "M. Thuram", { assist: "D. Doué" }), goalEvent("15", "M. Thuram", { assist: "D. Doué" }), goalEvent("58", "M. Olise"), goalEvent("116", "K. Mbappé", { assist: "O. Dembélé" })],
+            away: [goalEvent("18", "E. Just", { assist: "C. Wood" }), goalEvent("20", "S. Singh", { assist: "C. Wood" }), goalEvent("77", "S. Singh", { assist: "C. McCowatt" }), goalEvent("93", "J. Randall", { assist: "M. Garbett" })]
+        },
+        stats: reportStats([
+            ["Posse", "53%", "47%"],
+            ["Remates", "34", "9"],
+            ["Remates à Baliza", "16", "6"],
+            ["xG", "5,08", "1,24"],
+            ["PADPAD", "13,59", "29,18"],
+            ["Oportunidades Flagrantes", "6", "1"],
+            ["Cantos", "17", "6"],
+            ["Passes Completados", "91%", "87%"],
+            ["Cruzamentos Completados", "28%", "14%"],
+            ["Faltas", "9", "16"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "159", "151"],
+            ["Classificação Média", "7,4", "7,0"]
+        ])
+    },
+    {
+        fixtureKey: "2026-06-30-costa-do-marfim-africa-do-sul",
+        date: "Terça-feira 30 de Junho de 2026",
+        stadium: "Mexico City Stadium",
+        weather: "Tempestuoso",
+        playerOfMatch: "Yoan Bonny",
+        rating: "8,41",
+        coaches: { home: "E. Faé", away: "H. Broos" },
+        formations: {
+            home: reportFormation("4-1-2-1-2", [
+                [reportPlayer("8", "Guessand", "7,2", "AA", true), reportPlayer("11", "Bonny", "8,4", "AvR", true)],
+                [reportPlayer("6", "Amad", "6,2", "MO")],
+                [reportPlayer("19", "Kessié", "7,1", "MC"), reportPlayer("20", "C. Inao Oulaï", "7,0", "ME")],
+                [reportPlayer("7", "Sangaré", "6,4", "Pi")],
+                [reportPlayer("3", "Opéri", "7,1", "AI"), reportPlayer("4", "N'Dicka", "7,1", "CC"), reportPlayer("5", "O. Diomande", "7,1", "CC"), reportPlayer("16", "Singo", "6,5", "LI")],
+                [reportPlayer("1", "Fofana", "6,9", "GRC")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Foster", "7,1", "AvR", true)],
+                [reportPlayer("22", "Appollis", "6,5", "Ex"), reportPlayer("18", "Adams", "6,8", "ME", true), reportPlayer("8", "Rayners", "6,8", "Ex")],
+                [reportPlayer("15", "Mokoena", "7,3", "CJR"), reportPlayer("25", "Mvala", "6,8", "Pi")],
+                [reportPlayer("3", "Modiba", "6,3", "AI"), reportPlayer("5", "Mbokazi", "6,7", "CC"), reportPlayer("24", "Ngezana", "7,0", "CC"), reportPlayer("2", "Mudau", "6,8", "AlI")],
+                [reportPlayer("1", "Williams", "7,5", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("17", "E. Guessand", { assist: "Y. Bonny" }), goalEvent("46", "Y. Bonny", { assist: "C. Opéri" })],
+            away: [goalEvent("35", "L. Foster", { assist: "I. Rayners" }), goalEvent("59", "J. Adams", { assist: "T. Mokoena" })]
+        },
+        stats: reportStats([
+            ["Posse", "51%", "49%"],
+            ["Remates", "17", "12"],
+            ["Remates à Baliza", "9", "6"],
+            ["xG", "1,66", "1,42"],
+            ["PADPAD", "15,94", "25,91"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "10", "12"],
+            ["Passes Completados", "86%", "87%"],
+            ["Cruzamentos Completados", "32%", "11%"],
+            ["Faltas", "20", "8"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "169", "173"],
+            ["Classificação Média", "6,9", "6,9"]
+        ])
     }
 ];
