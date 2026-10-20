@@ -166,7 +166,8 @@ object into `leagues`. If it will have match reports, also declare its `ficheiro
 `.claude/skills/fm-match-report/references/<id>.md` (the league `id`); the skill itself does not change.
 
 `activeLeagueId` in `js/ui/league-selector.js` starts on the first league with `status === "live"`,
-else the first league. While the World Cup is live, the Ligas tab opens on it.
+else the first league. The `leagues` array is ordered most recent first (Mundial, Croatia,
+Scotland), and the selector lists them in that order, so a new competition goes at the top.
 
 ## Common Update Paths
 

@@ -20,16 +20,24 @@ function renderWorldCupPlayers() {
         .filter((entry) => entry.jogador)
         .map((entry) => ({ entry, estado: getWorldCupTeamStatus(entry.equipa) }));
 
-    // Pódio primeiro, depois quem ainda está em prova, depois os eliminados.
+    // Pela classificação final: o pódio, depois quem chegou mais longe no
+    // quadro (o 4.º lugar antes de quem caiu nos quartos, e assim por diante),
+    // e na mesma ronda quem ainda está em prova antes de quem já saiu.
     let podioOrdem = { campeao: 0, vice: 1, terceiro: 2 };
-    let ordem = (item) => item.estado.lugar ? podioOrdem[item.estado.lugar] : item.estado.emProva ? 3 : 4;
+    let alcance = (equipa) => Math.max(-1, ...worldCupFixtures
+        .filter((fixture) => fixture.matchNumber && (fixture.home === equipa || fixture.away === equipa))
+        .map((fixture) => worldCupRondas.findIndex((ronda) => ronda.key === fixture.round)));
+    let ordem = (item) => item.estado.lugar ? podioOrdem[item.estado.lugar] : 3;
     selecoes.sort((a, b) => ordem(a) - ordem(b)
+        || alcance(b.entry.equipa) - alcance(a.entry.equipa)
+        || Number(b.estado.emProva) - Number(a.estado.emProva)
         || a.entry.grupo.localeCompare(b.entry.grupo)
         || a.entry.jogador.localeCompare(b.entry.jogador));
 
+    // Acabado o Mundial já ninguém está "fora": a lista é a classificação final.
     let cards = selecoes.map(({ entry, estado }) => {
         let premio = estado.lugar ? worldCupPremios[estado.lugar] : null;
-        let classes = ["league-wc-player", estado.emProva ? "" : "is-out", estado.lugar ? `podium-${estado.lugar}` : ""]
+        let classes = ["league-wc-player", estado.emProva || worldCupConcluido ? "" : "is-out", estado.lugar ? `podium-${estado.lugar}` : ""]
             .filter(Boolean).join(" ");
         return `
             <article class="${classes}">
@@ -197,7 +205,7 @@ function renderWorldCupBracketSide(side, isWinner) {
     `;
 }
 
-function renderWorldCupBracketMatch(slot) {
+function renderWorldCupBracketMatch(slot, extraClass = "") {
     let fixture = getWorldCupFixtureByNumber(slot.jogo);
     let sides = fixture
         ? [{ equipa: fixture.home, golos: fixture.homeGoals }, { equipa: fixture.away, golos: fixture.awayGoals }]
@@ -211,8 +219,25 @@ function renderWorldCupBracketMatch(slot) {
     let body = `${meta}${sides.map((side) => renderWorldCupBracketSide(side, Boolean(winner) && side.equipa === winner)).join("")}`;
 
     return fixture?.report
-        ? `<button class="league-wc-match is-clickable" type="button" onclick="openMatchReport('${fixture.report.id}')" title="Ver estatísticas do jogo">${body}</button>`
-        : `<div class="league-wc-match ${fixture ? "" : "is-open"}">${body}</div>`;
+        ? `<button class="league-wc-match is-clickable ${extraClass}" type="button" onclick="openMatchReport('${fixture.report.id}')" title="Ver estatísticas do jogo">${body}</button>`
+        : `<div class="league-wc-match ${fixture ? "" : "is-open"} ${extraClass}">${body}</div>`;
+}
+
+// O campeão, por cima da final, assim que a final tem vencedor.
+function renderWorldCupChampion() {
+    let equipa = worldCupPodium.campeao;
+    if (!equipa) return "";
+    let entry = getWorldCupTeamEntry(equipa);
+    let premio = worldCupPremios.campeao;
+    return `
+        <div class="league-wc-champion">
+            <span class="league-wc-champion-label">Campeão do Mundo</span>
+            ${renderWorldCupFlag(entry?.logo, equipa)}
+            <strong class="league-wc-champion-team">${equipa}</strong>
+            ${entry?.jogador ? `<span class="league-wc-champion-coach">${getCoachLinkMarkup(entry.jogador, "league-wc-coach")}</span>` : ""}
+            ${entry?.jogador ? `<span class="league-wc-champion-points">${formatPoints(premio.pontos)}</span>` : ""}
+        </div>
+    `;
 }
 
 // As duas metades do quadro, cada uma como colunas de fora para dentro (dos
@@ -258,8 +283,11 @@ function renderWorldCupFinalColumn(final, terceiroLugar) {
         <div class="league-wc-bracket-col">
             <div class="league-wc-bracket-title">&nbsp;</div>
             <div class="league-wc-bracket-matches is-final">
-                <div class="league-wc-bracket-title league-wc-final-title">Final</div>
-                ${renderWorldCupBracketMatch(final)}
+                <div class="league-wc-final-head">
+                    ${renderWorldCupChampion()}
+                    <div class="league-wc-bracket-title league-wc-final-title">Final</div>
+                </div>
+                ${renderWorldCupBracketMatch(final, `is-final-match ${worldCupPodium.campeao ? "is-decided" : ""}`)}
                 <div class="league-wc-third-place">
                     <div class="league-wc-bracket-title">Jogo do 3.º lugar</div>
                     ${renderWorldCupBracketMatch(terceiroLugar)}

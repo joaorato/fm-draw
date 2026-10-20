@@ -2417,8 +2417,85 @@ body::after {
     gap: 8px;
 }
 
+.league-wc-final-head {
+    display: grid;
+    align-content: end;
+    gap: 10px;
+}
+
 .league-wc-final-title {
-    align-self: end;
+    color: rgba(var(--c-gold), 0.85);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+/* A final destaca-se sempre; com vencedor ganha o dourado do campeão. */
+.league-wc-match.is-final-match {
+    gap: 5px;
+    padding: 9px 10px 10px;
+    border-color: rgba(var(--c-gold), 0.35);
+    box-shadow: 0 0 22px rgba(var(--c-gold), 0.1);
+}
+
+.league-wc-match.is-final-match .league-wc-match-side {
+    font-size: 13px;
+}
+
+.league-wc-match.is-final-match.is-decided {
+    border-color: rgba(var(--c-gold), 0.6);
+    background: linear-gradient(180deg, rgba(var(--c-gold), 0.12), rgba(var(--c-panel-blue), 0.52));
+    box-shadow: 0 0 28px rgba(var(--c-gold), 0.2);
+}
+
+.league-wc-match.is-final-match.is-decided .league-wc-match-side.winner {
+    background: rgba(var(--c-gold), 0.2);
+    color: rgb(var(--c-gold));
+}
+
+.league-wc-champion {
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+    padding: 14px 10px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(var(--c-gold), 0.55);
+    background: radial-gradient(circle at 50% 0%, rgba(var(--c-gold), 0.24), rgba(var(--c-panel-blue), 0.5) 70%);
+    box-shadow: 0 0 34px rgba(var(--c-gold), 0.22);
+    text-align: center;
+}
+
+.league-wc-champion-label {
+    color: rgb(var(--c-gold));
+    font-family: "Cinzel", serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+}
+
+.league-wc-champion .league-wc-flag {
+    width: 46px;
+    height: 46px;
+    margin: 4px 0 2px;
+    filter: drop-shadow(0 0 12px rgba(var(--c-gold), 0.45));
+}
+
+.league-wc-champion-team {
+    color: #f4fbff;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.league-wc-champion-coach .league-wc-coach {
+    color: rgb(var(--c-gold));
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.league-wc-champion-points {
+    color: rgb(var(--c-green));
+    font-size: 14px;
+    font-weight: 800;
 }
 
 .league-wc-third-place {
