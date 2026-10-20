@@ -386,7 +386,7 @@ const worldCupMatchReports = [
                 [reportPlayer("7", "Havertz", "7,4", "AvR", true)],
                 [reportPlayer("10", "Musiala", "7,5", "EAI", true), reportPlayer("17", "Wirtz", "7,3", "CL", true), reportPlayer("19", "Sané", "6,9", "AA")],
                 [reportPlayer("8", "Goretzka", "7,9", "Pi"), reportPlayer("13", "P. Groß", "7,5", "CJA")],
-                [reportPlayer("22", "Raum", "8,2", "AI"), reportPlayer("5", "N. Schlotte...", "7,5", "CC"), reportPlayer("4", "Tah", "7,4", "CC"), reportPlayer("6", "Kimmich", "8,3", "AC")],
+                [reportPlayer("22", "Raum", "8,2", "AI"), reportPlayer("5", "Schlotterbeck", "7,5", "CC"), reportPlayer("4", "Tah", "7,4", "CC"), reportPlayer("6", "Kimmich", "8,3", "AC")],
                 [reportPlayer("1", "Neuer", "7,6", "GRC")]
             ])
         },
@@ -1483,7 +1483,7 @@ const worldCupMatchReports = [
                 [reportPlayer("7", "Havertz", "6,9", "AvR", true)],
                 [reportPlayer("10", "Musiala", "6,6", "EAI"), reportPlayer("17", "Wirtz", "6,4", "CL"), reportPlayer("19", "Sané", "7,6", "AA")],
                 [reportPlayer("8", "Goretzka", "6,8", "Pi"), reportPlayer("23", "F. Nmecha", "6,7", "CJA")],
-                [reportPlayer("22", "Raum", "6,4", "AI"), reportPlayer("5", "N. Schlotte...", "6,5", "CC"), reportPlayer("4", "Tah", "7,0", "CC"), reportPlayer("6", "Kimmich", "6,7", "AC")],
+                [reportPlayer("22", "Raum", "6,4", "AI"), reportPlayer("5", "Schlotterbeck", "6,5", "CC"), reportPlayer("4", "Tah", "7,0", "CC"), reportPlayer("6", "Kimmich", "6,7", "AC")],
                 [reportPlayer("1", "Neuer", "6,6", "GRC")]
             ])
         },
@@ -1576,7 +1576,7 @@ const worldCupMatchReports = [
                 [reportPlayer("11", "Isak", "6,1", "AA"), reportPlayer("6", "Forsberg", "6,7", "CJA"), reportPlayer("10", "Kulusevski", "6,6", "Ex")],
                 [reportPlayer("16", "Ayari", "6,9", "MD"), reportPlayer("7", "Karlström", "6,9", "MAA")],
                 [reportPlayer("3", "Svensson", "6,9", "AlI"), reportPlayer("5", "Starfelt", "7,5", "CP"), reportPlayer("19", "Lindelöf", "7,2", "CC"), reportPlayer("2", "Holm", "6,7", "LI")],
-                [reportPlayer("1", "Widell Zett...", "7,5", "GR")]
+                [reportPlayer("1", "Widell Zetterström", "7,5", "GR")]
             ])
         },
         events: {
@@ -2571,7 +2571,7 @@ const worldCupMatchReports = [
                 [reportPlayer("7", "Havertz", "6,4", "AvR")],
                 [reportPlayer("10", "Musiala", "7,1", "EAI", true), reportPlayer("17", "Wirtz", "7,7", "CL", true), reportPlayer("19", "Sané", "9,0", "AA")],
                 [reportPlayer("8", "Goretzka", "6,6", "Pi"), reportPlayer("23", "F. Nmecha", "6,7", "CJA")],
-                [reportPlayer("22", "Raum", "6,4", "AI"), reportPlayer("5", "N. Schlotte...", "6,8", "CC"), reportPlayer("4", "Tah", "7,0", "CC"), reportPlayer("6", "Kimmich", "6,7", "AC")],
+                [reportPlayer("22", "Raum", "6,4", "AI"), reportPlayer("5", "Schlotterbeck", "6,8", "CC"), reportPlayer("4", "Tah", "7,0", "CC"), reportPlayer("6", "Kimmich", "6,7", "AC")],
                 [reportPlayer("1", "Neuer", "6,5", "GRC")]
             ]),
             away: reportFormation("4-3-3", [
@@ -2671,7 +2671,7 @@ const worldCupMatchReports = [
                 [reportPlayer("11", "Isak", "7,2", "AA"), reportPlayer("10", "Kulusevski", "7,6", "CJA"), reportPlayer("17", "Elanga", "7,0", "Ex")],
                 [reportPlayer("16", "Ayari", "6,9", "MD"), reportPlayer("7", "Karlström", "6,7", "MAA")],
                 [reportPlayer("3", "Svensson", "7,1", "AlI"), reportPlayer("5", "Starfelt", "7,1", "CP"), reportPlayer("19", "Lindelöf", "7,0", "CC"), reportPlayer("4", "Hien", "7,0", "LI")],
-                [reportPlayer("1", "Widell Zett...", "7,3", "GR")]
+                [reportPlayer("1", "Widell Zetterström", "7,3", "GR")]
             ])
         },
         events: {
@@ -3355,7 +3355,7 @@ const worldCupMatchReports = [
                 [reportPlayer("9", "Woltemade", "8,7", "AvR", true)],
                 [reportPlayer("10", "Musiala", "8,5", "EAI", true), reportPlayer("17", "Wirtz", "6,9", "CL"), reportPlayer("19", "Sané", "6,6", "AA")],
                 [reportPlayer("8", "Goretzka", "6,6", "Pi"), reportPlayer("23", "F. Nmecha", "7,2", "CJA")],
-                [reportPlayer("22", "Raum", "7,4", "AI"), reportPlayer("5", "N. Schlotte...", "6,8", "CC"), reportPlayer("4", "Tah", "7,0", "CC"), reportPlayer("6", "Kimmich", "6,8", "AC")],
+                [reportPlayer("22", "Raum", "7,4", "AI"), reportPlayer("5", "Schlotterbeck", "6,8", "CC"), reportPlayer("4", "Tah", "7,0", "CC"), reportPlayer("6", "Kimmich", "6,8", "AC")],
                 [reportPlayer("1", "Neuer", "6,0", "GRC")]
             ])
         },
@@ -3401,7 +3401,7 @@ const worldCupMatchReports = [
                 [reportPlayer("11", "Isak", "5,9", "AA"), reportPlayer("10", "Kulusevski", "6,7", "CJA"), reportPlayer("17", "Elanga", "7,3", "Ex")],
                 [reportPlayer("15", "Cajuste", "6,7", "CJR"), reportPlayer("16", "Ayari", "6,9", "MAA")],
                 [reportPlayer("3", "Svensson", "7,6", "AlI", true), reportPlayer("5", "Starfelt", "6,6", "CP"), reportPlayer("19", "Lindelöf", "7,1", "CC"), reportPlayer("2", "Holm", "6,6", "LI")],
-                [reportPlayer("1", "Widell Zett...", "6,7", "GR")]
+                [reportPlayer("1", "Widell Zetterström", "6,7", "GR")]
             ])
         },
         events: {
@@ -4043,7 +4043,7 @@ const worldCupMatchReports = [
                 [reportPlayer("11", "Isak", "8,8", "AA", true), reportPlayer("10", "Kulusevski", "9,2", "CJA", true), reportPlayer("17", "Elanga", "7,7", "Ex")],
                 [reportPlayer("7", "Karlström", "7,0", "MD"), reportPlayer("16", "Ayari", "6,8", "MAA")],
                 [reportPlayer("3", "Svensson", "6,9", "AlI"), reportPlayer("5", "Starfelt", "7,8", "CP"), reportPlayer("19", "Lindelöf", "6,8", "CC"), reportPlayer("4", "Hien", "7,0", "LI")],
-                [reportPlayer("1", "Widell Zett...", "6,7", "GR")]
+                [reportPlayer("1", "Widell Zetterström", "6,7", "GR")]
             ])
         },
         events: {
@@ -4080,7 +4080,7 @@ const worldCupMatchReports = [
                 [reportPlayer("9", "Woltemade", "6,6", "AvR")],
                 [reportPlayer("10", "Musiala", "8,1", "EAI"), reportPlayer("17", "Wirtz", "6,2", "CL"), reportPlayer("19", "Sané", "7,3", "AA")],
                 [reportPlayer("25", "Stach", "6,9", "MD"), reportPlayer("23", "F. Nmecha", "6,9", "CJA")],
-                [reportPlayer("22", "Raum", "6,9", "AI"), reportPlayer("5", "N. Schlotte...", "6,9", "CC"), reportPlayer("4", "Tah", "6,8", "CC"), reportPlayer("6", "Kimmich", "7,5", "AC", true)],
+                [reportPlayer("22", "Raum", "6,9", "AI"), reportPlayer("5", "Schlotterbeck", "6,9", "CC"), reportPlayer("4", "Tah", "6,8", "CC"), reportPlayer("6", "Kimmich", "7,5", "AC", true)],
                 [reportPlayer("12", "Ter Stegen", "6,6", "GRC")]
             ]),
             away: reportFormation("4-2-3-1", [
@@ -4386,6 +4386,189 @@ const worldCupMatchReports = [
             ["Cartões vermelhos", "0", "0"],
             ["Distância Percorrida", "124", "125"],
             ["Classificação Média", "6,6", "6,8"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-09-alemanha-suecia",
+        date: "Quinta-feira 9 de Julho de 2026",
+        stadium: "Boston Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Leroy Sané",
+        rating: "8,57",
+        coaches: { home: "H. Maus", away: "G. Potter" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Woltemade", "6,6", "AvR")],
+                [reportPlayer("10", "Musiala", "6,4", "EAI"), reportPlayer("17", "Wirtz", "6,0", "CL"), reportPlayer("19", "L. Sané", "8,6", "AA")],
+                [reportPlayer("25", "A. Stach", "6,9", "MD", true), reportPlayer("23", "F. Nmecha", "8,4", "CJA", true)],
+                [reportPlayer("22", "Raum", "6,6", "AI"), reportPlayer("5", "Schlotterbeck", "6,6", "CC"), reportPlayer("4", "Tah", "6,5", "CC"), reportPlayer("6", "Kimmich", "6,4", "AC")],
+                [reportPlayer("12", "Ter Stegen", "7,4", "GRC")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("12", "V. Gyökeres", "7,1", "AAE", true)],
+                [reportPlayer("11", "A. Isak", "7,3", "AA", true), reportPlayer("6", "E. Forsberg", "7,2", "CJA"), reportPlayer("10", "Kulusevski", "6,5", "Ex")],
+                [reportPlayer("16", "Ayari", "6,9", "MD"), reportPlayer("7", "Karlström", "6,4", "MAA")],
+                [reportPlayer("3", "Svensson", "6,9", "AlI"), reportPlayer("5", "Starfelt", "6,3", "CP"), reportPlayer("19", "Lindelöf", "6,6", "CC"), reportPlayer("2", "Holm", "6,7", "LI")],
+                [reportPlayer("1", "Widell Zetterström", "7,0", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("9", "F. Nmecha", { assist: "L. Sané" }), goalEvent("22", "F. Nmecha", { assist: "L. Sané" }), goalEvent("49", "A. Stach", { assist: "L. Sané" })],
+            away: [goalEvent("34", "A. Isak", { assist: "E. Forsberg" }), goalEvent("74", "V. Gyökeres")]
+        },
+        stats: reportStats([
+            ["Posse", "46%", "54%"],
+            ["Remates", "23", "15"],
+            ["Remates à Baliza", "10", "10"],
+            ["xG", "3,07", "2,13"],
+            ["PADPAD", "23,53", "24,79"],
+            ["Oportunidades Flagrantes", "3", "1"],
+            ["Cantos", "14", "8"],
+            ["Passes Completados", "86%", "91%"],
+            ["Cruzamentos Completados", "30%", "25%"],
+            ["Faltas", "13", "5"],
+            ["Cartões amarelos", "2", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "132", "127"],
+            ["Classificação Média", "6,9", "6,8"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-10-inglaterra-belgica",
+        date: "Sexta-feira 10 de Julho de 2026",
+        stadium: "Los Angeles Stadium",
+        weather: "Vento Forte",
+        playerOfMatch: "Harry Kane",
+        rating: "8,29",
+        coaches: { home: "Francisco Pinto", away: "R. Garcia" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("12", "Kane", "8,3", "AvR", true)],
+                [reportPlayer("17", "Rogers", "6,7", "EAI"), reportPlayer("6", "Foden", "7,4", "MO"), reportPlayer("9", "Palmer", "6,7", "AA")],
+                [reportPlayer("8", "Rice", "7,1", "CJR"), reportPlayer("22", "Bellingham", "6,7", "MAA")],
+                [reportPlayer("3", "Hall", "6,9", "AI"), reportPlayer("19", "Colwill", "6,8", "CC"), reportPlayer("5", "Guéhi", "6,6", "CC"), reportPlayer("4", "James", "6,8", "AlI")],
+                [reportPlayer("1", "Pickford", "6,3", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("10", "Lukaku", "6,2", "AR")],
+                [reportPlayer("9", "Doku", "6,5", "Ex"), reportPlayer("6", "Saelemaekers", "7,0", "Ex", true)],
+                [reportPlayer("18", "Onana", "6,5", "CJA"), reportPlayer("7", "De Bruyne", "6,7", "ME", true)],
+                [reportPlayer("8", "Tielemans", "6,6", "CJR")],
+                [reportPlayer("12", "De Cuyper", "7,1", "AlI"), reportPlayer("4", "Theate", "6,5", "CC"), reportPlayer("5", "De Winter", "6,5", "CC"), reportPlayer("21", "Castagne", "6,6", "AI")],
+                [reportPlayer("1", "Courtois", "6,1", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("23", "H. Kane", { assist: "P. Foden" }), goalEvent("44", "H. Kane", { assist: "D. Rice" }), goalEvent("81", "B. Saka", { assist: "E. Anderson" })],
+            away: [goalEvent("11", "A. Saelemaekers", { assist: "M. De Cuyper" }), goalEvent("73", "K. De Bruyne", { assist: "C. De Ketelaere" })]
+        },
+        stats: reportStats([
+            ["Posse", "58%", "42%"],
+            ["Remates", "14", "8"],
+            ["Remates à Baliza", "5", "3"],
+            ["xG", "1,64", "0,63"],
+            ["PADPAD", "18,35", "28,75"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "10", "5"],
+            ["Passes Completados", "91%", "88%"],
+            ["Cruzamentos Completados", "25%", "12%"],
+            ["Faltas", "7", "8"],
+            ["Cartões amarelos", "1", "2"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "132", "128"],
+            ["Classificação Média", "7,0", "6,6"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-11-brasil-croacia",
+        date: "Sábado 11 de Julho de 2026",
+        stadium: "Miami Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Vanderson",
+        rating: "8,18",
+        coaches: { home: "Zép Jóbes", away: "Z. Dalić" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("7", "Vinícius Júnior", "6,4", "AAE")],
+                [reportPlayer("17", "Martinelli", "6,7", "AA", true), reportPlayer("10", "Matheus Cunha", "7,9", "MO", true), reportPlayer("11", "Raphinha", "7,2", "AA", true)],
+                [reportPlayer("26", "João Gomes", "7,0", "MD"), reportPlayer("25", "Éderson", "7,1", "CJR")],
+                [reportPlayer("5", "Carlos Augusto", "6,6", "AI"), reportPlayer("4", "Gabriel", "6,9", "CC"), reportPlayer("23", "Bremer", "6,9", "CC"), reportPlayer("24", "Vanderson", "8,2", "AI")],
+                [reportPlayer("1", "Alisson", "6,8", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("11", "Budimir", "6,6", "AR")],
+                [reportPlayer("6", "Perišić", "6,1", "AA"), reportPlayer("12", "Kramarić", "7,3", "AI")],
+                [reportPlayer("18", "Pašalić", "7,0", "MO", true), reportPlayer("10", "Kovačić", "6,5", "MC")],
+                [reportPlayer("14", "Modrić", "6,5", "CJR")],
+                [reportPlayer("16", "Gvardiol", "6,6", "AlI"), reportPlayer("2", "Ćaleta-Car", "6,2", "CC"), reportPlayer("4", "Vušković", "6,6", "CC"), reportPlayer("17", "Stanišić", "5,9", "AI")],
+                [reportPlayer("13", "Livaković", "5,8", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("5", "Matheus Cunha", { assist: "Vanderson" }), goalEvent("8", "Raphinha", { assist: "Vanderson" }), goalEvent("41", "G. Martinelli", { assist: "Matheus Cunha" }), goalEvent("61", "Arthur Cabral")],
+            away: [goalEvent("12", "M. Pašalić", { assist: "A. Kramarić" })]
+        },
+        stats: reportStats([
+            ["Posse", "45%", "55%"],
+            ["Remates", "14", "8"],
+            ["Remates à Baliza", "5", "5"],
+            ["xG", "1,45", "0,98"],
+            ["PADPAD", "16,21", "28,08"],
+            ["Oportunidades Flagrantes", "0", "1"],
+            ["Cantos", "3", "4"],
+            ["Passes Completados", "90%", "89%"],
+            ["Cruzamentos Completados", "12%", "5%"],
+            ["Faltas", "19", "9"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "131", "124"],
+            ["Classificação Média", "7,1", "6,4"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-11-argelia-portugal",
+        date: "Sábado 11 de Julho de 2026",
+        stadium: "Kansas City Stadium",
+        weather: "Tempestuoso",
+        playerOfMatch: "Bruno Fernandes",
+        rating: "8,71",
+        coaches: { home: "V. Petkovic", away: "Painas Natal" },
+        formations: {
+            home: reportFormation("3-4-1-2", [
+                [reportPlayer("11", "Gouiri", "6,5", "AA"), reportPlayer("9", "Amoura", "6,6", "AAE")],
+                [reportPlayer("10", "Maza", "6,4", "MO")],
+                [reportPlayer("3", "Aït-Nouri", "5,6", "AI"), reportPlayer("15", "Zerrouki", "6,3", "MD"), reportPlayer("6", "Bennacer", "6,6", "CJR"), reportPlayer("21", "Dorval", "5,9", "AI")],
+                [reportPlayer("12", "Bensebaini", "6,0", "CC"), reportPlayer("18", "Tougai", "6,2", "CC"), reportPlayer("22", "Chergui", "6,4", "CC")],
+                [reportPlayer("1", "Zidane", "6,7", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("9", "Gonçalo Ramos", "7,4", "AR", true)],
+                [reportPlayer("10", "Rafael Leão", "7,5", "AA"), reportPlayer("16", "Bernardo Silva", "7,1", "EAI")],
+                [reportPlayer("8", "Bruno Fernandes", "8,7", "ME", true), reportPlayer("19", "João Neves", "6,8", "MC")],
+                [reportPlayer("15", "Vitinha", "6,7", "CJR")],
+                [reportPlayer("5", "Nuno Mendes", "7,6", "AI"), reportPlayer("4", "Rúben Dias", "7,7", "CP", true), reportPlayer("24", "Tomás Araújo", "7,6", "CC", true), reportPlayer("2", "Matheus Nunes", "7,4", "AI")],
+                [reportPlayer("1", "Diogo Costa", "7,7", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("76", "B. Bounedjah", { assist: "M. Amoura" })],
+            away: [goalEvent("4", "Bruno Fernandes", { assist: "Nuno Mendes" }), goalEvent("16", "Gonçalo Ramos", { assist: "Rafael Leão" }), goalEvent("34", "Rúben Dias", { assist: "Bernardo Silva" }), goalEvent("38", "Bruno Fernandes", { penalty: true }), goalEvent("65", "Francisco Conceição", { assist: "Matheus Nunes" }), goalEvent("82", "Tomás Araújo")]
+        },
+        stats: reportStats([
+            ["Posse", "46%", "54%"],
+            ["Remates", "16", "19"],
+            ["Remates à Baliza", "10", "15"],
+            ["xG", "1,07", "2,94"],
+            ["PADPAD", "25,25", "27,17"],
+            ["Oportunidades Flagrantes", "0", "3"],
+            ["Cantos", "9", "9"],
+            ["Passes Completados", "87%", "90%"],
+            ["Cruzamentos Completados", "15%", "26%"],
+            ["Faltas", "11", "6"],
+            ["Cartões amarelos", "2", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "112", "113"],
+            ["Classificação Média", "6,3", "7,4"]
         ])
     }
 ];

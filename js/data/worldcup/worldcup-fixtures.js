@@ -111,5 +111,9 @@ const worldCupFixtures = [
     createLeagueMatch("Julho", "Mundial · Oitavos de final", "6 Jul", "Inglaterra", "4-2", "Uruguai", { year: 2026, matchNumber: 93, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
     createLeagueMatch("Julho", "Mundial · Oitavos de final", "6 Jul", "Austrália", "0-1", "Bélgica", { year: 2026, matchNumber: 94, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
     createLeagueMatch("Julho", "Mundial · Oitavos de final", "7 Jul", "Argélia", "3-2", "Egito", { year: 2026, matchNumber: 95, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
-    createLeagueMatch("Julho", "Mundial · Oitavos de final", "7 Jul", "Suíça", "1-2", "Portugal", { year: 2026, matchNumber: 96, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" })
+    createLeagueMatch("Julho", "Mundial · Oitavos de final", "7 Jul", "Suíça", "1-2", "Portugal", { year: 2026, matchNumber: 96, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
+    createLeagueMatch("Julho", "Mundial · Quartos de final", "9 Jul", "Alemanha", "3-2", "Suécia", { year: 2026, matchNumber: 97, roundKey: "qf", roundLabel: "Mundial · Quartos de final" }),
+    createLeagueMatch("Julho", "Mundial · Quartos de final", "10 Jul", "Inglaterra", "3-2", "Bélgica", { year: 2026, matchNumber: 98, roundKey: "qf", roundLabel: "Mundial · Quartos de final" }),
+    createLeagueMatch("Julho", "Mundial · Quartos de final", "11 Jul", "Brasil", "4-1", "Croácia", { year: 2026, matchNumber: 99, roundKey: "qf", roundLabel: "Mundial · Quartos de final" }),
+    createLeagueMatch("Julho", "Mundial · Quartos de final", "11 Jul", "Argélia", "1-6", "Portugal", { year: 2026, matchNumber: 100, roundKey: "qf", roundLabel: "Mundial · Quartos de final" })
 ];
