@@ -2409,12 +2409,23 @@ body::after {
     text-align: right;
 }
 
+/* Três linhas, com a final na do meio: o título e o 3.º lugar ficam nas de
+   fora, por isso não empurram a final para fora do centro da coluna. */
+.league-wc-bracket-matches.is-final {
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    gap: 8px;
+}
+
+.league-wc-final-title {
+    align-self: end;
+}
+
 .league-wc-third-place {
     display: grid;
-    justify-items: center;
+    align-content: start;
     gap: 8px;
-    width: 196px;
-    margin: 0 auto 16px;
+    margin-top: 28px;
 }
 
 .league-side-card {

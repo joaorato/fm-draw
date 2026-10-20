@@ -250,11 +250,30 @@ function renderWorldCupBracketColumn(slots) {
     `;
 }
 
+// A coluna do meio tem a final no centro, alinhada com as meias-finais, e o
+// jogo do 3.º lugar por baixo. Cada um leva o seu título junto ao jogo, porque
+// o título do topo da coluna ficaria longe da final.
+function renderWorldCupFinalColumn(final, terceiroLugar) {
+    return `
+        <div class="league-wc-bracket-col">
+            <div class="league-wc-bracket-title">&nbsp;</div>
+            <div class="league-wc-bracket-matches is-final">
+                <div class="league-wc-bracket-title league-wc-final-title">Final</div>
+                ${renderWorldCupBracketMatch(final)}
+                <div class="league-wc-third-place">
+                    <div class="league-wc-bracket-title">Jogo do 3.º lugar</div>
+                    ${renderWorldCupBracketMatch(terceiroLugar)}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 function renderWorldCupBracket() {
     let { final, terceiroLugar, esquerda, direita } = getWorldCupBracketLayout();
     let columns = [
         ...esquerda.map(renderWorldCupBracketColumn),
-        renderWorldCupBracketColumn([final]),
+        renderWorldCupFinalColumn(final, terceiroLugar),
         ...direita.map(renderWorldCupBracketColumn)
     ].join("");
 
@@ -266,10 +285,6 @@ function renderWorldCupBracket() {
             </div>
             <div class="league-wc-bracket-scroll">
                 <div class="league-wc-bracket">${columns}</div>
-            </div>
-            <div class="league-wc-third-place">
-                <div class="league-wc-bracket-title">Jogo do 3.º lugar</div>
-                ${renderWorldCupBracketMatch(terceiroLugar)}
             </div>
         </section>
     `;
