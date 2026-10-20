@@ -4570,5 +4570,96 @@ const worldCupMatchReports = [
             ["Distância Percorrida", "112", "113"],
             ["Classificação Média", "6,3", "7,4"]
         ])
+    },
+    {
+        fixtureKey: "2026-07-14-alemanha-inglaterra",
+        date: "Terça-feira 14 de Julho de 2026",
+        stadium: "Dallas Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Phil Foden",
+        rating: "9,49",
+        coaches: { home: "H. Maus", away: "Francisco Pinto" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("7", "Havertz", "6,3", "AvR")],
+                [reportPlayer("10", "Musiala", "6,8", "EAI"), reportPlayer("17", "Wirtz", "6,2", "CL"), reportPlayer("19", "Sané", "6,0", "AA")],
+                [reportPlayer("25", "Stach", "6,6", "MD"), reportPlayer("23", "Nmecha", "6,5", "CJA")],
+                [reportPlayer("22", "Raum", "6,1", "AI"), reportPlayer("5", "Schlotterbeck", "6,6", "CC"), reportPlayer("4", "Tah", "6,4", "CC"), reportPlayer("6", "Kimmich", "6,2", "AC")],
+                [reportPlayer("12", "Ter Stegen", "6,4", "GRC")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("12", "Kane", "7,8", "AvR", true)],
+                [reportPlayer("16", "Gordon", "8,4", "EAI", true), reportPlayer("9", "Palmer", "6,5", "MO"), reportPlayer("11", "Saka", "6,6", "AA")],
+                [reportPlayer("8", "Rice", "6,6", "CJR"), reportPlayer("22", "Bellingham", "7,7", "MAA")],
+                [reportPlayer("3", "Hall", "7,4", "AI"), reportPlayer("19", "Colwill", "7,3", "CC"), reportPlayer("5", "Guéhi", "7,2", "CC"), reportPlayer("4", "James", "6,7", "AlI")],
+                [reportPlayer("1", "Pickford", "8,6", "GRC")]
+            ])
+        },
+        events: {
+            home: [],
+            away: [goalEvent("24", "A. Gordon", { assist: "L. Hall" }), goalEvent("27", "H. Kane", { assist: "A. Gordon" }), goalEvent("79", "P. Foden", { assist: "E. Eze" }), goalEvent("84", "P. Foden", { assist: "J. Bellingham" }), goalEvent("90+3", "P. Foden", { assist: "J. Gomez" })]
+        },
+        stats: reportStats([
+            ["Posse", "36%", "64%"],
+            ["Remates", "18", "18"],
+            ["Remates à Baliza", "8", "10"],
+            ["xG", "1,67", "1,76"],
+            ["PADPAD", "28,76", "13,95"],
+            ["Oportunidades Flagrantes", "2", "1"],
+            ["Cantos", "6", "9"],
+            ["Passes Completados", "88%", "91%"],
+            ["Cruzamentos Completados", "38%", "19%"],
+            ["Faltas", "14", "10"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "133", "130"],
+            ["Classificação Média", "6,4", "7,4"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-15-brasil-portugal",
+        date: "Quarta-feira 15 de Julho de 2026",
+        stadium: "Atlanta Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Rafael Leão",
+        rating: "7,76",
+        coaches: { home: "Zép Jóbes", away: "Painas Natal" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("15", "Arthur Cabral", "6,4", "AR")],
+                [reportPlayer("17", "Martinelli", "7,3", "AA"), reportPlayer("10", "Matheus Cunha", "6,5", "MO"), reportPlayer("11", "Raphinha", "6,9", "AA")],
+                [reportPlayer("26", "João Gomes", "6,4", "MD"), reportPlayer("8", "Bruno Guimarães", "6,3", "CJR")],
+                [reportPlayer("5", "Carlos Augusto", "6,3", "AI"), reportPlayer("4", "Gabriel", "6,2", "CC"), reportPlayer("23", "Bremer", "6,9", "CC"), reportPlayer("24", "Vanderson", "6,5", "AI")],
+                [reportPlayer("1", "Alisson", "7,2", "GRC")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("9", "Gonçalo Ramos", "6,4", "AR")],
+                [reportPlayer("10", "Rafael Leão", "7,8", "AA", true), reportPlayer("16", "Bernardo Silva", "6,9", "EAI", true)],
+                [reportPlayer("8", "Bruno Fernandes", "7,2", "ME"), reportPlayer("19", "João Neves", "6,7", "MC")],
+                [reportPlayer("15", "Vitinha", "6,8", "CJR")],
+                [reportPlayer("5", "Nuno Mendes", "6,5", "AI"), reportPlayer("4", "Rúben Dias", "6,8", "CP"), reportPlayer("24", "Tomás Araújo", "6,9", "CC"), reportPlayer("2", "Matheus Nunes", "7,0", "AI")],
+                [reportPlayer("1", "Diogo Costa", "6,5", "GRC")]
+            ])
+        },
+        events: {
+            home: [sendOffEvent("29", "Gabriel"), goalEvent("42", "Vinícius Júnior", { assist: "G. Martinelli" })],
+            away: [goalEvent("11", "Bernardo Silva", { assist: "Bruno Fernandes" }), goalEvent("35", "Rafael Leão", { assist: "Matheus Nunes" }), goalEvent("90", "João Félix")]
+        },
+        stats: reportStats([
+            ["Posse", "47%", "53%"],
+            ["Remates", "14", "13"],
+            ["Remates à Baliza", "2", "9"],
+            ["xG", "2,33", "1,46"],
+            ["PADPAD", "25,00", "23,50"],
+            ["Oportunidades Flagrantes", "2", "0"],
+            ["Cantos", "10", "8"],
+            ["Passes Completados", "88%", "89%"],
+            ["Cruzamentos Completados", "21%", "10%"],
+            ["Faltas", "11", "9"],
+            ["Cartões amarelos", "3", "2"],
+            ["Cartões vermelhos", "1", "0"],
+            ["Distância Percorrida", "119", "125"],
+            ["Classificação Média", "6,7", "6,8"]
+        ])
     }
 ];
