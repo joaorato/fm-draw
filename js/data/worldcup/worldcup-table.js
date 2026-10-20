@@ -17,12 +17,12 @@ function getWorldCupTeamEntry(teamName) {
     return worldCupEquipas.find((entry) => entry.equipa === teamName) || null;
 }
 
-// Desempate dentro de um grupo, pela ordem do regulamento da FIFA de 2026: o
-// confronto directo vem antes da diferença de golos geral. Faltam a conduta
-// (fair play) e o ranking da FIFA, que os resultados não trazem: se uma tabela
-// do FM discordar de um empate assim, cola-a em worldCupClassificacaoFM.
+// Desempate dentro de um grupo, como o FM o faz: a diferença de golos geral vem
+// antes do confronto directo. Faltam a conduta (fair play) e o ranking da FIFA,
+// que os resultados não trazem: se uma tabela do FM discordar de um empate
+// assim, cola-a em worldCupClassificacaoFM.
 const worldCupRegras = {
-    desempate: ["h2hPts", "h2hDg", "h2hGm", "dg", "gm", "equipa"]
+    desempate: ["dg", "gm", "h2hPts", "h2hDg", "h2hGm", "equipa"]
 };
 
 // Os terceiros classificam-se entre si por pontos, diferença de golos e golos
@@ -36,12 +36,7 @@ const worldCupRegrasTerceiros = {
 // ["Equipa", pontos], e ela passa a mandar na ordem e avisa na consola de cada
 // ponto que não bata certo. Depois de conferido, pode voltar a vazio.
 //   { C: [["Brasil", 7], ["Marrocos", 6], ...] }
-const worldCupClassificacaoFM = {
-    // Espanha e Uruguai empatam a 6 pontos e a Espanha ganhou o confronto directo,
-    // mas o FM pôs o Uruguai em 1.º (diferença de golos). É o FM que decide quem
-    // joga com quem nos dezasseis-avos.
-    H: [["Uruguai", 6], ["Espanha", 6], ["Cabo Verde", 3], ["Arábia Saudita", 3]]
-};
+const worldCupClassificacaoFM = {};
 
 // O que vale cada lugar do pódio. Só estes três lugares pontuam.
 const worldCupPremios = {

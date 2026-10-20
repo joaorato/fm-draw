@@ -107,5 +107,9 @@ const worldCupFixtures = [
     createLeagueMatch("Julho", "Mundial · Oitavos de final", "4 Jul", "Canadá", "1-4", "Suécia", { year: 2026, matchNumber: 90, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
     createLeagueMatch("Julho", "Mundial · Oitavos de final", "4 Jul", "Alemanha", "2-1", "França", { year: 2026, matchNumber: 89, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
     createLeagueMatch("Julho", "Mundial · Oitavos de final", "5 Jul", "Brasil", "1-0", "Equador", { year: 2026, matchNumber: 91, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
-    createLeagueMatch("Julho", "Mundial · Oitavos de final", "5 Jul", "África do Sul", "1-2", "Croácia", { year: 2026, matchNumber: 92, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" })
+    createLeagueMatch("Julho", "Mundial · Oitavos de final", "5 Jul", "África do Sul", "1-2", "Croácia", { year: 2026, matchNumber: 92, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
+    createLeagueMatch("Julho", "Mundial · Oitavos de final", "6 Jul", "Inglaterra", "4-2", "Uruguai", { year: 2026, matchNumber: 93, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
+    createLeagueMatch("Julho", "Mundial · Oitavos de final", "6 Jul", "Austrália", "0-1", "Bélgica", { year: 2026, matchNumber: 94, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
+    createLeagueMatch("Julho", "Mundial · Oitavos de final", "7 Jul", "Argélia", "3-2", "Egito", { year: 2026, matchNumber: 95, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" }),
+    createLeagueMatch("Julho", "Mundial · Oitavos de final", "7 Jul", "Suíça", "1-2", "Portugal", { year: 2026, matchNumber: 96, roundKey: "r16", roundLabel: "Mundial · Oitavos de final" })
 ];

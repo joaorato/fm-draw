@@ -366,7 +366,7 @@ Everything shown is derived from `worldCupFixtures`; nothing is typed twice.
   `2026-06-13-brasil-marrocos`. If the FM save has another date for a match, fix the date before
   writing its report. A knockout match is added only when both teams are known, with `matchNumber`
   from `worldCupBracket`; a match decided on penalties carries `displayScore` and `winner`.
-- **Group tables** use `worldCupRegras` (head-to-head first, as FIFA does in 2026). Fair play and the
+- **Group tables** use `worldCupRegras` (goal difference and goals scored first, then head-to-head, as FM does - not FIFA's 2026 head-to-head-first order). Fair play and the
   FIFA ranking, the last two FIFA criteria, are not in the data, so a tie that reaches them falls to
   alphabetical order. When that happens, paste FM's table for the group into
   `worldCupClassificacaoFM`.
