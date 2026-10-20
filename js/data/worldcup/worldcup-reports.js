@@ -4661,5 +4661,96 @@ const worldCupMatchReports = [
             ["Distância Percorrida", "119", "125"],
             ["Classificação Média", "6,7", "6,8"]
         ])
+    },
+    {
+        fixtureKey: "2026-07-18-brasil-alemanha",
+        date: "Sábado 18 de Julho de 2026",
+        stadium: "Miami Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Raphinha",
+        rating: "8,62",
+        coaches: { home: "Zép Jóbes", away: "H. Maus" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("15", "Arthur Cabral", "6,4", "AR")],
+                [reportPlayer("17", "Martinelli", "6,5", "AA"), reportPlayer("10", "Matheus Cunha", "7,7", "MO"), reportPlayer("11", "Raphinha", "8,6", "AA", true)],
+                [reportPlayer("26", "João Gomes", "6,5", "MD"), reportPlayer("8", "Bruno Guimarães", "6,9", "CJR")],
+                [reportPlayer("5", "Carlos Augusto", "6,7", "AI"), reportPlayer("3", "Marquinhos", "7,7", "CC"), reportPlayer("23", "Bremer", "7,0", "CC"), reportPlayer("24", "Vanderson", "6,7", "AI")],
+                [reportPlayer("1", "Alisson", "7,5", "GRC")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("26", "Undav", "6,4", "AvR")],
+                [reportPlayer("10", "Musiala", "6,6", "EAI"), reportPlayer("11", "Reus", "6,3", "MO"), reportPlayer("20", "Gnabry", "6,3", "AA")],
+                [reportPlayer("16", "Stiller", "6,6", "CJR"), reportPlayer("13", "Groß", "6,5", "CJA")],
+                [reportPlayer("22", "Raum", "6,4", "AI"), reportPlayer("5", "Schlotterbeck", "6,5", "CC"), reportPlayer("2", "Rüdiger", "7,0", "CC"), reportPlayer("6", "Kimmich", "6,5", "AC")],
+                [reportPlayer("21", "Leno", "6,4", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("50", "Raphinha"), goalEvent("72", "Vinícius Júnior", { assist: "Matheus Cunha" })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "43%", "57%"],
+            ["Remates", "14", "12"],
+            ["Remates à Baliza", "7", "5"],
+            ["xG", "1,33", "1,22"],
+            ["PADPAD", "15,50", "12,70"],
+            ["Oportunidades Flagrantes", "0", "0"],
+            ["Cantos", "7", "9"],
+            ["Passes Completados", "84%", "86%"],
+            ["Cruzamentos Completados", "17%", "24%"],
+            ["Faltas", "10", "18"],
+            ["Cartões amarelos", "1", "3"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "135", "136"],
+            ["Classificação Média", "7,2", "6,5"]
+        ])
+    },
+    {
+        fixtureKey: "2026-07-19-portugal-inglaterra",
+        date: "Domingo 19 de Julho de 2026",
+        stadium: "New York New Jersey Stadium",
+        weather: "Brisa",
+        playerOfMatch: "Jude Bellingham",
+        rating: "10,00",
+        coaches: { home: "Painas Natal", away: "Francisco Pinto" },
+        formations: {
+            home: reportFormation("4-3-3", [
+                [reportPlayer("9", "Gonçalo Ramos", "7,0", "AR")],
+                [reportPlayer("10", "Rafael Leão", "7,6", "AA", true), reportPlayer("16", "Bernardo Silva", "7,1", "EAI", true)],
+                [reportPlayer("8", "Bruno Fernandes", "6,6", "ME"), reportPlayer("19", "João Neves", "6,4", "MC")],
+                [reportPlayer("15", "Vitinha", "6,5", "CJR")],
+                [reportPlayer("5", "Nuno Mendes", "6,0", "AI"), reportPlayer("4", "Rúben Dias", "6,1", "CP"), reportPlayer("24", "Tomás Araújo", "6,2", "CC"), reportPlayer("2", "Matheus Nunes", "6,8", "AI")],
+                [reportPlayer("1", "Diogo Costa", "5,8", "GRC")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("12", "Kane", "7,4", "AvR")],
+                [reportPlayer("16", "Gordon", "9,5", "EAI", true), reportPlayer("9", "Palmer", "9,3", "MO", true), reportPlayer("11", "Saka", "8,2", "AA", true)],
+                [reportPlayer("8", "Rice", "6,8", "CJR"), reportPlayer("22", "Bellingham", "10,0", "MAA", true)],
+                [reportPlayer("3", "Hall", "8,7", "AI"), reportPlayer("19", "Colwill", "6,9", "CC"), reportPlayer("5", "Guéhi", "6,7", "CC"), reportPlayer("4", "James", "6,7", "AlI")],
+                [reportPlayer("1", "Pickford", "7,0", "GRC")]
+            ])
+        },
+        events: {
+            home: [goalEvent("12", "Bernardo Silva", { assist: "Bruno Fernandes" }), goalEvent("43", "Rafael Leão", { assist: "Gonçalo Ramos" }), goalEvent("65", "Rafael Leão", { assist: "Matheus Nunes" })],
+            away: [goalEvent("3", "A. Gordon", { assist: "C. Palmer" }), goalEvent("22", "J. Bellingham", { assist: "B. Saka" }), goalEvent("25", "J. Bellingham", { assist: "C. Palmer" }), goalEvent("29", "J. Bellingham", { assist: "L. Hall" }), goalEvent("48", "C. Palmer", { assist: "A. Gordon" }), goalEvent("55", "A. Gordon", { assist: "J. Bellingham" }), goalEvent("60", "B. Saka", { assist: "H. Kane" }), goalEvent("69", "M. Rogers", { assist: "L. Hall" }), goalEvent("75", "M. Rogers", { assist: "L. Hall" })]
+        },
+        stats: reportStats([
+            ["Posse", "50%", "50%"],
+            ["Remates", "14", "19"],
+            ["Remates à Baliza", "7", "14"],
+            ["xG", "1,49", "2,55"],
+            ["PADPAD", "19,80", "19,15"],
+            ["Oportunidades Flagrantes", "0", "3"],
+            ["Cantos", "5", "7"],
+            ["Passes Completados", "89%", "89%"],
+            ["Cruzamentos Completados", "19%", "36%"],
+            ["Faltas", "5", "12"],
+            ["Cartões amarelos", "2", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "129", "128"],
+            ["Classificação Média", "6,5", "7,8"]
+        ])
     }
 ];
