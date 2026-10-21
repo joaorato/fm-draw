@@ -105,7 +105,7 @@ function resolveCoachMedia(coach) {
 }
 
 function getCoachStats(coach) {
-    return coachStats[coach.id] || null;
+    return coachCareerStats[coach.id] || null;
 }
 
 function getCoachPhotoPosition(coach, photoPath) {
