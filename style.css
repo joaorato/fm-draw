@@ -1095,6 +1095,13 @@ body::after {
     box-shadow: 0 2px 8px rgba(var(--c-black), 0.3);
 }
 
+/* Uma taça em vez de uma bandeira: inteira e sem a moldura de bandeira. */
+.coach-palmares-flag-img--contain {
+    object-fit: contain;
+    box-shadow: none;
+    filter: drop-shadow(0 2px 8px rgba(var(--c-black), 0.3));
+}
+
 .coach-palmares-flag-label {
     font-size: 9px;
     font-weight: 600;

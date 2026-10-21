@@ -123,9 +123,10 @@ else.
 | `js/ui/draw.js` | Roulette maths and the draw ceremony | `shuffledTeams`, `shuffledPlayers`, `remainingTeams`, `remainingPlayers`, `currentRound`, `resultados`, `DRAW_COMPLETED`, `FINAL_RESULTS` |
 | `js/ui/share.js` | Discord share, on-demand `html2canvas`, fullscreen | `html2canvasLoader` |
 
-`coachByNarrativeTeam` and `palmaresCountries` are authored data living in a UI file. Wiring up a
-second country's trophy cabinet means editing `js/ui/coaches.js`, which is the one place the update
-paths below say data does not live. Moving them into `js/data/` is a known outstanding change.
+`coachByNarrativeTeam` and `palmaresCountries` are read by `js/ui/coaches.js` but authored in
+`js/data/core/coaches.js`. A trophy needs only `icon`: without `lockedIcon` the slot shows the icon
+greyed out, and without `lockedClickableImage` an unwon trophy does not open in the lightbox. The
+Mundial has only `icon` so far.
 
 ## Main Data Contracts
 

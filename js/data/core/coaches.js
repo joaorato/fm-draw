@@ -326,6 +326,9 @@ const coachProfileExtras = {
         }
     },
     chico: {
+        trophyCounts: {
+            mundial: { "worldcup": 1 }
+        },
         narrative: {
             victim: { label: "Maior Vítima", value: "Dundee Utd", meta: "10 golos marcados" },
             biggestWin: { label: "Maior Vitória", value: "5-2 vs Falkirk\n5-2 vs Dundee Utd", meta: "Duas vitórias máximas em noite de ataque solto" },
@@ -449,6 +452,22 @@ const coachByNarrativeTeam = {
 };
 
 const palmaresCountries = {
+    // Sem bandeira para o Mundial: o carril mostra a própria taça, inteira.
+    // Ainda não há versão com correntes nem vitrine, por isso quem não a ganhou
+    // vê o `icon` a cinzento e o slot não abre em grande.
+    mundial: {
+        flag: "assets/logos/trophy_cabinet/worldcup/FIFA_World_Cup_Trophy.webp",
+        flagFit: "contain",
+        label: "Mundial",
+        available: true,
+        items: [
+            {
+                key: "worldcup",
+                label: "Campeão do Mundo",
+                icon: "assets/logos/trophy_cabinet/worldcup/FIFA_World_Cup_Trophy.webp"
+            }
+        ]
+    },
     croacia: {
         flag: "assets/flags/croatia.webp",
         label: "Croácia",

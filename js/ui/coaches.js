@@ -173,7 +173,7 @@ function renderCoachTrophyCabinet(coach) {
                  data-country="${countryKey}"
                  data-available="${country.available}"
                  data-trophies='${JSON.stringify(items)}'>
-                <img class="coach-palmares-flag-img" src="${country.flag}" alt="${country.label}" loading="lazy">
+                <img class="coach-palmares-flag-img${country.flagFit === "contain" ? " coach-palmares-flag-img--contain" : ""}" src="${country.flag}" alt="${country.label}" loading="lazy">
                 <div class="coach-palmares-flag-label">${country.label}</div>
                 ${disabled ? `<div class="coach-palmares-coming-soon">Coming soon!</div>` : ""}
             </div>
@@ -193,7 +193,8 @@ function renderCoachTrophyCabinet(coach) {
 
 function renderTrophySlotsMarkup(items) {
     return items.map((trophy) => {
-        let imgSrc = trophy.icon ? (trophy.count > 0 ? trophy.icon : trophy.lockedIcon) : "";
+        // Sem lockedIcon fica o próprio icon, que .coach-trophy-img.locked põe a cinzento.
+        let imgSrc = trophy.icon ? (trophy.count > 0 ? trophy.icon : trophy.lockedIcon || trophy.icon) : "";
         let lightboxSrc = trophy.count > 0
             ? (trophy.cabinetImage || trophy.icon || "")
             : (trophy.lockedClickableImage || "");
