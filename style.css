@@ -1290,6 +1290,19 @@ body::after {
     text-align: center;
 }
 
+.coach-legacy-performance + .coach-legacy-performance {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(var(--c-glow), 0.1);
+}
+
+.coach-legacy-context {
+    margin-bottom: 8px;
+    color: rgba(165, 183, 213, 0.8);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
 .coach-trophy-result {
     display: grid;
     gap: 4px;
@@ -1509,6 +1522,14 @@ body::after {
 .coach-stats-section--legado .coach-insight-card {
     min-height: 106px;
     gap: 8px;
+    grid-row: span var(--coach-legacy-rows, 2);
+    grid-template-rows: subgrid;
+}
+
+.coach-insight-grid--legado {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(var(--coach-legacy-rows, 2), auto);
+    grid-auto-flow: column;
 }
 
 .coach-insight-value--legacy {
@@ -8050,6 +8071,8 @@ button:disabled {
     .coach-trophy-cabinet:not(.coach-palmares-trophies-panel .coach-trophy-cabinet),
     .coach-insight-grid { grid-template-columns: 1fr; }
     .coach-insight-grid--narrativa { grid-template-columns: 1fr; }
+    .coach-insight-grid--legado { grid-template-rows: none; grid-auto-flow: row; }
+    .coach-stats-section--legado .coach-insight-card { grid-row: auto; grid-template-rows: none; }
     .coach-trophy-slot { min-height: 106px; }
     .coach-palmares-flag-item { min-width: 85px; padding: 10px 14px; }
     .coach-palmares-flag-img { width: 72px; height: 48px; }

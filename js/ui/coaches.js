@@ -145,7 +145,7 @@ function renderCoachStatsWideMarkup(coach) {
             ].filter(Boolean)
             : []
     );
-    let legacyMarkup = renderCoachInsightGrid("Legado", extras?.legacy ? [extras.legacy.rating, extras.legacy.scorer] : []);
+    let legacyMarkup = renderCoachInsightGrid("Legado", getCoachLegacy(coach));
     let identityMarkup = renderCoachInsightGrid("Identidade", extras?.identity ? [extras.identity.specialty, extras.identity.tactical] : []);
 
     if (!stats && !extras) {
@@ -446,7 +446,7 @@ function renderCoachInsightGrid(title, items) {
         return valueLines.map((line) => `<div class="coach-insight-line">${line}</div>`).join("");
     };
 
-    let renderLegacyCard = (item) => {
+    let renderLegacyContent = (item) => {
         let lines = String(item.value || "").split("\n").filter(Boolean);
         let blocks = lines.map((line) => {
             let parts = line.split(" - ");
@@ -467,11 +467,18 @@ function renderCoachInsightGrid(title, items) {
         let note = String(item.meta || "").includes("|") ? "" : String(item.meta || "").replace(/\n/g, "<br>");
 
         return `
+            ${item.context ? `<div class="coach-legacy-context">${item.context}</div>` : ""}
+            <div class="coach-insight-value coach-insight-value--legacy">${blocks}</div>
+            ${footerStats}
+            ${note ? `<div class="coach-insight-meta coach-insight-meta--legacy-note">${note}</div>` : ""}
+        `;
+    };
+
+    let renderLegacyCard = (item) => {
+        return `
             <div class="coach-insight-card${hasItems ? "" : " empty"}">
                 <div class="coach-insight-label"><span>${item.label}</span></div>
-                <div class="coach-insight-value coach-insight-value--legacy">${blocks}</div>
-                ${footerStats}
-                ${note ? `<div class="coach-insight-meta coach-insight-meta--legacy-note">${note}</div>` : ""}
+                ${(item.performances || [item]).map((performance) => `<div class="coach-legacy-performance">${renderLegacyContent(performance)}</div>`).join("")}
             </div>
         `;
     };
@@ -491,7 +498,7 @@ function renderCoachInsightGrid(title, items) {
     return `
         <div class="coach-stats-section coach-stats-section--${sectionSlug}">
             <div class="coach-stats-section-title">${title}</div>
-            <div class="coach-insight-grid coach-insight-grid--${sectionSlug}">
+            <div class="coach-insight-grid coach-insight-grid--${sectionSlug}"${sectionSlug === "legado" ? ` style="--coach-legacy-rows: ${1 + Math.max(...safeItems.map((item) => item.performances?.length || 1))}"` : ""}>
                 ${safeItems.map((item) => sectionSlug === "legado"
                     ? renderLegacyCard(item)
                     : `
