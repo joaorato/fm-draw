@@ -123,3 +123,76 @@ function getCoachLegacy(coach) {
         return { label: key === "rating" ? "Melhor Jogador" : "Melhor Marcador", performances };
     });
 }
+
+// Só resultados publicados; os desempates por penáltis não somam golos.
+function buildCoachNarrative(league, coach) {
+    const team = league.tabela.find((entry) => entry.jogador === coach.nome);
+    const labels = ["Maior Vítima", "Maior Vitória", "Pior Derrota", "Némesis", "Jogo Mais Caótico"];
+    const matches = team ? league.fixtures.flatMap((fixture) => {
+        const outcome = getFixtureOutcome(fixture, team.equipa);
+        return outcome ? [{ ...outcome, fixture, opponent: outcome.isHome ? fixture.away : fixture.home }] : [];
+    }) : [];
+    if (!matches.length) {
+        return labels.map((label) => ({ label, value: team ? "Sem jogos disputados" : "Sem participação", meta: "" }));
+    }
+
+    const opponents = new Map();
+    for (const match of matches) {
+        if (!opponents.has(match.opponent)) opponents.set(match.opponent, { name: match.opponent, gf: 0, ga: 0, V: 0, E: 0, D: 0 });
+        const entry = opponents.get(match.opponent);
+        entry.gf += match.goalsFor;
+        entry.ga += match.goalsAgainst;
+        entry[match.result]++;
+    }
+    const aggregates = [...opponents.values()];
+    const mostGoals = Math.max(...aggregates.map((entry) => entry.gf));
+    const victims = aggregates.filter((entry) => entry.gf === mostGoals && entry.gf > 0);
+    const worstBalance = Math.min(...aggregates.map((entry) => entry.gf - entry.ga));
+    const nemeses = aggregates.filter((entry) => entry.gf - entry.ga === worstBalance && worstBalance < 0);
+    const matchHighlight = (label, candidates, metric, description, tieBreak = () => 0, preferHome = false) => {
+        if (!candidates.length) return { label, value: label === "Maior Vitória" ? "Sem vitórias" : "Sem derrotas", meta: "Nos resultados publicados" };
+        const maximum = Math.max(...candidates.map(metric));
+        let tied = candidates.filter((match) => metric(match) === maximum);
+        if (preferHome && tied.some((match) => match.isHome)) tied = tied.filter((match) => match.isHome);
+        const bestTieBreak = Math.max(...tied.map(tieBreak));
+        const selected = tied.filter((match) => tieBreak(match) === bestTieBreak);
+        return {
+            label,
+            value: selected.map((match) => `${match.goalsFor}-${match.goalsAgainst} vs ${match.opponent}`).join("\n"),
+            meta: `${description}\n${selected.map((match) => `${match.fixture.date} · ${match.fixture.competition}${match.fixture.displayScore?.includes("p ") ? " · decidido nos penáltis" : ""}`).join("\n")}`
+        };
+    };
+    return [
+        { label: labels[0], value: victims.map((entry) => entry.name).join("\n") || "Sem golos marcados", meta: victims.length ? `${mostGoals} golos marcados · maior total por adversário` : "Nos resultados publicados" },
+        matchHighlight(labels[1], matches.filter((match) => match.result === "V"), (match) => match.goalsFor - match.goalsAgainst, "Maior diferença de golos · desempate por golos marcados", (match) => match.goalsFor),
+        matchHighlight(labels[2], matches.filter((match) => match.result === "D"), (match) => match.goalsAgainst - match.goalsFor,
+            league.id === "mundial" ? "Maior diferença de golos · desempate por golos sofridos · campo neutro" : "Maior diferença de golos · prioridade em casa, depois golos sofridos",
+            (match) => match.goalsAgainst, league.id !== "mundial"),
+        {
+            label: labels[3],
+            value: nemeses.map((entry) => entry.name).join("\n") || "Sem saldo negativo",
+            meta: nemeses.map((entry) => `${entry.name}: saldo ${entry.gf}-${entry.ga} · ${entry.V}V ${entry.E}E ${entry.D}D`).join("\n") || "Nenhum adversário com vantagem no agregado"
+        },
+        matchHighlight(labels[4], matches, (match) => match.goalsFor + match.goalsAgainst, "Maior total de golos no mesmo jogo")
+    ];
+}
+
+function getCoachNarrative(coach) {
+    const historical = coachProfileExtras[coach.id]?.narrative;
+    const keys = ["victim", "biggestWin", "worstLoss", "nemesis", "chaotic"];
+    const competitions = [];
+    if (historical) competitions.push({ context: "Liga Escocesa", items: keys.map((key) => historical[key]) });
+    for (const leagueId of ["croatia", "mundial"]) {
+        const league = leagues.find((entry) => entry.id === leagueId);
+        if (!league) continue;
+        const team = league.tabela.find((entry) => entry.jogador === coach.nome);
+        competitions.push({
+            context: `${leagueId === "croatia" ? "Croácia · Liga e Taça" : league.nome}${team ? ` · ${team.equipa}` : ""}`,
+            items: buildCoachNarrative(league, coach)
+        });
+    }
+    return keys.map((key, index) => ({
+        label: competitions.find((competition) => competition.items[index])?.items[index].label || "A recolher",
+        performances: competitions.flatMap((competition) => competition.items[index] ? [{ ...competition.items[index], context: competition.context }] : [])
+    }));
+}

@@ -465,7 +465,7 @@ const palmaresCountries = {
                 label: "Campeão do Mundo",
                 icon: "assets/logos/trophy_cabinet/worldcup/FIFA_World_Cup_Trophy.webp",
                 lockedIcon: "assets/logos/trophy_cabinet/worldcup/worldcup_locked_transparente.webp",
-                lockedClickableImage: "assets/logos/trophy_cabinet/worldcup/mundialLOCKED.webp"
+                lockedClickableImage: "assets/logos/trophy_cabinet/worldcup/worldcup_locked_transparente.webp"
             }
         ]
     },
@@ -479,7 +479,7 @@ const palmaresCountries = {
                 label: "Liga Croata · HNL",
                 icon: "assets/logos/trophy_cabinet/Croacia/HNL.webp",
                 lockedIcon: "assets/logos/trophy_cabinet/Croacia/HNL_Locked_transparente.webp",
-                lockedClickableImage: "assets/logos/trophy_cabinet/Croacia/HNLLOCKED.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/Croacia/HNL_Locked_transparente.webp",
                 cabinetImage: "assets/logos/trophy_cabinet/Croacia/HNLUNLOCKED.webp"
             },
             {
@@ -487,7 +487,7 @@ const palmaresCountries = {
                 label: "Taça da Croácia · HNK",
                 icon: "assets/logos/trophy_cabinet/Croacia/HNK.webp",
                 lockedIcon: "assets/logos/trophy_cabinet/Croacia/HNK_Locked_transparente.webp",
-                lockedClickableImage: "assets/logos/trophy_cabinet/Croacia/HNKLOCKED.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/Croacia/HNK_Locked_transparente.webp",
                 cabinetImage: "assets/logos/trophy_cabinet/Croacia/HNKUNLOCKED.webp"
             }
         ]
@@ -502,14 +502,14 @@ const palmaresCountries = {
                 label: "Liga Escocesa",
                 icon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership.webp",
                 lockedIcon: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.webp",
-                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Williamhillpremiership_locked_clickable.webp"
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/williamhillpremiership_locked.webp"
             },
             {
                 key: "league-cup",
                 label: "Taça da Liga Escocesa",
                 icon: "assets/logos/trophy_cabinet/escocia/premiersports.webp",
                 lockedIcon: "assets/logos/trophy_cabinet/escocia/premiersports_locked.webp",
-                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/Premiersports_locked_clickable.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/premiersports_locked.webp",
                 cabinetImage: "assets/logos/trophy_cabinet/escocia/Premiersports_cabinet.webp"
             },
             {
@@ -517,7 +517,7 @@ const palmaresCountries = {
                 label: "Taça Escocesa",
                 icon: "assets/logos/trophy_cabinet/escocia/scottishgascup.webp",
                 lockedIcon: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.webp",
-                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_locked_clickable.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/escocia/scottishgascup_locked.webp",
                 cabinetImage: "assets/logos/trophy_cabinet/escocia/ScottishGasCup_cabinet.webp"
             },
             {
@@ -525,21 +525,21 @@ const palmaresCountries = {
                 label: "UEFA Europe League",
                 icon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague.webp",
                 lockedIcon: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked.webp",
-                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked_clickable.webp"
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/europe league/UefaEuropeLeague_locked.webp"
             },
             {
                 key: "conference",
                 label: "UEFA Conference League",
                 icon: "assets/logos/trophy_cabinet/UEFA/conference league/UEFAConference.webp",
                 lockedIcon: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked.webp",
-                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked_clickable.webp"
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/conference league/UefaConference_locked.webp"
             },
             {
                 key: "champions",
                 label: "UEFA Champions League",
                 icon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague.webp",
                 lockedIcon: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked.webp",
-                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked_clickable.webp"
+                lockedClickableImage: "assets/logos/trophy_cabinet/UEFA/champions league/UefaChampionsLeague_locked.webp"
             }
         ]
     }

@@ -133,18 +133,7 @@ function renderCoachStatsWideMarkup(coach) {
     let stats = getCoachStats(coach);
     let extras = coachProfileExtras[coach.id];
     let trophyMarkup = renderCoachTrophyCabinet(coach);
-    let narrativeMarkup = renderCoachInsightGrid(
-        "Narrativa",
-        extras?.narrative
-            ? [
-                extras.narrative.victim,
-                extras.narrative.biggestWin,
-                extras.narrative.worstLoss,
-                extras.narrative.nemesis,
-                extras.narrative.chaotic
-            ].filter(Boolean)
-            : []
-    );
+    let narrativeMarkup = renderCoachInsightGrid("Narrativa", getCoachNarrative(coach));
     let legacyMarkup = renderCoachInsightGrid("Legado", getCoachLegacy(coach));
     let identityMarkup = renderCoachInsightGrid("Identidade", extras?.identity ? [extras.identity.specialty, extras.identity.tactical] : []);
 
@@ -393,7 +382,9 @@ function renderCoachInsightGrid(title, items) {
     };
 
     let renderNarrativeTarget = (teamName) => {
-        let coachInfo = coachByNarrativeTeam[String(teamName || "").trim()];
+        let name = String(teamName || "").trim();
+        let team = leagues.flatMap((league) => league.tabela).find((entry) => entry.equipa === name && entry.jogador);
+        let coachInfo = team ? { coachName: team.jogador } : coachByNarrativeTeam[name];
         if (!coachInfo) return null;
         let coach = getCoachByShortName(coachInfo.coachName);
         if (!coach) return null;
@@ -426,10 +417,9 @@ function renderCoachInsightGrid(title, items) {
                         return `<div class="coach-insight-line">${segment}</div>`;
                     }
                     let score = match[1].trim();
-                    let target = renderNarrativeTarget(match[2].trim());
-                    if (!target) {
-                        return `<div class="coach-insight-line">${segment}</div>`;
-                    }
+                    let opponent = match[2].trim();
+                    let target = renderNarrativeTarget(opponent)
+                        || `<span class="coach-narrative-team">${escapeAttribute(opponent)}</span>`;
                     return `
                         <div class="coach-insight-line coach-insight-line--match">
                             <span class="coach-narrative-match-target">${target}</span>
@@ -474,11 +464,26 @@ function renderCoachInsightGrid(title, items) {
         `;
     };
 
+    let hasCompetitionPicker = sectionSlug === "legado" || sectionSlug === "narrativa";
+    let legacyCompetitions = hasCompetitionPicker
+        ? [...new Set(safeItems.flatMap((item) => (item.performances?.length ? item.performances : [item])
+            .map((performance) => performance.context || "Sem competição registada")))]
+        : [];
+
     let renderLegacyCard = (item) => {
+        let performances = item.performances?.length ? item.performances : [item];
         return `
             <div class="coach-insight-card${hasItems ? "" : " empty"}">
                 <div class="coach-insight-label"><span>${item.label}</span></div>
-                ${(item.performances || [item]).map((performance) => `<div class="coach-legacy-performance">${renderLegacyContent(performance)}</div>`).join("")}
+                <div class="coach-legacy-results">
+                    ${legacyCompetitions.map((competition, index) => {
+                        let performance = performances.find((entry) => (entry.context || "Sem competição registada") === competition);
+                        let content = { ...(performance || { value: "Sem dados nesta competição" }), context: "" };
+                        return `<div class="coach-legacy-performance" data-competition-index="${index}"${index ? " hidden" : ""}>${sectionSlug === "narrativa"
+                            ? `<div class="coach-insight-value">${renderNarrativeValue({ ...content, label: item.label })}</div><div class="coach-insight-meta">${String(content.meta || "").replace(/\n/g, "<br>")}</div>`
+                            : renderLegacyContent(content)}</div>`;
+                    }).join("")}
+                </div>
             </div>
         `;
     };
@@ -498,8 +503,19 @@ function renderCoachInsightGrid(title, items) {
     return `
         <div class="coach-stats-section coach-stats-section--${sectionSlug}">
             <div class="coach-stats-section-title">${title}</div>
-            <div class="coach-insight-grid coach-insight-grid--${sectionSlug}"${sectionSlug === "legado" ? ` style="--coach-legacy-rows: ${1 + Math.max(...safeItems.map((item) => item.performances?.length || 1))}"` : ""}>
-                ${safeItems.map((item) => sectionSlug === "legado"
+            ${hasCompetitionPicker ? `
+                <details class="coach-legacy-picker">
+                    <summary class="coach-legacy-select" aria-label="Escolher competição · ${title}">
+                        <span class="coach-legacy-picker-heading"><span class="coach-legacy-picker-label">Competição</span><span class="coach-legacy-picker-value">${escapeAttribute(legacyCompetitions[0])}</span></span>
+                        <span class="coach-legacy-picker-arrow" aria-hidden="true">⌄</span>
+                    </summary>
+                    <div class="coach-legacy-menu" aria-label="Competições · ${title}">
+                        ${legacyCompetitions.map((competition, index) => `<button type="button" class="coach-legacy-option" data-competition-index="${index}" aria-pressed="${index === 0}"><span>${escapeAttribute(competition)}</span><span class="coach-legacy-option-check" aria-hidden="true">✓</span></button>`).join("")}
+                    </div>
+                </details>
+            ` : ""}
+            <div class="coach-insight-grid coach-insight-grid--${sectionSlug}">
+                ${safeItems.map((item) => hasCompetitionPicker
                     ? renderLegacyCard(item)
                     : `
                         <div class="coach-insight-card${hasItems ? "" : " empty"}">
@@ -604,6 +620,31 @@ function renderCoachModal(coach) {
     if (statsWideEl) {
         statsWideEl.innerHTML = renderCoachStatsWideMarkup(coach);
         bindCoachLinks(statsWideEl);
+        statsWideEl.querySelectorAll(".coach-legacy-picker").forEach((picker) => {
+            picker.querySelectorAll(".coach-legacy-option").forEach((option) => {
+                option.addEventListener("click", () => {
+                    picker.closest(".coach-stats-section").querySelectorAll(".coach-legacy-performance").forEach((performance) => {
+                        performance.hidden = performance.dataset.competitionIndex !== option.dataset.competitionIndex;
+                    });
+                    picker.querySelector(".coach-legacy-picker-value").textContent = option.firstElementChild.textContent;
+                    picker.querySelectorAll(".coach-legacy-option").forEach((entry) => entry.setAttribute("aria-pressed", String(entry === option)));
+                    picker.open = false;
+                    picker.querySelector("summary").focus();
+                    requestAnimationFrame(() => fitNarrativeNames(statsWideEl));
+                });
+            });
+            picker.addEventListener("focusout", () => {
+                requestAnimationFrame(() => {
+                    if (!picker.contains(document.activeElement)) picker.open = false;
+                });
+            });
+            picker.addEventListener("keydown", (event) => {
+                if (event.key !== "Escape" || !picker.open) return;
+                event.stopPropagation();
+                picker.open = false;
+                picker.querySelector("summary").focus();
+            });
+        });
     }
 
 }

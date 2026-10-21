@@ -1290,10 +1290,133 @@ body::after {
     text-align: center;
 }
 
-.coach-legacy-performance + .coach-legacy-performance {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(var(--c-glow), 0.1);
+.coach-legacy-picker {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    min-width: 0;
+    margin-bottom: 4px;
+}
+
+.coach-legacy-select {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 12px;
+    border: 1px solid rgba(var(--c-glow), 0.16);
+    border-radius: 10px;
+    background:
+        radial-gradient(ellipse at top left, rgba(var(--c-glow), 0.07), transparent 70%),
+        linear-gradient(180deg, rgba(18, 50, 118, 0.82), rgba(8, 22, 72, 0.82));
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.08), 0 8px 24px rgba(var(--c-black), 0.18);
+    color: rgb(var(--c-ice-3));
+    font-family: "Oxanium", sans-serif;
+    list-style: none;
+    cursor: pointer;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.coach-legacy-select::-webkit-details-marker {
+    display: none;
+}
+
+.coach-legacy-select:hover,
+.coach-legacy-picker[open] .coach-legacy-select {
+    border-color: rgba(var(--c-glow), 0.4);
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.1), 0 0 22px rgba(var(--c-glow), 0.09);
+}
+
+.coach-legacy-picker-heading {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+    flex: 1;
+}
+
+.coach-legacy-picker-label {
+    color: rgba(var(--c-glow), 0.8);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.coach-legacy-picker-value {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.coach-legacy-picker-arrow {
+    color: rgb(var(--c-glow));
+    font-size: 18px;
+    transition: transform 0.18s ease;
+}
+
+.coach-legacy-picker[open] .coach-legacy-picker-arrow {
+    transform: rotate(180deg);
+}
+
+.coach-legacy-menu {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 7px);
+    left: 0;
+    right: 0;
+    display: grid;
+    gap: 5px;
+    padding: 7px;
+    border: 1px solid rgba(var(--c-glow), 0.24);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(7, 23, 76, 0.98), rgba(3, 12, 45, 0.98));
+    box-shadow: inset 0 1px 0 rgba(var(--c-white), 0.07), 0 18px 38px rgba(var(--c-black), 0.5);
+}
+
+.coach-legacy-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: transparent;
+    color: rgb(var(--c-ice-3));
+    font-family: "Oxanium", sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+    cursor: pointer;
+}
+
+.coach-legacy-option:hover,
+.coach-legacy-option[aria-pressed="true"] {
+    border-color: rgba(var(--c-glow), 0.18);
+    background:
+        radial-gradient(circle at 12% 50%, rgba(var(--c-glow), 0.18), transparent 48%),
+        rgba(30, 73, 148, 0.52);
+    color: rgb(var(--c-white));
+}
+
+.coach-legacy-option-check {
+    visibility: hidden;
+    color: rgb(var(--c-glow));
+}
+
+.coach-legacy-option[aria-pressed="true"] .coach-legacy-option-check {
+    visibility: visible;
+}
+
+.coach-legacy-select:focus-visible,
+.coach-legacy-option:focus-visible {
+    outline: 2px solid rgba(var(--c-glow), 0.7);
+    outline-offset: 2px;
+}
+
+.coach-legacy-performance[hidden] {
+    display: none;
 }
 
 .coach-legacy-context {
@@ -1463,6 +1586,15 @@ body::after {
     color: #dff7ff;
 }
 
+.coach-narrative-team {
+    display: block;
+    color: #f6fbff;
+    font-family: "Michroma", sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
 .coach-narrative-match-target {
     flex: 1 1 auto;
     min-width: 0;
@@ -1522,13 +1654,13 @@ body::after {
 .coach-stats-section--legado .coach-insight-card {
     min-height: 106px;
     gap: 8px;
-    grid-row: span var(--coach-legacy-rows, 2);
+    grid-row: span 2;
     grid-template-rows: subgrid;
 }
 
 .coach-insight-grid--legado {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(var(--coach-legacy-rows, 2), auto);
+    grid-template-rows: repeat(2, auto);
     grid-auto-flow: column;
 }
 
