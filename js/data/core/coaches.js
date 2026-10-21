@@ -280,7 +280,8 @@ const coachStats = {
 const coachProfileExtras = {
     goncalo: {
         trophyCounts: {
-            escocia: { "league-cup": 1, "cup": 1 }
+            escocia: { "league-cup": 1, "cup": 1 },
+            croacia: { "league": 1, "cup": 1 }
         },
         trophyVisibility: {
             escocia: ["league", "league-cup", "cup", "europa", "conference"]
@@ -453,8 +454,6 @@ const coachByNarrativeTeam = {
 
 const palmaresCountries = {
     // Sem bandeira para o Mundial: o carril mostra a própria taça, inteira.
-    // Ainda não há versão com correntes nem vitrine, por isso quem não a ganhou
-    // vê o `icon` a cinzento e o slot não abre em grande.
     mundial: {
         flag: "assets/logos/trophy_cabinet/worldcup/FIFA_World_Cup_Trophy.webp",
         flagFit: "contain",
@@ -464,15 +463,34 @@ const palmaresCountries = {
             {
                 key: "worldcup",
                 label: "Campeão do Mundo",
-                icon: "assets/logos/trophy_cabinet/worldcup/FIFA_World_Cup_Trophy.webp"
+                icon: "assets/logos/trophy_cabinet/worldcup/FIFA_World_Cup_Trophy.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/worldcup/worldcup_locked_transparente.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/worldcup/mundialLOCKED.webp"
             }
         ]
     },
     croacia: {
         flag: "assets/flags/croatia.webp",
         label: "Croácia",
-        available: false,
-        items: []
+        available: true,
+        items: [
+            {
+                key: "league",
+                label: "Liga Croata · HNL",
+                icon: "assets/logos/trophy_cabinet/Croacia/HNL.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/Croacia/HNL_Locked_transparente.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/Croacia/HNLLOCKED.webp",
+                cabinetImage: "assets/logos/trophy_cabinet/Croacia/HNLUNLOCKED.webp"
+            },
+            {
+                key: "cup",
+                label: "Taça da Croácia · HNK",
+                icon: "assets/logos/trophy_cabinet/Croacia/HNK.webp",
+                lockedIcon: "assets/logos/trophy_cabinet/Croacia/HNK_Locked_transparente.webp",
+                lockedClickableImage: "assets/logos/trophy_cabinet/Croacia/HNKLOCKED.webp",
+                cabinetImage: "assets/logos/trophy_cabinet/Croacia/HNKUNLOCKED.webp"
+            }
+        ]
     },
     escocia: {
         flag: "assets/flags/scotland.webp",

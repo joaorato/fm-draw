@@ -164,10 +164,25 @@ function renderCoachTrophyCabinet(coach) {
     let flagsMarkup = Object.entries(palmaresCountries).map(([countryKey, country]) => {
         let disabled = !country.available;
         let counts = trophyCounts[countryKey] || {};
+        let worldCupTeam = countryKey === "mundial"
+            ? worldCupEquipas.find((entry) => entry.jogador === coach.nome)
+            : null;
+        let result = worldCupTeam ? {
+            team: worldCupTeam.equipa,
+            text: getWorldCupTeamStatus(worldCupTeam.equipa).texto
+        } : null;
+        let leagueId = { escocia: "scotland", croacia: "croatia" }[countryKey];
+        let leagueTeam = leagueId
+            ? leagues.find((league) => league.id === leagueId)?.tabela.find((entry) => entry.jogador === coach.nome)
+            : null;
+        let leagueResult = leagueTeam ? {
+            team: leagueTeam.equipa,
+            text: leagueTeam.pos === 1 ? "Campeão" : `${leagueTeam.pos}.º lugar`
+        } : null;
         let visibleKeys = extras.trophyVisibility?.[countryKey] || defaultVisibleKeys[countryKey] || country.items.map((t) => t.key);
         let items = country.items
             .filter((t) => visibleKeys.includes(t.key))
-            .map((t) => ({ ...t, count: counts[t.key] || 0 }));
+            .map((t) => ({ ...t, count: counts[t.key] || 0, result: result || (t.key === "league" ? leagueResult : null) }));
         return `
             <div class="coach-palmares-flag-item${disabled ? " coach-palmares-flag-item--disabled" : ""}"
                  data-country="${countryKey}"
@@ -215,6 +230,7 @@ function renderTrophySlotsMarkup(items) {
             </div>
             <div class="coach-trophy-label">${trophy.label}</div>
             <div class="coach-trophy-count">${trophy.count > 0 ? `x${trophy.count}` : "—"}</div>
+            ${trophy.result ? `<div class="coach-trophy-result"><span>${trophy.result.team}</span><span>${trophy.result.text}</span></div>` : ""}
         </div>
     `}).join("");
 }
