@@ -12,7 +12,7 @@ function calcBonuses(league) {
 // De onde vêm os pontos de cada jogador, liga a liga: a linha da posição e uma
 // linha por bónus. Os totais das colunas são a soma disto, para que o que a
 // tooltip mostra e o que a tabela conta não possam divergir.
-function buildLeagueBreakdown(filtro) {
+function buildLeagueBreakdown(filtro, editionLeagues = leagues) {
     let breakdown = {};
 
     let addLinha = (jogador, league, label, pontos) => {
@@ -27,7 +27,7 @@ function buildLeagueBreakdown(filtro) {
         grupo.linhas.push({ label, pontos });
     };
 
-    leagues.filter(filtro).forEach((league) => {
+    editionLeagues.filter(filtro).forEach((league) => {
         league.scores.forEach((score) => {
             addLinha(score.jogador, league, `${score.equipa} · ${score.prevista}.º → ${score.final}.º`, score.pontos);
         });
@@ -49,9 +49,9 @@ function rankPlayers(entries, campo, campoPos) {
 
 // Duas leituras da mesma tabela: só o que está fechado, e o mesmo mais a época
 // em curso projectada. A seta de cada jogador é a diferença entre as duas.
-const generalStandings = (() => {
-    let concluidas = buildLeagueBreakdown((league) => league.status === "completed");
-    let projecao = buildLeagueBreakdown((league) => league.status !== "completed");
+function buildGeneralStandings(editionLeagues = leagues) {
+    let concluidas = buildLeagueBreakdown((league) => league.status === "completed", editionLeagues);
+    let projecao = buildLeagueBreakdown((league) => league.status !== "completed", editionLeagues);
 
     let entries = [...new Set([...Object.keys(concluidas), ...Object.keys(projecao)])].map((jogador) => ({
         jogador,
@@ -69,7 +69,7 @@ const generalStandings = (() => {
         posConcluidas: porConcluidas.get(entry.jogador),
         inf: porConcluidas.get(entry.jogador) - entry.posTotal
     }));
-})();
+}
 
 const hasLiveLeague = leagues.some((league) => league.status !== "completed");
 let generalScoreMode = hasLiveLeague ? "projecao" : "concluidas";
@@ -288,6 +288,14 @@ function renderGeneralPointsCell(grupos, rotulo, total, extraClasses = "") {
 
 function renderGeneralTable() {
     let scoreTable = document.getElementById("scoreTable");
+    let editionLeagues = getEditionLeagues(getSelectedEdition());
+    let generalStandings = buildGeneralStandings(editionLeagues);
+    let hasLiveLeague = editionLeagues.some((league) => league.status !== "completed");
+    if (!editionLeagues.length) {
+        scoreTable.className = "score-table general";
+        scoreTable.innerHTML = renderEditionEmpty("A classificação começa com a primeira competição do FM27.");
+        return;
+    }
     let comProjecao = generalScoreMode === "projecao" && hasLiveLeague;
 
     scoreTable.className = `score-table general ${comProjecao ? "with-projection" : ""}`;
@@ -357,7 +365,7 @@ function syncGeneralScoreModes() {
     if (!tabs) return;
 
     // Sem liga em curso não há nada a projectar: fica só a tabela oficial.
-    tabs.hidden = !hasLiveLeague;
+    tabs.hidden = !getEditionLeagues(getSelectedEdition()).some((league) => league.status !== "completed");
     tabs.querySelectorAll(".score-mode-tab").forEach((tab) => {
         let active = tab.dataset.scoreMode === generalScoreMode;
         tab.classList.toggle("active", active);

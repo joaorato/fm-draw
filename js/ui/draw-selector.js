@@ -37,11 +37,17 @@ function getActiveDraw() {
 function renderDrawSelector() {
     let selector = document.getElementById("drawSelector");
     if (!selector) return;
+    let editionDraws = draws;
+    if (!editionDraws.length) {
+        selector.innerHTML = renderEditionEmpty("O primeiro sorteio do FM27 ainda não foi definido.");
+        draws.forEach((draw) => document.getElementById(draw.slot)?.classList.remove("active"));
+        return;
+    }
 
-    let active = getActiveDraw();
+    let active = editionDraws.find((draw) => draw.id === activeDrawId) || editionDraws[0];
     activeDrawId = active.id;
 
-    let options = draws.map((draw) => `
+    let options = editionDraws.map((draw) => `
         <button
             class="league-main-option ${draw.id === active.id ? "active" : ""}"
             type="button"

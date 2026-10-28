@@ -1,5 +1,6 @@
 const coachByShortName = Object.fromEntries(coachProfiles.map((coach) => [coach.nome, coach]));
 let selectedCoachId = coachProfiles[0].id;
+let coachStatsScope = "all";
 
 function getCoachMarkup(coach) {
     let initials = coach.nome.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
@@ -52,14 +53,21 @@ function getCoachByShortName(name) {
 }
 
 function getCoachIndex(id) {
-    return coachProfiles.findIndex((entry) => entry.id === id);
+    return getRankedCoaches().findIndex((entry) => entry.id === id);
+}
+
+function getRankedCoaches() {
+    const standings = buildGeneralStandings(leagues);
+    const positions = new Map(standings.map((entry) => [entry.jogador, entry.posTotal]));
+    return [...coachProfiles].sort((a, b) => (positions.get(a.nome) || Infinity) - (positions.get(b.nome) || Infinity));
 }
 
 function getAdjacentCoachId(id, direction) {
+    let coaches = getRankedCoaches();
     let currentIndex = getCoachIndex(id);
-    if (currentIndex === -1) return coachProfiles[0].id;
-    let nextIndex = (currentIndex + direction + coachProfiles.length) % coachProfiles.length;
-    return coachProfiles[nextIndex].id;
+    if (currentIndex === -1) return coaches[0].id;
+    let nextIndex = (currentIndex + direction + coaches.length) % coaches.length;
+    return coaches[nextIndex].id;
 }
 
 function getCoachLinkMarkup(name, className = "") {
@@ -105,7 +113,40 @@ function resolveCoachMedia(coach) {
 }
 
 function getCoachStats(coach) {
+    if (coachStatsScope === "fm27") return null;
     return coachCareerStats[coach.id] || null;
+}
+
+function renderCoachJourney(coach) {
+    const entries = [...leagues].reverse().flatMap((league) => {
+        const team = league.tabela.find((entry) => entry.jogador === coach.nome);
+        if (!team) return [];
+        const result = league.id === "mundial" ? getWorldCupTeamStatus(team.equipa).texto
+            : `${team.pos}.º lugar${league.status === "completed" ? "" : " · Em curso"}`;
+        return `<li><img src="${escapeAttribute(team.logo || league.logo)}" alt="" loading="lazy"><div><span>${escapeAttribute(league.nome)} · ${escapeAttribute((league.editionId || "").toUpperCase())}</span><strong>${escapeAttribute(team.equipa)}</strong><small>${escapeAttribute(result)}</small></div></li>`;
+    });
+    return `<h4>Percurso EMG</h4><ol>${entries.join("")}</ol><button type="button" class="history-button coach-compare-button" onclick="compareCoach('${escapeAttribute(coach.id)}')">Comparar treinador ↗</button>`;
+}
+
+function compareCoach(id) {
+    const coach = getCoachById(id);
+    closeCoachModal();
+    if (getSelectedEdition() !== "all") selectEdition("all");
+    headToHeadFirst = coach.nome;
+    if (headToHeadSecond === coach.nome) {
+        headToHeadSecond = [...coachProfiles].sort((a, b) => a.nome.localeCompare(b.nome, "pt")).find((entry) => entry.id !== coach.id).nome;
+    }
+    headToHeadLeague = "all";
+    renderHeadToHead();
+    openHeadToHead();
+}
+
+function setCoachStatsScope(scope) {
+    coachStatsScope = ["all", "fm26", "fm27"].includes(scope) ? scope : "all";
+    renderCoachModal(getCoachById(selectedCoachId));
+    setupCoachModalGallery();
+    setupPalmaresFlagInteraction();
+    requestAnimationFrame(() => fitNarrativeNames(document.getElementById("coachModal")));
 }
 
 function getCoachPhotoPosition(coach, photoPath) {
@@ -115,7 +156,8 @@ function getCoachPhotoPosition(coach, photoPath) {
 
 function renderCoachStatsMarkup(coach) {
     let stats = getCoachStats(coach);
-    return stats
+    let scopeMarkup = `<label class="coach-stats-scope">Estatísticas<select onchange="setCoachStatsScope(this.value)">${["all", "fm26", "fm27"].map((id) => `<option value="${id}"${coachStatsScope === id ? " selected" : ""}>${id === "all" ? "Histórico EMG" : id.toUpperCase()}</option>`).join("")}</select></label>`;
+    return scopeMarkup + (stats
         ? `
             <div class="coach-modal-stats-grid">
                 ${Object.entries(stats).map(([label, value]) => `
@@ -126,22 +168,73 @@ function renderCoachStatsMarkup(coach) {
                 `).join("")}
             </div>
         `
-        : `<div class="coach-modal-stats-empty">Stats em breve</div>`;
+        : `<div class="coach-modal-stats-empty">Ainda não há jogos nem troféus nesta edição. A carreira EMG continua disponível no seletor.</div>`);
 }
 
 function renderCoachStatsWideMarkup(coach) {
+    if (coachStatsScope === "fm27") {
+        return `<div class="coach-modal-stats-empty">O palmarés, a narrativa e o legado desta edição começam com as primeiras competições.</div>`;
+    }
     let stats = getCoachStats(coach);
     let extras = coachProfileExtras[coach.id];
     let trophyMarkup = renderCoachTrophyCabinet(coach);
     let narrativeMarkup = renderCoachInsightGrid("Narrativa", getCoachNarrative(coach));
     let legacyMarkup = renderCoachInsightGrid("Legado", getCoachLegacy(coach));
-    let identityMarkup = renderCoachInsightGrid("Identidade", extras?.identity ? [extras.identity.specialty, extras.identity.tactical] : []);
+    let identityMarkup = renderCoachIdentityMarkup(coach);
 
     if (!stats && !extras) {
         return `<div class="coach-modal-stats-empty">Stats em breve</div>`;
     }
 
     return `${trophyMarkup}${narrativeMarkup}${legacyMarkup}${identityMarkup}`;
+}
+
+function renderCoachIdentityMarkup(coach) {
+    const editionId = coachStatsScope;
+    const identity = buildCoachIdentity(coach, editionId);
+    const { totals, fame } = identity;
+    const authored = coachProfileExtras[coach.id]?.identity;
+    const number = (value) => value.toLocaleString("pt-PT", { maximumFractionDigits: 2 });
+    const percent = (value) => `${Math.round(value / (totals.matches || 1) * 100)}%`;
+    const evidence = !fame ? "Mínimo de 20 jogos registados para atribuir uma fama." : {
+        wins: `${totals.wins} vitórias em ${totals.matches} jogos · ${percent(totals.wins)}`,
+        cleanSheets: `${totals.cleanSheets} jogos sem sofrer em ${totals.matches} · ${percent(totals.cleanSheets)}`,
+        goalsFor: `${number(totals.goalsFor / totals.matches)} golos marcados por jogo · ${totals.goalsFor} golos`,
+        draws: `${totals.draws} empates em ${totals.matches} jogos · ${percent(totals.draws)}`,
+        spectacle: `${number((totals.goalsFor + totals.goalsAgainst) / totals.matches)} golos por jogo · marcados e sofridos`
+    }[fame.key];
+    const rivalry = (entry, label) => entry ? `<button type="button" class="coach-identity-rival" onclick="openCoachIdentityRivalry('${escapeAttribute(coach.id)}', '${escapeAttribute(entry.coach.id)}')"><span>${label}</span><strong>${escapeAttribute(entry.coach.nome)} ↗</strong><small>${entry.wins}V · ${entry.draws}E · ${entry.losses}D em ${entry.matches} jogos</small></button>` : "";
+    return `<section class="coach-stats-section coach-identity-section">
+        <h4 class="coach-stats-section-title">Identidade</h4>
+        <div class="coach-identity-grid">
+            <article class="coach-identity-card">
+                <span class="coach-identity-label">A fama · pelos resultados</span>
+                <details class="coach-identity-proof"><summary><strong>${fame ? fame.title : "Uma história por escrever"}</strong><span>Ver fundamento ↓</span></summary><p>O traço com maior desvio acima da média dos treinadores na mesma seleção, entre vitórias, jogos sem sofrer, golos marcados, empates e golos totais por jogo. Cada taxa usa os jogos registados de cada treinador; mínimo de 20 jogos. “Espetáculo garantido” exige também pelo menos 1,5 golos sofridos por jogo.</p></details>
+                <p>${fame ? fame.description : "Ainda faltam jogos para os números ganharem personalidade."}</p>
+                <strong class="coach-identity-evidence">${evidence}</strong>
+                ${(identity.strongest || identity.weakest) ? `<div class="coach-identity-rivals">${rivalry(identity.strongest, "Onde faz estragos")}${rivalry(identity.weakest, "Onde a coisa complica")}</div>` : ""}
+            </article>
+            <article class="coach-identity-card">
+                <span class="coach-identity-label">O estilo · assinatura do perfil</span>
+                <h5>${escapeAttribute(authored?.specialty?.value || "Identidade por definir")}</h5>
+                <p>${escapeAttribute(authored?.tactical?.value || "A assinatura tática ainda não foi definida.")}</p>
+                <span class="coach-identity-editorial">Descrição editorial · não inferida dos resultados</span>
+                ${totals.matches ? `<strong class="coach-identity-evidence">${number(totals.goalsFor / totals.matches)} marcados · ${number(totals.goalsAgainst / totals.matches)} sofridos por jogo</strong><small>O que aconteceu em campo, independentemente do estilo.</small>` : ""}
+            </article>
+        </div>
+        <p class="coach-identity-source">${totals.matches} jogos publicados · ${editionId === "all" ? "Histórico EMG" : editionId.toUpperCase()}. Inclui ligas e taças. Escócia: calendário parcial. Os penáltis de desempate não contam como golos nem alteram o registo V/E/D. Confrontos destacados: mínimo de 5 jogos; saldo de vitórias e derrotas por jogo.</p>
+    </section>`;
+}
+
+function openCoachIdentityRivalry(coachId, rivalId) {
+    const editionId = coachStatsScope;
+    closeCoachModal();
+    if (getSelectedEdition() !== editionId) selectEdition(editionId);
+    headToHeadFirst = getCoachById(coachId).nome;
+    headToHeadSecond = getCoachById(rivalId).nome;
+    headToHeadLeague = "all";
+    renderHeadToHead();
+    openHeadToHead();
 }
 
 function renderCoachTrophyCabinet(coach) {
@@ -546,6 +639,8 @@ function setCoachModalView(view) {
     let statsPanel = document.getElementById("coachModalStats");
     let statsWide = document.getElementById("coachModalStatsWide");
     let isStats = view === "stats";
+    const journey = document.getElementById("coachModalJourney");
+    if (journey) journey.hidden = isStats;
 
     presentationTab?.classList.toggle("active", !isStats);
     presentationTab?.setAttribute("aria-selected", isStats ? "false" : "true");
@@ -606,6 +701,7 @@ function renderCoachModal(coach) {
     mediaEl.innerHTML = media;
     mediaEl.dataset.images = JSON.stringify(images);
     mediaEl.dataset.imagePositions = JSON.stringify(imagePositions);
+    document.getElementById("coachModalJourney").innerHTML = renderCoachJourney(coach);
     document.getElementById("coachModalName").textContent = coach.nomePerfil || coach.nome;
     document.getElementById("coachModalRole").textContent = coach.cargo;
     document.getElementById("coachModalDescription").innerHTML = formatCoachDescription(coach.descricao);
@@ -652,6 +748,7 @@ function renderCoachModal(coach) {
 function openCoachModal(id, preserveTab) {
     let currentView = preserveTab && document.getElementById("coachModalTabStats")?.classList.contains("active") ? "stats" : "presentation";
     let coach = getCoachById(id);
+    coachStatsScope = "all";
     selectCoach(id);
     renderCoachModal(coach);
     setCoachModalView(currentView);
@@ -888,7 +985,16 @@ function renderCoachCards() {
     let rail = document.getElementById("coachesRail");
     if (!rail) return;
 
-    rail.innerHTML = coachProfiles.map((coach) => `
+    const nav = document.querySelector(".nav");
+    const panel = document.querySelector(".coaches-panel");
+    if (nav && panel && !panel.dataset.alignmentBound) {
+        const syncHeadingWidth = () => panel.style.setProperty("--main-nav-width", `${nav.getBoundingClientRect().width}px`);
+        new ResizeObserver(syncHeadingWidth).observe(nav);
+        syncHeadingWidth();
+        panel.dataset.alignmentBound = "true";
+    }
+
+    rail.innerHTML = getRankedCoaches().map((coach) => `
         <div class="coach-card" role="button" tabindex="0" data-coach-id="${coach.id}" aria-pressed="false">
             ${getCoachMarkup(coach)}
         </div>

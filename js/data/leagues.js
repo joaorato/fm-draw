@@ -1,6 +1,8 @@
 const leagues = [
     {
         id: "mundial",
+        championArtwork: "assets/logos/trophy_cabinet/worldcup/FIFA_World_Cup_Trophy.webp",
+        editionId: "fm26",
         // Um torneio não tem tabela de liga: os pontos vêm só do pódio, e
         // `torneio` é o que diz ao resto do site para não a procurar.
         torneio: true,
@@ -32,6 +34,8 @@ const leagues = [
     },
     {
         id: "croatia",
+        championArtwork: "assets/flags/croatia.webp",
+        editionId: "fm26",
         status: "completed",
         statusLabel: "Concluída",
         nome: "Liga Croata",
@@ -109,6 +113,8 @@ const leagues = [
     },
     {
         id: "scotland",
+        championArtwork: "assets/flags/scotland.webp",
+        editionId: "fm26",
         status: "completed",
         statusLabel: "Concluída",
         nome: "Liga Escocesa",

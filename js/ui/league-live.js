@@ -524,13 +524,20 @@ document.addEventListener("click", (event) => {
     }
 });
 
-function scheduleLeagueLiveAutoAdvance(league) {
+function stopLeagueLiveAutoAdvance() {
     if (leagueLiveAutoTimer) clearTimeout(leagueLiveAutoTimer);
+    leagueLiveAutoTimer = null;
+}
+
+function scheduleLeagueLiveAutoAdvance(league) {
+    stopLeagueLiveAutoAdvance();
+    if (!getEditionLeagues(getSelectedEdition()).includes(league)) return;
     let newsPage = league.livePages?.find((page) => page.id === "noticias");
     if (!newsPage?.news || newsPage.news.length < 2) return;
     if (pausedLeagueLivePages.has(league.id)) return;
 
     leagueLiveAutoTimer = setTimeout(() => {
+        if (!getEditionLeagues(getSelectedEdition()).includes(league)) return;
         if (document.hidden) {
             scheduleLeagueLiveAutoAdvance(league);
             return;

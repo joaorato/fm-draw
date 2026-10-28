@@ -3,11 +3,17 @@ let activeLeagueId = (leagues.find((league) => league.status === "live") || leag
 function renderLeagueSelector() {
     let selector = document.getElementById("leagueSelector");
     if (!selector) return;
+    let editionLeagues = leagues;
+    if (!editionLeagues.length) {
+        selector.innerHTML = "";
+        document.getElementById("leaguePanel").innerHTML = renderEditionEmpty("As competições do FM27 vão aparecer aqui depois do primeiro sorteio.");
+        return;
+    }
 
-    let activeLeague = leagues.find((league) => league.id === activeLeagueId) || leagues[0];
+    let activeLeague = editionLeagues.find((league) => league.id === activeLeagueId) || editionLeagues[0];
     activeLeagueId = activeLeague.id;
 
-    let options = leagues.map((league) => {
+    let options = editionLeagues.map((league) => {
         let label = league.statusLabel ? `${league.nome} — ${league.statusLabel}` : league.nome;
         return `
             <button

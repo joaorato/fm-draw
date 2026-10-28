@@ -133,7 +133,7 @@ function toggleMute() {
     }
 }
 
-const TAB_HASHES = { home: "#home", draw: "#sorteio", coaches: "#treinadores", general: "#classificacao", past: "#ligas" };
+const TAB_HASHES = { home: "#home", draw: "#sorteio", coaches: "#treinadores", general: "#classificacao", past: "#ligas", summary: "#resumo" };
 const HASH_TO_TAB = Object.fromEntries(Object.entries(TAB_HASHES).map(([tab, hash]) => [hash, tab]));
 
 function setActiveTab(tab, pushState) {
@@ -142,18 +142,23 @@ function setActiveTab(tab, pushState) {
     let isCoaches = tab === "coaches";
     let isGeneral = tab === "general";
     let isPast = tab === "past";
+    let isSummary = tab === "summary";
+
+    document.getElementById("editionSelector").hidden = !(isHome || isGeneral || isSummary);
 
     document.getElementById("homeView").classList.toggle("active", isHome);
     document.getElementById("drawView").classList.toggle("active", isDraw);
     document.getElementById("coachesView").classList.toggle("active", isCoaches);
     document.getElementById("generalView").classList.toggle("active", isGeneral);
     document.getElementById("pastView").classList.toggle("active", isPast);
+    document.getElementById("summaryView").classList.toggle("active", isSummary);
 
     document.getElementById("homeTabBtn").classList.toggle("active", isHome);
     document.getElementById("drawTabBtn").classList.toggle("active", isDraw);
     document.getElementById("coachesTabBtn").classList.toggle("active", isCoaches);
     document.getElementById("generalTabBtn").classList.toggle("active", isGeneral);
     document.getElementById("pastTabBtn").classList.toggle("active", isPast);
+    document.getElementById("summaryTabBtn").classList.toggle("active", isSummary);
 
     if (isDraw) {
         // O renderDrawSelector mostra o sorteio escolhido e manda-o desenhar-se.

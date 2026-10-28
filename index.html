@@ -38,11 +38,15 @@
             <button class="nav-btn" id="coachesTabBtn" onclick="setActiveTab('coaches')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Treinadores</button>
             <button class="nav-btn" id="generalTabBtn" onclick="setActiveTab('general')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Classificação Geral</button>
             <button class="nav-btn" id="pastTabBtn" onclick="setActiveTab('past')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Ligas</button>
+            <button class="nav-btn" id="summaryTabBtn" onclick="setActiveTab('summary')"><span class="nav-corner nav-corner-tl"></span><span class="nav-corner nav-corner-tr"></span><span class="nav-corner nav-corner-bl"></span><span class="nav-corner nav-corner-br"></span>Em números</button>
         </div>
     </div>
 
-    <section class="view" id="homeView">
-        <div class="hero">
+    <div class="edition-selector" id="editionSelector" aria-label="Escolher edição"></div>
+
+    <section class="view home-edition-view" id="homeView">
+        <div class="edition-home" id="editionHome"></div>
+        <footer class="site-footer" aria-label="Liga EMG e redes sociais">
             <img class="home-logo" src="assets/logos/ligaEMG.webp" alt="Liga EMG" width="1536" height="1024">
             <p class="hero-subtitle">O hub de FM dos <span style="white-space:nowrap">Exclusive Movement Gaming</span> <span style="white-space:nowrap">ou Exquisite Male Gamers</span>, dependendo a quem perguntarem.</p>
             <div class="social-dock" aria-label="Redes sociais">
@@ -62,6 +66,17 @@
                     <img src="assets/social/youtube.webp" alt="YouTube">
                 </a>
             </div>
+        </footer>
+    </section>
+
+    <section class="view" id="summaryView">
+        <div class="page-panel">
+            <div class="panel-head">
+                <div><h2 class="panel-title" id="historyTitle">FM26 em números</h2><p class="panel-copy">Os recordes, as surpresas e os momentos que ficam.</p></div>
+                <button type="button" class="history-button history-feature-button" onclick="openHeadToHead()"><span class="history-feature-badge">Novo</span>Frente a frente ↓</button>
+            </div>
+            <div id="editionHistory"></div>
+            <section class="head-to-head" id="headToHead" aria-label="Confrontos diretos"></section>
         </div>
     </section>
 
@@ -87,7 +102,7 @@
                 </button>
                 <div class="panel-head centered">
                     <div>
-                        <h2 class="panel-title">Sorteio Atual</h2>
+                        <h2 class="panel-title">Sorteio da Liga Croata · FM26</h2>
                     </div>
                 </div>
 
@@ -159,7 +174,10 @@
             <button class="coach-modal-nav prev" id="coachModalPrevCoach" type="button" aria-label="Treinador anterior">‹</button>
             <button class="coach-modal-nav next" id="coachModalNextCoach" type="button" aria-label="Treinador seguinte">›</button>
             <button class="coach-modal-close" id="coachModalClose" type="button" aria-label="Fechar apresentação">×</button>
-            <div class="coach-modal-media" id="coachModalMedia"></div>
+            <div class="coach-modal-sidebar">
+                <div class="coach-modal-media" id="coachModalMedia"></div>
+                <div class="coach-journey" id="coachModalJourney"></div>
+            </div>
             <div class="coach-modal-content">
                 <div class="coach-modal-tabs" id="coachModalTabs" role="tablist" aria-label="Conteudo do treinador">
                     <button class="coach-modal-tab active" id="coachModalTabPresentation" type="button" role="tab" aria-selected="true" data-view="presentation">Apresentação</button>
@@ -194,7 +212,7 @@
                             <span class="info-tip-icon">i</span>
                         </button>
                     </div>
-                    <p class="panel-copy">Aqui fica o acumulado de pontos de cada jogador ao longo de todas as ligas.</p>
+                    <p class="panel-copy" id="generalEditionLabel">Pontos · FM26</p>
                 </div>
                 <div class="score-mode-tabs" id="scoreModeTabs" role="group" aria-label="Modo da classificação" hidden>
                     <button class="score-mode-tab" type="button" data-score-mode="projecao" onclick="setGeneralScoreMode('projecao')" aria-pressed="false">Com época em curso</button>
@@ -250,6 +268,7 @@
             <div class="league-panel" id="leaguePanel"></div>
         </div>
     </section>
+
 </div>
 
 <div class="photo-lightbox" id="photoLightbox" hidden>
@@ -287,6 +306,8 @@
 <script src="js/data/worldcup/worldcup-standings.js"></script>
 <script src="js/data/leagues.js"></script>
 <script src="js/data/coach-stats.js"></script>
+<script src="js/data/edition-history.js"></script>
+<script src="js/data/coach-identity.js"></script>
 <script src="js/ui/shared.js"></script>
 <script src="js/ui/chrome.js"></script>
 <script src="js/ui/coaches.js"></script>
@@ -305,6 +326,7 @@
 <script src="js/ui/draw-groups.js"></script>
 <script src="js/ui/draw-selector.js"></script>
 <script src="js/ui/share.js"></script>
+<script src="js/ui/edition-history.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

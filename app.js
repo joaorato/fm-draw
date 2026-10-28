@@ -1,7 +1,11 @@
+renderEditionSelector();
 syncGeneralScoreModes();
 renderGeneralTable();
 renderLeagueSelector();
 renderCoachCards();
+renderEditionHome();
+renderEditionHistory();
+renderHeadToHead();
 setupFormulaPopover();
 restoreMuteState();
 bindMusicRecovery();
