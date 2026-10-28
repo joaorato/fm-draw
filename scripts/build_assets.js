@@ -7,6 +7,8 @@
 //   node scripts/build_assets.js            escreve assets/
 //   node scripts/build_assets.js --check    não escreve, diz o que faria
 //   node scripts/build_assets.js --verify   confirma que tudo o que o site pede existe
+//   node scripts/build_assets.js --only=treinadores/goncalo/foto.png
+//       converte só esse original, preservando os outros assets (aceita vários --only).
 //
 // Precisa de cwebp e ffmpeg no PATH. Não instala nada, não usa npm.
 
@@ -112,7 +114,18 @@ function converterImagem(absOrigem, absDestino, largura) {
     if (redimensionar) args.push("-resize", String(redimensionar), "0");
     args.push(absOrigem, "-o", absDestino);
 
-    execFileSync("cwebp", args, { stdio: ["ignore", "ignore", "pipe"] });
+    try {
+        execFileSync("cwebp", args, { stdio: ["ignore", "ignore", "pipe"] });
+    } catch (error) {
+        if (error.code !== "ENOENT") throw error;
+        // Alternativa disponível no Windows sem instalar ferramentas adicionais.
+        const fallback = ["-y", "-i", absOrigem];
+        if (redimensionar) fallback.push("-vf", `scale=${redimensionar}:-1`);
+        fallback.push("-c:v", "libwebp", "-quality", String(QUALIDADE));
+        if (final <= LIMITE_SEM_PERDAS) fallback.push("-lossless", "1");
+        fallback.push(absDestino);
+        execFileSync("ffmpeg", fallback, { stdio: ["ignore", "ignore", "pipe"] });
+    }
     return { original, final };
 }
 
@@ -128,7 +141,7 @@ function destinoDe(rel) {
     return rel;
 }
 
-function construir({ escrever }) {
+function construir({ escrever, only = [] }) {
     const dirOrigem = path.join(root, SRC);
     if (!fs.existsSync(dirOrigem)) {
         console.error(`Não existe ${SRC}/, por isso não há de onde converter.`);
@@ -144,7 +157,11 @@ function construir({ escrever }) {
         process.exit(1);
     }
 
-    const todos = listar(dirOrigem);
+    const existentes = listar(dirOrigem);
+    for (const rel of only) {
+        if (!existentes.includes(rel)) throw new Error(`Original não encontrado em ${SRC}/: ${rel}`);
+    }
+    const todos = only.length ? existentes.filter((rel) => only.includes(rel)) : existentes;
     const publicados = todos.filter(ePublicado);
     const deixados = todos.filter((rel) => !ePublicado(rel));
 
@@ -152,7 +169,7 @@ function construir({ escrever }) {
     let bytesDestino = 0;
     let semRegra = [];
 
-    if (escrever && fs.existsSync(path.join(root, OUT))) {
+    if (escrever && !only.length && fs.existsSync(path.join(root, OUT))) {
         fs.rmSync(path.join(root, OUT), { recursive: true });
     }
 
@@ -243,4 +260,4 @@ function verificar() {
 
 const args = process.argv.slice(2);
 if (args.includes("--verify")) verificar();
-else construir({ escrever: !args.includes("--check") });
+else construir({ escrever: !args.includes("--check"), only: args.filter((arg) => arg.startsWith("--only=")).map((arg) => arg.slice(7)) });
