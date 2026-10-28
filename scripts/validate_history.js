@@ -17,11 +17,13 @@ function node() {
 }
 const elements = new Map([...html.matchAll(/\bid="([^"]+)"/g)].map((match) => [match[1], node()]));
 const timers = new Map();
+const savedPreferences = new Map();
 let timerId = 0;
 const context = vm.createContext({
     console, document: { getElementById: (id) => elements.get(id) || null, createElement: node, querySelectorAll: () => [], querySelector: () => null, addEventListener() {}, body: node() },
     window: { addEventListener() {} }, location: { hash: "#home" }, history: { pushState() {} },
     sessionStorage: { getItem: () => null, setItem() {} },
+    localStorage: { getItem: (key) => savedPreferences.get(key) || null, setItem: (key, value) => savedPreferences.set(key, value) },
     setTimeout: (callback) => { timers.set(++timerId, callback); return timerId; },
     clearTimeout: (id) => timers.delete(id), requestAnimationFrame: () => 0
 });
@@ -38,6 +40,23 @@ assert.equal(run("buildGeneralStandings(getEditionLeagues('fm26'))[0].total"), 4
 assert.match(elements.get("editionHome").innerHTML, /Liga EMG: O Juízo Final/);
 assert.match(elements.get("editionHistory").innerHTML, /Título assegurado/);
 assert.match(elements.get("headToHead").innerHTML, /Frente a frente/);
+assert.equal(run("headToHeadFirst"), "");
+assert.equal(run("headToHeadSecond"), "");
+assert.doesNotMatch(elements.get("headToHead").innerHTML, /class="h2h-scoreboard"/);
+run("updateHeadToHead('first', 'Gonçalo')");
+assert.doesNotMatch(elements.get("headToHead").innerHTML, /class="h2h-scoreboard"/);
+run("updateHeadToHead('second', 'Hugo'); headToHeadFirst = ''; headToHeadSecond = ''; restoreHeadToHead(); renderHeadToHead()");
+assert.equal(run("headToHeadFirst"), "Gonçalo");
+assert.equal(run("headToHeadSecond"), "Hugo");
+assert.match(elements.get("headToHead").innerHTML, /class="h2h-scoreboard"/);
+savedPreferences.set("emg-head-to-head-coaches", "invalid json");
+run("restoreHeadToHead()");
+assert.equal(run("headToHeadFirst"), "");
+savedPreferences.set("emg-head-to-head-coaches", JSON.stringify({ first: "goncalo", second: "goncalo" }));
+run("restoreHeadToHead()");
+assert.equal(run("headToHeadSecond"), "");
+savedPreferences.clear();
+run("restoreHeadToHead(); renderHeadToHead()");
 
 // Troca de edição: os resultados e os troféus antigos não passam para FM27.
 const before = run("JSON.stringify(leagues.map(league => [league.id, league.fixtures.length, league.tabela]))");
@@ -92,10 +111,12 @@ assert.equal(run("headToHeadFirst"), run("coachProfiles[1].nome"));
 assert.notEqual(run("headToHeadFirst"), run("headToHeadSecond"));
 assert.equal(elements.get("coachModal").hidden, true);
 
+assert.equal(run("headToHeadSecond"), "", "O atalho não escolhe um adversário automaticamente");
+run("updateHeadToHead('second', coachProfiles[0].nome)");
 const selectedPair = run("[headToHeadFirst, headToHeadSecond, headToHeadLeague].join('|')");
 const coachMenus = [...elements.get("headToHead").innerHTML.matchAll(/<select[^>]*>([\s\S]*?)<\/select>/g)];
-assert.equal((coachMenus[0][1].match(/<option/g) || []).length, 7);
-assert.equal((coachMenus[1][1].match(/<option/g) || []).length, 7);
+assert.equal((coachMenus[0][1].match(/<option/g) || []).length, 8);
+assert.equal((coachMenus[1][1].match(/<option/g) || []).length, 8);
 assert.ok(!coachMenus[0][1].includes(`value="${run("headToHeadSecond")}"`));
 assert.ok(!coachMenus[1][1].includes(`value="${run("headToHeadFirst")}"`));
 run("updateHeadToHead('first', headToHeadSecond); updateHeadToHead('second', headToHeadFirst)");

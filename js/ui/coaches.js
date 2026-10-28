@@ -134,9 +134,10 @@ function compareCoach(id) {
     if (getSelectedEdition() !== "all") selectEdition("all");
     headToHeadFirst = coach.nome;
     if (headToHeadSecond === coach.nome) {
-        headToHeadSecond = [...coachProfiles].sort((a, b) => a.nome.localeCompare(b.nome, "pt")).find((entry) => entry.id !== coach.id).nome;
+        headToHeadSecond = "";
     }
     headToHeadLeague = "all";
+    persistHeadToHead();
     renderHeadToHead();
     openHeadToHead();
 }
@@ -233,6 +234,7 @@ function openCoachIdentityRivalry(coachId, rivalId) {
     headToHeadFirst = getCoachById(coachId).nome;
     headToHeadSecond = getCoachById(rivalId).nome;
     headToHeadLeague = "all";
+    persistHeadToHead();
     renderHeadToHead();
     openHeadToHead();
 }

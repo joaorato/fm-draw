@@ -5,6 +5,7 @@ renderLeagueSelector();
 renderCoachCards();
 renderEditionHome();
 renderEditionHistory();
+restoreHeadToHead();
 renderHeadToHead();
 setupFormulaPopover();
 restoreMuteState();

@@ -1,7 +1,27 @@
 let selectedEditionId = "all";
-let headToHeadFirst = coachProfiles[0].nome;
-let headToHeadSecond = coachProfiles[1].nome;
+let headToHeadFirst = "";
+let headToHeadSecond = "";
 let headToHeadLeague = "all";
+const HEAD_TO_HEAD_STORAGE_KEY = "emg-head-to-head-coaches";
+
+function restoreHeadToHead() {
+    headToHeadFirst = "";
+    headToHeadSecond = "";
+    try {
+        const saved = JSON.parse(localStorage.getItem(HEAD_TO_HEAD_STORAGE_KEY));
+        headToHeadFirst = coachProfiles.find((coach) => coach.id === saved?.first)?.nome || "";
+        headToHeadSecond = coachProfiles.find((coach) => coach.id === saved?.second && coach.nome !== headToHeadFirst)?.nome || "";
+    } catch (_) {}
+}
+
+function persistHeadToHead() {
+    try {
+        localStorage.setItem(HEAD_TO_HEAD_STORAGE_KEY, JSON.stringify({
+            first: getCoachByShortName(headToHeadFirst)?.id || "",
+            second: getCoachByShortName(headToHeadSecond)?.id || ""
+        }));
+    } catch (_) {}
+}
 
 function getSelectedEdition() {
     return selectedEditionId;
@@ -124,17 +144,19 @@ function openHeadToHead() {
 
 function updateHeadToHead(field, value) {
     if (field === "first") {
-        if (!getCoachByShortName(value) || value === headToHeadSecond) return;
+        if (value && (!getCoachByShortName(value) || value === headToHeadSecond)) return;
         headToHeadFirst = value;
     } else if (field === "second") {
-        if (!getCoachByShortName(value) || value === headToHeadFirst) return;
+        if (value && (!getCoachByShortName(value) || value === headToHeadFirst)) return;
         headToHeadSecond = value;
     } else headToHeadLeague = value;
+    persistHeadToHead();
     renderHeadToHead();
 }
 
 function swapHeadToHead() {
     [headToHeadFirst, headToHeadSecond] = [headToHeadSecond, headToHeadFirst];
+    persistHeadToHead();
     renderHeadToHead();
     document.querySelector(".h2h-swap")?.focus();
 }
@@ -155,16 +177,17 @@ function renderHeadToHead() {
         root.innerHTML = renderEditionEmpty("Os confrontos do FM27 começam quando houver jogos registados.");
         return;
     }
-    const options = (selected, excluded) => [...coachProfiles].filter((coach) => coach.nome !== excluded).sort((a, b) => a.nome.localeCompare(b.nome, "pt")).map((coach) => `<option${selected === coach.nome ? " selected" : ""} value="${escapeAttribute(coach.nome)}">${escapeAttribute(coach.nome)}</option>`).join("");
-    const stats = buildCoachHeadToHead(selectedEditionId, headToHeadFirst, headToHeadSecond, headToHeadLeague);
-    const max = Math.max(1, stats.matches);
+    const options = (selected, excluded) => `<option value=""${selected ? "" : " selected"}>Escolher treinador</option>` + [...coachProfiles].filter((coach) => coach.nome !== excluded).sort((a, b) => a.nome.localeCompare(b.nome, "pt")).map((coach) => `<option${selected === coach.nome ? " selected" : ""} value="${escapeAttribute(coach.nome)}">${escapeAttribute(coach.nome)}</option>`).join("");
+    const hasPair = Boolean(headToHeadFirst && headToHeadSecond);
+    const stats = hasPair ? buildCoachHeadToHead(selectedEditionId, headToHeadFirst, headToHeadSecond, headToHeadLeague) : null;
+    const max = Math.max(1, stats?.matches || 0);
     root.innerHTML = `
         <div class="history-heading panel-head"><div><span class="history-kicker">Rivalidades · ${getSelectedEditionName()}</span><h2>Frente a frente</h2><p>Escolhe dois treinadores e revisita os confrontos entre eles.</p></div><button type="button" class="history-button" onclick="document.getElementById('summaryView').scrollIntoView({ behavior: 'smooth', block: 'start' })">Voltar aos números ↑</button></div>
         <div class="history-filters"><label>Treinador<select onchange="updateHeadToHead('first', this.value)">${options(headToHeadFirst, headToHeadSecond)}</select></label><button type="button" class="history-button h2h-swap" onclick="swapHeadToHead()" aria-label="Trocar lados dos treinadores" title="Trocar lados">⇄</button><label>Adversário<select onchange="updateHeadToHead('second', this.value)">${options(headToHeadSecond, headToHeadFirst)}</select></label><label>Competição<select onchange="updateHeadToHead('league', this.value)"><option value="all">Todas as competições</option>${editionLeagues.map((league) => `<option value="${league.id}"${headToHeadLeague === league.id ? " selected" : ""}>${escapeAttribute(league.nome)}</option>`).join("")}</select></label></div>
-        <div class="h2h-scoreboard">${renderHeadToHeadPortrait(headToHeadFirst, "left")}${renderHeadToHeadPortrait(headToHeadSecond, "right")}<div>${getCoachLinkMarkup(headToHeadFirst)}<strong>${stats.wins}</strong><span>vitórias</span><small>${stats.goalsFor} golos</small></div><div><span>${stats.matches} jogos</span><strong>${stats.draws}</strong><span>empates</span></div><div>${getCoachLinkMarkup(headToHeadSecond)}<strong>${stats.losses}</strong><span>vitórias</span><small>${stats.goalsAgainst} golos</small></div></div>
+        ${hasPair ? `<div class="h2h-scoreboard">${renderHeadToHeadPortrait(headToHeadFirst, "left")}${renderHeadToHeadPortrait(headToHeadSecond, "right")}<div>${getCoachLinkMarkup(headToHeadFirst)}<strong>${stats.wins}</strong><span>vitórias</span><small>${stats.goalsFor} golos</small></div><div><span>${stats.matches} jogos</span><strong>${stats.draws}</strong><span>empates</span></div><div>${getCoachLinkMarkup(headToHeadSecond)}<strong>${stats.losses}</strong><span>vitórias</span><small>${stats.goalsAgainst} golos</small></div></div>
         <div class="h2h-balance" aria-hidden="true"><span style="flex:${stats.wins / max}"></span><span style="flex:${stats.draws / max}"></span><span style="flex:${stats.losses / max}"></span></div>
         <p class="history-note">Só contam confrontos registados entre os dois treinadores. Os desempates por penáltis mantêm o empate no registo V/E/D; o vencedor do desempate é indicado no jogo. A Escócia tem um calendário parcial.</p>
-        ${stats.matches ? `<div class="history-grid">${historyMatchGroup(`Maior vitória · ${escapeAttribute(headToHeadFirst)}`, stats.firstWins)}${historyMatchGroup(`Maior vitória · ${escapeAttribute(headToHeadSecond)}`, stats.secondWins)}</div><details class="history-card history-more" open><summary>Todos os confrontos · ${stats.matches}</summary><div class="history-match-list">${[...stats.records].sort((a, b) => a.league === b.league ? b.index - a.index : editionLeagues.indexOf(a.league) - editionLeagues.indexOf(b.league)).map(historyMatchMarkup).join("")}</div></details>` : `<div class="history-card"><p>Ainda não há confrontos registados entre estes treinadores nesta seleção.</p></div>`}`;
+        ${stats.matches ? `<div class="history-grid">${historyMatchGroup(`Maior vitória · ${escapeAttribute(headToHeadFirst)}`, stats.firstWins)}${historyMatchGroup(`Maior vitória · ${escapeAttribute(headToHeadSecond)}`, stats.secondWins)}</div><details class="history-card history-more" open><summary>Todos os confrontos · ${stats.matches}</summary><div class="history-match-list">${[...stats.records].sort((a, b) => a.league === b.league ? b.index - a.index : editionLeagues.indexOf(a.league) - editionLeagues.indexOf(b.league)).map(historyMatchMarkup).join("")}</div></details>` : `<div class="history-card"><p>Ainda não há confrontos registados entre estes treinadores nesta seleção.</p></div>`}` : `<div class="history-card"><p>Escolhe os dois treinadores para ver o frente a frente.</p></div>`}`;
     bindHistoryMatches(root);
 }
 
