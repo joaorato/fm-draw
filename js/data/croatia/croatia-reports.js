@@ -2391,7 +2391,7 @@ const croatiaMatchReports = [
             ]),
             away: reportFormation("4-3-3", [
                 [reportPlayer("9", "Kulušić", "6,6", "AAE")],
-                [reportPlayer("21", "Puljić", "7,4", "AI"), reportPlayer("7", "Kerim Çalhan.", "6,6", "AI")],
+                [reportPlayer("21", "Puljić", "7,4", "AI"), reportPlayer("7", "Kerim Çalhanoğlu", "6,6", "AI")],
                 [reportPlayer("10", "Gonzalez", "7,0", "ME"), reportPlayer("15", "Gurlica", "6,9", "CJA")],
                 [reportPlayer("23", "Matić", "6,4", "MD")],
                 [reportPlayer("91", "Tićinović", "7,3", "AI", true), reportPlayer("4", "Mitrović", "6,9", "DC"), reportPlayer("12", "Živković", "6,7", "DC"), reportPlayer("5", "Elez", "6,6", "AI")],
@@ -8495,7 +8495,7 @@ const croatiaMatchReports = [
         formations: {
             home: reportFormation("4-2-3-1", [
                 [reportPlayer("11", "Šego", "6,7", "AAE")],
-                [reportPlayer("9", "Rebić", "6,7", "CJA"), reportPlayer("10", "Livaja", "6,7", "MO"), reportPlayer("30", "Almena", "6,6", "AI")],
+                [reportPlayer("9", "A. Rebić", "6,7", "CJA"), reportPlayer("10", "Livaja", "6,7", "MO"), reportPlayer("30", "Almena", "6,6", "AI")],
                 [reportPlayer("23", "Krovinović", "6,8", "CJR"), reportPlayer("6", "Guillamón", "6,7", "MD")],
                 [reportPlayer("32", "Hrgović", "6,9", "AI"), reportPlayer("14", "Raçi", "7,3", "CC"), reportPlayer("15", "Marešić", "6,8", "CC"), reportPlayer("38", "Hodak", "7,3", "DL")],
                 [reportPlayer("33", "Silić", "7,1", "GR")]
@@ -8633,7 +8633,7 @@ const croatiaMatchReports = [
                 [reportPlayer("36", "Butić", "6,1", "AI"), reportPlayer("30", "Vinković", "6,4", "AAE"), reportPlayer("13", "Čaić", "6,9", "AI")],
                 [reportPlayer("41", "Šporn", "6,7", "MC"), reportPlayer("9", "Kulušić", "7,2", "CJA", true)],
                 [reportPlayer("43", "Čuić", "6,8", "MD", true)],
-                [reportPlayer("7", "Kerim Çalh.", "6,2", "AI"), reportPlayer("15", "Gurlica", "6,3", "CC"), reportPlayer("12", "Živković", "6,4", "DC"), reportPlayer("25", "Williams", "6,2", "AI")],
+                [reportPlayer("7", "Kerim Çalhanoğlu", "6,2", "AI"), reportPlayer("15", "Gurlica", "6,3", "CC"), reportPlayer("12", "Živković", "6,4", "DC"), reportPlayer("25", "Williams", "6,2", "AI")],
                 [reportPlayer("1", "Bulat", "7,7", "GR")]
             ]),
             away: reportFormation("4-2-3-1", [
@@ -8663,6 +8663,189 @@ const croatiaMatchReports = [
             ["Cartões vermelhos", "0", "0"],
             ["Distância Percorrida", "121", "126"],
             ["Classificação Média", "6,6", "7,2"]
+        ])
+    },
+    {
+        fixtureKey: "2025-12-03-hnk-rijeka-dubrava",
+        date: "Quarta-feira 3 de Dezembro de 2025",
+        stadium: "Rujevica",
+        weather: "Temporal",
+        playerOfMatch: "Keita Baldé",
+        rating: "8,67",
+        coaches: { home: "Zép Jóbes", away: "D. Mladina" },
+        formations: {
+            home: reportFormation("4-2-1-2-1", [
+                [reportPlayer("27", "Ambrose", "5,9", "AAE")],
+                [reportPlayer("20", "Ndockyt", "6,8", "ME"), reportPlayer("", "Vignato", "6,3", "MO")],
+                [reportPlayer("11", "André", "7,1", "MC")],
+                [reportPlayer("21", "Lacoux", "6,6", "MD"), reportPlayer("14", "Gojak", "7,5", "CJR")],
+                [reportPlayer("3", "Jean Carlos", "7,4", "AI"), reportPlayer("45", "Majstorović", "6,8", "CC"), reportPlayer("4", "Andrade", "6,5", "CC"), reportPlayer("22", "Oreč", "8,6", "AI")],
+                [reportPlayer("1", "Letica", "6,5", "GRC")]
+            ]),
+            away: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Miličević", "6,9", "AC", true)],
+                [reportPlayer("11", "Mawana", "5,8", "Ex"), reportPlayer("10", "Matić", "6,7", "ME"), reportPlayer("7", "Zahora", "6,4", "AI")],
+                [reportPlayer("6", "Janjiš", "6,7", "MD"), reportPlayer("8", "Pasariček", "6,6", "MD")],
+                [reportPlayer("3", "Brekalo", "6,1", "AC"), reportPlayer("5", "Ljubanović", "6,1", "CP"), reportPlayer("4", "Rémy", "6,3", "CC"), reportPlayer("2", "Palić", "6,7", "DL")],
+                [reportPlayer("1", "Cundeković", "7,7", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("59", "T. Fruk", { assist: "A. Oreč" }), goalEvent("63", "K. Baldé", { assist: "Jean Carlos" }), goalEvent("64", "K. Baldé", { assist: "A. Gojak" })],
+            away: [goalEvent("6", "I. Miličević", { assist: "A. Matić" })]
+        },
+        stats: reportStats([
+            ["Posse", "67%", "33%"],
+            ["Remates", "23", "6"],
+            ["Remates à Baliza", "13", "3"],
+            ["xG", "3,10", "0,46"],
+            ["PADPAD", "10,86", "36,33"],
+            ["Oportunidades Flagrantes", "1", "0"],
+            ["Cantos", "13", "3"],
+            ["Passes Completados", "90%", "84%"],
+            ["Cruzamentos Completados", "23%", "0%"],
+            ["Faltas", "10", "13"],
+            ["Cartões amarelos", "2", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "129", "122"],
+            ["Classificação Média", "7,1", "6,5"]
+        ])
+    },
+    {
+        fixtureKey: "2025-12-03-nk-varazdin-nk-slaven-belupo",
+        date: "Quarta-feira 3 de Dezembro de 2025",
+        stadium: "Anđelko Herjavec",
+        weather: "Calmo",
+        playerOfMatch: "Igor Lepinjica",
+        rating: "7,59",
+        coaches: { home: "João Nabais", away: "Francisco Pinto" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("38", "Iuri Tavares", "6,3", "AR")],
+                [reportPlayer("22", "Mamić", "6,2", "AI"), reportPlayer("10", "Biró", "7,1", "SA"), reportPlayer("18", "Gaprindashvili", "6,5", "Ex")],
+                [reportPlayer("6", "Puclin", "6,7", "CJR"), reportPlayer("8", "Duvnjak", "6,3", "CJA")],
+                [reportPlayer("15", "Jacob", "6,7", "AI"), reportPlayer("13", "Mladenovski", "6,5", "DC"), reportPlayer("", "Lesjak", "6,2", "CC"), reportPlayer("23", "Maglica", "6,6", "DL")],
+                [reportPlayer("1", "Zelenika", "6,6", "GR")]
+            ]),
+            away: reportFormation("3-4-2-1", [
+                [reportPlayer("90", "Nestorovski", "6,4", "AAE")],
+                [reportPlayer("7", "Dabro", "7,6", "CJA", true), reportPlayer("10", "Caimacov", "6,4", "MO")],
+                [reportPlayer("23", "Lepinjica", "7,6", "AP"), reportPlayer("15", "Ćubelić", "6,6", "Pi"), reportPlayer("8", "Mrowca", "7,3", "CJR"), reportPlayer("35", "Žuta", "7,1", "AP")],
+                [reportPlayer("5", "Katalinić", "6,8", "CPO"), reportPlayer("4", "Kovačić", "7,5", "CP"), reportPlayer("18", "Krušelj", "7,1", "DC")],
+                [reportPlayer("31", "Hadžikić", "7,4", "GR")]
+            ])
+        },
+        events: {
+            home: [],
+            away: [goalEvent("7", "M. Dabro", { assist: "I. Lepinjica" })]
+        },
+        stats: reportStats([
+            ["Posse", "38%", "62%"],
+            ["Remates", "15", "10"],
+            ["Remates à Baliza", "5", "7"],
+            ["xG", "1,49", "0,98"],
+            ["PADPAD", "29,60", "18,47"],
+            ["Oportunidades Flagrantes", "1", "1"],
+            ["Cantos", "8", "4"],
+            ["Passes Completados", "86%", "90%"],
+            ["Cruzamentos Completados", "16%", "40%"],
+            ["Faltas", "9", "15"],
+            ["Cartões amarelos", "0", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "129", "122"],
+            ["Classificação Média", "6,5", "7,0"]
+        ])
+    },
+    {
+        fixtureKey: "2025-12-03-zadar-hnk-vukovar",
+        date: "Quarta-feira 3 de Dezembro de 2025",
+        stadium: "Stanovi",
+        weather: "Calmo",
+        playerOfMatch: "Eniss Shabani",
+        rating: "8,67",
+        coaches: { home: "A. Marenzi", away: "Hugo Macedo" },
+        formations: {
+            home: reportFormation("4-2-3-1", [
+                [reportPlayer("9", "Santini", "6,4", "AR")],
+                [reportPlayer("11", "Žderić", "6,3", "Ex"), reportPlayer("10", "Jurić", "6,2", "ME"), reportPlayer("7", "Šiljić", "6,4", "Ex")],
+                [reportPlayer("6", "Muić", "7,3", "MD", true), reportPlayer("8", "Mihaljević", "6,8", "MD")],
+                [reportPlayer("3", "Pedisić", "6,2", "AI"), reportPlayer("5", "Mrndže", "6,5", "CP"), reportPlayer("4", "Krsto", "6,5", "DC"), reportPlayer("2", "Oremuš", "6,4", "AC")],
+                [reportPlayer("1", "Pinčić", "7,1", "GRP")]
+            ]),
+            away: reportFormation("4-3-3", [
+                [reportPlayer("", "Klanac", "7,3", "AAE", true)],
+                [reportPlayer("13", "Čaić", "8,2", "AI", true), reportPlayer("50", "Špoljarić", "6,7", "AI")],
+                [reportPlayer("6", "Biljan", "6,4", "MC"), reportPlayer("77", "Shabani", "8,7", "CJA", true)],
+                [reportPlayer("40", "Landel", "7,5", "MD")],
+                [reportPlayer("7", "Kerim Çalhanoğlu", "8,1", "AI"), reportPlayer("34", "Tadić", "6,6", "CC"), reportPlayer("12", "Živković", "6,9", "DC"), reportPlayer("16", "Pavičić", "7,2", "AI")],
+                [reportPlayer("1", "Bulat", "6,6", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("90+1", "D. Muić")],
+            away: [goalEvent("49", "L. Klanac", { assist: "E. Shabani" }), goalEvent("65", "V. Čaić", { assist: "G. Landel" }), goalEvent("83", "E. Shabani")]
+        },
+        stats: reportStats([
+            ["Posse", "41%", "59%"],
+            ["Remates", "9", "25"],
+            ["Remates à Baliza", "5", "14"],
+            ["xG", "0,36", "2,29"],
+            ["PADPAD", "27,85", "11,89"],
+            ["Oportunidades Flagrantes", "0", "2"],
+            ["Cantos", "3", "12"],
+            ["Passes Completados", "89%", "89%"],
+            ["Cruzamentos Completados", "13%", "35%"],
+            ["Faltas", "3", "7"],
+            ["Cartões amarelos", "0", "0"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "111", "112"],
+            ["Classificação Média", "6,6", "7,3"]
+        ])
+    },
+    {
+        fixtureKey: "2025-12-03-hajduk-split-zrinski-osjecko-1664",
+        date: "Quarta-feira 3 de Dezembro de 2025",
+        stadium: "Poljud",
+        weather: "Tempestuoso",
+        playerOfMatch: "Ante Rebić",
+        rating: "9,74",
+        coaches: { home: "Gonzalo García", away: "-" },
+        formations: {
+            home: reportFormation("4-3-3", [
+                [reportPlayer("9", "A. Rebić", "9,7", "AR", true)],
+                [reportPlayer("11", "Šego", "7,9", "EAI", true), reportPlayer("30", "Almena", "8,0", "EAI", true)],
+                [reportPlayer("21", "Pukstas", "8,3", "MC", true), reportPlayer("23", "Krovinović", "6,9", "MO")],
+                [reportPlayer("6", "Hugo G.", "7,1", "MD")],
+                [reportPlayer("32", "Hrgović", "8,0", "AI"), reportPlayer("14", "Raçi", "7,5", "CC"), reportPlayer("15", "Marešić", "8,3", "CC", true), reportPlayer("38", "Hodak", "7,4", "DL")],
+                [reportPlayer("33", "Silić", "7,5", "GR")]
+            ]),
+            away: reportFormation("4-2-2-2", [
+                [reportPlayer("9", "Jagarčec", "5,9", "AC"), reportPlayer("10", "Barić", "5,9", "AvR")],
+                [reportPlayer("11", "Vidović", "5,9", "AI"), reportPlayer("7", "Štefanac", "5,8", "AI")],
+                [reportPlayer("6", "Viljac", "5,9", "MD"), reportPlayer("8", "Ptiček", "6,1", "MD")],
+                [reportPlayer("3", "Habek", "5,8", "AI"), reportPlayer("5", "Zavoral", "6,1", "DC"), reportPlayer("4", "Jakovljević", "5,7", "DC"), reportPlayer("2", "Degoricija", "6,0", "DL")],
+                [reportPlayer("1", "Kazija", "6,1", "GR")]
+            ])
+        },
+        events: {
+            home: [goalEvent("2", "R. Pukstas", { assist: "M. Šego" }), goalEvent("5", "D. Marešić", { penalty: true }), goalEvent("8", "A. Rebić", { assist: "Š. Hrgović" }), goalEvent("15", "M. Šego", { assist: "A. Rebić" }), goalEvent("17", "I. Almena", { assist: "A. Rebić" }), goalEvent("74", "A. Rebić", { assist: "J. Auer" }), goalEvent("83", "Ž. Jakovljević", { ownGoal: true })],
+            away: []
+        },
+        stats: reportStats([
+            ["Posse", "66%", "34%"],
+            ["Remates", "28", "3"],
+            ["Remates à Baliza", "15", "1"],
+            ["xG", "3,12", "0,05"],
+            ["PADPAD", "14,91", "50,62"],
+            ["Oportunidades Flagrantes", "3", "0"],
+            ["Cantos", "10", "1"],
+            ["Passes Completados", "93%", "83%"],
+            ["Cruzamentos Completados", "28%", "12%"],
+            ["Faltas", "6", "17"],
+            ["Cartões amarelos", "1", "1"],
+            ["Cartões vermelhos", "0", "0"],
+            ["Distância Percorrida", "110", "105"],
+            ["Classificação Média", "7,8", "5,9"]
         ])
     }
 ];

@@ -282,6 +282,8 @@ const croatiaCupTeamLogos = {
     "Marsonia": "assets/logos/teams/croacia/cup/marsonia.webp",
     "Radnik Križevci": "assets/logos/teams/croacia/cup/radnik_krizevci.webp",
     "Tomislav (DA)": "assets/logos/teams/croacia/cup/tomislav_da.webp",
+    "Dubrava": "assets/logos/teams/transferencias/dubrava.webp",
+    "Zadar": "assets/logos/teams/transferencias/zadar.webp",
     "Zrinski Osječko 1664": "assets/logos/teams/transferencias/zrinjski_osjecko_1664.webp"
 };
 
