@@ -126,7 +126,7 @@ function renderEditionHome() {
         <div class="history-actions"><button type="button" class="history-button" onclick="setActiveTab('general')">Classificação final</button></div>
         <div class="history-podium">${standings.slice(0, 3).map((entry) => {
             const rank = 1 + standings.filter((other) => other.concluidas > entry.concluidas).length;
-            return `<article class="history-card history-podium-card" data-rank="${rank}"><span class="history-kicker">${rank}.º lugar${rank === 1 ? " · Classificação EMG" : ""}</span>${getCoachLinkMarkup(entry.jogador)}<strong class="history-points ${getPointsClass(entry.concluidas)}">${formatPoints(entry.concluidas)} <small>pts</small></strong></article>`;
+            return `<article class="history-card history-podium-card" data-rank="${rank}"><span class="history-kicker">${rank}.º lugar</span>${getCoachLinkMarkup(entry.jogador)}<strong class="history-points ${getPointsClass(entry.concluidas)}">${formatPoints(entry.concluidas)} <small>pts</small></strong></article>`;
         }).join("")}</div>
         <div class="history-actions"><button type="button" class="history-button primary" onclick="setActiveTab('summary')">${getSelectedEditionName()} em números ↗</button><button type="button" class="history-button history-feature-button" onclick="openHeadToHead()"><span class="history-feature-badge">Novo</span>Confrontos diretos</button></div>
         <div class="history-champions">${editionLeagues.map((league) => {

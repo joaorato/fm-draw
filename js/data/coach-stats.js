@@ -1,6 +1,15 @@
 // coachStats conserva a base histórica anterior à Croácia. Não se recalcula
 // a Escócia: os jogos publicados dessa época estão incompletos.
 // Carregar depois de leagues.js, que já contém as equipas e os resultados.
+// Nome curto de cada competição nos seletores do perfil, igual ao do palmarés.
+const coachCompetitionNames = { scotland: "Escócia", croatia: "Croácia", mundial: "Mundial" };
+
+function getCoachCompetitionContext(leagueId, coachName) {
+    const league = leagues.find((entry) => entry.id === leagueId);
+    const team = league?.tabela.find((entry) => entry.jogador === coachName);
+    return `${coachCompetitionNames[leagueId] || league?.nome || leagueId}${team ? ` · ${team.equipa}` : ""}`;
+}
+
 function buildCoachCareerStats(coach) {
     const base = coachStats[coach.id];
     if (!base) return null;
@@ -83,7 +92,7 @@ function buildCoachPlayerHighlights(league) {
             .map((entry) => ({ ...entry, average: Math.round(entry.sum / entry.matches * 100) / 100 }))
             .sort((a, b) => b.average - a.average || a.name.localeCompare(b.name, "pt"));
         const scorers = rankings.marcadores.filter((entry) => entry.equipa === team.equipa);
-        const context = `${league.id === "croatia" ? "Croácia · Liga e Taça" : league.nome} · ${team.equipa}`;
+        const context = getCoachCompetitionContext(league.id, team.jogador);
         const ratingNote = `Média nos onzes publicados · mínimo ${minimum} jogos com nota · ${ratedMatches}/${playedMatches} jogos com notas`;
         const goalNote = `Golos nos relatórios publicados · ${reportedMatches}/${playedMatches} jogos com relatório`;
         highlights[team.jogador] = {
@@ -112,10 +121,7 @@ function getCoachLegacy(coach) {
     const historical = coachProfileExtras[coach.id]?.legacy;
     return ["rating", "scorer"].map((key) => {
         const performances = [];
-        if (historical?.[key]) {
-            const team = leagues.find((league) => league.id === "scotland")?.tabela.find((entry) => entry.jogador === coach.nome);
-            performances.push({ ...historical[key], context: `Liga Escocesa${team ? ` · ${team.equipa}` : ""}` });
-        }
+        if (historical?.[key]) performances.push({ ...historical[key], context: getCoachCompetitionContext("scotland", coach.nome) });
         for (const leagueId of ["croatia", "mundial"]) {
             const entry = coachPlayerHighlights[leagueId]?.[coach.nome]?.[key];
             if (entry) performances.push(entry);
@@ -181,13 +187,12 @@ function getCoachNarrative(coach) {
     const historical = coachProfileExtras[coach.id]?.narrative;
     const keys = ["victim", "biggestWin", "worstLoss", "nemesis", "chaotic"];
     const competitions = [];
-    if (historical) competitions.push({ context: "Liga Escocesa", items: keys.map((key) => historical[key]) });
+    if (historical) competitions.push({ context: getCoachCompetitionContext("scotland", coach.nome), items: keys.map((key) => historical[key]) });
     for (const leagueId of ["croatia", "mundial"]) {
         const league = leagues.find((entry) => entry.id === leagueId);
         if (!league) continue;
-        const team = league.tabela.find((entry) => entry.jogador === coach.nome);
         competitions.push({
-            context: `${leagueId === "croatia" ? "Croácia · Liga e Taça" : league.nome}${team ? ` · ${team.equipa}` : ""}`,
+            context: getCoachCompetitionContext(leagueId, coach.nome),
             items: buildCoachNarrative(league, coach)
         });
     }

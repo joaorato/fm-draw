@@ -7047,7 +7047,8 @@ button:disabled {
 .history-filters { display: flex; flex-wrap: wrap; gap: 14px; align-items: end; margin-bottom: 24px; }
 .history-filters label, .coach-stats-scope { display: grid; gap: 6px; flex: 1; min-width: 150px; color: var(--muted); font-size: 11px; }
 .history-filters select, .coach-stats-scope select { width: 100%; padding: 10px 12px; border: 1px solid rgba(var(--c-glow), 0.25); border-radius: 9px; background: #091a40; color: var(--text); font: 13px "Oxanium", sans-serif; color-scheme: dark; cursor: pointer; }
-.coach-stats-scope { margin: 0 14px 14px; }
+.coach-stats-scope { margin: 16px 16px 14px; }
+.coach-stats-scope-label { color: rgba(var(--c-glow), 0.8); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 .history-button.h2h-swap { flex-shrink: 0; width: 40px; height: 38px; padding: 0; color: rgb(var(--c-glow)); font-size: 24px; line-height: 1; }
 .h2h-scoreboard { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: 1fr 0.7fr 1fr; gap: 12px; padding: 26px 14px; border: 1px solid var(--line); border-radius: 16px 16px 0 0; background: radial-gradient(ellipse at top, rgba(var(--c-glow), 0.08), transparent 70%); }
 .h2h-scoreboard > div { position: relative; z-index: 1; display: grid; gap: 8px; text-align: center; justify-items: center; align-content: start; }

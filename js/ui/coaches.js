@@ -157,7 +157,7 @@ function getCoachPhotoPosition(coach, photoPath) {
 
 function renderCoachStatsMarkup(coach) {
     let stats = getCoachStats(coach);
-    let scopeMarkup = `<label class="coach-stats-scope">Estatísticas<select onchange="setCoachStatsScope(this.value)">${["all", "fm26", "fm27"].map((id) => `<option value="${id}"${coachStatsScope === id ? " selected" : ""}>${id === "all" ? "Histórico EMG" : id.toUpperCase()}</option>`).join("")}</select></label>`;
+    let scopeMarkup = `<label class="coach-stats-scope"><span class="coach-stats-scope-label">Estatísticas</span><select onchange="setCoachStatsScope(this.value)">${["all", "fm26", "fm27"].map((id) => `<option value="${id}"${coachStatsScope === id ? " selected" : ""}>${id === "all" ? "Histórico EMG" : id.toUpperCase()}</option>`).join("")}</select></label>`;
     return scopeMarkup + (stats
         ? `
             <div class="coach-modal-stats-grid">
@@ -179,15 +179,20 @@ function renderCoachStatsWideMarkup(coach) {
     let stats = getCoachStats(coach);
     let extras = coachProfileExtras[coach.id];
     let trophyMarkup = renderCoachTrophyCabinet(coach);
-    let narrativeMarkup = renderCoachInsightGrid("Narrativa", getCoachNarrative(coach));
-    let legacyMarkup = renderCoachInsightGrid("Legado", getCoachLegacy(coach));
+    let narrative = getCoachNarrative(coach);
+    let legacy = getCoachLegacy(coach);
+    // Um só seletor de competição para a Narrativa e o Legado.
+    let competitions = [...new Set([...narrative, ...legacy].flatMap((item) => (item.performances?.length ? item.performances : [item])
+        .map((performance) => performance.context || "Sem competição registada")))];
+    let narrativeMarkup = renderCoachInsightGrid("Narrativa", narrative, competitions);
+    let legacyMarkup = renderCoachInsightGrid("Legado", legacy, competitions);
     let identityMarkup = renderCoachIdentityMarkup(coach);
 
     if (!stats && !extras) {
         return `<div class="coach-modal-stats-empty">Stats em breve</div>`;
     }
 
-    return `${trophyMarkup}${narrativeMarkup}${legacyMarkup}${identityMarkup}`;
+    return `${trophyMarkup}${renderCoachCompetitionPicker(competitions)}${narrativeMarkup}${legacyMarkup}${identityMarkup}`;
 }
 
 function renderCoachIdentityMarkup(coach) {
@@ -394,7 +399,24 @@ function closeTrophyLightbox() {
     closeOverlay(lightbox);
 }
 
-function renderCoachInsightGrid(title, items) {
+function renderCoachCompetitionPicker(competitions) {
+    if (!competitions.length) return "";
+    return `
+        <div class="coach-stats-section coach-stats-section--competicao">
+            <details class="coach-legacy-picker">
+                <summary class="coach-legacy-select" aria-label="Escolher competição">
+                    <span class="coach-legacy-picker-heading"><span class="coach-legacy-picker-label">Competição</span><span class="coach-legacy-picker-value">${escapeAttribute(competitions[0])}</span></span>
+                    <span class="coach-legacy-picker-arrow" aria-hidden="true">⌄</span>
+                </summary>
+                <div class="coach-legacy-menu" aria-label="Competições">
+                    ${competitions.map((competition, index) => `<button type="button" class="coach-legacy-option" data-competition-index="${index}" aria-pressed="${index === 0}"><span>${escapeAttribute(competition)}</span><span class="coach-legacy-option-check" aria-hidden="true">✓</span></button>`).join("")}
+                </div>
+            </details>
+        </div>
+    `;
+}
+
+function renderCoachInsightGrid(title, items, competitions = []) {
     let hasItems = items.length > 0;
     let sectionSlug = String(title || "").toLowerCase()
         .normalize("NFD")
@@ -560,10 +582,7 @@ function renderCoachInsightGrid(title, items) {
     };
 
     let hasCompetitionPicker = sectionSlug === "legado" || sectionSlug === "narrativa";
-    let legacyCompetitions = hasCompetitionPicker
-        ? [...new Set(safeItems.flatMap((item) => (item.performances?.length ? item.performances : [item])
-            .map((performance) => performance.context || "Sem competição registada")))]
-        : [];
+    let legacyCompetitions = hasCompetitionPicker ? competitions : [];
 
     let renderLegacyCard = (item) => {
         let performances = item.performances?.length ? item.performances : [item];
@@ -598,17 +617,6 @@ function renderCoachInsightGrid(title, items) {
     return `
         <div class="coach-stats-section coach-stats-section--${sectionSlug}">
             <div class="coach-stats-section-title">${title}</div>
-            ${hasCompetitionPicker ? `
-                <details class="coach-legacy-picker">
-                    <summary class="coach-legacy-select" aria-label="Escolher competição · ${title}">
-                        <span class="coach-legacy-picker-heading"><span class="coach-legacy-picker-label">Competição</span><span class="coach-legacy-picker-value">${escapeAttribute(legacyCompetitions[0])}</span></span>
-                        <span class="coach-legacy-picker-arrow" aria-hidden="true">⌄</span>
-                    </summary>
-                    <div class="coach-legacy-menu" aria-label="Competições · ${title}">
-                        ${legacyCompetitions.map((competition, index) => `<button type="button" class="coach-legacy-option" data-competition-index="${index}" aria-pressed="${index === 0}"><span>${escapeAttribute(competition)}</span><span class="coach-legacy-option-check" aria-hidden="true">✓</span></button>`).join("")}
-                    </div>
-                </details>
-            ` : ""}
             <div class="coach-insight-grid coach-insight-grid--${sectionSlug}">
                 ${safeItems.map((item) => hasCompetitionPicker
                     ? renderLegacyCard(item)
@@ -721,7 +729,7 @@ function renderCoachModal(coach) {
         statsWideEl.querySelectorAll(".coach-legacy-picker").forEach((picker) => {
             picker.querySelectorAll(".coach-legacy-option").forEach((option) => {
                 option.addEventListener("click", () => {
-                    picker.closest(".coach-stats-section").querySelectorAll(".coach-legacy-performance").forEach((performance) => {
+                    statsWideEl.querySelectorAll(".coach-legacy-performance").forEach((performance) => {
                         performance.hidden = performance.dataset.competitionIndex !== option.dataset.competitionIndex;
                     });
                     picker.querySelector(".coach-legacy-picker-value").textContent = option.firstElementChild.textContent;
