@@ -129,15 +129,66 @@ function renderFormDots(form = [], details = []) {
     `;
 }
 
-function renderLeagueAwards(league) {
-    if (!league.merits?.awards?.length) return "";
-    let awards = league.merits.awards.map((award) => `
+// Um prémio com `ranking` não traz nome: sai do topo da lista de golos ou de
+// assistências. Num empate no topo a lista ordena por nome, o que não decide
+// nada, por isso mostram-se todos os empatados e avisa-se na consola: o
+// vencedor escreve-se então à mão no prémio.
+function getLeagueAwards(league) {
+    return (league.merits?.awards || []).map((award) => {
+        if (!award.ranking) return award;
+
+        let lista = getLeagueGoalStats(league)?.rankings[award.ranking] || [];
+        if (!lista.length) return null;
+
+        let empatados = lista.filter((entry) => entry.total === lista[0].total);
+        if (empatados.length > 1) console.warn(`[méritos] ${league.id}: empate em "${award.label}". Escreve o vencedor à mão.`);
+
+        let unidade = award.ranking === "marcadores" ? "golos" : "assistências";
+        return {
+            label: award.label,
+            name: empatados.map((entry) => entry.nome).join(" / "),
+            team: [...new Set(empatados.map((entry) => entry.equipa))].join(" / "),
+            meta: `${lista[0].total} ${unidade}`
+        };
+    }).filter(Boolean);
+}
+
+function renderLeagueAwardCard(award) {
+    return `
         <div class="league-award-card">
             <div class="league-award-label">${award.label}</div>
             <div class="league-award-name">${award.name}</div>
             <div class="league-award-meta">${award.team} · ${award.meta}</div>
         </div>
-    `).join("");
+    `;
+}
+
+// Croácia: por baixo de Bónus e Penalizações, na coluna lateral.
+function renderLeagueSideAwards(league) {
+    if (league.merits?.local !== "lateral") return "";
+    let awards = getLeagueAwards(league);
+    if (!awards.length) return "";
+
+    return `
+        <section class="league-side-awards">
+            <h3 class="bonuses-title">Méritos</h3>
+            <div class="league-awards-list">${awards.map(renderLeagueAwardCard).join("")}</div>
+        </section>
+    `;
+}
+
+// Mundial: o corpo do separador Méritos, ao lado de Golos e Assistências.
+function renderLeagueAwardsTab(league) {
+    let awards = getLeagueAwards(league);
+    if (!awards.length) return `<div class="league-scorer-empty">Sem méritos registados.</div>`;
+    return `<div class="league-awards-list league-awards-tab">${awards.map(renderLeagueAwardCard).join("")}</div>`;
+}
+
+// Escócia: um cartão próprio no painel de baixo. Quem declara `local` mostra os
+// méritos noutro sítio.
+function renderLeagueAwards(league) {
+    if (league.merits?.local || !league.merits?.awards?.length) return "";
+    let awards = getLeagueAwards(league).map(renderLeagueAwardCard).join("");
 
     return `
         <section class="league-side-card league-awards-card">

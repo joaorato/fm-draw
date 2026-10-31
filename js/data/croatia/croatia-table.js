@@ -51,3 +51,17 @@ function getCroatiaSeedEntry(teamName) {
 
 const croatiaFixtureMonths = ["Agosto", "Setembro", "Outubro", "Novembro", "Dezembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio"];
 
+
+// Méritos da época, por baixo de Bónus e Penalizações. O melhor jogador escolhe-se
+// à mão no fim da época: a melhor média como titular entre quem foi titular em
+// pelo menos metade dos jogos de liga da equipa. Marcador e assistente saem do
+// topo do painel de Golos e Assistências (`ranking`); só se escreve o nome à mão
+// se houver empate no topo.
+const croatiaLeagueMerits = {
+    local: "lateral",
+    awards: [
+        { label: "Melhor jogador da liga", name: "Keita Baldé", team: "HNK Rijeka", meta: "7,64 média · 21 jogos como titular" },
+        { label: "Melhor marcador", ranking: "marcadores" },
+        { label: "Melhor assistente", ranking: "assistentes" }
+    ]
+};

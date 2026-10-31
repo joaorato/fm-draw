@@ -263,6 +263,7 @@ function renderLeague(leagueId) {
                         ${bonusRows}
                     </div>
                 </div>
+                ${renderLeagueSideAwards(league)}
                 ${renderLeagueSideStats(league)}
             </aside>`}
         </div>

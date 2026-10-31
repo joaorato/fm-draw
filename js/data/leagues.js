@@ -28,6 +28,7 @@ const leagues = [
             isLeagueMatch: isWorldCupMatch
         },
         tacas: worldCupTacas,
+        merits: worldCupMerits,
         // As 48 seleções: é por aqui que o calendário e a ficha de jogo acham a
         // bandeira e o jogador de cada uma (getLeagueTeamEntry).
         tabela: worldCupEquipas
@@ -84,6 +85,7 @@ const leagues = [
             { label: "Despromovido", value: "NK Lokomotiva", meta: "25 pontos — treinador Painatal" }
         ],
         livePages: croatiaLivePages,
+        merits: croatiaLeagueMerits,
         transfers: croatiaTransfers,
         tabela: croatiaCurrentTable.map((entry) => {
             let emgEntry = croatiaSeasonScores.find((score) => score.equipa === entry.equipa);

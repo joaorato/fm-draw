@@ -2828,6 +2828,21 @@ body::after {
     text-transform: uppercase;
 }
 
+/* Méritos fora do cartão da Escócia: coluna lateral (Croácia) e separador (Mundial). */
+.league-side-awards {
+    margin-top: 12px;
+}
+
+.league-awards-list {
+    display: grid;
+    gap: 8px;
+}
+
+.league-awards-tab {
+    align-content: start;
+    padding: 14px 12px 12px;
+}
+
 .league-award-name {
     margin-top: 4px;
     color: rgb(var(--c-white));

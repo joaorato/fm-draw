@@ -158,6 +158,13 @@ A league object in `js/data/leagues.js` contains:
 `ficheiros: { fixtures, relatorios }` are paths under `js/data/` and are how `scripts/report_build.js`
 knows where to write a league's result and report. A league with reports declares both.
 
+`merits: { awards, local }` lists the season awards. Without `local` they get their own card in the
+lower panel (Scotland); `local: "lateral"` puts them under Bónus e Penalizações (Croatia), and
+`local: "separador"` makes them a Méritos tab next to Golos e Assistências (Mundial). An award with
+`ranking: "marcadores"` or `"assistentes"` has no name: it reads the top of that ranking, and a tie at
+the top shows every tied player and warns on the console, so the winner is then typed by hand. The
+best player is always typed by hand when the competition ends.
+
 `torneio: true` marks a competition with no league table (the World Cup). `renderLeague` hands it to
 `renderTournament`, `calcBonuses` returns only `tacas` for it, `scores` is `[]`, and `tabela` is just
 the list of teams (name, flag as `logo`, `jogador`) so `getLeagueTeamEntry` can find them.

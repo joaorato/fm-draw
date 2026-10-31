@@ -35,6 +35,7 @@ function getLeagueLowerTabs(league) {
     let tabs = [];
     if (league.golos) tabs.push({ id: "golos", label: "Golos e Assistências" });
     if (league.transfers?.length) tabs.push({ id: "transferencias", label: "Transferências" });
+    if (league.merits?.local === "separador") tabs.push({ id: "meritos", label: "Méritos" });
     return tabs;
 }
 
@@ -174,7 +175,9 @@ function renderLeagueLowerTabs(league) {
             aria-pressed="${tab.id === active ? "true" : "false"}">${tab.label}</button>
     `).join("");
 
-    let body = active === "golos" ? renderLeagueScorers(league) : renderLeagueTransfers(league);
+    let body = active === "golos" ? renderLeagueScorers(league)
+        : active === "meritos" ? renderLeagueAwardsTab(league)
+        : renderLeagueTransfers(league);
 
     return `
         <section class="league-side-card league-transfers-card" data-league-lower-tabs="${league.id}">

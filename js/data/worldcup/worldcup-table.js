@@ -103,3 +103,16 @@ const worldCupBracket = [
 ];
 
 const worldCupFixtureMonths = ["Junho", "Julho"];
+
+// Méritos do torneio, num separador ao lado de Golos e Assistências. O melhor
+// jogador escolhe-se à mão no fim: a melhor média como titular, só entre equipas
+// que chegaram às meias-finais e com pelo menos metade dos jogos da equipa.
+// Marcador e assistente saem do topo de Golos e Assistências, como na Croácia.
+const worldCupMerits = {
+    local: "separador",
+    awards: [
+        { label: "Melhor jogador do Mundial", name: "Gordon", team: "Inglaterra", meta: "7,94 média · 5 jogos como titular" },
+        { label: "Melhor marcador", ranking: "marcadores" },
+        { label: "Melhor assistente", ranking: "assistentes" }
+    ]
+};
