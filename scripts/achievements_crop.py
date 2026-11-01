@@ -23,6 +23,11 @@ Todos os ícones saem no mesmo quadrado e centrados nele, sem mudar de escala:
 uma linha de conquistas não salta de tamanho de um tier para o outro além do
 que o próprio desenho já cresce.
 
+Uma conquista redesenhada depois vem numa folha só dela, com os 10 tiers em
+duas linhas de 5 (ver SUBSTITUICOES). Os ícones dessa folha substituem os das
+folhas por tier e são escalados para a largura mediana das outras conquistas
+no mesmo tier, porque a folha nova desenha-os maiores.
+
 --preview escreve uma folha de contacto com tudo o que foi cortado, num fundo
 da cor do site, para ver de uma vez se algum ícone ficou com texto ou cortado.
 """
@@ -60,6 +65,16 @@ CONQUISTAS = [
     "premios-da-epoca",
 ]
 POR_LINHA = [4, 4, 4, 1]
+
+# Conquistas redesenhadas, cada uma numa folha própria com os 10 tiers por
+# ordem, da madeira ao diamante, em duas linhas de 5.
+SUBSTITUICOES = {
+    "dedinhos-do-treinador": "dedinhos",
+    "golpe-de-teatro": "golpe_teatro",
+}
+POR_LINHA_SUBSTITUICAO = [5, 5]
+# Na folha de uma conquista, a partir deste tier o ícone é crista com brilho.
+PRIMEIRA_CRISTA = 5
 
 # O fundo das folhas anda pelos 6-12 de luminância. Acima disto é desenho.
 LIMIAR = 34
@@ -125,17 +140,17 @@ class Mascara:
         return [sum(self.d[y * w + x] for y in range(y0, y1)) for x in range(x0, x1)]
 
 
-def encontrar_caixas(mascara):
-    """As 13 caixas de ícone+texto, em ordem de leitura, ou None se a grelha não bate."""
+def encontrar_caixas(mascara, por_linha=POR_LINHA):
+    """As caixas de ícone+texto, em ordem de leitura, ou None se a grelha não bate."""
     w, h = mascara.w, mascara.h
     bandas = faixas(mascara.linhas(0, w, 0, h), 6)
     # O título (ausente no ouro) é uma faixa baixa: os ícones têm mais de 200.
     bandas = [b for b in bandas if b[1] - b[0] > 150]
-    if len(bandas) != len(POR_LINHA):
+    if len(bandas) != len(por_linha):
         return None
 
     caixas = []
-    for (y0, y1), esperado in zip(bandas, POR_LINHA):
+    for (y0, y1), esperado in zip(bandas, por_linha):
         cols = faixas(mascara.colunas(0, w, y0, y1), 12)
         if len(cols) != esperado:
             return None
@@ -326,11 +341,12 @@ def recortar(folha, cinza, box, limiar, orla):
 
     icone = rgb.convert("RGBA")
     icone.putalpha(mascara_alfa)
-    bbox = icone.getbbox()
-    icone = icone.crop(bbox)
+    return icone.crop(icone.getbbox())
+
+
+def na_tela(icone):
     if icone.width > LADO or icone.height > LADO:
         sys.exit(f"ícone de {icone.size} não cabe em {LADO}x{LADO}")
-
     tela = Image.new("RGBA", (LADO, LADO), (0, 0, 0, 0))
     tela.paste(icone, ((LADO - icone.width) // 2, (LADO - icone.height) // 2))
     return tela
@@ -371,6 +387,39 @@ def cortar_folha(ficheiro):
     return icones
 
 
+def cortar_folha_de_conquista(ficheiro):
+    """Os 10 tiers de uma conquista numa folha só dela, por ordem.
+
+    Esta folha parte-se sozinha, mas mistura as duas famílias: a linha de cima
+    são discos, que se cortam como as folhas da madeira ao ouro, e a de baixo
+    cristas com brilho, que pedem o limiar alto.
+    """
+    folha = Image.open(caminho_da_folha(ficheiro)).convert("RGB")
+    cinza = folha.convert("L")
+    caixas = encontrar_caixas(Mascara(cinza, LIMIAR), POR_LINHA_SUBSTITUICAO)
+    if not caixas:
+        sys.exit(f"{ficheiro}: a folha não se parte em {POR_LINHA_SUBSTITUICAO}")
+
+    mascaras = {LIMIAR: Mascara(cinza, LIMIAR), LIMIAR_BRILHO: Mascara(cinza, LIMIAR_BRILHO)}
+    icones = []
+    for i, caixa in enumerate(caixas):
+        crista = i >= PRIMEIRA_CRISTA
+        limiar, orla, margem, margem_topo = (LIMIAR_BRILHO, ORLA_BRILHO, 0, 0) if crista else (LIMIAR, ORLA, 10, 4)
+        x0, y0, x1, _ = caixa
+        fim = separar_texto(mascaras[limiar], caixa)
+        box = (x0 - margem, max(0, y0 - margem_topo), x1 + margem, fim + 2)
+        icones.append(recortar(folha, cinza, box, limiar, orla))
+    return icones
+
+
+def ao_tamanho_das_outras(icone, outras):
+    """Escala o ícone para a largura mediana dos outros no mesmo tier."""
+    larguras = sorted(outra.width for outra in outras)
+    alvo = larguras[len(larguras) // 2]
+    escala = alvo / icone.width
+    return icone.resize((alvo, round(icone.height * escala)), Image.LANCZOS)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--preview", help="escreve aqui uma folha de contacto com todos os ícones")
@@ -380,11 +429,22 @@ def main():
     for ficheiro, tier in TIERS:
         icones = cortar_folha(ficheiro)
         for conquista, icone in zip(CONQUISTAS, icones):
-            pasta = os.path.join(DESTINO, conquista)
-            os.makedirs(pasta, exist_ok=True)
-            icone.save(os.path.join(pasta, tier + ".png"))
             grelha[(conquista, tier)] = icone
         print(f"{tier}: {len(icones)} ícones")
+
+    for conquista, ficheiro in SUBSTITUICOES.items():
+        icones = cortar_folha_de_conquista(ficheiro)
+        for (_, tier), icone in zip(TIERS, icones):
+            outras = [grelha[(c, tier)] for c in CONQUISTAS if c not in SUBSTITUICOES]
+            grelha[(conquista, tier)] = ao_tamanho_das_outras(icone, outras)
+        print(f"{conquista}: substituída pela folha {ficheiro}")
+
+    for (conquista, tier), icone in grelha.items():
+        tela = na_tela(icone)
+        pasta = os.path.join(DESTINO, conquista)
+        os.makedirs(pasta, exist_ok=True)
+        tela.save(os.path.join(pasta, tier + ".png"))
+        grelha[(conquista, tier)] = tela
 
     if args.preview:
         passo = LADO // 2
