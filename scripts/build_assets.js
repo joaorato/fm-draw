@@ -256,7 +256,20 @@ function verificar() {
     const ficheiros = ["index.html", "style.css", ...listar(path.join(root, "js")).map((f) => "js/" + f)];
     for (const f of ficheiros) {
         const texto = fs.readFileSync(path.join(root, f), "utf8");
-        for (const m of texto.matchAll(/assets\/[^"'`\s)]+\.(?:png|webp|jpg|jpeg|mp3)/gi)) pedidos.add(m[0]);
+        for (const m of texto.matchAll(/assets\/[^"'`\s)]+\.(?:png|webp|jpg|jpeg|mp3)/gi)) {
+            // Um modelo como `assets/achievements/${id}/...`, ou o mesmo escrito
+            // num comentário com <id>, não é um caminho: os que gera entram abaixo.
+            if (!/\$\{|</.test(m[0])) pedidos.add(m[0]);
+        }
+    }
+
+    // Os ícones das conquistas, que getAchievementIcon() monta a partir das
+    // definições: um por conquista e por tier.
+    const conquistas = vm.createContext({ __x: null });
+    vm.runInContext(fs.readFileSync(path.join(root, "js/data/coach-achievements.js"), "utf8")
+        + "\n;__x = { achievementDefinitions, achievementTiers };", conquistas);
+    for (const definicao of conquistas.__x.achievementDefinitions) {
+        for (const tier of conquistas.__x.achievementTiers) pedidos.add(`assets/achievements/${definicao.id}/${tier.id}.webp`);
     }
 
     // Os caminhos que resolveCoachMedia() constrói. Repete-se aqui a mesma

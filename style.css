@@ -1848,6 +1848,140 @@ body::after {
     .coach-identity-card { padding: 16px; }
 }
 
+/* --- Conquistas --- */
+/* A cor de cada tier pinta o nome do tier, a barra e o contorno do emblema
+   aberto. São literais de propósito: cada uma aparece num só sítio. */
+.coach-achievements-section { margin-top: 4px; }
+.coach-achievements-section [data-tier="madeira"] { --tier: 176, 122, 74; }
+.coach-achievements-section [data-tier="ferro"] { --tier: 154, 163, 173; }
+.coach-achievements-section [data-tier="bronze"] { --tier: 205, 127, 50; }
+.coach-achievements-section [data-tier="prata"] { --tier: 200, 208, 216; }
+.coach-achievements-section [data-tier="ouro"] { --tier: 232, 185, 58; }
+.coach-achievements-section [data-tier="platina"] { --tier: 196, 220, 242; }
+.coach-achievements-section [data-tier="esmeralda"] { --tier: 60, 207, 122; }
+.coach-achievements-section [data-tier="safira"] { --tier: 92, 140, 240; }
+.coach-achievements-section [data-tier="rubi"] { --tier: 232, 76, 96; }
+.coach-achievements-section [data-tier="diamante"] { --tier: 191, 233, 255; }
+.coach-achievements-section [data-tier="nenhum"] { --tier: 120, 140, 160; }
+
+.coach-achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+.coach-achievement-tile {
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+    min-width: 0;
+    padding: 14px 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(var(--tier), 0.1), rgba(var(--c-night-1), 0.4) 60%);
+    color: var(--text);
+    font: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.15s, background 0.15s;
+}
+.coach-achievement-tile:hover { border-color: rgba(var(--tier), 0.55); transform: translateY(-2px); }
+.coach-achievement-tile.is-active { border-color: rgb(var(--tier)); box-shadow: 0 0 0 1px rgba(var(--tier), 0.4), 0 0 18px rgba(var(--tier), 0.18); }
+.coach-achievement-tile:focus-visible, .coach-achievement-close:focus-visible, .coach-achievement-proof.is-clickable:focus-visible {
+    outline: 2px solid rgb(var(--c-glow));
+    outline-offset: 3px;
+}
+.coach-achievement-icon { width: 72px; height: 72px; object-fit: contain; }
+.coach-achievement-icon.is-locked,
+.coach-achievement-detail-icon.is-locked { filter: grayscale(1) brightness(0.55); opacity: 0.55; }
+.coach-achievement-name { font: 600 13px/1.25 "Oxanium", sans-serif; }
+.coach-achievement-tier { color: rgb(var(--tier)); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.coach-achievement-tile.is-locked .coach-achievement-tier { color: var(--muted); }
+.coach-achievement-bar {
+    width: 100%;
+    height: 4px;
+    margin-top: 2px;
+    border-radius: 999px;
+    background: rgba(var(--c-glow), 0.1);
+    overflow: hidden;
+}
+.coach-achievement-bar span { display: block; height: 100%; border-radius: inherit; background: rgb(var(--tier)); }
+.coach-achievement-count { color: var(--text); font-size: 12px; font-variant-numeric: tabular-nums; }
+.coach-achievement-edition { color: rgb(var(--c-glow)); font-size: 10px; }
+
+.coach-achievement-detail {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+    margin-top: 4px;
+    padding: 20px;
+    border: 1px solid rgba(var(--tier), 0.45);
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(var(--tier), 0.09), rgba(var(--c-night-1), 0.45));
+}
+.coach-achievement-detail-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px; align-items: start; }
+.coach-achievement-detail-icon { width: 128px; height: 128px; object-fit: contain; }
+.coach-achievement-detail-head div { display: grid; gap: 6px; }
+.coach-achievement-detail-head h5 { margin: 0; color: var(--text); font: 600 22px/1.25 "Oxanium", sans-serif; }
+.coach-achievement-detail-head p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.coach-achievement-detail-head small { color: var(--muted); font-size: 11px; }
+.coach-achievement-close {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+}
+.coach-achievement-close:hover { color: var(--text); border-color: rgba(var(--c-glow), 0.5); }
+
+.coach-achievement-ladder {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.coach-achievement-ladder li { display: grid; justify-items: center; gap: 4px; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.coach-achievement-ladder img { width: 100%; max-width: 52px; aspect-ratio: 1; object-fit: contain; filter: grayscale(1) brightness(0.5); opacity: 0.45; }
+.coach-achievement-ladder li.is-reached img { filter: none; opacity: 1; }
+.coach-achievement-ladder li.is-reached { color: var(--text); }
+.coach-achievement-ladder li.is-current span { color: rgb(var(--tier)); font-weight: 700; }
+
+.coach-achievement-proofs { display: grid; gap: 8px; }
+.coach-achievement-proofs ul {
+    display: grid;
+    gap: 6px;
+    max-height: 320px;
+    margin: 0;
+    padding: 0 4px 0 0;
+    overflow-y: auto;
+    list-style: none;
+}
+.coach-achievement-proof {
+    display: grid;
+    gap: 2px;
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(var(--c-glow), 0.03);
+    color: var(--text);
+    font: inherit;
+    text-align: left;
+}
+.coach-achievement-proof.is-clickable { cursor: pointer; }
+.coach-achievement-proof.is-clickable:hover { background: rgba(var(--c-glow), 0.09); }
+.coach-achievement-proof-main { font-size: 13px; }
+.coach-achievement-proof-main strong { margin: 0 4px; color: rgb(var(--c-glow)); }
+.coach-achievement-proof-amount { margin-left: 8px; color: rgb(var(--tier)); font-size: 12px; font-weight: 700; }
+.coach-achievement-proof-meta, .coach-achievement-proof small { color: var(--muted); font-size: 11px; }
+.coach-achievement-empty { margin: 0; color: var(--muted); font-size: 12px; }
+
 .hero-shell {
     width: min(560px, 82vw);
     margin: 0 auto;

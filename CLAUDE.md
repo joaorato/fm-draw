@@ -61,7 +61,7 @@ Order in `index.html`:
    `worldcup-fixtures.js`, `worldcup-reports.js`, `worldcup-standings.js`
 5. `js/data/leagues.js`, then `coach-stats.js`, `edition-history.js`, `coach-identity.js`,
    `coach-achievements.js`
-6. `js/ui/` - `shared.js`, `chrome.js`, `coaches.js`, `standings-ui.js`, `league-selector.js`,
+6. `js/ui/` - `shared.js`, `chrome.js`, `coaches.js`, `coach-achievements.js`, `standings-ui.js`, `league-selector.js`,
    `match-report.js`, `league-live.js`, `league-transfers.js`, `league-stats.js`,
    `league-calendar.js`, `league-race.js`, `league-xi.js`, `league-tournament.js`,
    `league-panel.js`, `draw.js`, `draw-groups.js`, `draw-selector.js`, `share.js`
@@ -109,6 +109,7 @@ else.
 | `js/ui/shared.js` | Helpers used across areas | `escapeAttribute`, `formatPoints`, `getPointsClass`, `bindCoachLinks` |
 | `js/ui/chrome.js` | Music (mute, autoplay recovery) and tab/hash routing | `musicStarted`, `isMuted` |
 | `js/ui/coaches.js` | Coach cards, modal, palmarés, trophy cabinet, gallery, rail drag | `selectedCoachId`, `coachByShortName`, `coachByNarrativeTeam`, `palmaresCountries` |
+| `js/ui/coach-achievements.js` | The Conquistas section of the coach profile: badge grid, detail panel with the tier ladder and the matches behind each count. Icons come from `getAchievementIcon()`; `build_assets.js --verify` checks all 130 | `activeCoachAchievement` |
 | `js/ui/standings-ui.js` | EMG points glue, `generalStandings`, Classificação Geral, formula popover, floating tooltips | `generalScoreMode`, `hasLiveLeague` |
 | `js/ui/league-selector.js` | League menu and team name/logo helpers | `activeLeagueId` |
 | `js/ui/match-report.js` | Report modal: events, formations, pitch, stats | - |
@@ -545,6 +546,7 @@ not in `assets/`. Nothing breaks, because nothing reads it. It is dead code wort
 changed rather than restyling broadly.
 
 - Coach cards/modals: `.coach-*`, `.coaches-*`
+- Achievements in the coach profile: `.coach-achievement*`, coloured per tier by `[data-tier]`
 - Trophy cabinet/palmarés: `.coach-palmares-*`, `.coach-trophy-*`, `.trophy-lightbox-*`
 - Global standings: `.score-*`, `.standings-*`
 - League dashboard: `.league-*`

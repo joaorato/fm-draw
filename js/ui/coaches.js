@@ -173,8 +173,9 @@ function renderCoachStatsMarkup(coach) {
 }
 
 function renderCoachStatsWideMarkup(coach) {
+    // As conquistas são globais: aparecem mesmo numa edição ainda sem jogos.
     if (coachStatsScope === "fm27") {
-        return `<div class="coach-modal-stats-empty">O palmarés, a narrativa e o legado desta edição começam com as primeiras competições.</div>`;
+        return `<div class="coach-modal-stats-empty">O palmarés, a narrativa e o legado desta edição começam com as primeiras competições.</div>${renderCoachAchievementsMarkup(coach)}`;
     }
     let stats = getCoachStats(coach);
     let extras = coachProfileExtras[coach.id];
@@ -192,7 +193,7 @@ function renderCoachStatsWideMarkup(coach) {
         return `<div class="coach-modal-stats-empty">Stats em breve</div>`;
     }
 
-    return `${trophyMarkup}${renderCoachCompetitionPicker(competitions)}${narrativeMarkup}${legacyMarkup}${identityMarkup}`;
+    return `${trophyMarkup}${renderCoachCompetitionPicker(competitions)}${narrativeMarkup}${legacyMarkup}${identityMarkup}${renderCoachAchievementsMarkup(coach)}`;
 }
 
 function renderCoachIdentityMarkup(coach) {
@@ -759,6 +760,9 @@ function openCoachModal(id, preserveTab) {
     let currentView = preserveTab && document.getElementById("coachModalTabStats")?.classList.contains("active") ? "stats" : "presentation";
     let coach = getCoachById(id);
     coachStatsScope = "all";
+    // Ao passar de treinador com as setas, a mesma conquista fica aberta para
+    // se comparar; abrir o perfil de novo começa fechado.
+    if (!preserveTab) activeCoachAchievement = null;
     selectCoach(id);
     renderCoachModal(coach);
     setCoachModalView(currentView);
