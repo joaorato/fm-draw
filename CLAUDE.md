@@ -526,9 +526,10 @@ transparent background and the sheet's text thrown away, all on the same 272px s
 `build_assets.js` converts them as usual. `--preview <file>` writes a contact sheet of all 130 to check
 the cut. The crest sheets (Platina up) glow too much to split on their own, so their positions come
 from the wood sheet, which shares their layout; the gold sheet has no title and splits on its own. An
-achievement redrawn later comes as a sheet of its own with all 10 tiers in two rows of 5; listed in
-`SUBSTITUICOES`, it replaces that achievement's icons and is scaled to the median width of the other
-achievements in each tier. Dedinhos do treinador and Golpe de teatro come from such sheets.
+achievement redrawn later comes as a sheet of its own with all 10 tiers in two rows of 5, named
+after the achievement id (`sheets/golpe-de-teatro.jpeg`); it replaces that achievement's icons and is
+scaled to the median width of the other achievements in each tier. A sheet with any other name is
+reported and ignored. Dedinhos do treinador and Golpe de teatro come from such sheets.
 
 Twelve originals were lost: the Croatia HNK and HNL trophies (every variant), the two locked World
 Cup trophies, and `goncalo_profile5` and `goncalo_profile6`. Their published `.webp` went back into

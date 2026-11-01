@@ -24,9 +24,10 @@ uma linha de conquistas não salta de tamanho de um tier para o outro além do
 que o próprio desenho já cresce.
 
 Uma conquista redesenhada depois vem numa folha só dela, com os 10 tiers em
-duas linhas de 5 (ver SUBSTITUICOES). Os ícones dessa folha substituem os das
-folhas por tier e são escalados para a largura mediana das outras conquistas
-no mesmo tier, porque a folha nova desenha-os maiores.
+duas linhas de 5, com o id da conquista por nome: sheets/golpe-de-teatro.jpeg.
+Os ícones dessa folha substituem os das folhas por tier e são escalados para a
+largura mediana das outras conquistas no mesmo tier, porque a folha nova
+desenha-os maiores. Uma folha com outro nome qualquer é avisada e ignorada.
 
 --preview escreve uma folha de contacto com tudo o que foi cortado, num fundo
 da cor do site, para ver de uma vez se algum ícone ficou com texto ou cortado.
@@ -66,12 +67,8 @@ CONQUISTAS = [
 ]
 POR_LINHA = [4, 4, 4, 1]
 
-# Conquistas redesenhadas, cada uma numa folha própria com os 10 tiers por
-# ordem, da madeira ao diamante, em duas linhas de 5.
-SUBSTITUICOES = {
-    "dedinhos-do-treinador": "dedinhos",
-    "golpe-de-teatro": "golpe_teatro",
-}
+# A folha de uma conquista redesenhada: os 10 tiers por ordem, da madeira ao
+# diamante, em duas linhas de 5. Ver folhas_de_conquista().
 POR_LINHA_SUBSTITUICAO = [5, 5]
 # Na folha de uma conquista, a partir deste tier o ícone é crista com brilho.
 PRIMEIRA_CRISTA = 5
@@ -352,6 +349,25 @@ def na_tela(icone):
     return tela
 
 
+def folhas_de_conquista():
+    """As conquistas que têm folha própria, pelo nome do ficheiro.
+
+    Uma folha que não é de um tier nem tem o id de uma conquista não serve
+    para nada; avisa-se, para um erro no nome não passar em silêncio.
+    """
+    tiers = {ficheiro for ficheiro, _ in TIERS}
+    proprias = []
+    for nome in sorted(os.listdir(ORIGEM)):
+        base, ext = os.path.splitext(nome)
+        if ext.lower() not in (".jpeg", ".jpg", ".png") or base in tiers:
+            continue
+        if base in CONQUISTAS:
+            proprias.append(base)
+        else:
+            print(f"aviso: {nome} não é de um tier nem tem o id de uma conquista; ignorada")
+    return proprias
+
+
 def caminho_da_folha(ficheiro):
     for ext in (".jpeg", ".jpg", ".png"):
         candidato = os.path.join(ORIGEM, ficheiro + ext)
@@ -432,12 +448,15 @@ def main():
             grelha[(conquista, tier)] = icone
         print(f"{tier}: {len(icones)} ícones")
 
-    for conquista, ficheiro in SUBSTITUICOES.items():
-        icones = cortar_folha_de_conquista(ficheiro)
+    # As antigas das conquistas substituídas não entram na mediana: já não
+    # são usadas.
+    proprias = folhas_de_conquista()
+    for conquista in proprias:
+        icones = cortar_folha_de_conquista(conquista)
         for (_, tier), icone in zip(TIERS, icones):
-            outras = [grelha[(c, tier)] for c in CONQUISTAS if c not in SUBSTITUICOES]
+            outras = [grelha[(c, tier)] for c in CONQUISTAS if c not in proprias]
             grelha[(conquista, tier)] = ao_tamanho_das_outras(icone, outras)
-        print(f"{conquista}: substituída pela folha {ficheiro}")
+        print(f"{conquista}: substituída pela folha própria")
 
     for (conquista, tier), icone in grelha.items():
         tela = na_tela(icone)
