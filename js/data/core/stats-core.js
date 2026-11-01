@@ -267,6 +267,26 @@ function buildPlayerRankings(records) {
     return { marcadores: finish(goals), assistentes: finish(assists) };
 }
 
+// Os vencedores de um prémio de época. Um prémio com `ranking` não traz nome:
+// é o topo dessa lista, e num empate são todos os empatados, até alguém
+// escrever o vencedor à mão. Sem ranking, o nome escrito é o vencedor.
+function resolveMeritAward(award, rankings) {
+    if (!award.ranking) {
+        return { ...award, empate: false, vencedores: [{ nome: award.name, equipa: award.team }] };
+    }
+
+    let lista = rankings?.[award.ranking] || [];
+    if (!lista.length) return null;
+
+    let empatados = lista.filter((entry) => entry.total === lista[0].total);
+    return {
+        ...award,
+        total: lista[0].total,
+        empate: empatados.length > 1,
+        vencedores: empatados.map((entry) => ({ nome: entry.nome, equipa: entry.equipa }))
+    };
+}
+
 // Confirma que se leram tantos golos quantos os que o resultado diz. Repare-se
 // no que isto prova e no que não prova: garante o número certo de golos, não
 // que um nome foi dividido no sítio certo.

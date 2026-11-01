@@ -59,7 +59,8 @@ Order in `index.html`:
    `croatia-wiring.js`, `croatia-standings.js`, `croatia-transfers.js`, `croatia-news.js`
 4. `js/data/worldcup/` - `worldcup-groups.js`, `worldcup-draw.js`, `worldcup-table.js`,
    `worldcup-fixtures.js`, `worldcup-reports.js`, `worldcup-standings.js`
-5. `js/data/leagues.js`
+5. `js/data/leagues.js`, then `coach-stats.js`, `edition-history.js`, `coach-identity.js`,
+   `coach-achievements.js`
 6. `js/ui/` - `shared.js`, `chrome.js`, `coaches.js`, `standings-ui.js`, `league-selector.js`,
    `match-report.js`, `league-live.js`, `league-transfers.js`, `league-stats.js`,
    `league-calendar.js`, `league-race.js`, `league-xi.js`, `league-tournament.js`,
@@ -96,6 +97,7 @@ consumes it. A new `js/ui/` file can go anywhere in the `js/ui/` block.
 | `js/data/worldcup/worldcup-reports.js` | Every World Cup match report. Written by `scripts/report_build.js` |
 | `js/data/worldcup/worldcup-standings.js` | Derived: group tables, best third-placed teams, podium, `worldCupTacas`, `getWorldCupTeamStatus` |
 | `js/data/leagues.js` | The `leagues` array consumed by the whole UI layer |
+| `js/data/coach-achievements.js` | The A fama achievements: `achievementTiers`, `achievementDefinitions` (limits), `buildCoachAchievements(coach)` with total, tier, progress, per-edition counts and the matches behind each count |
 
 ## UI Files
 
@@ -153,7 +155,11 @@ A league object in `js/data/leagues.js` contains:
 - Required: `id`, `status` (`"live"` or `"completed"`), `statusLabel`, `nome`, `descricao`, `logo`,
   `logoAlt`, `epoca`, `formula`, `scores`, `fixtures`, `fixtureMonths`, `tabela`
 - Optional: `fixtureGroupBy`, `liveCards`, `livePages`, `transfers`, `merits`, `sideStats`, `tacas`,
-  `extraTeamLogos`, `evolucao`, `golos`, `equipaJornada`, `ficheiros`, `torneio`
+  `extraTeamLogos`, `evolucao`, `golos`, `equipaJornada`, `conquistas`, `ficheiros`, `torneio`
+
+`conquistas: { isLeagueMatch }` tells the achievements which fixtures are league matches, for
+Tomba-gigantes. Unlike `golos`, Scotland declares it: it only needs results and `prevista`. The
+Mundial does not, having no `prevista`.
 
 `ficheiros: { fixtures, relatorios }` are paths under `js/data/` and are how `scripts/report_build.js`
 knows where to write a league's result and report. A league with reports declares both.
@@ -162,7 +168,9 @@ knows where to write a league's result and report. A league with reports declare
 lower panel (Scotland); `local: "lateral"` puts them under Bónus e Penalizações (Croatia), and
 `local: "separador"` makes them a Méritos tab next to Golos e Assistências (Mundial). An award with
 `ranking: "marcadores"` or `"assistentes"` has no name: it reads the top of that ranking, and a tie at
-the top shows every tied player and warns on the console, so the winner is then typed by hand. The
+the top shows every tied player and warns on the console, so the winner is then typed by hand.
+`resolveMeritAward()` in `stats-core.js` does that reading for both the Méritos card and the
+Prémios da época achievement. The
 best player is always typed by hand when the competition ends.
 
 `torneio: true` marks a competition with no league table (the World Cup). `renderLeague` hands it to

@@ -16,7 +16,7 @@ Decidido com o utilizador a 31 de outubro de 2026. Manter uma fama principal e a
 
 **Contagem global por treinador**, nunca por edição: os tiers acumulam ao longo de todas as edições. A seleção Histórico EMG / FM26 / FM27 do perfil não muda o tier; pode mostrar quanto cada edição acrescentou. Os tiers são calculados, não guardados, mas os limites não devem mudar depois de publicados, porque baixariam tiers já ganhos.
 
-**Princípio dos limites**: o melhor treinador de FM26 chega a Diamante em cerca de 5 edições (Diamante ≈ 5 × a melhor contagem de FM26). Cada intervalo entre tiers é maior do que o anterior, com um salto visível de Ouro para Platina, seguindo a forma da curva de Golos. Exceções: Cabeça perdida, Hat-trick e Prémios da época, que têm contagens demasiado baixas para esse princípio.
+**Princípio dos limites**: o melhor treinador de FM26 chega a Diamante em cerca de 5 edições (Diamante ≈ 5 × a melhor contagem de FM26). Cada intervalo entre tiers é maior do que o anterior, com um salto visível de Ouro para Platina, seguindo a forma da curva de Golos. Exceções: Cabeça perdida, Hat-trick e Prémios da época, que têm contagens demasiado baixas para esse princípio. Golpe de teatro usa a mesma curva de Prémios da época.
 
 | Conquista | O que conta | Madeira → Diamante |
 |---|---|---|
@@ -27,7 +27,7 @@ Decidido com o utilizador a 31 de outubro de 2026. Manter uma fama principal e a
 | Muralha | Jogos sem sofrer golos | 3, 6, 11, 18, 27, 39, 54, 72, 95, 120 |
 | Tomba-gigantes | Vitórias de liga contra equipa com melhor posição prevista | 2, 5, 9, 15, 22, 32, 44, 59, 78, 100 |
 | Entrar a matar | Jogos com pelo menos um golo até ao minuto 15 | 2, 5, 8, 13, 20, 29, 40, 54, 70, 90 |
-| Golpe de teatro | Golos do minuto 85 ao fim do tempo regulamentar, e do 115 em diante no prolongamento | 2, 4, 7, 12, 18, 26, 36, 48, 63, 80 |
+| Golpe de teatro | Golos a partir do minuto 85 (115 no prolongamento) sem os quais o jogo acabaria com pior resultado | 1, 2, 3, 5, 7, 10, 13, 17, 22, 28 |
 | Demolidor | Vitórias por 4 ou mais golos | 1, 2, 4, 6, 9, 13, 18, 24, 31, 40 |
 | Dedinhos do treinador | Vitórias depois de estar a perder | 1, 2, 4, 6, 9, 13, 18, 24, 31, 40 |
 | Cabeça perdida | Expulsões de jogadores da própria equipa | 1, 2, 3, 5, 8, 12, 17, 23, 30, 38 |
@@ -38,7 +38,8 @@ Decidido com o utilizador a 31 de outubro de 2026. Manter uma fama principal e a
 
 - Contam todos os jogos publicados com resultado, em todas as competições. O resultado após prolongamento é o que conta; golos de desempate por penáltis nunca contam.
 - Golpe de teatro, Entrar a matar, Dedinhos do treinador, Cabeça perdida, Hat-trick e Team of the Week só contam jogos com relatório. A Escócia não tem relatórios e só entra nas conquistas que dependem do resultado.
-- Golpe de teatro: conta do 85' ao 90+x; no prolongamento, só do 115' ao 120+x (91'–114' e 105+x não contam). Entrar a matar inclui o minuto 15.
+- Golpe de teatro: conta do 85' ao 90+x; no prolongamento, só do 115' ao 120+x (91'–114' e 105+x não contam). Só conta um golo que mudou o resultado final: sem ele e sem os golos tardios que a equipa marcou depois, o jogo acabaria pior. De 0-1 para 2-1 com golos aos 88' e 90+3' contam 2; de 1-1 para 3-1 conta só o primeiro; um empate aos 88' seguido de derrota não conta. Decidido a 1 de novembro de 2026; os limites foram recalibrados para esta regra (o melhor de FM26 tem 5).
+- Entrar a matar inclui o minuto 15.
 - Autogolos contam para a equipa beneficiada em Golos e Golpe de teatro, nunca para um Hat-trick.
 - Dedinhos do treinador só conta vitórias cujos eventos de golo batem com o resultado; as outras ficam de fora, não contam como "sem reviravolta".
 - Cabeça perdida conta eventos de expulsão, não a estatística "Cartões vermelhos".

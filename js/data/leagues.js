@@ -74,6 +74,11 @@ const leagues = [
         equipaJornada: {
             isLeagueMatch: isCroatiaLeagueMatch
         },
+        // Os jogos de liga para as conquistas que dependem da posição prevista
+        // (Tomba-gigantes). O Mundial não declara: não tem prevista.
+        conquistas: {
+            isLeagueMatch: isCroatiaLeagueMatch
+        },
         extraTeamLogos: croatiaCupTeamLogos,
         tacas: [
             { tipo: "Vencedor da Taça", jogador: "Gonçalo", pontos: 5 },
@@ -128,6 +133,11 @@ const leagues = [
         scores: scotlandSeasonScores,
         fixtures: scotlandFixtures,
         fixtureMonths: scotlandFixtureMonths,
+        // Ao contrário da evolução e dos golos, esta serve à Escócia: só pede o
+        // resultado e a posição prevista das duas equipas, e isso ela tem.
+        conquistas: {
+            isLeagueMatch: isScotlandLeagueMatch
+        },
         // A Escócia não tem relatórios, só o placar dos jogos.
         ficheiros: { fixtures: "scotland.js" },
         merits: scotlandLeagueMerits,

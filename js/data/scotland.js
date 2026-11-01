@@ -125,6 +125,12 @@ const scotlandFixtures = [
     createLeagueMatch("Maio", "Premiership - Bottom", "16 Mai", "Hearts", "2-1", "Kilmarnock")
 ];
 
+// A Premiership parte-se em "Premiership - Top" e "- Bottom" depois da jornada 33;
+// as duas fases são jogos de liga.
+function isScotlandLeagueMatch(fixture) {
+    return String(fixture.competition || "").startsWith("Premiership");
+}
+
 const scotlandLeagueMerits = {
     awards: [
         { label: "Melhor jogador da liga", name: "Cláudio Braga", team: "Hearts", meta: "7,28 média · 8 clM · 8 MeC" },

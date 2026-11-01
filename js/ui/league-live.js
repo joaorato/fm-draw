@@ -137,18 +137,16 @@ function getLeagueAwards(league) {
     return (league.merits?.awards || []).map((award) => {
         if (!award.ranking) return award;
 
-        let lista = getLeagueGoalStats(league)?.rankings[award.ranking] || [];
-        if (!lista.length) return null;
-
-        let empatados = lista.filter((entry) => entry.total === lista[0].total);
-        if (empatados.length > 1) console.warn(`[méritos] ${league.id}: empate em "${award.label}". Escreve o vencedor à mão.`);
+        let resolvido = resolveMeritAward(award, getLeagueGoalStats(league)?.rankings);
+        if (!resolvido) return null;
+        if (resolvido.empate) console.warn(`[méritos] ${league.id}: empate em "${award.label}". Escreve o vencedor à mão.`);
 
         let unidade = award.ranking === "marcadores" ? "golos" : "assistências";
         return {
             label: award.label,
-            name: empatados.map((entry) => entry.nome).join(" / "),
-            team: [...new Set(empatados.map((entry) => entry.equipa))].join(" / "),
-            meta: `${lista[0].total} ${unidade}`
+            name: resolvido.vencedores.map((entry) => entry.nome).join(" / "),
+            team: [...new Set(resolvido.vencedores.map((entry) => entry.equipa))].join(" / "),
+            meta: `${resolvido.total} ${unidade}`
         };
     }).filter(Boolean);
 }
