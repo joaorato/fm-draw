@@ -1942,18 +1942,25 @@ body::after {
 .coach-achievement-detail-head h5 { margin: 0; color: var(--text); font: 600 22px/1.25 "Oxanium", sans-serif; }
 .coach-achievement-detail-head p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
 .coach-achievement-detail-head small { color: var(--muted); font-size: 11px; }
+/* A regra geral de button dá padding, maiúsculas e espaçamento: sem os
+   anular, o círculo de 30px saía oval com o × espremido. */
 .coach-achievement-close {
+    display: grid;
+    place-items: center;
     width: 30px;
     height: 30px;
+    padding: 0;
     border: 1px solid var(--line);
     border-radius: 50%;
     background: transparent;
     color: var(--muted);
     font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0;
     line-height: 1;
     cursor: pointer;
 }
-.coach-achievement-close:hover { color: var(--text); border-color: rgba(var(--c-glow), 0.5); }
+.coach-achievement-close:hover { color: var(--text); background: transparent; border-color: rgba(var(--c-glow), 0.5); box-shadow: none; }
 
 .coach-achievement-ladder {
     display: grid;
@@ -2018,7 +2025,11 @@ body::after {
     background: rgba(var(--c-glow), 0.03);
     color: var(--text);
     font: inherit;
+    /* As linhas com relatório são botões e herdam as maiúsculas da regra geral
+       de button; as outras ficam iguais a elas. */
+    letter-spacing: 1px;
     text-align: left;
+    text-transform: uppercase;
 }
 .coach-achievement-proof.is-clickable { cursor: pointer; }
 .coach-achievement-proof.is-clickable:hover { background: rgba(var(--c-glow), 0.09); }
