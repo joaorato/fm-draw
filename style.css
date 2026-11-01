@@ -1849,19 +1849,20 @@ body::after {
 }
 
 /* --- Conquistas --- */
-/* A cor de cada tier pinta o nome do tier, a barra e o contorno do emblema
-   aberto. São literais de propósito: cada uma aparece num só sítio. */
+/* A cor de cada tier pinta o nome do tier, a barra, o contorno do emblema
+   aberto e o brilho no lightbox, que vive fora da secção. São literais de
+   propósito: cada uma aparece num só sítio. */
 .coach-achievements-section { margin-top: 4px; }
-.coach-achievements-section [data-tier="madeira"] { --tier: 176, 122, 74; }
-.coach-achievements-section [data-tier="ferro"] { --tier: 154, 163, 173; }
-.coach-achievements-section [data-tier="bronze"] { --tier: 205, 127, 50; }
-.coach-achievements-section [data-tier="prata"] { --tier: 200, 208, 216; }
-.coach-achievements-section [data-tier="ouro"] { --tier: 232, 185, 58; }
-.coach-achievements-section [data-tier="platina"] { --tier: 196, 220, 242; }
-.coach-achievements-section [data-tier="esmeralda"] { --tier: 60, 207, 122; }
-.coach-achievements-section [data-tier="safira"] { --tier: 92, 140, 240; }
-.coach-achievements-section [data-tier="rubi"] { --tier: 232, 76, 96; }
-.coach-achievements-section [data-tier="diamante"] { --tier: 191, 233, 255; }
+.coach-achievements-section [data-tier="madeira"], .achievement-lightbox[data-tier="madeira"] { --tier: 176, 122, 74; }
+.coach-achievements-section [data-tier="ferro"], .achievement-lightbox[data-tier="ferro"] { --tier: 154, 163, 173; }
+.coach-achievements-section [data-tier="bronze"], .achievement-lightbox[data-tier="bronze"] { --tier: 205, 127, 50; }
+.coach-achievements-section [data-tier="prata"], .achievement-lightbox[data-tier="prata"] { --tier: 200, 208, 216; }
+.coach-achievements-section [data-tier="ouro"], .achievement-lightbox[data-tier="ouro"] { --tier: 232, 185, 58; }
+.coach-achievements-section [data-tier="platina"], .achievement-lightbox[data-tier="platina"] { --tier: 196, 220, 242; }
+.coach-achievements-section [data-tier="esmeralda"], .achievement-lightbox[data-tier="esmeralda"] { --tier: 60, 207, 122; }
+.coach-achievements-section [data-tier="safira"], .achievement-lightbox[data-tier="safira"] { --tier: 92, 140, 240; }
+.coach-achievements-section [data-tier="rubi"], .achievement-lightbox[data-tier="rubi"] { --tier: 232, 76, 96; }
+.coach-achievements-section [data-tier="diamante"], .achievement-lightbox[data-tier="diamante"] { --tier: 191, 233, 255; }
 .coach-achievements-section [data-tier="nenhum"] { --tier: 120, 140, 160; }
 
 .coach-achievements-grid {
@@ -1951,6 +1952,35 @@ body::after {
 .coach-achievement-ladder li.is-reached img { filter: none; opacity: 1; }
 .coach-achievement-ladder li.is-reached { color: var(--text); }
 .coach-achievement-ladder li.is-current span { color: rgb(var(--tier)); font-weight: 700; }
+.coach-achievement-ladder button {
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+    width: 100%;
+    padding: 4px 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: zoom-in;
+    transition: background 0.15s, transform 0.15s;
+}
+.coach-achievement-ladder button:hover { background: rgba(var(--c-glow), 0.08); transform: translateY(-2px); }
+.coach-achievement-ladder button:focus-visible { outline: 2px solid rgb(var(--c-glow)); outline-offset: 2px; }
+
+.achievement-lightbox .trophy-lightbox-content { gap: 6px; text-align: center; }
+.achievement-lightbox .trophy-lightbox-content img {
+    width: 272px;
+    max-width: 80vw;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 36px rgba(var(--tier), 0.35)) drop-shadow(0 8px 32px rgba(var(--c-black), 0.5));
+}
+.achievement-lightbox-tier { color: rgb(var(--tier)); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.achievement-lightbox-name { color: var(--text); font: 600 26px/1.2 "Oxanium", sans-serif; }
+.achievement-lightbox-when { margin-top: 8px; color: rgba(224, 241, 255, 0.8); font-size: 13px; }
+.achievement-lightbox-where { color: var(--text); font-size: 15px; }
+.achievement-lightbox-meta { color: var(--muted); font-size: 11px; }
 
 .coach-achievement-proofs { display: grid; gap: 8px; }
 .coach-achievement-proofs ul {

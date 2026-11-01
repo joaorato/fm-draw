@@ -49,18 +49,86 @@ function renderAchievementTile(achievement, editionId) {
     `;
 }
 
+// Os tiers ganhos abrem-se em grande; os que faltam ficam apagados e parados.
 function renderAchievementLadder(achievement) {
     let { definition, nivel } = achievement;
     return `
         <ol class="coach-achievement-ladder">
-            ${achievementTiers.map((tier, index) => `
-                <li class="${index <= nivel ? "is-reached" : ""}${index === nivel ? " is-current" : ""}" title="${tier.nome}: ${definition.limites[index]}">
+            ${achievementTiers.map((tier, index) => {
+                let conteudo = `
                     <img src="${getAchievementIcon(definition.id, tier.id)}" alt="${tier.nome}" loading="lazy">
                     <span>${definition.limites[index]}</span>
-                </li>
-            `).join("")}
+                `;
+                return `
+                    <li class="${index <= nivel ? "is-reached" : ""}${index === nivel ? " is-current" : ""}" title="${tier.nome}: ${definition.limites[index]}">
+                        ${index <= nivel
+                            ? `<button type="button" onclick="openAchievementTierLightbox('${definition.id}', ${index})" aria-label="Ver ${tier.nome} em grande">${conteudo}</button>`
+                            : conteudo}
+                    </li>
+                `;
+            }).join("")}
         </ol>
     `;
+}
+
+// Onde o tier foi ganho, numa frase: o jogo, a jornada ou o prémio.
+function describeAchievementUnlock(prova) {
+    let competicao = coachCompetitionNames[prova.league.id] || prova.league.nome;
+    let edicao = getAchievementScopeLabel(prova.league.editionId);
+    if (prova.fixture) {
+        let { fixture } = prova;
+        return {
+            quando: `Desbloqueado a ${escapeAttribute(fixture.date)}`,
+            onde: `${escapeAttribute(fixture.home)} ${escapeAttribute(getFixtureScoreLabel(fixture))} ${escapeAttribute(fixture.away)}`,
+            meta: `${competicao} · ${escapeAttribute(fixture.competition || "")} · ${edicao}`
+        };
+    }
+    if (prova.award) {
+        return {
+            quando: "Desbloqueado no fim da competição",
+            onde: `${escapeAttribute(prova.award)} · ${escapeAttribute(prova.detalhe)}`,
+            meta: `${competicao} · ${edicao}`
+        };
+    }
+    return {
+        quando: `Desbloqueado na jornada ${escapeAttribute(String(prova.round))}`,
+        onde: `Team of the Week · ${escapeAttribute(prova.detalhe)}`,
+        meta: `${competicao} · ${edicao}`
+    };
+}
+
+function openAchievementTierLightbox(id, index) {
+    let achievement = buildCoachAchievements(getCoachById(selectedCoachId)).find((entry) => entry.definition.id === id);
+    let tier = achievementTiers[index];
+    let prova = achievement?.desbloqueios[index];
+    if (!achievement || !tier || !prova) return;
+    closeAchievementTierLightbox();
+
+    let { quando, onde, meta } = describeAchievementUnlock(prova);
+    let lightbox = document.createElement("div");
+    lightbox.id = "achievementTierLightbox";
+    // Reaproveita o lightbox dos troféus: fundo, centro e fechar ao clicar.
+    lightbox.className = "trophy-lightbox achievement-lightbox";
+    lightbox.dataset.tier = tier.id;
+    lightbox.innerHTML = `
+        <div class="trophy-lightbox-backdrop"></div>
+        <div class="trophy-lightbox-content" role="dialog" aria-modal="true" aria-label="${achievement.definition.nome} · ${tier.nome}">
+            <img src="${getAchievementIcon(id, tier.id)}" alt="${achievement.definition.nome} · ${tier.nome}">
+            <span class="achievement-lightbox-tier">${tier.nome} · ${achievement.definition.limites[index]}</span>
+            <strong class="achievement-lightbox-name">${achievement.definition.nome}</strong>
+            <span class="achievement-lightbox-when">${quando}</span>
+            <span class="achievement-lightbox-where">${onde}</span>
+            <small class="achievement-lightbox-meta">${meta}</small>
+        </div>
+    `;
+    document.body.appendChild(lightbox);
+    lightbox.addEventListener("click", closeAchievementTierLightbox);
+    openOverlay(lightbox, { onEscape: closeAchievementTierLightbox });
+}
+
+function closeAchievementTierLightbox() {
+    let lightbox = document.getElementById("achievementTierLightbox");
+    if (lightbox) closeOverlay(lightbox);
 }
 
 // Uma linha por prova: o jogo (que abre o relatório quando o há), a jornada do

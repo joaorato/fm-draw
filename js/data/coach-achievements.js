@@ -164,6 +164,35 @@ function addAchievementCount(tally, id, league, quantidade, prova) {
     entry.provas.push({ league, quantidade, ...prova });
 }
 
+// Data de um jogo dentro da sua competição, para ordenar: o mês pela ordem de
+// fixtureMonths (a época vai de julho a maio) e depois o dia. A lista de jogos
+// não serve para isto, porque está agrupada por jornada e tem jogos fora do dia.
+function getAchievementDateKey(league, fixture) {
+    return league.fixtureMonths.indexOf(fixture.month) * 100 + (Number.parseInt(fixture.date, 10) || 0);
+}
+
+// Quando uma prova aconteceu, para saber em que momento cada tier foi ganho.
+// As competições vêm de `leagues`, ordenado do mais recente para o mais
+// antigo. Uma jornada do Team of the Week fica no dia do seu último jogo e um
+// prémio no fim da competição.
+function getAchievementProofTime(prova) {
+    let { league, fixture } = prova;
+    let competicao = leagues.length - 1 - leagues.indexOf(league);
+    if (fixture) return [competicao, getAchievementDateKey(league, fixture), league.fixtures.indexOf(fixture)];
+    if (prova.round !== undefined) {
+        let jogos = league.fixtures.filter((entry) => entry.round === prova.round && league.equipaJornada.isLeagueMatch(entry));
+        return [competicao, Math.max(...jogos.map((entry) => getAchievementDateKey(league, entry))), Infinity];
+    }
+    return [competicao, Infinity, Infinity];
+}
+
+function compareAchievementProofs(a, b) {
+    for (let i = 0; i < a.quando.length; i++) {
+        if (a.quando[i] !== b.quando[i]) return a.quando[i] < b.quando[i] ? -1 : 1;
+    }
+    return 0;
+}
+
 // Hat-tricks por jogo e equipa: { "<índice do jogo>|<equipa>": ["Nome", ...] }.
 // Os autogolos nunca contam, e um jogo com dois hat-tricks conta uma vez.
 function buildHatTrickIndex(league) {
@@ -293,6 +322,13 @@ function buildAchievementCounts() {
     countMatchAchievements(tallies);
     countTeamOfTheWeek(tallies);
     countSeasonAwards(tallies);
+
+    for (let tally of Object.values(tallies)) {
+        for (let entry of Object.values(tally)) {
+            entry.provas.forEach((prova) => { prova.quando = getAchievementProofTime(prova); });
+            entry.provas.sort(compareAchievementProofs);
+        }
+    }
     achievementCountsCache = tallies;
     return tallies;
 }
@@ -314,11 +350,29 @@ function getAchievementTier(definition, total) {
     };
 }
 
+// A prova com que cada tier ganho foi atingido: a que fez a soma passar o
+// limite. Um jogo pode dar dois tiers de uma vez (quatro golos num jogo).
+function getAchievementUnlocks(definition, provas) {
+    let desbloqueios = [];
+    let soma = 0;
+    for (let prova of provas) {
+        soma += prova.quantidade;
+        while (desbloqueios.length < definition.limites.length && soma >= definition.limites[desbloqueios.length]) {
+            desbloqueios.push(prova);
+        }
+    }
+    return desbloqueios;
+}
+
 function buildCoachAchievements(coach) {
     let tally = buildAchievementCounts()[coach.nome];
     if (!tally) return [];
     return achievementDefinitions.map((definition) => {
         let { total, porEdicao, provas } = tally[definition.id];
-        return { definition, total, porEdicao, provas, ...getAchievementTier(definition, total) };
+        return {
+            definition, total, porEdicao, provas,
+            desbloqueios: getAchievementUnlocks(definition, provas),
+            ...getAchievementTier(definition, total)
+        };
     });
 }
