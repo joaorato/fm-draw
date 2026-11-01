@@ -33,6 +33,9 @@ const OUT = "assets";
 // KB e evita ter de lembrar de a converir no dia em que for precisa.
 const NAO_PUBLICADOS = [
     (rel) => rel.startsWith("Resultados_croacia/"),
+    // As folhas geradas com as 13 conquistas por tier. O que se publica são
+    // os ícones cortados delas por scripts/achievements_crop.py, ao lado.
+    (rel) => rel.startsWith("achievements/sheets/"),
     (rel) => path.basename(rel).toLowerCase().startsWith("stats_treinador"),
     (rel) => path.basename(rel).toLowerCase().startsWith("teste"),
     (rel) => rel === "treinadores/chico/cfcf.png",
@@ -54,6 +57,7 @@ const REGRAS = [
     { teste: (rel) => rel === "logos/ligaEMG.png", largura: 1600 },              // hero ~796
     { teste: (rel) => rel.startsWith("logos/teams/"), largura: 360 },            // sorteio 180
     { teste: (rel) => rel.startsWith("social/"), largura: 200 },                 // ~95
+    { teste: (rel) => rel.startsWith("achievements/"), largura: 256 },           // ícone ~56, detalhe ~128
     // Antes da regra geral das bandeiras: as do Mundial são ícones quadrados e
     // aparecem a 48 nos cards de escolha de seleção e a 22 na lista dos grupos.
     { teste: (rel) => rel.startsWith("flags/mundial/"), largura: 96 },           // card 48
@@ -102,6 +106,24 @@ function dimensoes(abs) {
     const altura = (saida.match(/pixelHeight:\s*(\d+)/) || [])[1];
     return { largura: Number(largura) || 0, altura: Number(altura) || 0 };
 }
+
+// Originais que se perderam: só restava o webp publicado, que voltou a
+// assets-src/ no lugar deles. Recodificá-lo perdia qualidade a cada volta, por
+// isso copiam-se tal e qual.
+const SEM_ORIGINAL = [
+    "logos/trophy_cabinet/Croacia/HNK.webp",
+    "logos/trophy_cabinet/Croacia/HNKLOCKED.webp",
+    "logos/trophy_cabinet/Croacia/HNKUNLOCKED.webp",
+    "logos/trophy_cabinet/Croacia/HNK_Locked_transparente.webp",
+    "logos/trophy_cabinet/Croacia/HNL.webp",
+    "logos/trophy_cabinet/Croacia/HNLLOCKED.webp",
+    "logos/trophy_cabinet/Croacia/HNLUNLOCKED.webp",
+    "logos/trophy_cabinet/Croacia/HNL_Locked_transparente.webp",
+    "logos/trophy_cabinet/worldcup/mundialLOCKED.webp",
+    "logos/trophy_cabinet/worldcup/worldcup_locked_transparente.webp",
+    "treinadores/goncalo/goncalo_profile5.webp",
+    "treinadores/goncalo/goncalo_profile6.webp"
+];
 
 function converterImagem(absOrigem, absDestino, largura) {
     const { largura: original } = dimensoes(absOrigem);
@@ -189,7 +211,10 @@ function construir({ escrever, only = [] }) {
                 semRegra.push(rel);
                 continue;
             }
-            if (escrever) {
+            if (escrever && SEM_ORIGINAL.includes(rel)) {
+                fs.copyFileSync(absOrigem, absDestino);
+                bytesDestino += fs.statSync(absDestino).size;
+            } else if (escrever) {
                 converterImagem(absOrigem, absDestino, largura);
                 bytesDestino += fs.statSync(absDestino).size;
             }

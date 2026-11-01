@@ -25,11 +25,11 @@ Decidido com o utilizador a 31 de outubro de 2026. Manter uma fama principal e a
 | Team of the Week | Jogadores da equipa no Team of the Week, um por jogador em cada jornada | 12, 25, 45, 75, 110, 160, 225, 300, 390, 500 |
 | Duelo EMG | Vitórias contra a equipa de outro treinador EMG | 5, 10, 18, 29, 43, 60, 82, 110, 150, 200 |
 | Muralha | Jogos sem sofrer golos | 3, 6, 11, 18, 27, 39, 54, 72, 95, 120 |
-| Sem medo do favorito | Vitórias de liga contra equipa com melhor posição prevista | 2, 5, 9, 15, 22, 32, 44, 59, 78, 100 |
+| Tomba-gigantes | Vitórias de liga contra equipa com melhor posição prevista | 2, 5, 9, 15, 22, 32, 44, 59, 78, 100 |
 | Entrar a matar | Jogos com pelo menos um golo até ao minuto 15 | 2, 5, 8, 13, 20, 29, 40, 54, 70, 90 |
-| Até ao apito | Golos do minuto 85 ao fim do tempo regulamentar, e do 115 em diante no prolongamento | 2, 4, 7, 12, 18, 26, 36, 48, 63, 80 |
+| Golpe de teatro | Golos do minuto 85 ao fim do tempo regulamentar, e do 115 em diante no prolongamento | 2, 4, 7, 12, 18, 26, 36, 48, 63, 80 |
 | Demolidor | Vitórias por 4 ou mais golos | 1, 2, 4, 6, 9, 13, 18, 24, 31, 40 |
-| Dar a volta ao texto | Vitórias depois de estar a perder | 1, 2, 4, 6, 9, 13, 18, 24, 31, 40 |
+| Dedinhos do treinador | Vitórias depois de estar a perder | 1, 2, 4, 6, 9, 13, 18, 24, 31, 40 |
 | Cabeça perdida | Expulsões de jogadores da própria equipa | 1, 2, 3, 5, 8, 12, 17, 23, 30, 38 |
 | Hat-trick | Jogos em que um jogador da equipa marca 3 ou mais golos | 1, 2, 3, 5, 8, 12, 17, 23, 30, 38 |
 | Prémios da época | Melhor marcador, melhor assistente ou melhor jogador de uma competição | 1, 2, 3, 5, 7, 10, 13, 17, 22, 28 |
@@ -37,12 +37,12 @@ Decidido com o utilizador a 31 de outubro de 2026. Manter uma fama principal e a
 **Regras de contagem** (fixas como os limites, porque mudá-las também mexe nos tiers):
 
 - Contam todos os jogos publicados com resultado, em todas as competições. O resultado após prolongamento é o que conta; golos de desempate por penáltis nunca contam.
-- Até ao apito, Entrar a matar, Dar a volta ao texto, Cabeça perdida, Hat-trick e Team of the Week só contam jogos com relatório. A Escócia não tem relatórios e só entra nas conquistas que dependem do resultado.
-- Até ao apito: conta do 85' ao 90+x; no prolongamento, só do 115' ao 120+x (91'–114' e 105+x não contam). Entrar a matar inclui o minuto 15.
-- Autogolos contam para a equipa beneficiada em Golos e Até ao apito, nunca para um Hat-trick.
-- Dar a volta ao texto só conta vitórias cujos eventos de golo batem com o resultado; as outras ficam de fora, não contam como "sem reviravolta".
+- Golpe de teatro, Entrar a matar, Dedinhos do treinador, Cabeça perdida, Hat-trick e Team of the Week só contam jogos com relatório. A Escócia não tem relatórios e só entra nas conquistas que dependem do resultado.
+- Golpe de teatro: conta do 85' ao 90+x; no prolongamento, só do 115' ao 120+x (91'–114' e 105+x não contam). Entrar a matar inclui o minuto 15.
+- Autogolos contam para a equipa beneficiada em Golos e Golpe de teatro, nunca para um Hat-trick.
+- Dedinhos do treinador só conta vitórias cujos eventos de golo batem com o resultado; as outras ficam de fora, não contam como "sem reviravolta".
 - Cabeça perdida conta eventos de expulsão, não a estatística "Cartões vermelhos".
-- Sem medo do favorito precisa de `prevista` nas duas equipas; o Mundial não tem.
+- Tomba-gigantes precisa de `prevista` nas duas equipas; o Mundial não tem.
 - Team of the Week: cada jogador escolhido conta 1 (três jogadores na mesma jornada contam 3). Só o Team of the Week, não o Team of the Weak.
 
 **Prémios da época**: melhor marcador, melhor assistente e melhor jogador de cada competição. Os jogadores de equipas da IA também entram na disputa; se o vencedor for da IA, ninguém conta o prémio.

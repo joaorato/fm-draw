@@ -34,7 +34,7 @@ the page.
 - `assets/` - **generated** from `assets-src/` by `scripts/build_assets.js`. See Assets.
 - `assets-src/` - the originals, gitignored. Not deployed, not committed.
 - `scripts/` - Node/Python tooling: `build_assets.js`, `report_build.js`, `report_crop.py`,
-  `report_lint.js`, `validate_goals.js`, `load-league-data.js`.
+  `report_lint.js`, `validate_goals.js`, `load-league-data.js`, `achievements_crop.py`.
 
 ## Critical Script Rule
 
@@ -509,6 +509,19 @@ Four things are easy to get wrong:
 
   `153b17a` is the last commit before the conversion. Run without `assets-src/`, the script prints
   that recipe and exits non-zero **before** touching `assets/`.
+
+The achievement icons start as ten generated sheets in `assets-src/achievements/sheets/`, one per tier with
+all 13 achievements, which are working material and never published. `python3
+scripts/achievements_crop.py` cuts them into `assets-src/achievements/<achievement>/<tier>.png`, with a
+transparent background and the sheet's text thrown away, all on the same 272px square; then
+`build_assets.js` converts them as usual. `--preview <file>` writes a contact sheet of all 130 to check
+the cut. The crest sheets (Platina up) glow too much to split on their own, so their positions come
+from the wood sheet, which shares their layout; the gold sheet has no title and splits on its own.
+
+Twelve originals were lost: the Croatia HNK and HNL trophies (every variant), the two locked World
+Cup trophies, and `goncalo_profile5` and `goncalo_profile6`. Their published `.webp` went back into
+`assets-src/` in their place, and `SEM_ORIGINAL` in `build_assets.js` lists them so they are copied as
+they are instead of re-encoded, which would lose quality on every build.
 
 Two traps in `assets-src/`: `treinadores/rato/rato_profile5.png` and `rato_profile6.png` **are
 JPEGs** despite the extension, so dimensions come from `sips` when the PNG magic bytes are missing;
