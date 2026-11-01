@@ -1865,6 +1865,22 @@ body::after {
 .coach-achievements-section [data-tier="diamante"], .achievement-lightbox[data-tier="diamante"] { --tier: 191, 233, 255; }
 .coach-achievements-section [data-tier="nenhum"] { --tier: 120, 140, 160; }
 
+.coach-achievements-group { display: grid; gap: 8px; width: 100%; }
+.coach-achievements-group + .coach-achievements-group { margin-top: 10px; }
+.coach-achievements-group-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    color: rgb(var(--tier));
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+.coach-achievements-group-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(var(--tier), 0.4), transparent); }
+.coach-achievements-group-title span { order: 2; color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: 0; }
+.coach-achievements-group[data-tier="nenhum"] .coach-achievements-group-title { color: var(--muted); }
 .coach-achievements-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));

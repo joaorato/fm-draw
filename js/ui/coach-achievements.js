@@ -189,15 +189,34 @@ function renderCoachAchievementsMarkup(coach) {
     let achievements = buildCoachAchievements(coach);
     if (!achievements.length) return "";
 
-    let ativa = achievements.find((achievement) => achievement.definition.id === activeCoachAchievement);
+    // Um grupo por tier atual, do mais alto para o mais baixo, e as que ainda
+    // não têm tier no fim. Dentro de cada grupo, primeiro a que está mais
+    // perto do tier seguinte; com o mesmo progresso fica a ordem das
+    // definições, que é também a do Diamante, onde já não há seguinte.
+    let grupos = [...achievementTiers.keys()].reverse().concat(-1)
+        .map((nivel) => achievements
+            .filter((achievement) => achievement.nivel === nivel)
+            .sort((a, b) => b.progresso - a.progresso))
+        .filter((grupo) => grupo.length);
 
     return `
         <section class="coach-stats-section coach-achievements-section" data-coach-achievements="${coach.id}">
             <h4 class="coach-stats-section-title">Conquistas</h4>
-            <div class="coach-achievements-grid">
-                ${achievements.map((achievement) => renderAchievementTile(achievement, editionId)).join("")}
-            </div>
-            ${ativa ? renderAchievementDetail(ativa, editionId) : ""}
+            ${grupos.map((grupo) => {
+                let tier = grupo[0].tier;
+                let ativa = grupo.find((achievement) => achievement.definition.id === activeCoachAchievement);
+                // O detalhe abre por baixo do grupo do emblema clicado, não no
+                // fim da secção, para não ficar longe dele.
+                return `
+                    <div class="coach-achievements-group" data-tier="${tier?.id || "nenhum"}">
+                        <h5 class="coach-achievements-group-title">${tier ? tier.nome : "Por desbloquear"}<span>${grupo.length}</span></h5>
+                        <div class="coach-achievements-grid">
+                            ${grupo.map((achievement) => renderAchievementTile(achievement, editionId)).join("")}
+                        </div>
+                        ${ativa ? renderAchievementDetail(ativa, editionId) : ""}
+                    </div>
+                `;
+            }).join("")}
         </section>
     `;
 }
